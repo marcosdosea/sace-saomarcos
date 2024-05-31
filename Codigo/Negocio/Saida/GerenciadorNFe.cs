@@ -1095,7 +1095,7 @@ namespace Negocio
                     saidaProdutos = DistribuirDescontoProdutos(saidaProdutos, totalSaidas);
 
                     // Atualiza os produtos com os valores de impostos
-                    saidaProdutos = GerenciadorImposto.GetInstance().CalcularValorImpostoProdutos(saidaProdutos);
+                    saidaProdutos = CalcularValorImpostoProdutos(saidaProdutos);
                     totalTributos = saidaProdutos.Sum(sp => sp.ValorImposto);
 
                     foreach (SaidaProduto saidaProduto in saidaProdutos)
@@ -2720,6 +2720,30 @@ namespace Negocio
                 }
             }
         }
+
+        /// <summary>
+        /// Calcula o valor do imposto de uma lista de produtos que será impressa na nota fiscal ou cupom fiscal
+        /// </summary>
+        /// <param name="listaSaidaProdutos"></param>
+        /// <returns></returns>
+        private List<SaidaProduto> CalcularValorImpostoProdutos(List<SaidaProduto> listaSaidaProdutos)
+        {
+            IEnumerable<Imposto> listaImpostos = GerenciadorImposto.GetInstance().ObterTodos(); ;
+            foreach (SaidaProduto saidaProduto in listaSaidaProdutos)
+            {
+                Imposto imposto = listaImpostos.Where(imp => imp.Ncmsh.Equals(saidaProduto.Ncmsh)).ElementAtOrDefault(0);
+                if (imposto != null)
+                {
+                    saidaProduto.ValorImposto = saidaProduto.SubtotalAVista * (decimal)imposto.AliqNac / 100;
+                }
+                else
+                {
+                    saidaProduto.ValorImposto = saidaProduto.SubtotalAVista * (decimal)0.35;
+                }
+            }
+            return listaSaidaProdutos;
+        }
+
 
         private static bool ImprimirUnidanfe(NfeControle nfeControle, Loja loja)
         {

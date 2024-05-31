@@ -59,29 +59,5 @@ namespace Negocio
             return listaImpostos;
         }
 
-        /// <summary>
-        /// Calcula o valor do imposto de uma lista de produtos que será impressa na nota fiscal ou cupom fiscal
-        /// </summary>
-        /// <param name="listaSaidaProdutos"></param>
-        /// <returns></returns>
-        public List<SaidaProduto> CalcularValorImpostoProdutos(List<SaidaProduto> listaSaidaProdutos)
-        {
-            IEnumerable<Imposto> listaImpostos = ObterTodos(); ;
-            foreach (SaidaProduto saidaProduto in listaSaidaProdutos)
-            {
-                Imposto imposto = listaImpostos.Where(imp => imp.Ncmsh.Equals(saidaProduto.Ncmsh)).ElementAtOrDefault(0);
-                if (imposto != null)
-                {
-                    saidaProduto.ValorImposto = saidaProduto.SubtotalAVista * (decimal)imposto.AliqNac / 100;
-                }
-                else
-                {
-                    saidaProduto.ValorImposto = saidaProduto.SubtotalAVista * (decimal)0.35;
-                }
-            }
-            return listaSaidaProdutos;
-        }
-
-
     }
 }

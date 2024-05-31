@@ -18,10 +18,10 @@
         public const string ST_SIMPLES_SUBSTITUICAO_SEM_PERM_CREDITO = "202";
         public const string ST_SIMPLES_SUBSTITUICAO_ICMS_COBRADO = "500";
         public const string ST_SIMPLES_NAO_TRIBUTADA = "400";
-        
-        
-        public string? CodCST { get; set; }
-        public string? Descricao { get; set; }
+
+
+        public string CodCST { get; set; }   
+        public string Descricao { get; set; }
 
         public bool EhTributacaoSimples
         {

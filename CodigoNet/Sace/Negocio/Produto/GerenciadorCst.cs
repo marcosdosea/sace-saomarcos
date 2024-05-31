@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
@@ -20,20 +21,16 @@ namespace Negocio
         /// </summary>
         /// <param name="cst"></param>
         /// <returns></returns>
-        public Int64 Inserir(Cst cst)
+        public void Inserir(Cst cst)
         {
             try
             {
-                var repCst = new RepositorioGenerico<CstE>();
-
-                CstE _cst = new CstE();
-                _cst.codCST = cst.CodCST;
-                _cst.descricaoCST = cst.Descricao;
+                var _cst = new TbCst();
+                _cst.CodCst = cst.CodCST;
+                _cst.DescricaoCst = cst.Descricao;
                 
-                repCst.Inserir(_cst);
-                repCst.SaveChanges();
-                
-                return 0;
+                context.Add(_cst);
+                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -50,13 +47,19 @@ namespace Negocio
         {
             try
             {
-                var repCst = new RepositorioGenerico<CstE>();
+                var _cst = context.TbCsts.Find(cst.CodCST);
+                if (_cst != null)
+                {
+                    _cst.DescricaoCst = cst.Descricao;
+                    _cst.CodCst = cst.CodCST;
 
-                CstE _cst = repCst.ObterEntidade(c => c.codCST.Equals(cst.CodCST));
-                _cst.descricaoCST = cst.Descricao;
-                _cst.codCST = cst.CodCST;
-
-                repCst.SaveChanges();
+                    context.Update(_cst);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new NegocioException("CST não encntrado para atualização.");
+                }
             }
             catch (Exception e)
             {
@@ -68,14 +71,15 @@ namespace Negocio
         /// Remover um cst da base de dados
         /// </summary>
         /// <param name="codCst"></param>
-        public void Remover(Int32 codCst)
+        public void Remover(string codCst)
         {
             try
             {
-                var repCst = new RepositorioGenerico<CstE>();
+                var cst = new TbCst();
+                cst.CodCst = codCst;
 
-                repCst.Remover(c => c.codCST.Equals(codCst));
-                repCst.SaveChanges();
+                context.Remove(cst);
+                context.SaveChanges();  
             }
             catch (Exception e)
             {
@@ -89,16 +93,13 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Cst> GetQuery()
         {
-            var repCst = new RepositorioGenerico<CstE>();
-
-            var saceEntities = (SaceEntities)repCst.ObterContexto();
-            var query = from cst in saceEntities.CstSet
+            var query = from cst in context.TbCsts
                         select new Cst
                         {
-                            CodCST = cst.codCST,
-                            Descricao = cst.descricaoCST,
+                            CodCST = cst.CodCst,
+                            Descricao = cst.DescricaoCst,
                         };
-            return query;
+            return query.AsNoTracking();
         }
 
         /// <summary>
