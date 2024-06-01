@@ -2,7 +2,7 @@
 {
     public class Grupo
     {
-        public int CodGrupo { get; set; }
-        public string? Descricao { get; set; }
+        public long CodGrupo { get; set; }
+        public string Descricao { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Dados;
-using Dominio.Banco;
+using Dominio;
 using Microsoft.EntityFrameworkCore;
 using Negocio;
 

@@ -275,7 +275,7 @@ namespace Negocio
                             {
                                 somaMovimentacoes += movimentacao.Valor;
                             }
-                            GerenciadorSaida.GetInstance(saceContext).AtualizarTipoPedidoGeradoPorSaida(_saidaE.codTipoSaida, _saidaE.pedidoGerado, _saidaE.tipoDocumentoFiscal, somaMovimentacoes, _saidaE.codSaida);
+                            AtualizarTipoPedidoGeradoPorSaida(_saidaE.codTipoSaida, _saidaE.pedidoGerado, _saidaE.tipoDocumentoFiscal, somaMovimentacoes, _saidaE.codSaida);
                             //_saidaE.totalAVista = somaMovimentacoes;
                         }
                         else
@@ -348,6 +348,55 @@ namespace Negocio
             }
             saceContext.SaveChanges();
             return contaE;
+        }
+
+        /// <summary>
+        /// Atualiza o número da nota fiscal gerada a partir do pedido (cupom fiscal) gerado
+        /// </summary>
+        /// <param name="nfe"></param>
+        /// <param name="pedidoGerado"></param>
+        private void AtualizarTipoPedidoGeradoPorSaida(int codTipoSaida, string pedidoGerado, string tipoDocumentoFiscal, decimal totalAVista, long codSaida)
+        {
+            try
+            {
+                var query = from saidaE in saceContext.tb_saida
+                            where saidaE.codSaida == codSaida
+                            select saidaE;
+                foreach (tb_saida _saidaE in query)
+                {
+                    // atualiza o lucro na venda de acordo com o que foi pago
+                    if (_saidaE.totalAVista > totalAVista)
+                    {
+                        _saidaE.totalLucro -= _saidaE.totalAVista - totalAVista;
+                    }
+                    else
+                    {
+                        _saidaE.totalLucro += totalAVista - _saidaE.totalAVista;
+                    }
+                    _saidaE.codTipoSaida = codTipoSaida;
+                    if (string.IsNullOrEmpty(_saidaE.pedidoGerado))
+                    {
+                        _saidaE.pedidoGerado = pedidoGerado.ToString();
+                        _saidaE.dataEmissaoDocFiscal = DateTime.Now;
+                    }
+                    _saidaE.totalAVista = totalAVista;
+                    _saidaE.totalPago = totalAVista;
+                    _saidaE.tipoDocumentoFiscal = tipoDocumentoFiscal;
+                    if (_saidaE.total > 0)
+                    {
+                        _saidaE.desconto = Math.Round(Convert.ToDecimal((1 - (_saidaE.totalAVista / _saidaE.total)) * 100), 2);
+                    }
+                    else
+                    {
+                        _saidaE.desconto = 0;
+                    }
+                }
+                saceContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saida", e.Message, e);
+            }
         }
 
         /// <summary>

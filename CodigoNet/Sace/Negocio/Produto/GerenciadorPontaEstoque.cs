@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Dados;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
@@ -21,19 +19,17 @@ namespace Negocio
         /// </summary>
         /// <param name="pontaEstoque"></param>
         /// <returns></returns>
-        public Int64 Inserir(PontaEstoque pontaEstoque)
+        public long Inserir(PontaEstoque pontaEstoque)
         {
-            var repPontaEstoque = new RepositorioGenerico<tb_ponta_estoque>();
-            tb_ponta_estoque _pontaEstoqueE = new tb_ponta_estoque();
+            var _pontaEstoque = new TbPontaEstoque();
             try
             {
+                Atribuir(pontaEstoque, _pontaEstoque);
 
-                Atribuir(pontaEstoque, _pontaEstoqueE);
+                context.Add(_pontaEstoque);
+                context.SaveChanges();
 
-                repPontaEstoque.Inserir(_pontaEstoqueE);
-                repPontaEstoque.SaveChanges();
-
-                return _pontaEstoqueE.codPontaEstoque;
+                return _pontaEstoque.CodPontaEstoque;
             }
             catch (Exception e)
             {
@@ -42,7 +38,7 @@ namespace Negocio
 
         }
 
-        
+
         /// <summary>
         /// Atualiza dados do pontaEstoque
         /// </summary>
@@ -51,11 +47,17 @@ namespace Negocio
         {
             try
             {
-                var repPontaEstoque = new RepositorioGenerico<tb_ponta_estoque>();
-                tb_ponta_estoque _pontaEstoqueE = repPontaEstoque.ObterEntidade(b => b.codPontaEstoque == pontaEstoque.CodPontaEstoque);
-                Atribuir(pontaEstoque, _pontaEstoqueE);
-
-                repPontaEstoque.SaveChanges();
+                var _pontaEstoque = context.TbPontaEstoques.Find(pontaEstoque.CodPontaEstoque);
+                if (_pontaEstoque != null)
+                {
+                    Atribuir(pontaEstoque, _pontaEstoque);
+                    context.Update(_pontaEstoque);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new NegocioException("Ponta de estoque não encontrada para atualização.");
+                }
             }
             catch (Exception e)
             {
@@ -71,13 +73,15 @@ namespace Negocio
         {
             try
             {
-                var repPontaEstoque = new RepositorioGenerico<tb_ponta_estoque>();
-                repPontaEstoque.Remover(b => b.codPontaEstoque == codPontaEstoque);
-                repPontaEstoque.SaveChanges();
+                var pontaEstoque = new TbPontaEstoque();
+                pontaEstoque.CodPontaEstoque = codPontaEstoque;
+
+                context.Remove(pontaEstoque);
+                context.SaveChanges();
             }
             catch (Exception e)
             {
-                throw  e;//DadosException("PontaEstoque", e.Message, e);
+                throw new DadosException("PontaEstoque", e.Message, e);
             }
         }
 
@@ -87,18 +91,16 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<PontaEstoque> GetQuery()
         {
-            var repPontaEstoque = new RepositorioGenerico<tb_ponta_estoque>();
-            var saceEntities = (SaceEntities)repPontaEstoque.ObterContexto();
-            var query = from pontaEstoque in saceEntities.tb_ponta_estoque
+            var query = from pontaEstoque in context.TbPontaEstoques
                         select new PontaEstoque
                         {
-                            CodPontaEstoque = pontaEstoque.codPontaEstoque,
-                            Quantidade = pontaEstoque.quantidade,
-                            Caracteristica = pontaEstoque.caracteristica,
-                            CodProduto = pontaEstoque.codProduto,
-                            NomeProduto = pontaEstoque.tb_produto.nome
+                            CodPontaEstoque = pontaEstoque.CodPontaEstoque,
+                            Quantidade = pontaEstoque.Quantidade,
+                            Caracteristica = pontaEstoque.Caracteristica,
+                            CodProduto = pontaEstoque.CodProduto,
+                            NomeProduto = pontaEstoque.CodProdutoNavigation.Nome
                         };
-            return query;
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -130,11 +132,11 @@ namespace Negocio
             return GetQuery().Where(pontaEstoque => pontaEstoque.CodProduto.Equals(codProduto)).ToList();
         }
 
-        private static void Atribuir(PontaEstoque pontaEstoque, tb_ponta_estoque _pontaEstoqueE)
+        private static void Atribuir(PontaEstoque pontaEstoque, TbPontaEstoque _pontaEstoque)
         {
-            _pontaEstoqueE.quantidade = pontaEstoque.Quantidade;
-            _pontaEstoqueE.caracteristica = pontaEstoque.Caracteristica;
-            _pontaEstoqueE.codProduto = pontaEstoque.CodProduto;
+            _pontaEstoque.Quantidade = pontaEstoque.Quantidade;
+            _pontaEstoque.Caracteristica = pontaEstoque.Caracteristica;
+            _pontaEstoque.CodProduto = pontaEstoque.CodProduto;
         }
 
     }

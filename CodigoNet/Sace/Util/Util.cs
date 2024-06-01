@@ -10,11 +10,7 @@
         
         public Util() {
             // // Para adicionar manipuladores de eventos para salvar e alterar configurações, remova os comentários das linhas abaixo:
-            //
-            // this.SettingChanging += this.SettingChangingEventHandler;
-            //
-            // this.SettingsSaving += this.SettingsSavingEventHandler;
-            //
+            //            //            //
         }
         
         private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {

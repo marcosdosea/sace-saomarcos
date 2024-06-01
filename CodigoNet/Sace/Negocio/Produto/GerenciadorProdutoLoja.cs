@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using Dados;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
     public class GerenciadorProdutoLoja 
     {
         private readonly SaceContext context;
+        private readonly GerenciadorEntradaProduto gerenciadorEntradaProduto;
 
         public GerenciadorProdutoLoja(SaceContext saceContext)
         {
             context = saceContext;
+            gerenciadorEntradaProduto = new GerenciadorEntradaProduto(saceContext);
         }
 
         /// <summary>
@@ -21,21 +20,21 @@ namespace Negocio
         /// </summary>
         /// <param name="produtoLoja"></param>
         /// <returns></returns>
-        public Int64 Inserir(ProdutoLoja produtoLoja)
+        public long Inserir(ProdutoLoja produtoLoja)
         {
             try
             {
-                ProdutoLojaE _produtoLojaE = new ProdutoLojaE();
-                _produtoLojaE.codLoja = produtoLoja.CodLoja;
-                _produtoLojaE.codProduto = produtoLoja.CodProduto;
-                _produtoLojaE.estoqueMaximo = produtoLoja.EstoqueMaximo;
-                _produtoLojaE.localizacao = produtoLoja.Localizacao;
-                _produtoLojaE.localizacao2 = produtoLoja.Localizacao2;
-                _produtoLojaE.qtdEstoque = produtoLoja.QtdEstoque;
-                _produtoLojaE.qtdEstoqueAux = produtoLoja.QtdEstoqueAux;
+                var _produtoLoja = new TbProdutoLoja();
+                _produtoLoja.CodLoja = produtoLoja.CodLoja;
+                _produtoLoja.CodProduto = produtoLoja.CodProduto;
+                _produtoLoja.EstoqueMaximo = produtoLoja.EstoqueMaximo;
+                _produtoLoja.Localizacao = produtoLoja.Localizacao;
+                _produtoLoja.Localizacao2 = produtoLoja.Localizacao2;
+                _produtoLoja.QtdEstoque = produtoLoja.QtdEstoque;
+                _produtoLoja.QtdEstoqueAux = produtoLoja.QtdEstoqueAux;
 
-                repProdutoLoja.Inserir(_produtoLojaE);
-                repProdutoLoja.SaveChanges();
+                context.Add(_produtoLoja);
+                context.SaveChanges();
                 return produtoLoja.CodProduto;
             }
             catch (Exception e)
@@ -50,39 +49,34 @@ namespace Negocio
         /// <param name="produtoLoja"></param>
         public void Atualizar(ProdutoLoja produtoLoja)
         {
-            DbTransaction transaction = null;
+            var transaction = context.Database.BeginTransaction();
+
             try
             {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
+                var _produtoLoja = new TbProdutoLoja();
+                _produtoLoja.CodProduto = produtoLoja.CodProduto;
+                _produtoLoja.CodLoja = produtoLoja.CodLoja;
+                    
+                _produtoLoja = context.TbProdutoLojas.Find(produtoLoja);
+                if (_produtoLoja != null)
+                {
+                    _produtoLoja.EstoqueMaximo = produtoLoja.EstoqueMaximo;
+                    _produtoLoja.Localizacao = produtoLoja.Localizacao;
+                    _produtoLoja.Localizacao2 = produtoLoja.Localizacao2;
+                    _produtoLoja.QtdEstoque = produtoLoja.QtdEstoque;
+                    _produtoLoja.QtdEstoqueAux = produtoLoja.QtdEstoqueAux;
 
-                ProdutoLojaE _produtoLojaE = repProdutoLoja.ObterEntidade(pl => pl.codProduto == produtoLoja.CodProduto && pl.codLoja == produtoLoja.CodLoja);
-                //if ((produtoLoja.QtdEstoque < _produtoLojaE.qtdEstoque) &&
-                //    (_produtoLojaE.qtdEstoque < 5000))
-                //{
-                //    throw new NegocioException("Ajuste de estoque não permitido. Por favor utilize o formulário de Pré-Venda, adicione os produtos e selecione o cliente BAIXA ESTOQUE POR PERDA ROUBO OU DANO");
-                //}
-
-                _produtoLojaE.estoqueMaximo = produtoLoja.EstoqueMaximo;
-                _produtoLojaE.localizacao = produtoLoja.Localizacao;
-                _produtoLojaE.localizacao2 = produtoLoja.Localizacao2;
-                _produtoLojaE.qtdEstoque = produtoLoja.QtdEstoque;
-                _produtoLojaE.qtdEstoqueAux = produtoLoja.QtdEstoqueAux;
-
-                repProdutoLoja.SaveChanges();
-
-                AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto);
+                    context.Update(_produtoLoja);
+                    context.SaveChanges();
+                    
+                    AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto);
+                }
                 transaction.Commit();
             }
             catch (Exception e)
             {
                 transaction.Rollback();
                 throw new DadosException("Produto", e.Message, e);
-            }
-            finally
-            {
-                saceContext.Connection.Close();
             }
         }
 
@@ -92,15 +86,14 @@ namespace Negocio
         /// <param name="produtoLojaPK"></param>
         public void Remover(long codProduto, int codLoja)
         {
-            DbTransaction transaction = null;
+            var transaction = context.Database.BeginTransaction();
             try
             {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
-
-                repProdutoLoja.Remover(pl => pl.codProduto == codProduto && pl.codLoja == codLoja);
-                repProdutoLoja.SaveChanges();
+                var produtoLoja = new TbProdutoLoja();
+                produtoLoja.CodProduto = codProduto;
+                produtoLoja.CodLoja = codLoja;
+                context.Remove(produtoLoja);
+                context.SaveChanges();
                 AtualizarEstoqueEntradasProduto(codProduto);
                 transaction.Commit();
             }
@@ -108,10 +101,6 @@ namespace Negocio
             {
                 transaction.Rollback();
                 throw new DadosException("Produto", e.Message, e);
-            }
-            finally
-            {
-                saceContext.Connection.Close();
             }
         }
 
@@ -121,22 +110,20 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<ProdutoLoja> GetQuery()
         {
-            var query = from produtoLoja in saceContext.ProdutoLojaSet
-                        join produto in saceContext.ProdutoSet on produtoLoja.codProduto equals produto.codProduto
-                        join loja in saceContext.tb_loja on produtoLoja.codLoja equals loja.codLoja
+            var query = from produtoLoja in context.TbProdutoLojas
                         select new ProdutoLoja
                         {
-                            CodLoja = produtoLoja.codLoja,
-                            NomeLoja = loja.nome,
-                            CodProduto = produtoLoja.codProduto,
-                            EstoqueMaximo = produtoLoja.estoqueMaximo,
-                            Localizacao = produtoLoja.localizacao,
-                            Localizacao2 = produtoLoja.localizacao2,
-                            NomeProduto = produto.nome,
-                            QtdEstoque = produtoLoja.qtdEstoque,
-                            QtdEstoqueAux = produtoLoja.qtdEstoqueAux
+                            CodLoja = produtoLoja.CodLoja,
+                            NomeLoja = produtoLoja.CodLojaNavigation.Nome,
+                            CodProduto = produtoLoja.CodProduto,
+                            EstoqueMaximo = produtoLoja.EstoqueMaximo,
+                            Localizacao = produtoLoja.Localizacao,
+                            Localizacao2 = produtoLoja.Localizacao2,
+                            NomeProduto = produtoLoja.CodProdutoNavigation.Nome,
+                            QtdEstoque = produtoLoja.QtdEstoque,
+                            QtdEstoqueAux = produtoLoja.QtdEstoqueAux
                         };
-            return query;
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -197,26 +184,26 @@ namespace Negocio
         /// <param name="codProduto"></param>
         public void AdicionaQuantidade(decimal quantidade, decimal quantidadeAux, Int32 codLoja, long codProduto)
         {
-            var query = from produtoLoja in saceContext.ProdutoLojaSet
-                        where produtoLoja.codLoja == codLoja && produtoLoja.codProduto == codProduto
+            var query = from produtoLoja in context.TbProdutoLojas
+                        where produtoLoja.CodLoja == codLoja && produtoLoja.CodProduto == codProduto
                         select produtoLoja;
 
-            ProdutoLojaE produtoLojaE = query.FirstOrDefault();
-            if (produtoLojaE != null)
+            var _produtoLoja = query.FirstOrDefault();
+            if (_produtoLoja != null)
             {
-                produtoLojaE.qtdEstoque += quantidade;
-                produtoLojaE.qtdEstoqueAux += quantidadeAux;
+                _produtoLoja.QtdEstoque += quantidade;
+                _produtoLoja.QtdEstoqueAux += quantidadeAux;
             }
             else
             {
-                produtoLojaE = new ProdutoLojaE();
-                produtoLojaE.codLoja = codLoja;
-                produtoLojaE.codProduto = codProduto;
-                produtoLojaE.qtdEstoque = quantidade;
-                produtoLojaE.qtdEstoqueAux = quantidadeAux;
-                saceContext.AddToProdutoLojaSet(produtoLojaE);
+                _produtoLoja = new TbProdutoLoja();
+                _produtoLoja.CodLoja = codLoja;
+                _produtoLoja.CodProduto = codProduto;
+                _produtoLoja.QtdEstoque = quantidade;
+                _produtoLoja.QtdEstoqueAux = quantidadeAux;
+                context.Add(_produtoLoja);
             }
-            saceContext.SaveChanges();
+            context.SaveChanges();
         }
 
         
@@ -228,8 +215,8 @@ namespace Negocio
             decimal quantidadeEstoquePrincipalLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoque);
             decimal quantidadeEstoqueAuxLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoqueAux);
 
-            List<EntradaProduto> entradasProdutoPrincipal = (List<EntradaProduto>)GerenciadorEntradaProduto.GetInstance(saceContext).ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA);
-            List<EntradaProduto> entradasProdutoAuxiliar = (List<EntradaProduto>)GerenciadorEntradaProduto.GetInstance(saceContext).ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA_AUX);
+            List<EntradaProduto> entradasProdutoPrincipal = (List<EntradaProduto>)gerenciadorEntradaProduto.ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA);
+            List<EntradaProduto> entradasProdutoAuxiliar = (List<EntradaProduto>)gerenciadorEntradaProduto.ObterPorProdutoTipoEntrada(codProduto, Entrada.TIPO_ENTRADA_AUX);
 
             decimal quantidadeEstoquePrincipalEntradaProduto = entradasProdutoPrincipal.Sum(ep => ep.QuantidadeDisponivel);
             decimal quantidadeEstoqueAuxEntradaProduto = entradasProdutoAuxiliar.Sum(ep => ep.QuantidadeDisponivel);
@@ -237,35 +224,31 @@ namespace Negocio
             // Atualiza as entradas principais com os valores do estoque totais dos produto / loja
             if ((quantidadeEstoquePrincipalLojas > 0) && (quantidadeEstoquePrincipalLojas != quantidadeEstoquePrincipalEntradaProduto))
             {
-                var repEntradaProduto = new RepositorioGenerico<EntradaProdutoE>();
-                var saceEntities = (SaceEntities)repEntradaProduto.ObterContexto();
-                var query = from entradaProdutoE in saceEntities.EntradaProdutoSet
-                            where entradaProdutoE.tb_entrada.codTipoEntrada == Entrada.TIPO_ENTRADA && entradaProdutoE.codProduto == codProduto
-                            orderby entradaProdutoE.codEntradaProduto
+                var query = from entradaProdutoE in context.TbEntradaProdutos
+                            where entradaProdutoE.CodEntradaNavigation.CodTipoEntrada == Entrada.TIPO_ENTRADA && entradaProdutoE.CodProduto == codProduto
+                            orderby entradaProdutoE.CodEntradaProduto
                             select entradaProdutoE;
 
-                List<EntradaProdutoE> entradasProdutoPrincipalE = query.ToList();
+                List<TbEntradaProduto> entradasProdutoPrincipalE = query.ToList();
                 int cont = entradasProdutoPrincipalE.Count;
                 
                 while (cont > 0)
                 {
                     cont--;
-                    if (entradasProdutoPrincipalE[cont].codProduto == 11002)
-                        Console.Write("");
                     
-                    decimal quantidadeEntrada = (decimal) (entradasProdutoPrincipalE[cont].quantidade * entradasProdutoPrincipalE[cont].quantidadeEmbalagem);
+                    decimal quantidadeEntrada = (decimal) (entradasProdutoPrincipalE[cont].Quantidade * entradasProdutoPrincipalE[cont].QuantidadeEmbalagem);
                     if (quantidadeEntrada > quantidadeEstoquePrincipalLojas)
                     {
-                        entradasProdutoPrincipalE[cont].quantidade_disponivel = quantidadeEstoquePrincipalLojas;
+                        entradasProdutoPrincipalE[cont].QuantidadeDisponivel = quantidadeEstoquePrincipalLojas;
                         quantidadeEstoquePrincipalLojas = 0;
                     }
                     else
                     {
-                        entradasProdutoPrincipalE[cont].quantidade_disponivel = quantidadeEntrada;
+                        entradasProdutoPrincipalE[cont].QuantidadeDisponivel = quantidadeEntrada;
                         quantidadeEstoquePrincipalLojas -= quantidadeEntrada;
                     }
                 }
-                saceEntities.SaveChanges();
+                context.SaveChanges();
             }
 
             // Atualiza as entradas auxiliares com os valores do estoque totais dos produto / loja
@@ -286,7 +269,7 @@ namespace Negocio
                         entradasProdutoAuxiliar[cont].QuantidadeDisponivel = entradasProdutoAuxiliar[cont].Quantidade;
                         quantidadeEstoqueAuxLojas -= entradasProdutoAuxiliar[cont].Quantidade;
                     }
-                    GerenciadorEntradaProduto.GetInstance(saceContext).Atualizar(entradasProdutoAuxiliar[cont]);
+                    gerenciadorEntradaProduto.Atualizar(entradasProdutoAuxiliar[cont]);
                 }
 
             }

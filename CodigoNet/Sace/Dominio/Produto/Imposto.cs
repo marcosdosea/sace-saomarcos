@@ -9,7 +9,7 @@ namespace Dominio
     public class Imposto
     {
         public long Ncmsh { get; set; }
-        public decimal AliqNac { get; set; }
-        public decimal AliqImp { get; set; }
+        public decimal? AliqNac { get; set; }
+        public decimal? AliqImp { get; set; }
     }
 }

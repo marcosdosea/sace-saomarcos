@@ -1,26 +1,13 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GerenciadorImpostos.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using Dados;
+using Dominio;
+using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Dominio;
-    using Dados;
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class GerenciadorImposto
     {
-        
-        private static List<Imposto> listaImpostos;
 
+        private static List<Imposto> listaImpostos;
 
         private readonly SaceContext context;
 
@@ -29,23 +16,20 @@ namespace Negocio
             context = saceContext;
         }
 
-
         /// <summary>
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
         private IQueryable<Imposto> GetQuery()
         {
-            var repImposto = new RepositorioGenerico<tb_imposto>();
-            var saceEntities = (SaceEntities)repImposto.ObterContexto();
-            var query = from imposto in saceEntities.tb_imposto
+            var query = from imposto in context.TbImpostos
                         select new Imposto
                         {
-                            Ncmsh = imposto.NCMSH,
-                            AliqNac = (decimal) imposto.aliqNac,
-                            AliqImp = (decimal) imposto.aliqImp
+                            Ncmsh = imposto.Ncmsh,
+                            AliqNac = imposto.AliqNac,
+                            AliqImp = imposto.AliqImp
                         };
-            return query;
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -54,8 +38,8 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Imposto> ObterTodos()
         {
-            if (listaImpostos == null) 
-             listaImpostos = GetQuery().ToList();
+            if (listaImpostos == null)
+                listaImpostos = GetQuery().ToList();
             return listaImpostos;
         }
 

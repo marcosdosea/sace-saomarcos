@@ -246,55 +246,7 @@ namespace Negocio
             }
         }
 
-        /// <summary>
-        /// Atualiza o número da nota fiscal gerada a partir do pedido (cupom fiscal) gerado
-        /// </summary>
-        /// <param name="nfe"></param>
-        /// <param name="pedidoGerado"></param>
-        public void AtualizarTipoPedidoGeradoPorSaida(int codTipoSaida, string pedidoGerado, string tipoDocumentoFiscal, decimal totalAVista, long codSaida)
-        {
-            try
-            {
-                var query = from saidaE in saceContext.tb_saida
-                            where saidaE.codSaida == codSaida
-                            select saidaE;
-                foreach (tb_saida _saidaE in query)
-                {
-                    // atualiza o lucro na venda de acordo com o que foi pago
-                    if (_saidaE.totalAVista > totalAVista)
-                    {
-                        _saidaE.totalLucro -= _saidaE.totalAVista - totalAVista;
-                    }
-                    else
-                    {
-                        _saidaE.totalLucro += totalAVista - _saidaE.totalAVista;
-                    }
-                    _saidaE.codTipoSaida = codTipoSaida;
-                    if (string.IsNullOrEmpty(_saidaE.pedidoGerado))
-                    {
-                        _saidaE.pedidoGerado = pedidoGerado.ToString();
-                        _saidaE.dataEmissaoDocFiscal = DateTime.Now;
-                    }
-                    _saidaE.totalAVista = totalAVista;
-                    _saidaE.totalPago = totalAVista;
-                    _saidaE.tipoDocumentoFiscal = tipoDocumentoFiscal;
-                    if (_saidaE.total > 0)
-                    {
-                        _saidaE.desconto = Math.Round(Convert.ToDecimal((1 - (_saidaE.totalAVista / _saidaE.total)) * 100), 2);
-                    }
-                    else
-                    {
-                        _saidaE.desconto = 0;
-                    }
-                }
-                saceContext.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Saida", e.Message, e);
-            }
-        }
-
+       
         /// <summary>
         /// Remove os dados de uma saída. No caso de vendas e pré-vendas transforma em orçamento.
         /// </summary>
@@ -1428,6 +1380,65 @@ namespace Negocio
             }
         }
 
+        /// <summary>
+        /// Receber pagamentos Contas
+        /// </summary>
+        public void ReceberPagamentosContas(List<ContaSaida> listaContaSaida, List<SaidaPagamento> pagamentos, List<MovimentacaoConta> listaMovimentacaoConta, Saida saida)
+        {
+            DbTransaction transaction = null;
+            try
+            {
+                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
+                    saceContext.Connection.Open();
+                transaction = saceContext.Connection.BeginTransaction();
+
+                RegistrarPagamentosSaida(pagamentos, saida);
+
+                saida.TipoSaida = Saida.TIPO_CREDITO;
+                saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+
+                Atualizar(saida);
+
+                var listaCodContas = listaContaSaida.Select(conta => conta.CodConta);
+                var queryContas = from conta in saceContext.ContaSet
+                                  where listaCodContas.Contains(conta.codConta)
+                                  orderby conta.dataVencimento
+                                  select conta;
+                IEnumerable<ContaE> listaContas = queryContas.ToList();
+
+                // adiciona os créditos de devolução ao valor da movimentação
+                decimal totalPagamentos = listaMovimentacaoConta.Sum(m => m.Valor);
+                totalPagamentos += Math.Abs(listaContas.Where(c => c.valor < 0 && c.codSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.valor - c.desconto)));
+
+
+                decimal totalDebitos = listaContas.Where(c => c.valor >= 0 && c.codSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.valor - c.desconto));
+
+                if (totalPagamentos == totalDebitos)
+                {
+                    foreach (ContaE _contaE in listaContas)
+                    {
+                        _contaE.codSituacao = SituacaoConta.SITUACAO_QUITADA;
+                        _contaE.observacao = "SAIDA" + saida.CodSaida;
+                        saceContext.SaveChanges();
+                    }
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                transaction.Rollback();
+                throw new DadosException("Saída", e.Message, e);
+            }
+            finally
+            {
+                saceContext.Connection.Close();
+                repSaida.Dispose();
+            }
+        }
+
+
+
         public List<SaidaProduto> ExcluirProdutosDevolvidosMesmoPreco(List<SaidaProduto> saidaProdutos)
         {
             List<SaidaProduto> listaSemDevolucoes = new List<SaidaProduto>();
@@ -1751,6 +1762,7 @@ namespace Negocio
             }
 
         }
+
 
         public void ImprimirCreditoPagamento(Saida saidaCredito, string portaImpressora)
         {

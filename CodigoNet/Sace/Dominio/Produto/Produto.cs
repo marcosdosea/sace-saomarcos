@@ -4,7 +4,7 @@ namespace Dominio
 {
     public class Produto : ProdutoPesquisa
     {
-        public int CodGrupo { get; set; }
+        public long CodGrupo { get; set; }
         public int CodSubgrupo { get; set; }
         public string? NomeFabricante { get; set; }
         
@@ -54,7 +54,7 @@ namespace Dominio
             }
         }
 
-        public DateTime DataUltimoPedido { get; set; }
+        public DateTime? DataUltimoPedido { get; set; }
         
         private decimal CalculaPreco()
         {

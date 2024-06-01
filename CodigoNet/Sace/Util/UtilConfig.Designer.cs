@@ -60,5 +60,59 @@ namespace Util {
                 return ((decimal)(this["ACRESCIMO_PADRAO"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int LOJA_PADRAO {
+            get {
+                return ((int)(this["LOJA_PADRAO"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Dropbox\\\\SACE\\\\ProdutosAtualizados\\\\")]
+        public string PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS {
+            get {
+                return ((string)(this["PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int CLIENTE_PADRAO {
+            get {
+                return ((int)(this["CLIENTE_PADRAO"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int SAIDA_PADRAO {
+            get {
+                return ((int)(this["SAIDA_PADRAO"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ENTRADA_PADRAO {
+            get {
+                return ((int)(this["ENTRADA_PADRAO"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("11")]
+        public decimal SIMPLES {
+            get {
+                return ((decimal)(this["SIMPLES"]));
+            }
+        }
     }
 }

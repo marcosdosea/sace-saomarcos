@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
@@ -20,25 +21,26 @@ namespace Negocio
         /// </summary>
         /// <param name="grupo"></param>
         /// <returns></returns>
-        public Int64 Inserir(Grupo grupo)
+        public long Inserir(Grupo grupo)
         {
             try
             {
-                var repGrupo = new RepositorioGenerico<GrupoE>();
-                var repSubgrupo = new RepositorioGenerico<SubgrupoE>();
+                var transaction = context.Database.BeginTransaction();
+                var _grupo = new TbGrupo();
+                _grupo.Descricao = grupo.Descricao;
 
-                GrupoE _grupoE = new GrupoE();
-                _grupoE.descricao = grupo.Descricao;
-                repGrupo.Inserir(_grupoE);
-                repGrupo.SaveChanges();
+                context.Add(_grupo);
+                context.SaveChanges();
 
-                SubgrupoE _subgrupoE = new SubgrupoE();
-                _subgrupoE.codGrupo = Convert.ToInt32(_grupoE.codGrupo);
-                _subgrupoE.descricao = "---- NAO DEFINIDO ----";
-                repSubgrupo.Inserir(_subgrupoE);
+                var _subgrupo = new TbSubgrupo();
+                _subgrupo.CodGrupo = Convert.ToInt32(_grupo.CodGrupo);
+                _subgrupo.Descricao = "---- NAO DEFINIDO ----";
+                context.Add(_subgrupo);
+                context.SaveChanges();
 
-                repSubgrupo.SaveChanges();
-                return _grupoE.codGrupo;
+                transaction.Commit();
+                
+                return _grupo.CodGrupo;
             }
             catch (Exception e)
             {
@@ -54,12 +56,18 @@ namespace Negocio
         {
             try
             {
-                var repGrupo = new RepositorioGenerico<GrupoE>();
-                
-                GrupoE _grupoE = repGrupo.ObterEntidade(g => g.codGrupo == grupo.CodGrupo);
-                _grupoE.descricao = grupo.Descricao;
+                var _grupo = context.TbGrupos.Find(grupo.CodGrupo);
+                if (_grupo != null)
+                {
+                    _grupo.Descricao = grupo.Descricao;
 
-                repGrupo.SaveChanges();
+                    context.Update(_grupo);
+                    context.SaveChanges();
+                } 
+                else
+                {
+                    throw new NegocioException("Grupo não encontrado para atualização.");
+                }
             }
             catch (Exception e)
             {
@@ -71,16 +79,17 @@ namespace Negocio
         /// Remover um grupo
         /// </summary>
         /// <param name="codGrupo"></param>
-        public void Remover(Int32 codGrupo)
+        public void Remover(int codGrupo)
         {
             if (codGrupo == 1)
                 throw new NegocioException("Esse grupo não pode ser excluído para manter a consistência da base de dados");
             try
             {
-                var repGrupo = new RepositorioGenerico<GrupoE>();
-                
-                repGrupo.Remover(grupo => grupo.codGrupo == codGrupo);
-                repGrupo.SaveChanges();
+                var grupo = new TbGrupo();
+                grupo.CodGrupo = codGrupo;
+
+                context.Remove(grupo);
+                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -94,16 +103,13 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Grupo> GetQuery()
         {
-            var repGrupo = new RepositorioGenerico<GrupoE>();
-            var repSubgrupo = new RepositorioGenerico<SubgrupoE>();
-            var saceEntities = (SaceEntities)repGrupo.ObterContexto();
-            var query = from grupo in saceEntities.GrupoSet
+            var query = from grupo in context.TbGrupos
                         select new Grupo
                         {
-                            CodGrupo = (int)grupo.codGrupo,
-                            Descricao = grupo.descricao,
+                            CodGrupo = grupo.CodGrupo,
+                            Descricao = grupo.Descricao,
                         };
-            return query;
+            return query.AsNoTracking();
         }
 
         /// <summary>

@@ -7,14 +7,14 @@ namespace Dominio
         public long CodProduto { get; set; }
         public string? CodigoBarra { get; set; }
         public long CodFabricante { get; set; }
-        public string? Nome { get; set; }
+        public string Nome { get; set; }
         public string? NomeProdutoFabricante { get; set; }
-        public string? Unidade { get; set; }
-        public DateTime UltimaDataAtualizacao { get; set; }
+        public string Unidade { get; set; }
+        public DateTime? UltimaDataAtualizacao { get; set; }
         public DateTime DataUltimaMudancaPreco { get; set; }
-        public Boolean TemVencimento { get; set; }
-        public Boolean EmPromocao { get; set; }
-        public string? CodCST { get; set; }
+        public bool? TemVencimento { get; set; }
+        public bool? EmPromocao { get; set; }
+        public string CodCST { get; set; }
         public string? ReferenciaFabricante { get; set; }
         public decimal PrecoVendaVarejo { get; set; }
         public decimal PrecoVendaVarejoSemDesconto
