@@ -50,7 +50,6 @@ namespace Negocio
                 if (_grupoConta != null)
                 {
                     _grupoConta.Descricao = grupoConta.Descricao;
-                    context.Update(_grupoConta);
                     context.SaveChanges();
                 }
             }

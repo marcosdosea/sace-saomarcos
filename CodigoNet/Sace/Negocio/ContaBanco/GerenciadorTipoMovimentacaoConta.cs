@@ -52,7 +52,6 @@ namespace Negocio
                     _tipoMovimentacaoConta.Descricao = tipoMovimentacaoConta.Descricao;
                     _tipoMovimentacaoConta.SomaSaldo = tipoMovimentacaoConta.SomaSaldo;
 
-                    context.Update(_tipoMovimentacaoConta);
                     context.SaveChanges();
                 }
                 else

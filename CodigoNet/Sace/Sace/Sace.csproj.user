@@ -7,6 +7,12 @@
     <Compile Update="FrmBancoPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmCalcularVendasPorVendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmCalculoParticipacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmCartaoCredito.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -17,6 +23,171 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmCfopPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmContaBanco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmContaBancoPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmContaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmEmpresaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmEntrada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmEntradaImportar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmEntradaPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmEntradaPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmEntradaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmGrupoConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmGrupoContaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmGrupoEstatistica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmGrupoPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmLoja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmLojaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmMovimentacaoCaixa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmMovimentacaoCaixaRecebido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmPessoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmPessoaExcluir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmPessoaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmPlanoConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmPlanoContaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmPontaEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmPontaEstoquePesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmProduto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmProdutoAjusteEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmProdutoEstatistica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmProdutoExcluir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmProdutoPesquisaCSOSN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmProdutoPesquisaPreco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmProdutoPreco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmProdutoSolicitacoesCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmReceberPagamentoCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmReceberPagamentoPessoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmRelatorioConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaAutorizacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaConfirma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaDAV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaDeposito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaDevolucao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaDevolucaoConsumidor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaNFe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaPagamentoBoleto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaRetornoFornecedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSaidaVenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSubgrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmSubgrupoPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Sace.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

@@ -49,7 +49,6 @@ namespace Negocio
                 if (_municipio != null)
                 {
                     Atribuir(municipio, _municipio);
-                    context.Update(_municipio);
                     context.SaveChanges();
                 }
                 else

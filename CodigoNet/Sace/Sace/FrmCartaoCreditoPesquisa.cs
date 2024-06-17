@@ -23,16 +23,16 @@ namespace Telas
 
         private void FrmCartaoCreditoPesquisa_Load(object sender, EventArgs e)
         {
-            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
+            cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().Obter(int.Parse(txtTexto.Text));
+                cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.Obter(int.Parse(txtTexto.Text));
             else
-                cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterPorNome(txtTexto.Text);
+                cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterPorNome(txtTexto.Text);
         }
 
         private void tb_cartao_creditoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

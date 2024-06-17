@@ -55,7 +55,6 @@ namespace Negocio
                 if (_planoConta != null)
                 {
                     Atribuir(planoConta, _planoConta);
-                    context.Update(_planoConta);
                     context.SaveChanges();
                 }
                 else

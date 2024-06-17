@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -11,17 +12,25 @@ namespace Telas
     public partial class FrmCartaoCredito : Form
     {
         private EstadoFormulario estado;
+        private GerenciadorCartaoCredito gerenciadorCartaoCredito;
+        private GerenciadorContaBanco gerenciadorContaBanco;
+        private GerenciadorPessoa gerenciadorPessoa;
 
-        public FrmCartaoCredito()
+
+        public FrmCartaoCredito(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            SaceContext context = new SaceContext(options);
+            gerenciadorCartaoCredito = new GerenciadorCartaoCredito(context);
+            gerenciadorContaBanco = new GerenciadorContaBanco(context); 
+            gerenciadorPessoa = new GerenciadorPessoa(context);
         }
 
         private void FrmCartaoCredito_Load(object sender, EventArgs e)
         {
-            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.GetInstance().ObterTodos();
-            contaBancoBindingSource.DataSource = GerenciadorContaBanco.GetInstance().ObterTodos();
-            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
+            cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterTodos();
+            contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
+            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
             
             habilitaBotoes(true);
         }
@@ -62,7 +71,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorCartaoCredito.GetInstance().Remover(int.Parse(codCartaoTextBox.Text));
+                gerenciadorCartaoCredito.Remover(int.Parse(codCartaoTextBox.Text));
                 cartaoCreditoBindingSource.RemoveCurrent();
             }
         }
@@ -84,12 +93,12 @@ namespace Telas
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codCartao = GerenciadorCartaoCredito.GetInstance().Inserir(_cartaoCredito);
+                    long codCartao = gerenciadorCartaoCredito.Inserir(_cartaoCredito);
                     codCartaoTextBox.Text = codCartao.ToString();
                 }
                 else
                 {
-                    GerenciadorCartaoCredito.GetInstance().Atualizar(_cartaoCredito);
+                    gerenciadorCartaoCredito.Atualizar(_cartaoCredito);
                 }
                 cartaoCreditoBindingSource.EndEdit();
             }
@@ -239,12 +248,12 @@ namespace Telas
             if (sender is TextBox)
             {
                 TextBox textbox = (TextBox)sender;
-                textbox.BackColor = Global.BACKCOLOR_FOCUS;
+                textbox.BackColor = UtilConfig.Default.BACKCOLOR_FOCUS;
             }
             else if (sender is ComboBox)
             {
                 ComboBox combobox = (ComboBox) sender;
-                combobox.BackColor = Global.BACKCOLOR_FOCUS;
+                combobox.BackColor = UtilConfig.Default.BACKCOLOR_FOCUS;
             }
         }
 
@@ -253,12 +262,12 @@ namespace Telas
             if (sender is TextBox)
             {
                 TextBox textbox = (TextBox)sender;
-                textbox.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
+                textbox.BackColor = UtilConfig.Default.BACKCOLOR_FOCUS_LEAVE;
             }
             else if (sender is ComboBox)
             {
                 ComboBox combobox = (ComboBox)sender;
-                combobox.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
+                combobox.BackColor = UtilConfig.Default.BACKCOLOR_FOCUS_LEAVE;
             }
         }
 

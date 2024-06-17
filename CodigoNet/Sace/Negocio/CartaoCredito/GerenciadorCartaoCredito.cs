@@ -46,7 +46,6 @@ namespace Negocio
             {
                 var _cartaoCredito = new TbCartaoCredito();
                 Atribuir(cartaoCredito, _cartaoCredito);
-
                 context.Update(_cartaoCredito);
                 context.SaveChanges();
             }

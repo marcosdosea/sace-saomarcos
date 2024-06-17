@@ -57,22 +57,5 @@ namespace Dominio
                 return "CEST";
             }
         }
-
-        // override object.Equals
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-
-            return CodSaidaProduto.Equals(((SaidaProduto)obj).CodSaidaProduto);
-        }
-
-        // override object.GetHashCode
-        public override int GetHashCode()
-        {
-            return CodSaidaProduto.GetHashCode();
-        }
     }
 }

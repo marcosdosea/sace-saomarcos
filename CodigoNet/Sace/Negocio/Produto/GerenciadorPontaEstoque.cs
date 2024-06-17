@@ -51,7 +51,6 @@ namespace Negocio
                 if (_pontaEstoque != null)
                 {
                     Atribuir(pontaEstoque, _pontaEstoque);
-                    context.Update(_pontaEstoque);
                     context.SaveChanges();
                 }
                 else

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
-using Dados;
+using Microsoft.EntityFrameworkCore;
+using Negocio;
 using Util;
 
 namespace Telas
@@ -17,21 +10,25 @@ namespace Telas
     {
         private EstadoFormulario estado;
         private Cfop CfopSelected { get; set;}
+        private GerenciadorCfop gerenciadorCfop;
+        private FrmCfopPesquisa frmCfopPesquisa;
 
-        public FrmCfop()
+        public FrmCfop(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            SaceContext context = new SaceContext(options);
+            gerenciadorCfop = new GerenciadorCfop(context);
         }
 
         private void FrmCfop_Load(object sender, EventArgs e)
         {
-            cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
+            cfopBindingSource.DataSource = gerenciadorCfop.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmCfopPesquisa frmCfopPesquisa = new Telas.FrmCfopPesquisa();
+            FrmCfopPesquisa frmCfopPesquisa = new FrmCfopPesquisa();
             frmCfopPesquisa.ShowDialog();
             if (frmCfopPesquisa.CfopSelected != null)
             {
@@ -59,7 +56,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorCfop.GetInstance().Remover(Int32.Parse(cfopTextBox.Text));
+                gerenciadorCfop.Remover(Int32.Parse(cfopTextBox.Text));
                 cfopBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -82,14 +79,13 @@ namespace Telas
                 cfop.CodCfop = Int32.Parse(cfopTextBox.Text);
                 cfop.Icms = 0;
 
-                GerenciadorCfop gCfop = GerenciadorCfop.GetInstance();
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gCfop.Inserir(cfop);
+                    gerenciadorCfop.Inserir(cfop);
                 }
                 else
                 {
-                    gCfop.Atualizar(cfop);
+                    gerenciadorCfop.Atualizar(cfop);
                 }
                 cfopBindingSource.EndEdit();
             }
@@ -186,14 +182,14 @@ namespace Telas
         private void cfopTextBox_Enter(object sender, EventArgs e)
         {
             TextBox textbox = (TextBox)sender;
-            textbox.BackColor = Global.BACKCOLOR_FOCUS;
+            textbox.BackColor = UtilConfig.Default.BACKCOLOR_FOCUS;
         }
 
         private void cfopTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.RemoverAcentos((TextBox)sender);
             TextBox textbox = (TextBox)sender;
-            textbox.BackColor = Global.BACKCOLOR_FOCUS_LEAVE;
+            textbox.BackColor = UtilConfig.Default.BACKCOLOR_FOCUS_LEAVE;
         }
     }
 }

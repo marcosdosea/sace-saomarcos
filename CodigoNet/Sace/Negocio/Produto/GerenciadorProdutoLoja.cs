@@ -66,7 +66,6 @@ namespace Negocio
                     _produtoLoja.QtdEstoque = produtoLoja.QtdEstoque;
                     _produtoLoja.QtdEstoqueAux = produtoLoja.QtdEstoqueAux;
 
-                    context.Update(_produtoLoja);
                     context.SaveChanges();
                     
                     AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto);

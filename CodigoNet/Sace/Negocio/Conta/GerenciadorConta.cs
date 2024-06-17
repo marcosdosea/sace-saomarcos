@@ -55,7 +55,6 @@ namespace Negocio
                 if (_conta != null)
                 {
                     Atribuir(conta, _conta);
-                    context.Update(_conta);
                     context.SaveChanges();
                 }
             }

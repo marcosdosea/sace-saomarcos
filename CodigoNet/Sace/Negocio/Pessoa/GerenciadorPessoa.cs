@@ -94,7 +94,6 @@ namespace Negocio
                     }
 
                     Atribuir(pessoa, _pessoa);
-                    context.Update(_pessoa);
                     context.SaveChanges();
                 }
                 else

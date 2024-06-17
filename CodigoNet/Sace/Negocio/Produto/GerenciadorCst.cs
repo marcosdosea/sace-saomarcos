@@ -53,7 +53,6 @@ namespace Negocio
                     _cst.DescricaoCst = cst.Descricao;
                     _cst.CodCst = cst.CodCST;
 
-                    context.Update(_cst);
                     context.SaveChanges();
                 }
                 else

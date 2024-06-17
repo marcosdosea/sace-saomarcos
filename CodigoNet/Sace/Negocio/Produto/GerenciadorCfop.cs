@@ -53,7 +53,6 @@ namespace Negocio
                     _cfop.Descricao = cfop.Descricao;
                     _cfop.Icms = cfop.Icms;
 
-                    context.Update(_cfop);
                     context.SaveChanges();
                 } 
                 else

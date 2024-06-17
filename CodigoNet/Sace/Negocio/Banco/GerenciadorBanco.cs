@@ -49,7 +49,6 @@ namespace Negocio
                 _banco.CodBanco = banco.CodBanco;
                 _banco.Nome = banco.Nome;
 
-                context.Update(_banco);
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -62,25 +61,24 @@ namespace Negocio
         /// Remove dados do banco
         /// </summary>
         /// <param name="codBanco"></param>
-        public static void Remover(Int32 codBanco)
+        public void Remover(Int32 codBanco)
         {
             if (codBanco == 1)
                 throw new NegocioException("O banco não pode ser removido.");
 
-            using (var _context = new SaceContext())
+
+            TbBanco _banco = new TbBanco();
+            try
             {
-                TbBanco _banco = new TbBanco();
-                try
-                {
-                    _banco.CodBanco = codBanco;
-                    _context.Remove(_banco);
-                    _context.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    throw new DadosException("Banco", e.Message, e);
-                }
+                _banco.CodBanco = codBanco;
+                context.Remove(_banco);
+                context.SaveChanges();
             }
+            catch (Exception e)
+            {
+                throw new DadosException("Banco", e.Message, e);
+            }
+
         }
 
         /// <summary>
@@ -90,11 +88,11 @@ namespace Negocio
         public List<Banco> ObterTodos()
         {
             var query = from banco in context.TbBancos
-                               select new Banco
-                               {
-                                   CodBanco = banco.CodBanco,
-                                   Nome = banco.Nome
-                               };
+                        select new Banco
+                        {
+                            CodBanco = banco.CodBanco,
+                            Nome = banco.Nome
+                        };
             return query.AsNoTracking().ToList();
         }
 

@@ -61,7 +61,6 @@ namespace Negocio
                 {
                     _grupo.Descricao = grupo.Descricao;
 
-                    context.Update(_grupo);
                     context.SaveChanges();
                 } 
                 else

@@ -12,7 +12,7 @@ namespace Util {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
     public sealed partial class UtilConfig : global::System.Configuration.ApplicationSettingsBase {
         
         private static UtilConfig defaultInstance = ((UtilConfig)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new UtilConfig())));
@@ -112,6 +112,34 @@ namespace Util {
         public decimal SIMPLES {
             get {
                 return ((decimal)(this["SIMPLES"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string AMBIENTE_NFE {
+            get {
+                return ((string)(this["AMBIENTE_NFE"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("==========================================")]
+        public string LINHA_COMPRIMIDA {
+            get {
+                return ((string)(this["LINHA_COMPRIMIDA"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A" +
+            " CRÉDITO FISCAL DE IPI.")]
+        public string NFE_MENSAGEM_PADRAO {
+            get {
+                return ((string)(this["NFE_MENSAGEM_PADRAO"]));
             }
         }
     }

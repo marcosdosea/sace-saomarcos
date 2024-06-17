@@ -52,7 +52,6 @@ namespace Negocio
                 {
                     Atribuir(contaBanco, _contaBanco);
 
-                    context.Update(_contaBanco);
                     context.SaveChanges();
                 } 
                 else

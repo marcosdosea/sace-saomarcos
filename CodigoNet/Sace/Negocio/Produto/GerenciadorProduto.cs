@@ -146,7 +146,6 @@ namespace Negocio
                     }
 
                     Atribuir(produto, _produto);
-                    context.Update(_produto);
                     context.SaveChanges();
                 }
             }
