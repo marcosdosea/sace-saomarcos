@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Dominio.Impressora;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 using System.Transactions;
@@ -25,6 +26,7 @@ namespace Negocio
         private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
         private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
         private readonly GerenciadorSolicitacaoDocumento gerenciadorSolicitacaoDocumento;
+        private readonly GerenciadorImprimirDocumento gerenciadorImprimirDocumento;
 
         public GerenciadorSaida(SaceContext saceContext)
         {
@@ -41,6 +43,7 @@ namespace Negocio
             gerenciadorProduto = new GerenciadorProduto(context);
             gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
             gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
+            gerenciadorImprimirDocumento = new GerenciadorImprimirDocumento(context);
         }
 
         /// <summary>
@@ -1276,7 +1279,7 @@ namespace Negocio
 
                     movimentacao.CodTipoMovimentacao = (movimentacao.Valor > 0) ? MovimentacaoConta.RECEBIMENTO_CLIENTE : MovimentacaoConta.DEVOLUCAO_CLIENTE;
 
-                    GerenciadorMovimentacaoConta.GetInstance(saceContext).Inserir(movimentacao);
+                    gerenciadorMovimentacaoConta.Inserir(movimentacao);
                 }
             }
         }
@@ -1386,12 +1389,10 @@ namespace Negocio
         /// </summary>
         public void ReceberPagamentosContas(List<ContaSaida> listaContaSaida, List<SaidaPagamento> pagamentos, List<MovimentacaoConta> listaMovimentacaoConta, Saida saida)
         {
-            DbTransaction transaction = null;
+            
             try
             {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
+                context.Database.BeginTransaction();
 
                 RegistrarPagamentosSaida(pagamentos, saida);
 
@@ -1401,40 +1402,35 @@ namespace Negocio
                 Atualizar(saida);
 
                 var listaCodContas = listaContaSaida.Select(conta => conta.CodConta);
-                var queryContas = from conta in saceContext.ContaSet
-                                  where listaCodContas.Contains(conta.codConta)
-                                  orderby conta.dataVencimento
+                var queryContas = from conta in context.TbConta
+                                  where listaCodContas.Contains(conta.CodConta)
+                                  orderby conta.DataVencimento
                                   select conta;
-                IEnumerable<ContaE> listaContas = queryContas.ToList();
+                IEnumerable<TbContum> listaContas = queryContas.ToList();
 
                 // adiciona os créditos de devolução ao valor da movimentação
                 decimal totalPagamentos = listaMovimentacaoConta.Sum(m => m.Valor);
-                totalPagamentos += Math.Abs(listaContas.Where(c => c.valor < 0 && c.codSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.valor - c.desconto)));
+                totalPagamentos += Math.Abs(listaContas.Where(c => c.Valor < 0 && c.CodSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.Valor - c.Desconto)));
 
 
-                decimal totalDebitos = listaContas.Where(c => c.valor >= 0 && c.codSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.valor - c.desconto));
+                decimal totalDebitos = listaContas.Where(c => c.Valor >= 0 && c.CodSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.Valor - c.Desconto));
 
                 if (totalPagamentos == totalDebitos)
                 {
-                    foreach (ContaE _contaE in listaContas)
+                    foreach (TbContum _conta in listaContas)
                     {
-                        _contaE.codSituacao = SituacaoConta.SITUACAO_QUITADA;
-                        _contaE.observacao = "SAIDA" + saida.CodSaida;
-                        saceContext.SaveChanges();
+                        _conta.CodSituacao = SituacaoConta.SITUACAO_QUITADA;
+                        _conta.Observacao = "SAIDA" + saida.CodSaida;
                     }
+                    context.SaveChanges();
                 }
 
-                transaction.Commit();
+                context.Database.CommitTransaction();
             }
             catch (Exception e)
             {
-                transaction.Rollback();
+                context.Database.RollbackTransaction();
                 throw new DadosException("Saída", e.Message, e);
-            }
-            finally
-            {
-                saceContext.Connection.Close();
-                repSaida.Dispose();
             }
         }
 
@@ -1496,65 +1492,57 @@ namespace Negocio
         }
 
 
-        public bool SolicitaImprimirDAV(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, UtilConfig.Default.Impressora impressora)
+        public bool SolicitaImprimirDAV(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Impressora.Tipo impressora)
         {
-            string tipoDocumento = impressora.Equals(UtilConfig.Default.Impressora.REDUZIDO1) ? "REDUZIDO1" : "REDUZIDO2";
+            string tipoDocumento = impressora.Equals(Impressora.Tipo.REDUZIDO1) ? Impressora.REDUZIDO1 : Impressora.REDUZIDO2;
 
-            if (GerenciadorImprimirDocumento.GetInstance().ObterPorTipoDocumentoCodDocumento(tipoDocumento, listaCodSaidas.Min()).Count() > 0)
+            if (gerenciadorImprimirDocumento.ObterPorTipoDocumentoCodDocumento(tipoDocumento, listaCodSaidas.Min()).Count() > 0)
                 throw new NegocioException("Documento já foi solicitado para impressão. Verifique se impressora ligada.");
 
 
-            var repImprimirDocumento = new RepositorioGenerico<tb_imprimir_documento>();
+            var documento = new TbImprimirDocumento();
+            documento.Desconto = desconto;
+            documento.HostSolicitante = SystemInformation.ComputerName;
+            documento.TipoDocumento = tipoDocumento;
+            documento.Total = total;
+            documento.TotalAvista = totalAVista;
+            documento.CodDocumento = listaCodSaidas.Min();
+            context.Add(documento);
+            context.SaveChanges();
 
-            var context = (SaceEntities)repImprimirDocumento.ObterContexto();
-
-            tb_imprimir_documento documento = new tb_imprimir_documento();
-            documento.desconto = desconto;
-            documento.hostSolicitante = System.Windows.Forms.SystemInformation.ComputerName;
-            documento.tipoDocumento = tipoDocumento;
-            documento.total = total;
-            documento.totalAVista = totalAVista;
-            documento.codDocumento = listaCodSaidas.Min();
-            repImprimirDocumento.Inserir(documento);
-
-            var query = from saida in context.tb_saida
-                        where listaCodSaidas.Contains(saida.codSaida)
+            var query = from saida in context.TbSaida
+                        where listaCodSaidas.Contains(saida.CodSaida)
                         select saida;
 
-            List<tb_saida> saidas = query.ToList();
-            foreach (tb_saida saida in saidas)
+            List<TbSaidum> saidas = query.ToList();
+            foreach (TbSaidum saida in saidas)
             {
-                documento.tb_saida.Add(saida);
+                documento.CodSaida.Add(saida);
             }
-            repImprimirDocumento.SaveChanges();
+            context.SaveChanges();
             return true;
         }
 
 
-        public bool ImprimirDAV(UtilConfig.Default.Impressora impressora, string portaImpressora)
+        public bool ImprimirDAV(Impressora.Tipo impressora, string portaImpressora)
         {
-            string tipoDocumento = impressora.Equals(UtilConfig.Default.Impressora.REDUZIDO1) ? "REDUZIDO1" : "REDUZIDO2";
+            string tipoDocumento = impressora.Equals(Impressora.Tipo.REDUZIDO1) ? Impressora.REDUZIDO1 : Impressora.REDUZIDO2;
 
-            var repImprimirDocumento = new RepositorioGenerico<tb_imprimir_documento>();
-
-            var saceContext = (SaceEntities)repImprimirDocumento.ObterContexto();
-
-            var query = from documento in saceContext.tb_imprimir_documento
-                        where tipoDocumento.Equals(documento.tipoDocumento)
+            var query = from documento in context.TbImprimirDocumentos
+                        where tipoDocumento.Equals(documento.TipoDocumento)
                         select documento;
 
-            List<tb_imprimir_documento> documentos = query.ToList();
-            foreach (tb_imprimir_documento documento in documentos)
+            List<TbImprimirDocumento> documentos = query.ToList();
+            foreach (TbImprimirDocumento documento in documentos)
             {
-                List<long> listaCodSaidas = documento.tb_saida.Select(s => s.codSaida).ToList();
-                repImprimirDocumento.Remover(documento);
-                repImprimirDocumento.SaveChanges();
+                List<long> listaCodSaidas = documento.CodSaida.Select(s => s.CodSaida).ToList();
+                context.Remove(documento);
+                context.SaveChanges();
                 List<SaidaPesquisa> saidas = ObterPorCodSaidas(listaCodSaidas).ToList();
-                if (impressora.Equals(UtilConfig.Default.Impressora.REDUZIDO1))
-                    return ImprimirDAVComprimido(saidas, (decimal)documento.total, (decimal)documento.totalAVista, (decimal)documento.desconto, portaImpressora);
+                if (impressora.Equals(Impressora.Tipo.REDUZIDO1))
+                    return ImprimirDAVComprimido(saidas, (decimal) documento.Total, (decimal)documento.TotalAvista, (decimal)documento.Desconto, portaImpressora);
                 else
-                    ImprimirDAVComprimidoVip(saidas, (decimal)documento.total, (decimal)documento.totalAVista, (decimal)documento.desconto, portaImpressora);
-
+                    ImprimirDAVComprimidoVip(saidas, (decimal)documento.Total, (decimal)documento.TotalAvista, (decimal)documento.Desconto, portaImpressora);
             }
             return true;
         }

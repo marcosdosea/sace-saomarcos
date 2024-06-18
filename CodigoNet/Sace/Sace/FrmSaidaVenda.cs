@@ -74,13 +74,13 @@ namespace Telas
                 GerenciadorSaida.GetInstance(null).AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.CupomFiscal);
             }
             NfeControle nfe = new NfeControle();
-            nfe.CodNfe = GerenciadorNFe.GetInstance().Inserir(nfe, Saida);
-            nfe.Chave = GerenciadorNFe.GetInstance().GerarChaveNFE(Saida, nfe);
+            nfe.CodNfe = gerenciadorNFe.Inserir(nfe, Saida);
+            nfe.Chave = gerenciadorNFe.GerarChaveNFE(Saida, nfe);
                      
             if (!string.IsNullOrEmpty(nfe.Chave))
             {
-                GerenciadorNFe.GetInstance().Atualizar(nfe);    
-                GerenciadorNFe.GetInstance().EnviarNFE(Saida, nfe);
+                gerenciadorNFe.Atualizar(nfe);    
+                gerenciadorNFe.EnviarNFE(Saida, nfe);
             }
             //GerenciadorSaida.GetInstance(null).ImprimirNotaFiscal(Saida);
         }

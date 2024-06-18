@@ -351,7 +351,7 @@ namespace Telas
 
         private static void ProcessarDocumentosFiscais()
         {
-            GerenciadorNFe.GetInstance().imprimirDANFE(null, SERVIDOR_NFE);
+            gerenciadorNFe.imprimirDANFE(null, SERVIDOR_NFE);
             if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1.ToUpper()))
             {
                 GerenciadorSaida.GetInstance(null).ImprimirDAV(UtilConfig.Default.Impressora.REDUZIDO1, Properties.Settings.Default.PORTA_IMPRESSORA_REDUZIDA1);
@@ -364,8 +364,8 @@ namespace Telas
             {
                 gerenciadorSolicitacaoDocumento.EnviarProximoNFe(SERVIDOR_NFE);
                 gerenciadorSolicitacaoDocumento.EnviarProximoNFCe(SERVIDOR_NFE);
-                GerenciadorNFe.GetInstance().ProcessarSolicitacoesCancelamento();
-                GerenciadorNFe.GetInstance().ProcessaSolicitacaoConsultaNfe();
+                gerenciadorNFe.ProcessarSolicitacoesCancelamento();
+                gerenciadorNFe.ProcessaSolicitacaoConsultaNfe();
                 GerenciadorProduto.GetInstance().AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
             }
         }
@@ -458,13 +458,13 @@ namespace Telas
         private void enviarNFesEmitidasOffLineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Confirma que Ambiente está On-line para Autorizar NFEs emitidas Off-Line?", "Confirma Ambiente On-Line", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                GerenciadorNFe.GetInstance().EnviarNFEsOffLine();
+                gerenciadorNFe.EnviarNFEsOffLine();
         }
 
         private void calcularImpostoNFCECtempToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Confirma o Cálculo de Totais das NFCE da pasta C:\temp?", "Confirma Cálculo Totais", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                GerenciadorNFe.GetInstance().CalcularTotaisNFCe("C:\\temp\\nfe\\");
+                gerenciadorNFe.CalcularTotaisNFCe("C:\\temp\\nfe\\");
         }
 
         private void cálculoParticipaçãoMensalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -480,7 +480,7 @@ namespace Telas
             {
                 if (lojaMatriz == null)
                     lojaMatriz = gerenciadorLoja.Obter(1).ElementAtOrDefault(0);
-                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaMatriz);
+                gerenciadorNFe.RecuperarRetornosNfe(lojaMatriz);
             }
         }
 
@@ -490,7 +490,7 @@ namespace Telas
             {
                 if (lojaDeposito == null)
                     lojaDeposito = gerenciadorLoja.Obter(2).ElementAtOrDefault(0);
-                GerenciadorNFe.GetInstance().RecuperarRetornosNfe(lojaDeposito);
+                gerenciadorNFe.RecuperarRetornosNfe(lojaDeposito);
             }
         }
 

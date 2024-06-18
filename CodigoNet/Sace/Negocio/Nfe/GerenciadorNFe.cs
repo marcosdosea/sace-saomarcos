@@ -21,7 +21,9 @@ namespace Negocio
         private readonly GerenciadorSaida gerenciadorSaida;
         private readonly GerenciadorSaidaProduto gerenciadorSaidaProduto;
         private readonly GerenciadorSaidaPedido gerenciadorSaidaPedido;
+        private readonly GerenciadorEntrada gerenciadorEntrada;
         private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorSolicitacaoEvento gerenciadorSolicitacaoEvento;
         private readonly GerenciadorCfop gerenciadorCfop;
         private string chaveNfeGerada = "";
 
@@ -36,6 +38,8 @@ namespace Negocio
             gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
             gerenciadorProduto = new GerenciadorProduto(context);
             gerenciadorCfop = new GerenciadorCfop(context);
+            gerenciadorEntrada = new GerenciadorEntrada(context);
+            gerenciadorSolicitacaoEvento = new GerenciadorSolicitacaoEvento(context);
         }
         /// <summary>
         /// Insere os dados de uma conta bancária
@@ -1375,7 +1379,7 @@ namespace Negocio
 
                 TNFeInfNFeTranspTransporta transporta = new TNFeInfNFeTranspTransporta();
                 TNFeInfNFeTransp transp = new TNFeInfNFeTransp();
-                if ((saida.CodEmpresaFrete == saida.CodCliente) || (saida.CodEmpresaFrete == UtilConfig.Default.CLIENTE_PADRAO) || solicitacao.ehComplementar)
+                if ((saida.CodEmpresaFrete == saida.CodCliente) || (saida.CodEmpresaFrete == UtilConfig.Default.CLIENTE_PADRAO) || solicitacao.EhComplementar)
                 {
                     transp.modFrete = TNFeInfNFeTranspModFrete.Item9; // 9-Sem frete
                 }
@@ -1858,10 +1862,10 @@ namespace Negocio
                     else if (string.IsNullOrEmpty(nfeControle.JustificativaCancelamento) || (nfeControle.JustificativaCancelamento.Trim().Length < 15))
                         throw new NegocioException("É necessário adicionar uma justificativa para realizar o cancelamento da NF-e com pelo menos 15 caracteres.");
 
-                    tb_solicitacao_evento_nfe solicitaEvento = new tb_solicitacao_evento_nfe();
-                    solicitaEvento.codNFe = nfeControle.CodNfe;
-                    solicitaEvento.tipoSolicitacao = EventoNfe.TIPO_CANCELAMENTO;
-                    GerenciadorSolicitacaoEvento.GetInstance().Inserir(solicitaEvento);
+                    var solicitaEvento = new SolicitacaoEventoNfe();
+                    solicitaEvento.CodNfe = nfeControle.CodNfe;
+                    solicitaEvento.TipoSolicitacao = EventoNfe.TIPO_CANCELAMENTO;
+                    gerenciadorSolicitacaoEvento.Inserir(solicitaEvento);
                 }
             }
             catch (NegocioException ne)
@@ -1883,12 +1887,12 @@ namespace Negocio
         {
             try
             {
-                List<tb_solicitacao_evento_nfe> listaSolicitacaoEvento = GerenciadorSolicitacaoEvento.GetInstance().ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CANCELAMENTO).ToList();
+                var listaSolicitacaoEvento = gerenciadorSolicitacaoEvento.ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CANCELAMENTO).ToList();
 
-                foreach (tb_solicitacao_evento_nfe eventoNfe in listaSolicitacaoEvento)
+                foreach (SolicitacaoEventoNfe eventoNfe in listaSolicitacaoEvento)
                 {
-                    NfeControle nfeControle = GerenciadorNFe.GetInstance().Obter(eventoNfe.codNFe).FirstOrDefault();
-                    GerenciadorSolicitacaoEvento.GetInstance().Remover(eventoNfe.idSolicitacaoEvento);
+                    NfeControle nfeControle = Obter(eventoNfe.CodNfe).FirstOrDefault();
+                    gerenciadorSolicitacaoEvento.Remover(eventoNfe.IdSolicitacaoEvento);
                     if (nfeControle == null)
                         return;
                     Dominio.NFE2.TEnvEvento envEvento = new Dominio.NFE2.TEnvEvento();
@@ -2026,7 +2030,7 @@ namespace Negocio
                                 }
                                 nfeControle.SituacaoProtocoloCancelamento = retornoEvento.cStat;
                                 nfeControle.MensagemSitucaoProtocoloCancelamento = retornoEvento.xMotivo;
-                                GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                                gerenciadorNFe.Atualizar(nfeControle);
                                 files[i].Delete();
                             }
                             gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
@@ -2151,7 +2155,7 @@ namespace Negocio
                                 }
                                 nfeControle.SituacaoProtocoloCancelamento = retornoEvento.cStat;
                                 nfeControle.MensagemSitucaoProtocoloCancelamento = retornoEvento.xMotivo;
-                                GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                                gerenciadorNFe.Atualizar(nfeControle);
                                 files[i].Delete();
                             }
                             gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
@@ -2200,7 +2204,7 @@ namespace Negocio
 
                 foreach (tb_solicitacao_evento_nfe eventoNfe in listaSolicitacaoEvento)
                 {
-                    NfeControle nfeControle = GerenciadorNFe.GetInstance().Obter(eventoNfe.codNFe).FirstOrDefault();
+                    NfeControle nfeControle = gerenciadorNFe.Obter(eventoNfe.codNFe).FirstOrDefault();
                     GerenciadorSolicitacaoEvento.GetInstance().Remover(eventoNfe.idSolicitacaoEvento);
                     if (nfeControle == null)
                         return;
@@ -2311,7 +2315,7 @@ namespace Negocio
                                     nfeControle.MensagemSitucaoProtocoloUso = protocoloNfe.xMotivo;
                                 }
                             }
-                            GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                            gerenciadorNFe.Atualizar(nfeControle);
                             gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
                             files[0].Delete();
 
@@ -2329,7 +2333,7 @@ namespace Negocio
         {
             try
             {
-                NfeControle nfeControleSeq = GerenciadorNFe.GetInstance().Obter(nfeControle.CodNfe).FirstOrDefault();
+                NfeControle nfeControleSeq = gerenciadorNFe.Obter(nfeControle.CodNfe).FirstOrDefault();
                 nfeControle.SeqCartaCorrecao = nfeControleSeq.SeqCartaCorrecao;
                 if (nfeControle.SituacaoNfe != NfeControle.SITUACAO_AUTORIZADA)
                 {
@@ -2497,7 +2501,7 @@ namespace Negocio
                                 }
                                 nfeControle.SituacaoProtocoloCartaCorrecao = retornoEvento.cStat;
                                 nfeControle.MensagemSitucaoCartaCorrecao = retornoEvento.xMotivo;
-                                GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                                gerenciadorNFe.Atualizar(nfeControle);
                                 files[i].Delete();
                             }
                         }

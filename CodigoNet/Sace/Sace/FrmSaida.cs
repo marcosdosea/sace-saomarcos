@@ -717,7 +717,7 @@ namespace Telas
 			frmSaidaNF.ShowDialog();
 			frmSaidaNF.Dispose();
 
-			List<NfeControle> listaNfes = GerenciadorNFe.GetInstance().ObterPorSaida(saida.CodSaida).ToList();
+			List<NfeControle> listaNfes = gerenciadorNFe.ObterPorSaida(saida.CodSaida).ToList();
 
 			saida = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
 			if ((saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA)) && (listaNfes.Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() == 0))

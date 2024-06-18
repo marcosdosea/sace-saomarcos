@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dados;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
     public class GerenciadorSaidaPedido
     {
         private readonly SaceContext context;
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
 
         public GerenciadorSaidaPedido(SaceContext saceContext)
         {
             context = saceContext;
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
         }
 
         /// <summary>
@@ -21,21 +22,19 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <returns></returns>
-        public Int64 Inserir(SaidaPedido saidaPedido)
+        public long Inserir(SaidaPedido saidaPedido)
         {
             try
             {
-                var repSaidaPedido = new RepositorioGenerico<SaidaPedidoE>();
-            
-                SaidaPedidoE _saidaPedidoE = new SaidaPedidoE();
-                _saidaPedidoE.codSaida = saidaPedido.CodSaida;
-                _saidaPedidoE.codPedidoGerado = saidaPedido.CodPedido;
-                _saidaPedidoE.totalAVista = saidaPedido.TotalAVista;
+                TbSaidaPedido _saidaPedido = new TbSaidaPedido();
+                _saidaPedido.CodSaida = saidaPedido.CodSaida;
+                _saidaPedido.CodPedidoGerado = saidaPedido.CodPedido;
+                _saidaPedido.TotalAvista = saidaPedido.TotalAVista;
 
-                repSaidaPedido.Inserir(_saidaPedidoE);
-                repSaidaPedido.SaveChanges();
+                context.Add(_saidaPedido);
+                context.SaveChanges();
                 
-                return _saidaPedidoE.codSaida;
+                return _saidaPedido.CodSaida;
             }
             catch (Exception e)
             {
@@ -52,18 +51,16 @@ namespace Negocio
         {
             try
             {
-                var repSaidaPedido = new RepositorioGenerico<SaidaPedidoE>();
-                var  saceContext = (SaceEntities) repSaidaPedido.ObterContexto();
-                var query = from saidaPedidoE in saceContext.SaidaPedidoSet
-                            where saidaPedidoE.codSaida == saidaPedido.CodSaida
+                var query = from saidaPedidoE in context.TbSaidaPedidos
+                            where saidaPedidoE.CodSaida == saidaPedido.CodSaida
                             select saidaPedidoE;
 
-                foreach (SaidaPedidoE _saidaPedidoE in query)
+                foreach (TbSaidaPedido _saidaPedido in query)
                 {
-                    _saidaPedidoE.codPedidoGerado = saidaPedido.CodPedido;
-                    _saidaPedidoE.totalAVista = saidaPedido.TotalAVista;
+                    _saidaPedido.CodPedidoGerado = saidaPedido.CodPedido;
+                    _saidaPedido.TotalAvista = saidaPedido.TotalAVista;
                 }
-                saceContext.SaveChanges();
+                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -80,17 +77,14 @@ namespace Negocio
         {
             try
             {
-                var repSaidaPedido = new RepositorioGenerico<SaidaPedidoE>();
-                var saceEntities = (SaceEntities)repSaidaPedido.ObterContexto();
-                var query = from saidaPedidoSet in saceEntities.SaidaPedidoSet
-                            where saidaPedidoSet.codPedidoGerado == codPedido
-                            select saidaPedidoSet;
-                //SaidaPedidoE saidaPedidoE = query.ToList().ElementAtOrDefault(0);
-                foreach(SaidaPedidoE saidaPedidoE in query) 
+                var query = from saidaPedido in context.TbSaidaPedidos
+                            where saidaPedido.CodPedidoGerado == codPedido
+                            select saidaPedido;
+                foreach(TbSaidaPedido saidaPedido in query) 
                 {
-                    saceEntities.DeleteObject(saidaPedidoE);
+                    context.Remove(saidaPedido);
                 }
-                saceEntities.SaveChanges();
+                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -102,18 +96,18 @@ namespace Negocio
         /// Remove uma saída
         /// </summary>
         /// <param name="saida"></param>
-        public void RemoverPorSaida(long codSaida, SaceEntities saceContext)
+        public void RemoverPorSaida(long codSaida)
         {
             try
             {
-                var query = from saidaPedidoSet in saceContext.SaidaPedidoSet
-                            where saidaPedidoSet.codSaida == codSaida
-                            select saidaPedidoSet;
-                foreach (SaidaPedidoE saidaPedidoE in query)
+                var query = from saidaPedido in context.TbSaidaPedidos
+                            where saidaPedido.CodSaida == codSaida
+                            select saidaPedido;
+                foreach (TbSaidaPedido saidaPedido in query)
                 {
-                    saceContext.DeleteObject(saidaPedidoE);
+                    context.Remove(saidaPedido);
                 }
-                saceContext.SaveChanges();
+                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -126,17 +120,14 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<SaidaPedido> GetQuery()
         {
-            var repSaidaPedido = new RepositorioGenerico<SaidaPedidoE>();
-            
-            var saceEntities = (SaceEntities)repSaidaPedido.ObterContexto();
-            var query = from saidaPedido in saceEntities.SaidaPedidoSet
+            var query = from saidaPedido in context.TbSaidaPedidos
                         select new SaidaPedido
                         {
-                            CodPedido = saidaPedido.codPedidoGerado,
-                            CodSaida = saidaPedido.codSaida,
-                            TotalAVista = saidaPedido.totalAVista
+                            CodPedido = saidaPedido.CodPedidoGerado,
+                            CodSaida = saidaPedido.CodSaida,
+                            TotalAVista = saidaPedido.TotalAvista
                         };
-            return query;
+            return query.AsNoTracking();
         }
 
         
@@ -171,7 +162,7 @@ namespace Negocio
             {
                 foreach (long codSaida in listaCodSaidas)
                 {
-                    bool temPagamentoCrediario = GerenciadorSaidaPagamento.GetInstance(null).ObterPorSaidaFormaPagamento(codSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
+                    bool temPagamentoCrediario = gerenciadorSaidaPagamento.ObterPorSaidaFormaPagamento(codSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
                     if (!temPagamentoCrediario)
                     {
                         saida = gerenciadorSaida.Obter(codSaida);

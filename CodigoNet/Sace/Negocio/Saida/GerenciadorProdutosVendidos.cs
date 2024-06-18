@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Dados;
-using Dados.saceDataSetConsultasTableAdapters;
-using Dominio;
+﻿using Dados;
 
 namespace Negocio
 {

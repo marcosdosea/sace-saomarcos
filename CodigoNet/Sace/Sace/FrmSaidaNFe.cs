@@ -32,7 +32,7 @@ namespace Telas
             this.listaSaidaPedido = listaSaidaPedido;
             this.listaSaidaPagamento = listaSaidaPagamento;
             IEnumerable<Pessoa> listaPessoas = gerenciadorPessoa.Obter(Saida.CodCliente);
-            nfeControleBindingSource.DataSource = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
+            nfeControleBindingSource.DataSource = gerenciadorNFe.ObterPorSaida(codSaida);
 			Cliente = listaPessoas.FirstOrDefault();
 			if (Saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO)
             {
@@ -101,18 +101,18 @@ namespace Telas
             {
 
                 NfeControle _nfeCurrent = (NfeControle)nfeControleBindingSource.Current;
-                NfeControle _nfeControle = GerenciadorNFe.GetInstance().Obter(_nfeCurrent.CodNfe).ElementAtOrDefault(0);
+                NfeControle _nfeControle = gerenciadorNFe.Obter(_nfeCurrent.CodNfe).ElementAtOrDefault(0);
                 _nfeControle.JustificativaCancelamento = _nfeCurrent.JustificativaCancelamento;
                 _nfeControle.CodSaida = _nfeCurrent.CodSaida;
-                GerenciadorNFe.GetInstance().Atualizar(_nfeControle);
-                GerenciadorNFe.GetInstance().EnviarSolicitacaoCancelamento(_nfeControle);
+                gerenciadorNFe.Atualizar(_nfeControle);
+                gerenciadorNFe.EnviarSolicitacaoCancelamento(_nfeControle);
             }
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
-            GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE);
+            gerenciadorNFe.imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE);
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
@@ -159,7 +159,7 @@ namespace Telas
                 }
                 NfeControle nfe = (NfeControle)nfeControleBindingSource.Current;
                 if (nfe != null)
-                    GerenciadorNFe.GetInstance().Atualizar(nfe);
+                    gerenciadorNFe.Atualizar(nfe);
 
                 // envia nota fiscal
                 //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
@@ -251,7 +251,7 @@ namespace Telas
             if (MessageBox.Show("Confirma envio de solicitação de Consulta a NF-e?", "Consulta na Base da SEFAZ da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
-                GerenciadorNFe.GetInstance().EnviarConsultaNfe(nfeControle);
+                gerenciadorNFe.EnviarConsultaNfe(nfeControle);
             }
         }
 
@@ -260,7 +260,7 @@ namespace Telas
             if (MessageBox.Show("Confirma envio de Carta Correção da Nf-e?", "Correção da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
-                GerenciadorNFe.GetInstance().EnviarCartaCorrecaoNfe(nfeControle);
+                gerenciadorNFe.EnviarCartaCorrecaoNfe(nfeControle);
             }
         }
 
@@ -278,7 +278,7 @@ namespace Telas
         {
             int posicao = nfeControleBindingSource.Position;
             IEnumerable<NfeControle> listaNfeControleExibida = (IEnumerable<NfeControle>)nfeControleBindingSource.DataSource;
-            IEnumerable<NfeControle> listaNfeControle = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida);
+            IEnumerable<NfeControle> listaNfeControle = gerenciadorNFe.ObterPorSaida(codSaida);
             if (listaNfeControle.Count() > 0)
             {
                 var listaControleExibida = new HashSet<String>(listaNfeControleExibida.Select(nfe => nfe.SituacaoNfe).ToList());

@@ -62,7 +62,7 @@ namespace Telas
             Cursor.Current = Cursors.WaitCursor;
             contConsultas++;
             // recupera a último envio da nfe
-            List<NfeControle> listaNfe = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
+            List<NfeControle> listaNfe = gerenciadorNFe.ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
             if (tipoNfe==DocumentoFiscal.TipoSolicitacao.NFE)
                 listaNfe = listaNfe.Where(nfe => nfe.Modelo.Equals(NfeControle.MODELO_NFE)).OrderBy(nfe => nfe.CodNfe).ToList();
             else
@@ -70,7 +70,7 @@ namespace Telas
             
             //if (listaNfe.Count == 0)
             //{
-            //    listaNfe = GerenciadorNFe.GetInstance().ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
+            //    listaNfe = gerenciadorNFe.ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
             //}
             //else
             //{
@@ -197,7 +197,7 @@ namespace Telas
             if (nfeControle != null)
             {
                 nfeControle.CodSolicitacao = 0;
-                GerenciadorNFe.GetInstance().Atualizar(nfeControle);
+                gerenciadorNFe.Atualizar(nfeControle);
             }
             this.Close();
         }
@@ -215,10 +215,10 @@ namespace Telas
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            //nfeControle = GerenciadorNFe.GetInstance().ObterPorSolicitacao(codSolicitacao).FirstOrDefault();
+            //nfeControle = gerenciadorNFe.ObterPorSolicitacao(codSolicitacao).FirstOrDefault();
             if (nfeControle != null)
             {
-                GerenciadorNFe.GetInstance().imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE);
+                gerenciadorNFe.imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE);
             }
             this.Close();
         }

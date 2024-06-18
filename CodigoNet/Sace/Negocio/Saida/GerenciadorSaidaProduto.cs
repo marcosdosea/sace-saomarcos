@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using Dados;
+﻿using Dados;
 using Dominio;
-using Dominio.Consultas;
+using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 
 namespace Negocio
@@ -12,10 +9,14 @@ namespace Negocio
     public class GerenciadorSaidaProduto {
 
         private readonly SaceContext context;
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorSaida gerenciadorSaida; 
 
         public GerenciadorSaidaProduto(SaceContext saceContext)
         {
             context = saceContext;
+            gerenciadorProduto = new GerenciadorProduto(context);
+            gerenciadorSaida = new GerenciadorSaida(context);
         }
 
         /// <summary>
@@ -40,12 +41,12 @@ namespace Negocio
             else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) &&  string.IsNullOrEmpty(saida.Nfe))
                 throw new NegocioException("Não é possível inserir produtos em uma devolução para fornecedor cuja nota fiscal já foi emitida.");
 
-            SaidaProdutoE _saidaProdutoE = new SaidaProdutoE();
-            Atribuir(saidaProduto, _saidaProdutoE);
+            var _saidaProduto = new TbSaidaProduto();
+            Atribuir(saidaProduto, _saidaProduto);
 
-            repSaidaProduto.Inserir(_saidaProdutoE);
-            repSaidaProduto.SaveChanges();
-            return _saidaProdutoE.codSaidaProduto;
+            context.Add(_saidaProduto);
+            context.SaveChanges();
+            return _saidaProduto.CodSaidaProduto;
         }
 
         /// <summary>
@@ -66,16 +67,13 @@ namespace Negocio
             else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                 throw new NegocioException("Não é possível alterar produtos numa devolução para fornecedor cuja nota fiscal já foi emitida.");
 
-            
-            var query = from saidaProdutoE in saceContext.SaidaProdutoSet
-                        where saidaProdutoE.codSaidaProduto == saidaProduto.CodSaidaProduto
-                        select saidaProdutoE;
 
-            foreach (SaidaProdutoE _saidaProdutoE in query)
+            var _saidaProduto = context.TbSaidaProdutos.Find(new TbSaidaProduto() { CodSaidaProduto = saidaProduto.CodSaidaProduto });
+            if (_saidaProduto != null)
             {
-                Atribuir(saidaProduto, _saidaProdutoE);
+                Atribuir(saidaProduto, _saidaProduto);
+                context.SaveChanges();
             }
-            saceContext.SaveChanges();
         }
 
         /// <summary>
@@ -85,16 +83,13 @@ namespace Negocio
         /// <param name="saida"></param>
         public void AtualizarCFOP(long codSaidaProduto, int codCFOP)
         {
-            
-            var query = from saidaProdutoE in saceContext.SaidaProdutoSet
-                        where saidaProdutoE.codSaidaProduto == codSaidaProduto
-                        select saidaProdutoE;
 
-            foreach (SaidaProdutoE _saidaProdutoE in query)
+            var _saidaProduto = context.TbSaidaProdutos.Find(new TbSaidaProduto() { CodSaidaProduto = codSaidaProduto });
+            if (_saidaProduto != null)
             {
-                _saidaProdutoE.cfop = codCFOP;
+                _saidaProduto.Cfop = codCFOP;
+                context.SaveChanges();
             }
-            saceContext.SaveChanges();
         }
 
         /// <summary>
@@ -108,11 +103,10 @@ namespace Negocio
                 throw new NegocioException("A atualização de preços com os preços do dia só pode ser realizada em ORÇAMENTOS.");
             }
             List<SaidaProduto> listaSaidaProdutos = ObterPorSaida(saida.CodSaida);
-            GerenciadorProduto gProduto = gerenciadorProduto;
-            
+                        
             foreach (SaidaProduto _saidaProduto in listaSaidaProdutos)
             {
-                ProdutoPesquisa produto = gProduto.Obter(_saidaProduto.CodProduto).ElementAtOrDefault(0);
+                ProdutoPesquisa produto = gerenciadorProduto.Obter(_saidaProduto.CodProduto).ElementAtOrDefault(0);
                 if ((_saidaProduto.ValorVendaAVista < produto.PrecoVendaVarejo) || 
                     ((_saidaProduto.ValorVendaAVista > produto.PrecoVendaVarejo) && podeBaixarPreco))
                 {
@@ -141,32 +135,26 @@ namespace Negocio
                 else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (saida.Nfe != null) && (!saida.Nfe.Equals("")))
                     throw new NegocioException("Não é possível remover produtos de uma Devolução para Fornecedor com Nota Fiscal já emitida.");
 
-            DbTransaction transaction = null;
+            
             try
             {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
-
-                var query = from _saidaProduto in saceContext.SaidaProdutoSet
-                            where _saidaProduto.codSaidaProduto == saidaProduto.CodSaidaProduto
+                context.Database.BeginTransaction();
+                
+                var query = from _saidaProduto in context.TbSaidaProdutos
+                            where _saidaProduto.CodSaidaProduto == saidaProduto.CodSaidaProduto
                             select _saidaProduto;
-                foreach (SaidaProdutoE saidaProdutoE in query)
+                foreach (TbSaidaProduto saidaProdutoE in query)
                 {
-                    repSaidaProduto.Remover(saidaProdutoE);
+                    context.Remove(saidaProdutoE);
                 }
-                repSaidaProduto.SaveChanges();
+                context.SaveChanges();
 
-                transaction.Commit();
+                context.Database.CommitTransaction();
             }
             catch (Exception e)
             {
-                transaction.Rollback();
+                context.Database.RollbackTransaction();
                 throw new DadosException("Saída de Produtos", e.Message, e);
-            }
-            finally
-            {
-                saceContext.Connection.Close();
             }
         }
 
@@ -176,28 +164,28 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<SaidaProduto> GetQuery()
         {
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
+            var query = from saidaProduto in context.TbSaidaProdutos
                         select new SaidaProduto
                         {
-                            BaseCalculoICMS = (decimal) saidaProduto.baseCalculoICMS,
-                            BaseCalculoICMSSubst = (decimal) saidaProduto.baseCalculoICMSSubst,
-                            CodProduto = saidaProduto.codProduto,
-                            CodSaida = saidaProduto.codSaida,
-                            CodSaidaProduto = saidaProduto.codSaidaProduto,
-                            CodCST = saidaProduto.codCST,
-                            CodCfop = saidaProduto.cfop,
-                            DataValidade = (DateTime) saidaProduto.data_validade,
-                            Desconto = (decimal) saidaProduto.desconto,
-                            Quantidade = (decimal) saidaProduto.quantidade,
-                            Nome = saidaProduto.tb_produto.nome,
-                            SubtotalAVista = (decimal) saidaProduto.subtotalAVista,
-                            Unidade = saidaProduto.tb_produto.unidade,
-                            ValorICMS = (decimal) saidaProduto.valorICMS,
-                            ValorICMSSubst = (decimal) saidaProduto.valorICMSSubst,
-                            ValorIPI = (decimal) saidaProduto.valorIPI,
-                            TemVencimento = (bool) saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
-                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                            BaseCalculoICMS = (decimal) saidaProduto.BaseCalculoIcms,
+                            BaseCalculoICMSSubst = (decimal) saidaProduto.BaseCalculoIcmssubst,
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            CodCST = saidaProduto.CodCst,
+                            CodCfop = saidaProduto.Cfop,
+                            DataValidade = (DateTime) saidaProduto.DataValidade,
+                            Desconto = (decimal) saidaProduto.Desconto,
+                            Quantidade = (decimal) saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            SubtotalAVista = (decimal) saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorICMS = (decimal) saidaProduto.ValorIcms,
+                            ValorICMSSubst = (decimal) saidaProduto.ValorIcmssubst,
+                            ValorIPI = (decimal) saidaProduto.ValorIpi,
+                            TemVencimento = (bool) saidaProduto.CodProdutoNavigation.TemVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
+                            Ncmsh = saidaProduto.CodProdutoNavigation.n
                         };
             return query;
         }
@@ -220,7 +208,7 @@ namespace Negocio
         /// <param name="codSaida"></param>
         /// <param name="codCST"></param>
         /// <returns></returns>
-        public List<SaidaProduto> ObterPorSaida(Int64 codSaida)
+        public List<SaidaProduto> ObterPorSaida(long codSaida)
         {
             return GetQuery().Where(sp => sp.CodSaida == codSaida).ToList();
         }
@@ -233,34 +221,34 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaProduto> ObterPorNfeControle(int codNfeControle)
         {
-            var query1 = from saida in saceContext.tb_saida
-                         where saida.tb_nfe.Select(nfe=> nfe.codNFe).Contains(codNfeControle)
-                         select saida.codSaida; 
+            var query1 = from saida in context.TbSaida
+                         where saida.CodNves.Select(nfe=> nfe.CodNfe).Contains(codNfeControle)
+                         select saida.CodSaida; 
 
             List<long> listaCodSaida = query1.ToList();
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        where listaCodSaida.Contains(saidaProduto.codSaida)
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        where listaCodSaida.Contains(saidaProduto.CodSaida)
                         select new SaidaProduto
                         {
-                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
-                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
-                            CodProduto = saidaProduto.codProduto,
-                            CodSaida = saidaProduto.codSaida,
-                            CodSaidaProduto = saidaProduto.codSaidaProduto,
-                            CodCST = saidaProduto.tb_produto.codCST,
-                            CodCfop = saidaProduto.cfop,
-                            DataValidade = (DateTime)saidaProduto.data_validade,
-                            Desconto = (decimal)saidaProduto.desconto,
-                            Quantidade = (decimal)saidaProduto.quantidade,
-                            Nome = saidaProduto.tb_produto.nome,
-                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
-                            Unidade = saidaProduto.tb_produto.unidade,
-                            ValorICMS = (decimal)saidaProduto.valorICMS,
-                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
-                            ValorIPI = (decimal)saidaProduto.valorIPI,
-                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
-                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                            BaseCalculoICMS = (decimal)saidaProduto.BaseCalculoIcms,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.BaseCalculoIcmssubst,
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            CodCST = saidaProduto.CodProdutoNavigation.CodCst,
+                            CodCfop = saidaProduto.Cfop,
+                            DataValidade = (DateTime)saidaProduto.DataValidade,
+                            Desconto = (decimal)saidaProduto.Desconto,
+                            Quantidade = (decimal)saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorICMS = (decimal)saidaProduto.ValorIcms,
+                            ValorICMSSubst = (decimal)saidaProduto.ValorIcmssubst,
+                            ValorIPI = (decimal)saidaProduto.ValorIpi,
+                            TemVencimento = (bool)saidaProduto.CodProdutoNavigation.TemVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
+                            Ncmsh = saidaProduto.CodProdutoNavigation.Ncmsh
                         };
             return query.ToList();
         }
@@ -273,36 +261,36 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaProduto> ObterPorNfeControleSemCST(int codNfeControle, string codCST)
         {
-            var query1 = from saida in saceContext.tb_saida
-                         where saida.tb_nfe.Select(nfe => nfe.codNFe).Contains(codNfeControle)
-                         select saida.codSaida;
+            var query1 = from saida in context.TbSaida
+                         where saida.CodNves.Select(nfe => nfe.CodNfe).Contains(codNfeControle)
+                         select saida.CodSaida;
 
             List<long> listaCodSaida = query1.ToList();
             
             
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        where listaCodSaida.Contains(saidaProduto.codSaida)  && !saidaProduto.codCST.EndsWith(codCST)
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        where listaCodSaida.Contains(saidaProduto.CodSaida)  && !saidaProduto.CodCst.EndsWith(codCST)
                         select new SaidaProduto
                         {
-                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
-                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
-                            CodProduto = saidaProduto.codProduto,
-                            CodSaida = saidaProduto.codSaida,
-                            CodSaidaProduto = saidaProduto.codSaidaProduto,
-                            CodCST = saidaProduto.tb_produto.codCST,
-                            CodCfop = saidaProduto.cfop,
-                            DataValidade = (DateTime)saidaProduto.data_validade,
-                            Desconto = (decimal)saidaProduto.desconto,
-                            Quantidade = (decimal)saidaProduto.quantidade,
-                            Nome = saidaProduto.tb_produto.nome,
-                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
-                            Unidade = saidaProduto.tb_produto.unidade,
-                            ValorICMS = (decimal)saidaProduto.valorICMS,
-                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
-                            ValorIPI = (decimal)saidaProduto.valorIPI,
-                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
-                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                            BaseCalculoICMS = (decimal)saidaProduto.BaseCalculoIcms,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.BaseCalculoIcmssubst,
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            CodCST = saidaProduto.CodProdutoNavigation.CodCst,
+                            CodCfop = saidaProduto.Cfop,
+                            DataValidade = (DateTime)saidaProduto.DataValidade,
+                            Desconto = (decimal)saidaProduto.Desconto,
+                            Quantidade = (decimal)saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorICMS = (decimal)saidaProduto.ValorIcms,
+                            ValorICMSSubst = (decimal)saidaProduto.ValorIcmssubst,
+                            ValorIPI = (decimal)saidaProduto.ValorIpi,
+                            TemVencimento = (bool)saidaProduto.CodProdutoNavigation.TemVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
+                            Ncmsh = saidaProduto.CodProdutoNavigation.Ncmsh
                         };
             return query.ToList();
         }
@@ -314,29 +302,29 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaProduto> ObterPorPedido(string codPedido)
         {
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        where saidaProduto.tb_saida.pedidoGerado.Equals(codPedido)
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        where saidaProduto.CodSaidaNavigation.PedidoGerado.Equals(codPedido)
                         select new SaidaProduto
                         {
-                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
-                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
-                            CodProduto = saidaProduto.codProduto,
-                            CodSaida = saidaProduto.codSaida,
-                            CodSaidaProduto = saidaProduto.codSaidaProduto,
-                            CodCST = saidaProduto.tb_produto.codCST,
-                            CodCfop = saidaProduto.cfop,
-                            DataValidade = (DateTime)saidaProduto.data_validade,
-                            Desconto = (decimal)saidaProduto.desconto,
-                            Quantidade = (decimal)saidaProduto.quantidade,
-                            Nome = saidaProduto.tb_produto.nome,
-                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
-                            Unidade = saidaProduto.tb_produto.unidade,
-                            ValorICMS = (decimal)saidaProduto.valorICMS,
-                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
-                            ValorIPI = (decimal)saidaProduto.valorIPI,
-                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal) saidaProduto.tb_produto.precoVendaVarejo,
-                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                            BaseCalculoICMS = (decimal)saidaProduto.BaseCalculoIcms,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.BaseCalculoIcmssubst,
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            CodCST = saidaProduto.CodProdutoNavigation.CodCst,
+                            CodCfop = saidaProduto.Cfop,
+                            DataValidade = (DateTime)saidaProduto.DataValidade,
+                            Desconto = (decimal)saidaProduto.Desconto,
+                            Quantidade = (decimal)saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorICMS = (decimal)saidaProduto.ValorIcms,
+                            ValorICMSSubst = (decimal)saidaProduto.ValorIcmssubst,
+                            ValorIPI = (decimal)saidaProduto.ValorIpi,
+                            TemVencimento = (bool)saidaProduto.CodProdutoNavigation.TemVencimento,
+                            PrecoVendaVarejo = (decimal) saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
+                            Ncmsh = saidaProduto.CodProdutoNavigation.Ncmsh
                         };
             return query.ToList();
         }
@@ -349,29 +337,29 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaProduto> ObterPorPedidoSemCST(string codPedido, string codCST)
         {
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        where saidaProduto.tb_saida.pedidoGerado.Equals(codPedido) && !saidaProduto.codCST.EndsWith(codCST)
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        where saidaProduto.CodSaidaNavigation.PedidoGerado.Equals(codPedido) && !saidaProduto.CodCst.EndsWith(codCST)
                         select new SaidaProduto
                         {
-                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
-                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
-                            CodProduto = saidaProduto.codProduto,
-                            CodSaida = saidaProduto.codSaida,
-                            CodSaidaProduto = saidaProduto.codSaidaProduto,
-                            CodCST = saidaProduto.tb_produto.codCST,
-                            CodCfop = saidaProduto.cfop,
-                            DataValidade = (DateTime)saidaProduto.data_validade,
-                            Desconto = (decimal)saidaProduto.desconto,
-                            Quantidade = (decimal)saidaProduto.quantidade,
-                            Nome = saidaProduto.tb_produto.nome,
-                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
-                            Unidade = saidaProduto.tb_produto.unidade,
-                            ValorICMS = (decimal)saidaProduto.valorICMS,
-                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
-                            ValorIPI = (decimal)saidaProduto.valorIPI,
-                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
-                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                            BaseCalculoICMS = (decimal)saidaProduto.BaseCalculoIcms,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.BaseCalculoIcmssubst,
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            CodCST = saidaProduto.CodProdutoNavigation.CodCst,
+                            CodCfop = saidaProduto.Cfop,
+                            DataValidade = (DateTime)saidaProduto.DataValidade,
+                            Desconto = (decimal)saidaProduto.Desconto,
+                            Quantidade = (decimal)saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorICMS = (decimal)saidaProduto.ValorIcms,
+                            ValorICMSSubst = (decimal)saidaProduto.ValorIcmssubst,
+                            ValorIPI = (decimal)saidaProduto.ValorIpi,
+                            TemVencimento = (bool)saidaProduto.CodProdutoNavigation.TemVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
+                            Ncmsh = saidaProduto.CodProdutoNavigation.Ncmsh
                         };
             return query.ToList();
         }
@@ -381,32 +369,32 @@ namespace Negocio
         /// </summary>
         /// <param name="codPedido"></param>
         /// <returns></returns>
-        public List<SaidaProduto> ObterPorSolicitacaoSaidas(List<tb_solicitacao_saida> listaSolicitacaoSaidas)
+        public List<SaidaProduto> ObterPorSolicitacaoSaidas(List<SolicitacaoSaida> listaSolicitacaoSaidas)
         {
-            List<long> listaCodSaidas = listaSolicitacaoSaidas.Select(s => s.codSaida).ToList();
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        where listaCodSaidas.Contains(saidaProduto.codSaida)
+            List<long> listaCodSaidas = listaSolicitacaoSaidas.Select(s => s.CodSaida).ToList();
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        where listaCodSaidas.Contains(saidaProduto.CodSaida)
                         select new SaidaProduto
                         {
-                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
-                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
-                            CodProduto = saidaProduto.codProduto,
-                            CodSaida = saidaProduto.codSaida,
-                            CodSaidaProduto = saidaProduto.codSaidaProduto,
-                            CodCST = saidaProduto.tb_produto.codCST,
-                            CodCfop = saidaProduto.cfop,
-                            DataValidade = (DateTime)saidaProduto.data_validade,
-                            Desconto = (decimal)saidaProduto.desconto,
-                            Quantidade = (decimal)saidaProduto.quantidade,
-                            Nome = saidaProduto.tb_produto.nome,
-                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
-                            Unidade = saidaProduto.tb_produto.unidade,
-                            ValorICMS = (decimal)saidaProduto.valorICMS,
-                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
-                            ValorIPI = (decimal)saidaProduto.valorIPI,
-                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
-                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                            BaseCalculoICMS = (decimal)saidaProduto.BaseCalculoIcms,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.BaseCalculoIcmssubst,
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            CodCST = saidaProduto.CodProdutoNavigation.CodCst,
+                            CodCfop = saidaProduto.Cfop,
+                            DataValidade = (DateTime)saidaProduto.DataValidade,
+                            Desconto = (decimal)saidaProduto.Desconto,
+                            Quantidade = (decimal)saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorICMS = (decimal)saidaProduto.ValorIcms,
+                            ValorICMSSubst = (decimal)saidaProduto.ValorIcmssubst,
+                            ValorIPI = (decimal)saidaProduto.ValorIpi,
+                            TemVencimento = (bool)saidaProduto.CodProdutoNavigation.TemVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
+                            Ncmsh = saidaProduto.CodProdutoNavigation.Ncmsh
                         };
             return query.ToList();
         }
@@ -416,32 +404,32 @@ namespace Negocio
         /// </summary>
         /// <param name="codPedido"></param>
         /// <returns></returns>
-        public List<SaidaProduto> ObterPorSolicitacaoSaidasSemCST(List<tb_solicitacao_saida> listaSolicitacaoSaidas, string codCST)
+        public List<SaidaProduto> ObterPorSolicitacaoSaidasSemCST(List<SolicitacaoSaida> listaSolicitacaoSaidas, string codCST)
         {
-            List<long> listaCodSaidas = listaSolicitacaoSaidas.Select(s => s.codSaida).ToList();
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        where listaCodSaidas.Contains(saidaProduto.codSaida) && !saidaProduto.codCST.EndsWith(codCST)
+            List<long> listaCodSaidas = listaSolicitacaoSaidas.Select(s => s.CodSaida).ToList();
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        where listaCodSaidas.Contains(saidaProduto.CodSaida) && !saidaProduto.CodCst.EndsWith(codCST)
                         select new SaidaProduto
                         {
-                            BaseCalculoICMS = (decimal)saidaProduto.baseCalculoICMS,
-                            BaseCalculoICMSSubst = (decimal)saidaProduto.baseCalculoICMSSubst,
-                            CodProduto = saidaProduto.codProduto,
-                            CodSaida = saidaProduto.codSaida,
-                            CodSaidaProduto = saidaProduto.codSaidaProduto,
-                            CodCST = saidaProduto.tb_produto.codCST,
-                            CodCfop = saidaProduto.cfop,
-                            DataValidade = (DateTime)saidaProduto.data_validade,
-                            Desconto = (decimal)saidaProduto.desconto,
-                            Quantidade = (decimal)saidaProduto.quantidade,
-                            Nome = saidaProduto.tb_produto.nome,
-                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
-                            Unidade = saidaProduto.tb_produto.unidade,
-                            ValorICMS = (decimal)saidaProduto.valorICMS,
-                            ValorICMSSubst = (decimal)saidaProduto.valorICMSSubst,
-                            ValorIPI = (decimal)saidaProduto.valorIPI,
-                            TemVencimento = (bool)saidaProduto.tb_produto.temVencimento,
-                            PrecoVendaVarejo = (decimal)saidaProduto.tb_produto.precoVendaVarejo,
-                            Ncmsh = saidaProduto.tb_produto.ncmsh
+                            BaseCalculoICMS = (decimal)saidaProduto.BaseCalculoIcms,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.BaseCalculoIcmssubst,
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            CodCST = saidaProduto.CodProdutoNavigation.CodCst,
+                            CodCfop = saidaProduto.Cfop,
+                            DataValidade = (DateTime)saidaProduto.DataValidade,
+                            Desconto = (decimal)saidaProduto.Desconto,
+                            Quantidade = (decimal)saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorICMS = (decimal)saidaProduto.ValorIcms,
+                            ValorICMSSubst = (decimal)saidaProduto.ValorIcmssubst,
+                            ValorIPI = (decimal)saidaProduto.ValorIpi,
+                            TemVencimento = (bool)saidaProduto.CodProdutoNavigation.TemVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
+                            Ncmsh = saidaProduto.CodProdutoNavigation.Ncmsh
                         };
             return query.ToList();
         }
@@ -452,29 +440,27 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<SaidaProdutoRelatorio> GetQueryRelatorio()
         {
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        join produto in saceContext.ProdutoSet on saidaProduto.codProduto equals produto.codProduto
-                        join saida in saceContext.tb_saida on saidaProduto.codSaida equals saida.codSaida
+            var query = from saidaProduto in context.TbSaidaProdutos
                         select new SaidaProdutoRelatorio
                         {
-                            CodProduto = saidaProduto.codProduto,
-                            CodSaida = saidaProduto.codSaida,
-                            CodSaidaProduto = saidaProduto.codSaidaProduto,
-                            Desconto = (decimal)saidaProduto.desconto,
-                            Quantidade = (decimal)saidaProduto.quantidade,
-                            Nome = produto.nome,
-                            Subtotal = (decimal)saidaProduto.subtotal,
-                            SubtotalAVista = (decimal)saidaProduto.subtotalAVista,
-                            Unidade = produto.unidade == null ? "UN" : produto.unidade,
-                            ValorVenda = (decimal)saidaProduto.valorVenda,
-                            ValorVendaAVista = (decimal) (saidaProduto.subtotalAVista / saidaProduto.quantidade),
-                            TotalSaida = (decimal)saida.total,
-                            TotalSaidaAVista = (decimal) saida.totalAVista,
-                            Pedido = saida.pedidoGerado,
-                            DataSaida = saida.dataSaida,
-                            CodCliente = saida.codCliente
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            Desconto = (decimal)saidaProduto.Desconto,
+                            Quantidade = (decimal)saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            Subtotal = (decimal)saidaProduto.Subtotal,
+                            SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade == null ? "UN" : saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorVenda = (decimal)saidaProduto.ValorVenda,
+                            ValorVendaAVista = (decimal) (saidaProduto.SubtotalAvista / saidaProduto.Quantidade),
+                            TotalSaida = (decimal)saidaProduto.CodSaidaNavigation.Total,
+                            TotalSaidaAVista = (decimal)saidaProduto.CodSaidaNavigation.TotalAvista,
+                            Pedido = saidaProduto.CodSaidaNavigation.PedidoGerado,
+                            DataSaida = saidaProduto.CodSaidaNavigation.DataSaida,
+                            CodCliente = saidaProduto.CodSaidaNavigation.CodCliente
                         };
-            return query;
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -496,14 +482,15 @@ namespace Negocio
         {
             DateTime dataMesesAntes = DateTime.Now.AddDays(-30 * numerosMeses);
 
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        where (saidaProduto.tb_saida.dataSaida > dataMesesAntes) && 
-                              (saidaProduto.tb_saida.codTipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saidaProduto.tb_saida.codTipoSaida.Equals(Saida.TIPO_VENDA))
-                        group saidaProduto by saidaProduto.codProduto into gVendidos
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        where (saidaProduto.CodSaidaNavigation.DataSaida > dataMesesAntes) && 
+                              (saidaProduto.CodSaidaNavigation.CodTipoSaida.Equals(Saida.TIPO_PRE_VENDA) 
+                              || saidaProduto.CodSaidaNavigation.CodTipoSaida.Equals(Saida.TIPO_VENDA))
+                        group saidaProduto by saidaProduto.CodProduto into gVendidos
                         select new ProdutoVendido
                         {
                             CodProduto = gVendidos.Key,
-                            QuantidadeVendida = (decimal) gVendidos.Sum(sp => sp.quantidade)
+                            QuantidadeVendida = (decimal) gVendidos.Sum(sp => sp.Quantidade)
                         };
             return query.ToList();
         }
@@ -595,23 +582,23 @@ namespace Negocio
         /// </summary>
         /// <param name="saidaProduto"></param>
         /// <param name="_saidaProdutoE"></param>
-        private static void Atribuir(SaidaProduto saidaProduto, SaidaProdutoE _saidaProdutoE)
+        private static void Atribuir(SaidaProduto saidaProduto, TbSaidaProduto _saidaProduto)
         {
-            _saidaProdutoE.baseCalculoICMS = saidaProduto.BaseCalculoICMS;
-            _saidaProdutoE.baseCalculoICMSSubst = saidaProduto.BaseCalculoICMSSubst;
-            _saidaProdutoE.codProduto = saidaProduto.CodProduto;
-            _saidaProdutoE.codSaida = saidaProduto.CodSaida;
-            _saidaProdutoE.data_validade = saidaProduto.DataValidade;
-            _saidaProdutoE.desconto = saidaProduto.Desconto;
-            _saidaProdutoE.quantidade = saidaProduto.Quantidade;
-            _saidaProdutoE.subtotal = saidaProduto.Subtotal;
-            _saidaProdutoE.subtotalAVista = saidaProduto.SubtotalAVista;
-            _saidaProdutoE.valorICMS = saidaProduto.ValorICMS;
-            _saidaProdutoE.valorICMSSubst = saidaProduto.ValorICMSSubst;
-            _saidaProdutoE.valorIPI = saidaProduto.ValorIPI;
-            _saidaProdutoE.valorVenda = saidaProduto.ValorVenda;
-            _saidaProdutoE.codCST = saidaProduto.CodCST;
-            _saidaProdutoE.cfop = saidaProduto.CodCfop;
+            _saidaProduto.BaseCalculoIcms = saidaProduto.BaseCalculoICMS;
+            _saidaProduto.BaseCalculoIcmssubst = saidaProduto.BaseCalculoICMSSubst;
+            _saidaProduto.CodProduto = saidaProduto.CodProduto;
+            _saidaProduto.CodSaida = saidaProduto.CodSaida;
+            _saidaProduto.DataValidade = saidaProduto.DataValidade;
+            _saidaProduto.Desconto = saidaProduto.Desconto;
+            _saidaProduto.Quantidade = saidaProduto.Quantidade;
+            _saidaProduto.Subtotal = saidaProduto.Subtotal;
+            _saidaProduto.SubtotalAvista = saidaProduto.SubtotalAVista;
+            _saidaProduto.ValorIcms = saidaProduto.ValorICMS;
+            _saidaProduto.ValorIcmssubst = saidaProduto.ValorICMSSubst;
+            _saidaProduto.ValorIpi = saidaProduto.ValorIPI;
+            _saidaProduto.ValorVenda = saidaProduto.ValorVenda;
+            _saidaProduto.CodCst = saidaProduto.CodCST;
+            _saidaProduto.Cfop = saidaProduto.CodCfop;
         }
 
         /// <summary>
@@ -620,17 +607,17 @@ namespace Negocio
         /// <param name="saida"></param>
         private void RecalcularTotais(Saida saida)
         {
-            var query = from saidaProduto in saceContext.SaidaProdutoSet
-                        where saidaProduto.codSaida == saida.CodSaida
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        where saidaProduto.CodSaida == saida.CodSaida
                         select saidaProduto;
-            List <SaidaProdutoE> listaSaidaProdutos = query.ToList();
-            saida.Total = listaSaidaProdutos.Sum(sp => sp.subtotal).GetValueOrDefault();
-            saida.TotalAVista = listaSaidaProdutos.Sum(sp => sp.subtotalAVista).GetValueOrDefault();
-            saida.BaseCalculoICMS = listaSaidaProdutos.Sum(sp => sp.baseCalculoICMS).GetValueOrDefault();
-            saida.ValorICMS = listaSaidaProdutos.Sum(sp => sp.valorICMS).GetValueOrDefault();
-            saida.BaseCalculoICMSSubst = listaSaidaProdutos.Sum(sp => sp.baseCalculoICMSSubst).GetValueOrDefault();
-            saida.ValorICMSSubst = listaSaidaProdutos.Sum(sp => sp.valorICMSSubst).GetValueOrDefault();
-            saida.ValorIPI = listaSaidaProdutos.Sum(sp => sp.valorIPI).GetValueOrDefault();
+            var listaSaidaProdutos = query.ToList();
+            saida.Total = listaSaidaProdutos.Sum(sp => sp.Subtotal).GetValueOrDefault();
+            saida.TotalAVista = listaSaidaProdutos.Sum(sp => sp.SubtotalAvista).GetValueOrDefault();
+            saida.BaseCalculoICMS = listaSaidaProdutos.Sum(sp => sp.BaseCalculoIcms).GetValueOrDefault();
+            saida.ValorICMS = listaSaidaProdutos.Sum(sp => sp.ValorIcms).GetValueOrDefault();
+            saida.BaseCalculoICMSSubst = listaSaidaProdutos.Sum(sp => sp.BaseCalculoIcmssubst).GetValueOrDefault();
+            saida.ValorICMSSubst = listaSaidaProdutos.Sum(sp => sp.ValorIcmssubst).GetValueOrDefault();
+            saida.ValorIPI = listaSaidaProdutos.Sum(sp => sp.ValorIpi).GetValueOrDefault();
             gerenciadorSaida.Atualizar(saida);
         }
     }

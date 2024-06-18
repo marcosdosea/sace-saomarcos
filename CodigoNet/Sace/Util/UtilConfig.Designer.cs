@@ -142,5 +142,14 @@ namespace Util {
                 return ((string)(this["NFE_MENSAGEM_PADRAO"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int CARTAO_LOJA {
+            get {
+                return ((int)(this["CARTAO_LOJA"]));
+            }
+        }
     }
 }

@@ -62,5 +62,152 @@
     <None Update="NFE_Schema41\xmldsig-core-schema_v1.01.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Update="NFE_Schema\1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\12.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\13.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\14.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\15.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\16.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\17.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\cancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\consCad_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\consReciNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\consSitNFe_v2.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\consStatServ_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\e110111_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\envEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\enviNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\eventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\inutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\leiauteCancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\leiauteConsSitNFe_v2.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\leiauteConsStatServ_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\leiauteConsultaCadastro_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\leiauteEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\leiauteInutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\leiauteNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\nfe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\procCancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\procEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\procInutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\procNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\retCancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\retConsCad_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\retConsReciNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\retConsSitNFe_v2.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\retConsStatServ_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\retEnvEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\retEnviNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\retInutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\tiposBasico_v1.03.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="NFE_Schema\xmldsig-core-schema_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
 </Project>

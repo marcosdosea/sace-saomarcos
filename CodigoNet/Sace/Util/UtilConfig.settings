@@ -49,5 +49,8 @@
     <Setting Name="NFE_MENSAGEM_PADRAO" Type="System.String" Scope="Application">
       <Value Profile="(Default)">DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL. NÃO GERA DIREITO A CRÉDITO FISCAL DE IPI.</Value>
     </Setting>
+    <Setting Name="CARTAO_LOJA" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

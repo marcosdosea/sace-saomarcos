@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using Dados;
+﻿using Dados;
 using Dominio;
-using Dominio.Consultas;
+using Microsoft.EntityFrameworkCore;
+using Util;
 
 namespace Negocio
 {
@@ -12,10 +9,16 @@ namespace Negocio
     {
 
         private readonly SaceContext context;
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorConta gerenciadorConta;
+        private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
 
         public GerenciadorSaidaPagamento(SaceContext saceContext)
         {
             context = saceContext;
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorConta = new GerenciadorConta(context);
+            gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
         }
 
         /// <summary>
@@ -26,12 +29,9 @@ namespace Negocio
         /// <returns></returns>
         public long Inserir(SaidaPagamento saidaPagamento, Saida saida)
         {
-            DbTransaction transaction = null;
             try
             {
-                if (saceContext.Connection.State == System.Data.ConnectionState.Closed)
-                    saceContext.Connection.Open();
-                transaction = saceContext.Connection.BeginTransaction();
+                context.Database.BeginTransaction();
 
                 if ((saidaPagamento.Valor == 0) && ((saida.TotalAVista - saida.TotalPago) != 0))
                 {
@@ -59,7 +59,7 @@ namespace Negocio
                 {
                     throw new NegocioException("É necessário informar um cliente para utilizar essa forma de pagamento.");
                 }
-                else if ((saidaPagamento.CodFormaPagamento == FormaPagamento.CARTAO) && (saidaPagamento.CodCartaoCredito == Util.UtilConfig.Default.CARTAO_LOJA))
+                else if ((saidaPagamento.CodFormaPagamento == FormaPagamento.CARTAO) && (saidaPagamento.CodCartaoCredito == UtilConfig.Default.CARTAO_LOJA))
                 {
                     throw new NegocioException("Esse cartão de crédito não pode ser utilizado como forma de pagamento. Favor selecionar um novo cartão.");
                 }
@@ -73,44 +73,39 @@ namespace Negocio
 
                 if (Math.Abs(saida.TotalAVista - saida.TotalPago) > 0)
                 {
-                    SaidaFormaPagamentoE _saidaPagamentoE = new SaidaFormaPagamentoE();
-                    _saidaPagamentoE.codCartao = saidaPagamento.CodCartaoCredito;
-                    _saidaPagamentoE.codContaBanco = saidaPagamento.CodContaBanco;
-                    _saidaPagamentoE.codFormaPagamento = saidaPagamento.CodFormaPagamento;
-                    _saidaPagamentoE.codSaida = saidaPagamento.CodSaida;
-                    _saidaPagamentoE.data = saidaPagamento.Data;
-                    _saidaPagamentoE.intervaloDias = saidaPagamento.IntervaloDias;
-                    _saidaPagamentoE.parcelas = saidaPagamento.Parcelas;
-                    _saidaPagamentoE.valor = saidaPagamento.Valor;
-                    _saidaPagamentoE.numeroControle = String.IsNullOrEmpty(saidaPagamento.NumeroControle) ? "" : saidaPagamento.NumeroControle;
+                    var _saidaPagamento = new TbSaidaFormaPagamento();
+                    _saidaPagamento.CodCartao = saidaPagamento.CodCartaoCredito;
+                    _saidaPagamento.CodContaBanco = saidaPagamento.CodContaBanco;
+                    _saidaPagamento.CodFormaPagamento = saidaPagamento.CodFormaPagamento;
+                    _saidaPagamento.CodSaida = saidaPagamento.CodSaida;
+                    _saidaPagamento.Data = saidaPagamento.Data;
+                    _saidaPagamento.IntervaloDias = saidaPagamento.IntervaloDias;
+                    _saidaPagamento.Parcelas = saidaPagamento.Parcelas;
+                    _saidaPagamento.Valor = saidaPagamento.Valor;
+                    _saidaPagamento.NumeroControle = String.IsNullOrEmpty(saidaPagamento.NumeroControle) ? "" : saidaPagamento.NumeroControle;
 
 
-                    repSaidaPagamento.Inserir(_saidaPagamentoE);
-                    repSaidaPagamento.SaveChanges();
+                    context.Add(_saidaPagamento);
+                    context.SaveChanges();
 
-                    var query = from saidaPagamentoSet in saceContext.SaidaFormaPagamentoSet
-                                where saidaPagamentoSet.codSaida == saida.CodSaida
-                                select saidaPagamentoSet;
+                    var query = from saidaFormaPagamento in context.TbSaidaFormaPagamentos
+                                where saidaFormaPagamento.CodSaida == saida.CodSaida
+                                select saidaFormaPagamento;
 
 
-                    saida.TotalPago = query.ToList().Sum(sp => (decimal) sp.valor);
+                    saida.TotalPago = query.Sum(sp => (decimal) sp.Valor);
                     saida.Troco = saida.TotalPago - saida.TotalAVista;
                     saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
 
                 }
-                GerenciadorSaida.GetInstance(saceContext).Atualizar(saida);
-                transaction.Commit();
+                gerenciadorSaida.Atualizar(saida);
+                context.Database.CommitTransaction();
             }
             catch (Exception e)
             {
-                transaction.Rollback();
+                context.Database.RollbackTransaction();
                 throw new DadosException("Pagamentos", e.Message, e);
             }
-            finally
-            {
-                saceContext.Connection.Close();
-            }
-
             return 0;
         }
 
@@ -123,15 +118,15 @@ namespace Negocio
         {
             try
             {
-                var query = from saidaPagamentoE in saceContext.SaidaFormaPagamentoSet
-                            where saidaPagamentoE.codSaida == codSaida && saidaPagamentoE.codFormaPagamento == FormaPagamento.CARTAO
-                            select saidaPagamentoE;
-                foreach (SaidaFormaPagamentoE _saidaPagamentoE in query)
+                var query = from saidaFormaPagamento in context.TbSaidaFormaPagamentos
+                            where saidaFormaPagamento.CodSaida == codSaida && saidaFormaPagamento.CodFormaPagamento == FormaPagamento.CARTAO
+                            select saidaFormaPagamento;
+                foreach (TbSaidaFormaPagamento saidaFormaPagamento in query)
                 {
-                    _saidaPagamentoE.codCartao = codCartao;
-                    _saidaPagamentoE.numeroControle = numeroControle;
+                    saidaFormaPagamento.CodCartao = codCartao;
+                    saidaFormaPagamento.NumeroControle = numeroControle;
                 }
-                saceContext.SaveChanges();
+                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -146,82 +141,72 @@ namespace Negocio
         public void RemoverPorSaida(Saida saida)
         {
             List<SaidaPagamento> listaSaidaPagamento = ObterPorSaida(saida.CodSaida);
-            foreach (SaidaPagamento saidaPagamento in listaSaidaPagamento)
-            {
-                Remover(saidaPagamento.CodSaidaPagamento, saida);
-
-            }
-            //repSaidaPagamento.SaveChanges();
-        }
-
-        /// <summary>
-        /// Remover um determinado pagamento de uma saída
-        /// </summary>
-        /// <param name="codSaidaPagamento"></param>
-        /// <param name="saida"></param>
-        public void Remover(Int64 codSaidaPagamento, Saida saida)
-        {
             try
             {
-                if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_CREDITO))
+                context.Database.BeginTransaction();
+                foreach (SaidaPagamento saidaPagamento in listaSaidaPagamento)
                 {
-                    List<Conta> contas = gerenciadorConta.ObterPorSaidaPagamento(saida.CodSaida, codSaidaPagamento).ToList();
-
-                    foreach (Conta conta in contas)
+                    if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_CREDITO))
                     {
-                        GerenciadorMovimentacaoConta.GetInstance(saceContext).RemoverPorConta(conta.CodConta);
-                        gerenciadorConta.Remover(conta.CodConta);
-                    }
-                }
-                var query = from saidaPagamentoSet in saceContext.SaidaFormaPagamentoSet
-                            where saidaPagamentoSet.codSaidaFormaPagamento == codSaidaPagamento
-                            select saidaPagamentoSet;
+                        List<Conta> contas = gerenciadorConta.ObterPorSaidaPagamento(saida.CodSaida, saidaPagamento.CodSaidaPagamento).ToList();
 
-                foreach (SaidaFormaPagamentoE _saidaPagamentoE in query)
-                {
-                    repSaidaPagamento.Remover(_saidaPagamentoE);
+                        foreach (Conta conta in contas)
+                        {
+                            gerenciadorMovimentacaoConta.RemoverPorConta(conta.CodConta);
+                            gerenciadorConta.Remover(conta.CodConta);
+                        }
+                    }
+                    var query = from saidaPagamentoSet in context.TbSaidaFormaPagamentos
+                                where saidaPagamentoSet.CodSaidaFormaPagamento == saidaPagamento.CodSaidaPagamento
+                                select saidaPagamentoSet;
+
+                    foreach (TbSaidaFormaPagamento _saidaPagamentoE in query)
+                    {
+                        context.Remove(_saidaPagamentoE);
+                    }
+                    context.SaveChanges();
+
+                    saida.TotalPago = listaSaidaPagamento.Sum(sp => sp.Valor);
+                    saida.Troco = saida.TotalPago - saida.TotalAVista;
+                    saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
+                    gerenciadorSaida.Atualizar(saida);
                 }
-                repSaidaPagamento.SaveChanges();
-                
-                saida.TotalPago = ObterPorSaida(saida.CodSaida).Sum(sp => sp.Valor);
-                saida.Troco = saida.TotalPago - saida.TotalAVista;
-                saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
-                GerenciadorSaida.GetInstance(saceContext).Atualizar(saida);
+                context.Database.CommitTransaction();
             }
             catch (Exception e)
             {
-                throw new DadosException("Pagamentos", e.Message, e);
+                throw new DadosException("Problemas na exclusão de vários pagamentos.", e);   
             }
+            
         }
 
-
+        
         /// <summary>
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
         private IQueryable<SaidaPagamento> GetQuery()
         {
-            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
+            var query = from saidaPagamento in context.TbSaidaFormaPagamentos
                         select new SaidaPagamento
                         {
-                            CodCartaoCredito = saidaPagamento.codCartao,
-                            CodContaBanco = saidaPagamento.codContaBanco,
-                            DescricaoContaBanco = saidaPagamento.tb_conta_banco.descricao,
-                            CodFormaPagamento = saidaPagamento.codFormaPagamento,
-                            CodSaida = saidaPagamento.codSaida,
-                            CodSaidaPagamento = saidaPagamento.codSaidaFormaPagamento,
-                            Data = (DateTime)saidaPagamento.data,
-                            DescricaoFormaPagamento = saidaPagamento.tb_forma_pagamento.descricao,
-                            IntervaloDias = (int)saidaPagamento.intervaloDias,
-                            MapeamentoCartao = saidaPagamento.tb_cartao_credito.mapeamento,
-                            MapeamentoFormaPagamento = saidaPagamento.tb_forma_pagamento.mapeamento,
-                            NomeCartaoCredito = saidaPagamento.tb_cartao_credito.nome,
-                            Parcelas = (int)saidaPagamento.parcelas,
-                            Valor = (decimal)saidaPagamento.valor,
-                            NumeroControle = saidaPagamento.numeroControle
+                            CodCartaoCredito = saidaPagamento.CodCartao,
+                            CodContaBanco = saidaPagamento.CodContaBanco,
+                            DescricaoContaBanco = saidaPagamento.CodContaBancoNavigation.Descricao,
+                            CodFormaPagamento = saidaPagamento.CodFormaPagamento,
+                            CodSaida = saidaPagamento.CodSaida,
+                            CodSaidaPagamento = saidaPagamento.CodSaidaFormaPagamento,
+                            Data = (DateTime)saidaPagamento.Data,
+                            DescricaoFormaPagamento = saidaPagamento.CodFormaPagamentoNavigation.Descricao,
+                            IntervaloDias = (int)saidaPagamento.IntervaloDias,
+                            MapeamentoCartao = saidaPagamento.CodCartaoNavigation.Mapeamento,
+                            MapeamentoFormaPagamento = saidaPagamento.CodFormaPagamentoNavigation.Mapeamento,
+                            NomeCartaoCredito = saidaPagamento.CodCartaoNavigation.Nome,
+                            Parcelas = (int)saidaPagamento.Parcelas,
+                            Valor = (decimal)saidaPagamento.Valor,
+                            NumeroControle = saidaPagamento.NumeroControle
                         };
-            return query;
-
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -271,18 +256,18 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<TotalPagamentoSaida> ObterTotalPagamento(DateTime dataInicial, DateTime dataFinal)
         {
-            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
-                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
-                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA ||
-                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_CREDITO) && (saidaPagamento.codFormaPagamento != FormaPagamento.CREDIARIO)
-                        group saidaPagamento by saidaPagamento.codFormaPagamento into gsaida
+            var query = from saidaPagamento in context.TbSaidaFormaPagamentos
+                        where saidaPagamento.Data >= dataInicial && saidaPagamento.Data <= dataFinal &&
+                            (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
+                            saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_CREDITO) && (saidaPagamento.CodSaidaFormaPagamento != FormaPagamento.CREDIARIO)
+                        group saidaPagamento by saidaPagamento.CodFormaPagamento into gsaida
 
                         select new TotalPagamentoSaida
                         {
                             CodFormaPagamentos = gsaida.Key,
-                            DescricaoFormaPagamentos = gsaida.FirstOrDefault().tb_forma_pagamento.descricao,
+                            DescricaoFormaPagamentos = gsaida.FirstOrDefault().CodFormaPagamentoNavigation.Descricao,
                             //SomaSaldo = movimentacao.tb_tipo_movimentacao_conta.somaSaldo,
-                            TotalPagamento = (decimal)gsaida.Sum(saidaPagamento => saidaPagamento.valor)
+                            TotalPagamento = (decimal)gsaida.Sum(saidaPagamento => saidaPagamento.Valor)
                         };
             return query.ToList();
         }
@@ -293,17 +278,17 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<TotalPagamentoSaida> ObterTotalPagamentoSaida(DateTime dataInicial, DateTime dataFinal)
         {
-            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
-                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
-                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA)
-                        group saidaPagamento by saidaPagamento.codFormaPagamento into gsaida
+            var query = from saidaPagamento in context.TbSaidaFormaPagamentos
+                        where saidaPagamento.Data >= dataInicial && saidaPagamento.Data <= dataFinal &&
+                            (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA)
+                        group saidaPagamento by saidaPagamento.CodFormaPagamento into gsaida
 
                         select new TotalPagamentoSaida
                         {
                             CodFormaPagamentos = gsaida.Key,
-                            DescricaoFormaPagamentos = gsaida.FirstOrDefault().tb_forma_pagamento.descricao,
+                            DescricaoFormaPagamentos = gsaida.FirstOrDefault().CodFormaPagamentoNavigation.Descricao,
                             //SomaSaldo = movimentacao.tb_tipo_movimentacao_conta.somaSaldo,
-                            TotalPagamento = (decimal)gsaida.Sum(saidaPagamento => saidaPagamento.valor)
+                            TotalPagamento = (decimal)gsaida.Sum(saidaPagamento => saidaPagamento.Valor)
                         };
             return query.ToList();
         }
@@ -314,21 +299,21 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<VendasCartao> ObterVendasCartao(DateTime dataInicial, DateTime dataFinal)
         {
-            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
-                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
-                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || 
-                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA ||
-                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_CREDITO) &&
-                            (saidaPagamento.codFormaPagamento == FormaPagamento.CARTAO)
+            var query = from saidaPagamento in context.TbSaidaFormaPagamentos
+                        where saidaPagamento.Data >= dataInicial && saidaPagamento.Data <= dataFinal &&
+                            (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || 
+                            saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
+                            saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_CREDITO) &&
+                            (saidaPagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                         select new VendasCartao
                         {
-                            CodCartao = saidaPagamento.codCartao,
-                            TipoCartao = saidaPagamento.tb_cartao_credito.tipoCartao,
-                            DescricaoCartao = saidaPagamento.tb_cartao_credito.nome,
-                            TotalCartao = (decimal) saidaPagamento.valor,
-                            Parcelas = (int) saidaPagamento.parcelas,
-                            CodSaida = saidaPagamento.codSaida,
-                            NumeroControle = saidaPagamento.numeroControle
+                            CodCartao = saidaPagamento.CodCartao,
+                            TipoCartao = saidaPagamento.CodCartaoNavigation.TipoCartao,
+                            DescricaoCartao = saidaPagamento.CodCartaoNavigation.Nome,
+                            TotalCartao = (decimal) saidaPagamento.Valor,
+                            Parcelas = (int) saidaPagamento.Parcelas,
+                            CodSaida = saidaPagamento.CodSaida,
+                            NumeroControle = saidaPagamento.NumeroControle
                         };
             return query.ToList();
         }
@@ -339,18 +324,18 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<VendasPixDeposito> ObterVendasPixDeposito(DateTime dataInicial, DateTime dataFinal)
         {
-            var query = from saidaPagamento in saceContext.SaidaFormaPagamentoSet
-                        where saidaPagamento.data >= dataInicial && saidaPagamento.data <= dataFinal &&
-                            (saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_VENDA || 
-                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_PRE_VENDA ||
-                            saidaPagamento.tb_saida.codTipoSaida == Saida.TIPO_CREDITO) &&
-                            (saidaPagamento.codFormaPagamento == FormaPagamento.DEPOSITO_PIX)
+            var query = from saidaPagamento in context.TbSaidaFormaPagamentos
+                        where saidaPagamento.Data >= dataInicial && saidaPagamento.Data <= dataFinal &&
+                            (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || 
+                            saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
+                            saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_CREDITO) &&
+                            (saidaPagamento.CodFormaPagamento == FormaPagamento.DEPOSITO_PIX)
                         select new VendasPixDeposito
                         {
-                            CodSaida = saidaPagamento.codSaida,
-                            Vendedor = saidaPagamento.tb_saida.tb_pessoa1.nome,
-                            DataHora = saidaPagamento.data,
-                            Valor = (decimal)saidaPagamento.valor,
+                            CodSaida = saidaPagamento.CodSaida,
+                            Vendedor = saidaPagamento.CodSaidaNavigation.CodProfissionalNavigation.Nome,
+                            DataHora = saidaPagamento.Data,
+                            Valor = (decimal)saidaPagamento.Valor,
                         };
             return query.ToList();
         }
@@ -359,23 +344,23 @@ namespace Negocio
         {
             try
             {
-                var query = from saidaPagamentoE in saceContext.SaidaFormaPagamentoSet
-                            where saidaPagamentoE.codSaida == saidaPagamento.CodSaida
+                var query = from saidaPagamentoE in context.TbSaidaFormaPagamentos
+                            where saidaPagamentoE.CodSaida == saidaPagamento.CodSaida
                             select saidaPagamentoE;
-                foreach (SaidaFormaPagamentoE _saidaPagamentoE in query)
+                foreach (TbSaidaFormaPagamento _saidaPagamentoE in query)
                 {
-                    _saidaPagamentoE.codCartao = saidaPagamento.CodCartaoCredito;
-                    _saidaPagamentoE.numeroControle = saidaPagamento.NumeroControle;
-                    _saidaPagamentoE.codContaBanco = saidaPagamento.CodContaBanco;
-                    _saidaPagamentoE.codFormaPagamento = saidaPagamento.CodFormaPagamento;
-                    _saidaPagamentoE.codSaida = saidaPagamento.CodSaida;
-                    _saidaPagamentoE.data = saidaPagamento.Data;
-                    _saidaPagamentoE.intervaloDias = saidaPagamento.IntervaloDias;
-                    _saidaPagamentoE.numeroControle = saidaPagamento.NumeroControle;
-                    _saidaPagamentoE.parcelas = saidaPagamento.Parcelas;
-                    _saidaPagamentoE.valor = saidaPagamento.Valor;
+                    _saidaPagamentoE.CodCartao = saidaPagamento.CodCartaoCredito;
+                    _saidaPagamentoE.NumeroControle = saidaPagamento.NumeroControle;
+                    _saidaPagamentoE.CodContaBanco = saidaPagamento.CodContaBanco;
+                    _saidaPagamentoE.CodFormaPagamento = saidaPagamento.CodFormaPagamento;
+                    _saidaPagamentoE.CodSaida = saidaPagamento.CodSaida;
+                    _saidaPagamentoE.Data = saidaPagamento.Data;
+                    _saidaPagamentoE.IntervaloDias = saidaPagamento.IntervaloDias;
+                    _saidaPagamentoE.NumeroControle = saidaPagamento.NumeroControle;
+                    _saidaPagamentoE.Parcelas = saidaPagamento.Parcelas;
+                    _saidaPagamentoE.Valor = saidaPagamento.Valor;
                 }
-                saceContext.SaveChanges();
+                context.SaveChanges();
             }
             catch (Exception e)
             {

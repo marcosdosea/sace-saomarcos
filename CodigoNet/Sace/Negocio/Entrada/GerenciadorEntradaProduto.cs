@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Dominio.NFE2;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using Util;

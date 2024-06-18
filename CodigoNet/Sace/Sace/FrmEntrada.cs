@@ -308,7 +308,7 @@ namespace Telas
             if (openFileDialogNfe.ShowDialog() == DialogResult.OK)
             {
                 string nomearquivo = openFileDialogNfe.FileName;
-                TNfeProc nfe = GerenciadorNFe.GetInstance().LerNFE(nomearquivo);
+                TNfeProc nfe = gerenciadorNFe.LerNFE(nomearquivo);
                 if (MessageBox.Show("Deseja importar CABEÇALHO da NF-e?", "Confirmar Importar NF-e", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     Cursor.Current = Cursors.WaitCursor;

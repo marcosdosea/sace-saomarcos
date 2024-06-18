@@ -19,7 +19,7 @@ namespace Negocio
         /// </summary>
         /// <param name="ImprimirDocumento"></param>
         /// <returns></returns>
-        public Int64 Inserir(ImprimirDocumento documento)
+        public long Inserir(ImprimirDocumento documento)
         {
             TbImprimirDocumento _documento = new TbImprimirDocumento();
             try
