@@ -8,7 +8,7 @@ using System.Data;
 using Dados;
 using System.Drawing;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmProdutoSolicitacoesCompra : Form
     {
@@ -22,7 +22,7 @@ namespace Telas
 
         private void FrmProdutoEstatistica_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
             pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
 
             if (MessageBox.Show("Deseja ANALISAR ESTOQUE para atualizar SOLICITAÇÕES DE COMPRA?", "Confirmar Análise Estoque", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -50,7 +50,7 @@ namespace Telas
                     SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.NAO_COMPRAR;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe.ToUpper());
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe.ToUpper());
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -61,7 +61,7 @@ namespace Telas
                     SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -73,7 +73,7 @@ namespace Telas
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
                     solicitacaoCompra.DataSolicitacaoCompra = DateTime.Now;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -86,7 +86,7 @@ namespace Telas
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
                     solicitacaoCompra.DataSolicitacaoCompra = DateTime.Now;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -99,7 +99,7 @@ namespace Telas
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRADO;
                     solicitacaoCompra.DataPedidoCompra = DateTime.Now;
-                    GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -118,7 +118,7 @@ namespace Telas
       
         private void preencherDadosEstatisticos(ProdutoPesquisa produtoPesquisa)
         {
-            Produto produto = GerenciadorProduto.GetInstance().Obter(produtoPesquisa);
+            Produto produto = gerenciadorProduto.Obter(produtoPesquisa);
             
             preco_custoTextBox.Text = produto.PrecoCusto.ToString("N2");
             precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString("N2");
@@ -204,7 +204,7 @@ namespace Telas
             long codFornecedor = 1;
             if (comboBoxFornecedor.SelectedValue != null)
                 codFornecedor = (long) comboBoxFornecedor.SelectedValue;
-            solicitacoesCompraBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterSolicitacoesCompra(listaSituacoesProdutoChecked, codFornecedor);
+            solicitacoesCompraBindingSource.DataSource = gerenciadorProduto.ObterSolicitacoesCompra(listaSituacoesProdutoChecked, codFornecedor);
         }
 
         private void DestacarProdutos()
@@ -253,7 +253,7 @@ namespace Telas
             if (solicitacoesCompraBindingSource.Count > 0)
             {
                 SolicitacoesCompra solicitacao = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
-                ProdutoPesquisa produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = solicitacao.CodProduto });
+                ProdutoPesquisa produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = solicitacao.CodProduto });
                 produtoBindingSource.DataSource = produto;
                 preencherDadosEstatisticos(produto);
             }

@@ -1,6 +1,5 @@
 using Dados;
 using Microsoft.EntityFrameworkCore;
-using Telas;
 using Util;
 
 namespace Sace

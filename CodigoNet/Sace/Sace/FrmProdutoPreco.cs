@@ -4,7 +4,7 @@ using System;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmProdutoPreco : Form
     {
@@ -42,11 +42,11 @@ namespace Telas
                 txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
                 if (ExibirTodos)
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNome(txtTexto.Text);
                 }
                 else
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
                 }
             }
             else
@@ -62,14 +62,14 @@ namespace Telas
             if ((txtTexto.Text.Trim().Length > 0) && (txtTexto.Text.Length > textoAtual.Length))
             {
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().Obter(int.Parse(txtTexto.Text));
+                    produtoBindingSource.DataSource = gerenciadorProduto.Obter(int.Parse(txtTexto.Text));
                 else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorReferenciaFabricante(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorReferenciaFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeProdutoFabricante(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNomeProdutoFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Length > 9))
                 {
@@ -77,7 +77,7 @@ namespace Telas
                     {
                         DateTime data = Convert.ToDateTime(txtTexto.Text);
                         // se conseguir converter para uma data válida ele faz a busca
-                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorDataAtualizacaoMaiorIgual(data);
+                        produtoBindingSource.DataSource = gerenciadorProduto.ObterPorDataAtualizacaoMaiorIgual(data);
                     }
                     catch (Exception)
                     {
@@ -87,11 +87,11 @@ namespace Telas
                 }
                 else if (cmbBusca.SelectedIndex == 5) // códigos de barra inválidos
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorCodigosBarraInvalidos();
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigosBarraInvalidos();
                 }
                 else if (cmbBusca.SelectedIndex == 6) // códigos de barra inválidos
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorCodigosBarraEmBranco();
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigosBarraEmBranco();
                 }
                 else if ((cmbBusca.SelectedIndex == 7) && (txtTexto.Text.Length > 9))
                 {
@@ -99,7 +99,7 @@ namespace Telas
                     {
                         DateTime data = Convert.ToDateTime(txtTexto.Text);
                         // se conseguir converter para uma data válida ele faz a busca
-                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorDataMudancaPrecoMaiorIgual(data);
+                        produtoBindingSource.DataSource = gerenciadorProduto.ObterPorDataMudancaPrecoMaiorIgual(data);
                     }
                     catch (Exception)
                     {
@@ -110,16 +110,16 @@ namespace Telas
                 else if ((cmbBusca.SelectedIndex == 8) && (txtTexto.Text.Length > 0))
                 {
                     long codFabricante = long.Parse(txtTexto.Text);
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorCodigoFabricante(codFabricante);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigoFabricante(codFabricante);
                 }
                 else
                 {
                     if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length >= 1)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length >= 1))))
                     {
                         if (ExibirTodos)
-                            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                            produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNome(txtTexto.Text);
                         else
-                            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
+                            produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
                     }
                 }
                             }
@@ -232,7 +232,7 @@ namespace Telas
                     decimal precoVarejo = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[4].Value.ToString());
                     decimal precoAtacado = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[5].Value.ToString());
                     decimal precoRevenda = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[6].Value.ToString());
-                    GerenciadorProduto.GetInstance().AtualizarPrecoVarejoAtacado(codProduto, nomeProduto, precoVarejo, precoAtacado, precoRevenda);
+                    gerenciadorProduto.AtualizarPrecoVarejoAtacado(codProduto, nomeProduto, precoVarejo, precoAtacado, precoRevenda);
                 }
 
             }

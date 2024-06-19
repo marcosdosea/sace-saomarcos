@@ -1,4 +1,4 @@
-﻿namespace Telas
+﻿namespace Sace
 {
     partial class FrmPlanoContaPesquisa
     {

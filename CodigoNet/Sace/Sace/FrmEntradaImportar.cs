@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Dominio;
 using Negocio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmEntradaImportar : Form
     {
@@ -25,7 +25,7 @@ namespace Telas
 
         private void FrmEntradaImportar_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomes();
+            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodosNomes();
             entradaProdutoBindingSource.DataSource = listaEntradaProduto;
         }
 
@@ -70,11 +70,11 @@ namespace Telas
         {
                 if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
                 {
-                    Telas.FrmProduto frmProduto = new Telas.FrmProduto();
+                    FrmProduto frmProduto = new FrmProduto();
                     frmProduto.ShowDialog();
                     if (frmProduto.ProdutoPesquisa != null)
                     {
-                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomes();
+                        produtoBindingSource.DataSource = gerenciadorProduto.ObterTodosNomes();
                         produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new ProdutoNome() { CodProduto = frmProduto.ProdutoPesquisa.CodProduto });
                     }
                     frmProduto.Dispose();
@@ -180,7 +180,7 @@ namespace Telas
             frmProduto.ShowDialog();
             entradaProduto.CodProduto = frmProduto.ProdutoPesquisa.CodProduto;
             entradaProdutoBindingSource.ResumeBinding();
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosNomes();
+            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodosNomes();
             produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new ProdutoNome() { CodProduto = entradaProduto.CodProduto });
             frmProduto.Dispose();
         }

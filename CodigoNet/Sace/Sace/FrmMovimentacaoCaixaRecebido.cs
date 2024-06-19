@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Negocio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmMovimentacaoCaixaRecebido: Form
     {

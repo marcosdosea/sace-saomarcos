@@ -7,7 +7,7 @@ using Negocio;
 using Util;
 
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmCartaoCredito : Form
     {
@@ -37,7 +37,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmCartaoCreditoPesquisa frmCartaoCreditoPesquisa = new Telas.FrmCartaoCreditoPesquisa();
+            FrmCartaoCreditoPesquisa frmCartaoCreditoPesquisa = new FrmCartaoCreditoPesquisa();
             frmCartaoCreditoPesquisa.ShowDialog();
             if (frmCartaoCreditoPesquisa.CartaoCreditoSelected != null)
             {
@@ -177,7 +177,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codContaBancoComboBox.Focused))
                 {
-                    Telas.FrmContaBancoPesquisa frmContaBancoPesquisa = new Telas.FrmContaBancoPesquisa();
+                    FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa();
                     frmContaBancoPesquisa.ShowDialog();
                     if (frmContaBancoPesquisa.ContaBancoSelected != null)
                     {
@@ -187,7 +187,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codContaBancoComboBox.Focused))
                 {
-                    Telas.FrmContaBanco frmContaBanco = new Telas.FrmContaBanco();
+                    FrmContaBanco frmContaBanco = new FrmContaBanco();
                     frmContaBanco.ShowDialog();
                     if (frmContaBanco.ContaBancoSelected != null)
                     {
@@ -197,7 +197,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {

@@ -3,13 +3,14 @@ using Dominio;
 using Microsoft.EntityFrameworkCore;
 using Negocio;
 using System.Data;
+using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmMovimentacaoCaixa : Form
     {
         private GerenciadorContaBanco gerenciadorContaBanco;
-        private Gerenciador
+      
         public FrmMovimentacaoCaixa(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
@@ -39,7 +40,7 @@ namespace Telas
             TotalPagamentoSaida totalPagamentoDinheiro = totaisPagamentos.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
             if (totalPagamentoDinheiro != null)
             {
-                decimal trocoPorPeriodo = GerenciadorSaida.GetInstance(null).ObterTrocoPagamentos(dataInicial, dataFinal);
+                decimal trocoPorPeriodo = gerenciadorSaida.ObterTrocoPagamentos(dataInicial, dataFinal);
                 totalPagamentoDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisPagamentosBindingSource.DataSource = totaisPagamentos;
@@ -50,7 +51,7 @@ namespace Telas
             TotalPagamentoSaida totalPagamentoSaidaDinheiro = totaisSaida.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
             if (totalPagamentoSaidaDinheiro != null)
             {
-                decimal trocoPorPeriodo = GerenciadorSaida.GetInstance(null).ObterTrocoSaidas(dataInicial, dataFinal);
+                decimal trocoPorPeriodo = gerenciadorSaida.ObterTrocoSaidas(dataInicial, dataFinal);
                 totalPagamentoSaidaDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisSaidaBindingSource.DataSource = totaisSaida;

@@ -10,7 +10,7 @@ using Negocio;
 using Dominio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmConta : Form
     {
@@ -50,7 +50,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmContaPesquisa frmContaPesquisa = new Telas.FrmContaPesquisa();
+            FrmContaPesquisa frmContaPesquisa = new FrmContaPesquisa();
             frmContaPesquisa.ShowDialog();
             if (frmContaPesquisa.ContaSelected != null)
             {
@@ -176,7 +176,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -186,7 +186,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -197,7 +197,7 @@ namespace Telas
 
                 else if ((e.KeyCode == Keys.F2) && (codPlanoContaComboBox.Focused))
                 {
-                    Telas.FrmPlanoContaPesquisa frmPlanoContaPesquisa = new Telas.FrmPlanoContaPesquisa();
+                    FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa();
                     frmPlanoContaPesquisa.ShowDialog();
                     if (frmPlanoContaPesquisa.PlanoContaSelected != null)
                     {
@@ -207,7 +207,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPlanoContaComboBox.Focused))
                 {
-                    Telas.FrmPlanoConta frmPlanoConta = new Telas.FrmPlanoConta();
+                    FrmPlanoConta frmPlanoConta = new FrmPlanoConta();
                     frmPlanoConta.ShowDialog();
                     if (frmPlanoConta.PlanoContaSelected != null)
                     {

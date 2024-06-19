@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSaidaPagamento : Form
     {
@@ -35,7 +35,7 @@ namespace Telas
 
             contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
             cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterTodos();
-            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
             saida = (Saida)saidaBindingSource.Current;
             if (saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO && saida.TipoSaida != Saida.TIPO_PRE_CREDITO)
             {
@@ -174,10 +174,10 @@ namespace Telas
 
                         if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                         {
-                            GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
+                            gerenciadorSaida.Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
                             if (cliente.ImprimirDAV)
                             {
-                                if (!GerenciadorSaida.GetInstance(null).SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, UtilConfig.Default.Impressora.REDUZIDO2))
+                                if (!gerenciadorSaida.SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, UtilConfig.Default.Impressora.REDUZIDO2))
                                 {
                                     MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
@@ -185,7 +185,7 @@ namespace Telas
                         }
                         else if (cliente.CodPessoa.Equals(Properties.Settings.Default.ClienteUsoInterno))
                         {
-                            GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_USO_INTERNO, listaPagamentosSaida, cliente);
+                            gerenciadorSaida.Encerrar(saida, Saida.TIPO_USO_INTERNO, listaPagamentosSaida, cliente);
                             if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
                             {
                                 if (saida.TotalAVista > 0)
@@ -205,7 +205,7 @@ namespace Telas
                         }
                         else if (cliente.CodPessoa.Equals(Properties.Settings.Default.ClienteBaixaEstoque))
                         {
-                            GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_BAIXA_ESTOQUE_PERDA, listaPagamentosSaida, cliente);
+                            gerenciadorSaida.Encerrar(saida, Saida.TIPO_BAIXA_ESTOQUE_PERDA, listaPagamentosSaida, cliente);
                             if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
                             {
                                 if (saida.TotalAVista > 0)
@@ -240,14 +240,14 @@ namespace Telas
                             }
                             if (limiteCompraLiberado)
                             {
-                                GerenciadorSaida.GetInstance(null).Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
+                                gerenciadorSaida.Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
                                 if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
                                 {
                                     // quando tem pagamento crediário imprime o DAV
                                     bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
                                     if (temPagamentoCrediario && cliente.ImprimirDAV)
                                     {
-                                        if (!GerenciadorSaida.GetInstance(null).SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, UtilConfig.Default.Impressora.REDUZIDO2))
+                                        if (!gerenciadorSaida.SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, UtilConfig.Default.Impressora.REDUZIDO2))
                                         {
                                             MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         }

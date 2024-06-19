@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Dominio;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
-using Dominio;
-using System.IO;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSaidaAutorizacao : Form
     {
@@ -18,7 +9,7 @@ namespace Telas
         NfeControle nfeControle;
         private bool exibiuResultadoCartao = false;
         private bool exibiuResultadoNfe = false;
-        static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorNfe;
+        //static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorNfe;
         DocumentoFiscal.TipoSolicitacao tipoNfe;
         int contConsultas;
         
@@ -163,9 +154,9 @@ namespace Telas
             }
         }
 
-        private void ExibirResultadoProcessamentoCartao(Dados.tb_solicitacao_documento documentoE)
+        private void ExibirResultadoProcessamentoCartao(SolicitacaoDocumento solicitacaoDocumento, List<SolicitacaoPagamento> solicitacaoPagamentos)
         {
-            if (!documentoE.cartaoProcessado)
+            if (!solicitacaoDocumento.CartaoProcessado)
             {
                 lblCartao.Text = "Aguardando Autorização Cartão...";
                 Cursor.Current = Cursors.WaitCursor;
@@ -173,20 +164,20 @@ namespace Telas
             else
             {
                 Cursor.Current = Cursors.Default;
-                if (documentoE.cartaoAutorizado)
+                if (solicitacaoDocumento.CartaoAutorizado)
                 {
                     lblCartao.ForeColor = Color.Green;
                     lblCartao.Text = "Transação AUTORIZADA!";
-                    foreach (Dados.tb_solicitacao_pagamento pagamento in documentoE.tb_solicitacao_pagamento)
+                    foreach (SolicitacaoPagamento pagamento in solicitacaoPagamentos)
                     {
-                        textCartao.Text += pagamento.cupomCliente;
+                        textCartao.Text += pagamento.CupomCliente;
                     }
                 }
                 else
                 {
                     lblCartao.ForeColor = Color.Red;
                     lblCartao.Text = "Transação NÃO REALIZADA!";
-                    textCartao.Text = documentoE.motivoCartaoNegado;
+                    textCartao.Text = solicitacaoDocumento.MotivoCartaoNegado;
                 }
                 exibiuResultadoCartao = true;
             }

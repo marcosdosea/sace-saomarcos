@@ -2,6 +2,7 @@
 using Dominio;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
+using Util;
 
 
 namespace Negocio
@@ -10,6 +11,7 @@ namespace Negocio
 
         private readonly SaceContext context;
         private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
         private readonly GerenciadorSaida gerenciadorSaida; 
 
         public GerenciadorSaidaProduto(SaceContext saceContext)
@@ -17,6 +19,7 @@ namespace Negocio
             context = saceContext;
             gerenciadorProduto = new GerenciadorProduto(context);
             gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
         }
 
         /// <summary>
@@ -185,7 +188,7 @@ namespace Negocio
                             ValorIPI = (decimal) saidaProduto.ValorIpi,
                             TemVencimento = (bool) saidaProduto.CodProdutoNavigation.TemVencimento,
                             PrecoVendaVarejo = (decimal)saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
-                            Ncmsh = saidaProduto.CodProdutoNavigation.n
+                            Ncmsh = saidaProduto.CodProdutoNavigation.Ncmsh
                         };
             return query;
         }
@@ -483,9 +486,10 @@ namespace Negocio
             DateTime dataMesesAntes = DateTime.Now.AddDays(-30 * numerosMeses);
 
             var query = from saidaProduto in context.TbSaidaProdutos
-                        where (saidaProduto.CodSaidaNavigation.DataSaida > dataMesesAntes) && 
+                        where (saidaProduto.CodSaidaNavigation.DataSaida >= dataMesesAntes) && 
                               (saidaProduto.CodSaidaNavigation.CodTipoSaida.Equals(Saida.TIPO_PRE_VENDA) 
-                              || saidaProduto.CodSaidaNavigation.CodTipoSaida.Equals(Saida.TIPO_VENDA))
+                              || saidaProduto.CodSaidaNavigation.CodTipoSaida.Equals(Saida.TIPO_VENDA)
+                              || saidaProduto.CodSaidaNavigation.CodTipoSaida.Equals(Saida.TIPO_USO_INTERNO))
                         group saidaProduto by saidaProduto.CodProduto into gVendidos
                         select new ProdutoVendido
                         {
@@ -502,38 +506,36 @@ namespace Negocio
         /// <returns></returns>
         public void AtualizarSituacaoEstoqueProdutos()
         {
-            const int NUMERO_MESES_ANALISAR = 3;
+            AtualizarSituacaoProdutosComprados(UtilConfig.Default.NUMERO_MESES_ANALISAR_ESTOQUE);
 
-            AtualizarSituacaoProdutosComprados(NUMERO_MESES_ANALISAR);
+            List<ProdutoVendido> listaProdutosVendidos = ObterProdutosVendidosUltimosMeses(UtilConfig.Default.NUMERO_MESES_ANALISAR_ESTOQUE);
 
-            List<ProdutoVendido> listaProdutosVendidos = ObterProdutosVendidosUltimosMeses(NUMERO_MESES_ANALISAR);
-
-            List<ProdutoLoja> listaProdutoLoja = GerenciadorProdutoLoja.GetInstance(null).ObterTodos();
+            List<ProdutoLoja> listaProdutoLoja = gerenciadorProdutoLoja.ObterTodos();
             
-            var query = from produto in saceContext.ProdutoSet
-                        where produto.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR
+            var query = from produto in context.TbProdutos
+                        where produto.CodSituacaoProduto != SituacaoProduto.NAO_COMPRAR
                         select produto; 
 
-            foreach( ProdutoE produtoE in query) {
-                ProdutoVendido produtoVendido = listaProdutosVendidos.Where(pv => pv.CodProduto == produtoE.codProduto).FirstOrDefault();
-                decimal estoqueAtual = listaProdutoLoja.Where(pl => pl.CodProduto == produtoE.codProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
+            foreach( TbProduto produto in query) {
+                ProdutoVendido produtoVendido = listaProdutosVendidos.Where(pv => pv.CodProduto == produto.CodProduto).FirstOrDefault();
+                decimal estoqueAtual = listaProdutoLoja.Where(pl => pl.CodProduto == produto.CodProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
 
                 // necessário deixar os itens como disponível antes da análise por conta das mudanças no estoque
-                if (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO)
-                    produtoE.codSituacaoProduto = SituacaoProduto.DISPONIVEL;
+                if (produto.CodSituacaoProduto != SituacaoProduto.COMPRADO)
+                    produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
 
 
                 if (produtoVendido != null)
                 {
                     if (estoqueAtual <= produtoVendido.QuantidadeVendida)
                     {
-                        if ((produtoE.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR) && (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO))
+                        if ((produto.CodSituacaoProduto != SituacaoProduto.NAO_COMPRAR) && (produto.CodSituacaoProduto != SituacaoProduto.COMPRADO))
                         {
                             if (estoqueAtual <= (produtoVendido.QuantidadeVendida / 2))
-                                produtoE.codSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
+                                produto.CodSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
                             else
-                                produtoE.codSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
-                            produtoE.dataSolicitacaoCompra = DateTime.Now;
+                                produto.CodSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
+                            produto.DataSolicitacaoCompra = DateTime.Now;
                         }
                     }
                 }
@@ -541,15 +543,15 @@ namespace Negocio
                 {
                     if (estoqueAtual <= 0)
                     {
-                        if ((produtoE.codSituacaoProduto != SituacaoProduto.NAO_COMPRAR) && (produtoE.codSituacaoProduto != SituacaoProduto.COMPRADO))
+                        if ((produto.CodSituacaoProduto != SituacaoProduto.NAO_COMPRAR) && (produto.CodSituacaoProduto != SituacaoProduto.COMPRADO))
                         {
-                            produtoE.codSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
-                            produtoE.dataSolicitacaoCompra = DateTime.Now;
+                            produto.CodSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
+                            produto.DataSolicitacaoCompra = DateTime.Now;
                         }
                     }
                 }
             }
-            saceContext.SaveChanges();
+            context.SaveChanges();
         }
 
 
@@ -560,19 +562,17 @@ namespace Negocio
         /// <param name="NUMERO_MESES_ANALISAR"></param>
         private void AtualizarSituacaoProdutosComprados(int NUMERO_MESES_ANALISAR)
         {
-            const int NUMERO_DIAS_PRODUTO_STATUS_COMPRADO = -60;
-
-            DateTime dataAnalise = DateTime.Now.AddDays(NUMERO_DIAS_PRODUTO_STATUS_COMPRADO);
+            DateTime dataAnalise = DateTime.Now.AddDays(UtilConfig.Default.NUMERO_DIAS_PRODUTO_STATUS_COMPRADO * (-1));
             
-            var query = from produto in saceContext.ProdutoSet
-                         where produto.codSituacaoProduto == SituacaoProduto.COMPRADO &&
-                               produto.dataPedidoCompra <= dataAnalise                        
+            var query = from produto in context.TbProdutos
+                         where produto.CodSituacaoProduto == SituacaoProduto.COMPRADO &&
+                               produto.DataPedidoCompra <= dataAnalise                        
                          select produto; 
 
-            foreach( ProdutoE produtoE in query) {
-                produtoE.codSituacaoProduto = SituacaoProduto.DISPONIVEL;
+            foreach( TbProduto produto in query) {
+                produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
             }
-            saceContext.SaveChanges();
+            context.SaveChanges();
         }
         
 

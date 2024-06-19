@@ -1,4 +1,5 @@
 ﻿using Dados;
+using Dominio;
 
 namespace Negocio
 {
@@ -12,24 +13,32 @@ namespace Negocio
         }
 
 
-        public List<ProdutoVendido> ObterProdutosVendidosDezoitoMeses(Int64 codProduto)
+        public List<ProdutoVendido> ObterProdutosVendidosDezoitoMeses(long codProduto)
         {
-            saceDataSetConsultas.ProdutosVendidosDataTable pVendidos = tb_produtos_vendidosTA.GetQuantidadeProdutosVenvidosMesAnoDesc(codProduto);
+            
+            string nomeProduto = context.TbProdutos.Find(new TbProduto { CodProduto = codProduto }).Nome;
+
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        where (saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA ||
+                              saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
+                              saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_USO_INTERNO) &&
+                              saidaProduto.CodSaidaNavigation.DataSaida.Year >= (DateTime.Now.Year - 2)
+                        orderby saidaProduto.CodSaidaNavigation.DataSaida.Year descending, saidaProduto.CodSaidaNavigation.DataSaida.Month descending
+                        group saidaProduto by
+                            new { saidaProduto.CodSaidaNavigation.DataSaida.Year, saidaProduto.CodSaidaNavigation.DataSaida.Month } into gVendidos
+                        select new ProdutoVendido
+                        {
+                            CodProduto = codProduto,
+                            Nome = nomeProduto,
+                            Ano = gVendidos.Key.Year,
+                            Mes = gVendidos.Key.Month,
+                            MesAno = String.Concat(gVendidos.Key.Month, "/", gVendidos.Key.Year),
+                            QuantidadeVendida = (decimal)gVendidos.Sum(sp => sp.Quantidade)
+                        };
 
             List<ProdutoVendido> listaProdutosVendidos = new List<ProdutoVendido>();
 
-            for (int i = 0; i < pVendidos.Rows.Count; i++)
-            {
-                ProdutoVendido produtoVendido = new ProdutoVendido();
-                produtoVendido.MesAno = ((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).mesano;
-                produtoVendido.CodProduto = ((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).codProduto;
-                produtoVendido.Nome = ((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).nome;
-                produtoVendido.QuantidadeVendida = ((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).quantidadeVendida;
-                produtoVendido.Ano = (int)((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).ano;
-                produtoVendido.Mes = (int)((saceDataSetConsultas.ProdutosVendidosRow)pVendidos.Rows[i]).mes;
-                listaProdutosVendidos.Add(produtoVendido);
-            }
-
+     
             // Insere zero nos meses sem vendas do produto
             DateTime dataAtual = DateTime.Now;
             for (int i = 0; i < 18 && i < listaProdutosVendidos.Count; i++)

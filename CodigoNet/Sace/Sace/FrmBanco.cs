@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmBanco : Form
     {
@@ -59,7 +59,7 @@ namespace Telas
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorBanco.Remover(int.Parse(codBancoTextBox.Text));
+                gerenciadorBanco.Remover(int.Parse(codBancoTextBox.Text));
                 bancoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();

@@ -151,5 +151,59 @@ namespace Util {
                 return ((int)(this["CARTAO_LOJA"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int NUMERO_MESES_ANALISAR_ESTOQUE {
+            get {
+                return ((int)(this["NUMERO_MESES_ANALISAR_ESTOQUE"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("45")]
+        public int NUMERO_DIAS_PRODUTO_STATUS_COMPRADO {
+            get {
+                return ((int)(this["NUMERO_DIAS_PRODUTO_STATUS_COMPRADO"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("28")]
+        public string C_ORGAO_IBGE_SERGIPE {
+            get {
+                return ((string)(this["C_ORGAO_IBGE_SERGIPE"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
+        public string SERVIDOR_NFE {
+            get {
+                return ((string)(this["SERVIDOR_NFE"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SM_VENDAS01")]
+        public string SERVIDOR_IMPRIMIR_REDUZIDO1 {
+            get {
+                return ((string)(this["SERVIDOR_IMPRIMIR_REDUZIDO1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
+        public string SERVIDOR_IMPRIMIR_REDUZIDO2 {
+            get {
+                return ((string)(this["SERVIDOR_IMPRIMIR_REDUZIDO2"]));
+            }
+        }
     }
 }

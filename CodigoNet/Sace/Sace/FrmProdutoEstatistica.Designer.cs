@@ -1,4 +1,4 @@
-﻿namespace Telas
+﻿namespace Sace
 {
     partial class FrmProdutoEstatistica
     {
@@ -790,7 +790,6 @@
         private System.Windows.Forms.BindingSource produtoLojaBindingSource;
         private System.Windows.Forms.DataGridView tb_produto_lojaDataGridView;
         private System.Windows.Forms.Label label13;
-        private Dados.saceDataSetConsultasTableAdapters.EntradasPorProdutoTableAdapter entradasPorProdutoTableAdapter;
         private System.Windows.Forms.ComboBox codProdutoComboBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn codLojaDataGridViewTextBoxColumn;

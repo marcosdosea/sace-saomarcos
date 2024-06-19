@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSaidaVenda: Form
     {
@@ -19,7 +19,7 @@ namespace Telas
         public FrmSaidaVenda(long codSaida)
         {
             InitializeComponent();
-            this.Saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
+            this.Saida = gerenciadorSaida.Obter(codSaida);
             
             if (Saida.Observacao.Trim().Equals(""))
             {
@@ -67,11 +67,11 @@ namespace Telas
             }
             if (Saida.CupomFiscal.Trim().Equals(""))
             {
-                GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
+                gerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
             }
             else
             {
-                GerenciadorSaida.GetInstance(null).AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.CupomFiscal);
+                gerenciadorSaida.AtualizarNfePorPedidoGerado(Saida.Nfe, Saida.Observacao, Saida.CupomFiscal);
             }
             NfeControle nfe = new NfeControle();
             nfe.CodNfe = gerenciadorNFe.Inserir(nfe, Saida);
@@ -82,7 +82,7 @@ namespace Telas
                 gerenciadorNFe.Atualizar(nfe);    
                 gerenciadorNFe.EnviarNFE(Saida, nfe);
             }
-            //GerenciadorSaida.GetInstance(null).ImprimirNotaFiscal(Saida);
+            //gerenciadorSaida.ImprimirNotaFiscal(Saida);
         }
 
     }

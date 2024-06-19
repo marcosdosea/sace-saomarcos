@@ -80,7 +80,7 @@ namespace Negocio
                     _saidaPagamento.CodSaida = saidaPagamento.CodSaida;
                     _saidaPagamento.Data = saidaPagamento.Data;
                     _saidaPagamento.IntervaloDias = saidaPagamento.IntervaloDias;
-                    _saidaPagamento.Parcelas = saidaPagamento.Parcelas;
+                    _saidaPagamento.Parcelas = (int) saidaPagamento.Parcelas;
                     _saidaPagamento.Valor = saidaPagamento.Valor;
                     _saidaPagamento.NumeroControle = String.IsNullOrEmpty(saidaPagamento.NumeroControle) ? "" : saidaPagamento.NumeroControle;
 
@@ -202,7 +202,7 @@ namespace Negocio
                             MapeamentoCartao = saidaPagamento.CodCartaoNavigation.Mapeamento,
                             MapeamentoFormaPagamento = saidaPagamento.CodFormaPagamentoNavigation.Mapeamento,
                             NomeCartaoCredito = saidaPagamento.CodCartaoNavigation.Nome,
-                            Parcelas = (int)saidaPagamento.Parcelas,
+                            Parcelas = (int) saidaPagamento.Parcelas,
                             Valor = (decimal)saidaPagamento.Valor,
                             NumeroControle = saidaPagamento.NumeroControle
                         };
@@ -357,7 +357,7 @@ namespace Negocio
                     _saidaPagamentoE.Data = saidaPagamento.Data;
                     _saidaPagamentoE.IntervaloDias = saidaPagamento.IntervaloDias;
                     _saidaPagamentoE.NumeroControle = saidaPagamento.NumeroControle;
-                    _saidaPagamentoE.Parcelas = saidaPagamento.Parcelas;
+                    _saidaPagamentoE.Parcelas = (int) saidaPagamento.Parcelas;
                     _saidaPagamentoE.Valor = saidaPagamento.Valor;
                 }
                 context.SaveChanges();

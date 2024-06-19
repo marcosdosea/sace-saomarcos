@@ -10,7 +10,7 @@ using Negocio;
 using Dominio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSubgrupo : Form
     {
@@ -36,7 +36,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmSubgrupoPesquisa frmSubgrupoPesquisa = new Telas.FrmSubgrupoPesquisa();
+            FrmSubgrupoPesquisa frmSubgrupoPesquisa = new FrmSubgrupoPesquisa();
             frmSubgrupoPesquisa.ShowDialog();
             if (frmSubgrupoPesquisa.SubgrupoSelected != null)
             {
@@ -167,7 +167,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoComboBox.Focused))
                 {
-                    Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
+                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa();
                     frmGrupoPesquisa.ShowDialog();
                     if (frmGrupoPesquisa.SelectedGrupo != null)
                     {
@@ -177,7 +177,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoComboBox.Focused))
                 {
-                    Telas.FrmGrupo frmGrupo = new Telas.FrmGrupo();
+                    FrmGrupo frmGrupo = new FrmGrupo();
                     frmGrupo.ShowDialog();
                     if (frmGrupo.GrupoSelected != null)
                     {

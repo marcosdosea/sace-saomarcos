@@ -1,6 +1,6 @@
 ﻿using Negocio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmGrupoEstatistica : Form
     {

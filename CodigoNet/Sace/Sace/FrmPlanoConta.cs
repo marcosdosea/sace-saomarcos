@@ -11,7 +11,7 @@ using Dados;
 using Dominio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmPlanoConta : Form
     {
@@ -34,7 +34,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmPlanoContaPesquisa frmPlanoContaPesquisa = new Telas.FrmPlanoContaPesquisa();
+            FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa();
             frmPlanoContaPesquisa.ShowDialog();
             if (frmPlanoContaPesquisa.PlanoContaSelected != null)
             {
@@ -170,7 +170,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoContaComboBox.Focused))
                 {
-                    Telas.FrmGrupoContaPesquisa frmGrupoContaPesquisa = new Telas.FrmGrupoContaPesquisa();
+                    FrmGrupoContaPesquisa frmGrupoContaPesquisa = new FrmGrupoContaPesquisa();
                     frmGrupoContaPesquisa.ShowDialog();
                     if (frmGrupoContaPesquisa.GrupoConta != null)
                     {
@@ -180,7 +180,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoContaComboBox.Focused))
                 {
-                    Telas.FrmGrupoConta frmGrupoConta = new Telas.FrmGrupoConta();
+                    FrmGrupoConta frmGrupoConta = new FrmGrupoConta();
                     frmGrupoConta.ShowDialog();
                     if (frmGrupoConta.GrupoContaSelected != null)
                     {

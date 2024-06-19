@@ -9,7 +9,7 @@ using Negocio;
 using Util;
 
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmReceberPagamentoPessoa : Form
     {
@@ -78,7 +78,7 @@ namespace Telas
             bool podeImprimirCF = (valorRecebido == faltaReceber);
 
             Saida saida = NovaSaidaTipoPreCredito(pessoa.CodPessoa, valorRecebido);
-            saida.CodSaida = GerenciadorSaida.GetInstance(null).Inserir(saida);
+            saida.CodSaida = gerenciadorSaida.Inserir(saida);
 
             FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null);
             frmSaidaPagamento.ShowDialog();
@@ -95,7 +95,7 @@ namespace Telas
                 }
                 else
                 {
-                    GerenciadorSaida.GetInstance(null).Remover(saida);
+                    gerenciadorSaida.Remover(saida);
                 }
             }
             listaSaidaPagamentos = new List<SaidaPagamento>();
@@ -119,7 +119,7 @@ namespace Telas
                 }
                 else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).ImprimirCreditoPagamento(saida, Properties.Settings.Default.PORTA_IMPRESSORA_REDUZIDA2);
+                    gerenciadorSaida.ImprimirCreditoPagamento(saida, Properties.Settings.Default.PORTA_IMPRESSORA_REDUZIDA2);
                 }
             }
             codClienteComboBox_Leave(sender, e);
@@ -231,7 +231,7 @@ namespace Telas
             if (!pedidoGerado.Trim().Equals("") || (pessoa.ImprimirCF))
             {
                 long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
-                Saida saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
+                Saida saida = gerenciadorSaida.Obter(codSaida);
                 AtualizarValoresDescontosContas();
                 FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
                 frmSaidaNF.ShowDialog();

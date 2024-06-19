@@ -10,7 +10,7 @@ using Negocio;
 using Util;
 using System.Windows.Forms;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSaidaDeposito : Form
     {
@@ -25,7 +25,7 @@ namespace Telas
         private void FrmSaidaDeposito_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
             saida = (Saida) saidaBindingSource.Current;
             List<Loja> listaLojas = gerenciadorLoja.ObterTodos();
             lojaBindingSourceDestino.DataSource = listaLojas;
@@ -47,12 +47,12 @@ namespace Telas
             saida.CodProfissional = UtilConfig.Default.CLIENTE_PADRAO;
             saida.CodCliente = long.Parse(codPessoaComboBoxDestino.SelectedValue.ToString());
             
-            GerenciadorSaida.GetInstance(null).Atualizar(saida);
+            gerenciadorSaida.Atualizar(saida);
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO))
             {
                 if (MessageBox.Show("Confirma REMESSA para DEPÓSITO?", "Confirmar Remessa", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_REMESSA_DEPOSITO, null, null);
+                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_REMESSA_DEPOSITO, null, null);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
@@ -68,7 +68,7 @@ namespace Telas
             {
                 if (MessageBox.Show("Confirma RETORNO de DEPÓSITO FECHADO?", "Confirmar Retorno", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).Encerrar(saida, Saida.TIPO_RETORNO_DEPOSITO, null, null);
+                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_RETORNO_DEPOSITO, null, null);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();

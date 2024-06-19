@@ -10,7 +10,7 @@ using Negocio;
 using Util;
 using Dominio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmContaBanco : Form
     {
@@ -33,7 +33,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmContaBancoPesquisa frmContaBancoPesquisa = new Telas.FrmContaBancoPesquisa();
+            FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa();
             frmContaBancoPesquisa.ShowDialog();
             if (frmContaBancoPesquisa.ContaBancoSelected != null)
             {
@@ -163,7 +163,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codBancoComboBox.Focused))
                 {
-                    Telas.FrmBancoPesquisa frmBancoPesquisa = new Telas.FrmBancoPesquisa();
+                    FrmBancoPesquisa frmBancoPesquisa = new FrmBancoPesquisa();
                     frmBancoPesquisa.ShowDialog();
                     if (frmBancoPesquisa.BancoSelected != null)
                     {
@@ -173,7 +173,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codBancoComboBox.Focused))
                 {
-                    Telas.FrmBanco frmBanco = new Telas.FrmBanco();
+                    FrmBanco frmBanco = new FrmBanco();
                     frmBanco.ShowDialog();
                     if (frmBanco.BancoSelected != null)
                     {

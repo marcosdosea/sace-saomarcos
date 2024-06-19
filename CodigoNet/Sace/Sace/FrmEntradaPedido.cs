@@ -6,7 +6,7 @@ using Dominio;
 using Util;
 using Dados;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmEntradaPedido : Form
     {
@@ -21,7 +21,7 @@ namespace Telas
         private void FrmEntradaPedido_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
             pessoaFornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
             entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterPorTipoEntrada(Entrada.TIPO_PEDIDO_COMPRA);
@@ -32,7 +32,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmEntradaPesquisa frmEntradaPedidoPesquisa = new Telas.FrmEntradaPesquisa();
+            FrmEntradaPesquisa frmEntradaPedidoPesquisa = new FrmEntradaPesquisa();
             frmEntradaPedidoPesquisa.ShowDialog();
             if (frmEntradaPedidoPesquisa.EntradaSelected != null)
             {
@@ -261,7 +261,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codFornecedorComboBox.Focused))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -271,7 +271,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codFornecedorComboBox.Focused))
                 {
-                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -281,7 +281,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codEmpresaFreteComboBox.Focused))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -291,7 +291,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codEmpresaFreteComboBox.Focused))
                 {
-                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -301,7 +301,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codProdutoComboBox.Focused))
                 {
-                    Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(true);
+                    FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new FrmProdutoPesquisaPreco(true);
                     frmProdutoPesquisaPreco.ShowDialog();
                     if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                     {
@@ -311,11 +311,11 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
                 {
-                    Telas.FrmProduto frmProduto = new Telas.FrmProduto();
+                    FrmProduto frmProduto = new FrmProduto();
                     frmProduto.ShowDialog();
                     if (frmProduto.ProdutoPesquisa != null)
                     {
-                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+                        produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
                         produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
                     }
                     frmProduto.Dispose();
@@ -383,7 +383,7 @@ namespace Telas
                 List<Pessoa> pessoas = (List<Pessoa>)gerenciadorPessoa.ObterPorNomeFantasia(codFornecedorComboBox.Text);
                 if (pessoas.Count == 0)
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codFornecedorComboBox.Text);
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(codFornecedorComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -413,7 +413,7 @@ namespace Telas
                 List<Pessoa> pessoas = (List<Pessoa>)gerenciadorPessoa.ObterPorNomeFantasia(codEmpresaFreteComboBox.Text);
                 if (pessoas.Count == 0)
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(codEmpresaFreteComboBox.Text);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {

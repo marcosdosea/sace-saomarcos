@@ -3,7 +3,7 @@ using Dominio;
 using Microsoft.EntityFrameworkCore;
 using Negocio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmBancoPesquisa : Form
     {

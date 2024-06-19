@@ -11,7 +11,7 @@ using Util;
 using System.Windows.Forms;
 using Dados;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSaidaRetornoFornecedor : Form
     {
@@ -26,8 +26,8 @@ namespace Telas
         private void FrmSaidaRetornoFornecedor_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saida = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
-            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
+            saida = gerenciadorSaida.Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
             IEnumerable<Pessoa> pessoas = gerenciadorPessoa.ObterTodos();
             pessoaDestinoBindingSource.DataSource = pessoas;
             pessoaFreteBindingSource.DataSource = pessoas;
@@ -65,10 +65,10 @@ namespace Telas
             {
                 if (MessageBox.Show("Confirma Retorno de mercadorias do fornecedor?", "Confirmar Dados do Retorno de Mercadorias", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    GerenciadorSaida.GetInstance(null).EncerrarRetornoFornecedor(saida);
+                    gerenciadorSaida.EncerrarRetornoFornecedor(saida);
                 }
             }
-            GerenciadorSaida.GetInstance(null).Atualizar(saida);
+            gerenciadorSaida.Atualizar(saida);
             
             this.Close();
         }
@@ -108,7 +108,7 @@ namespace Telas
                 saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
                 saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
 
-                totalNotaFiscalTextBox.Text = GerenciadorSaida.GetInstance(null).ObterTotalNotaFiscal(saida).ToString("N2");
+                totalNotaFiscalTextBox.Text = gerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
             }
             codSaidaTextBox_Leave(sender, e);
         }
@@ -151,12 +151,12 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmSaidaPesquisa frmSaidaPesquisa = new Telas.FrmSaidaPesquisa();
+            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa();
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.SaidaSelected != null)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                saidaCupomBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(frmSaidaPesquisa.SaidaSelected.CodSaida);
+                saidaCupomBindingSource.DataSource = gerenciadorSaida.Obter(frmSaidaPesquisa.SaidaSelected.CodSaida);
                 saidaCupomBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
                 Cursor.Current = Cursors.Default;
             }

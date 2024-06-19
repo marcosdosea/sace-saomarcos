@@ -7,7 +7,7 @@ using Util;
 using System.Collections.Generic;
 
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmPontaEstoque : Form
     {
@@ -24,7 +24,7 @@ namespace Telas
         private void FrmPontaEstoque_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.BANCOS, Principal.Autenticacao.CodUsuario);
-            bufferListaProdutos = GerenciadorProduto.GetInstance().ObterTodos();
+            bufferListaProdutos = gerenciadorProduto.ObterTodos();
             produtoBindingSource.DataSource = bufferListaProdutos;
             produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = ProdutoSelected.CodProduto });
             produtoBindingSource.ResumeBinding();
@@ -177,7 +177,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true);
+            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {

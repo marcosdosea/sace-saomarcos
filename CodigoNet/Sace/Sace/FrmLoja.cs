@@ -11,7 +11,7 @@ using Dados;
 using Dominio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmLoja : Form
     {
@@ -32,7 +32,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmLojaPesquisa frmLojaPesquisa = new Telas.FrmLojaPesquisa();
+            FrmLojaPesquisa frmLojaPesquisa = new FrmLojaPesquisa();
             frmLojaPesquisa.ShowDialog();
             if (frmLojaPesquisa.LojaSelected != null)
             {
@@ -165,7 +165,7 @@ namespace Telas
 
                 else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -175,7 +175,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {

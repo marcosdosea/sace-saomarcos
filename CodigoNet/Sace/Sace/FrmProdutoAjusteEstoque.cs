@@ -11,7 +11,7 @@ using Dominio;
 using Dados;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmProdutoAjusteEstoque : Form
     {
@@ -204,7 +204,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true);
+            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {

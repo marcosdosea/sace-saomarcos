@@ -11,7 +11,7 @@ using Dados;
 using Dominio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmGrupoConta : Form
     {
@@ -32,7 +32,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmGrupoContaPesquisa frmTipoContaPesquisa = new Telas.FrmGrupoContaPesquisa();
+            FrmGrupoContaPesquisa frmTipoContaPesquisa = new FrmGrupoContaPesquisa();
             frmTipoContaPesquisa.ShowDialog();
             if (frmTipoContaPesquisa.GrupoConta != null)
             {

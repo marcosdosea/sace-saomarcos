@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmProdutoExcluir : Form
     {
@@ -27,7 +27,7 @@ namespace Telas
 
             if (MessageBox.Show("Confirma exclusão do PRODUTO DO SISTEMA?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorProduto.GetInstance().SubstituirProduto(codProdutoExcluir, codProdutoManter);
+                gerenciadorProduto.SubstituirProduto(codProdutoExcluir, codProdutoManter);
                 //produtoBindingSource.RemoveCurrent();
             }
             codProdutoComboBox.Focus();
@@ -35,7 +35,7 @@ namespace Telas
 
         private void FrmProdutoExcluir_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
             produtoBindingSource1.DataSource = produtoBindingSource.DataSource;
         }
 

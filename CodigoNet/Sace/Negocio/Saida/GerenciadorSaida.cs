@@ -1,8 +1,6 @@
 ﻿using Dados;
 using Dominio;
-using Dominio.Impressora;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
 using System.Transactions;
 using Util;
 using Vip.Printer;
@@ -281,7 +279,7 @@ namespace Negocio
                 if (saida.TipoSaida.Equals(Saida.TIPO_CREDITO))
                 {
                     List<Conta> listaContas = gerenciadorConta.ObterPorSaida(saida.CodSaida).ToList();
-                    gerenciadorSolicitacaoDocumento.RemoverSolicitacaoDocumento(saida.CodSaida);
+                    gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
                     foreach (Conta conta in listaContas)
                     {
                         gerenciadorConta.Remover(conta.CodConta);
@@ -328,7 +326,7 @@ namespace Negocio
                 }
                 else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                 {
-                    gerenciadorSolicitacaoDocumento.RemoverSolicitacaoDocumento(saida.CodSaida);
+                    gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
                     RegistrarEstornoEstoque(saida, null);
                     saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                     saida.CupomFiscal = "";
@@ -389,7 +387,7 @@ namespace Negocio
                 // Se houver documento fiscal aguardando impressão
                 if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
                 {
-                    gerenciadorSolicitacaoDocumento.RemoverSolicitacaoDocumento(saida.CodSaida);
+                    gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
                 }
 
                 gerenciadorSaidaPagamento.RemoverPorSaida(saida);

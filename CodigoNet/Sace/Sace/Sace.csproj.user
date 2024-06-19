@@ -37,12 +37,6 @@
     <Compile Update="FrmContaPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmEmpresa.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="FrmEmpresaPesquisa.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="FrmEntrada.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,9 +133,6 @@
     <Compile Update="FrmReceberPagamentoPessoa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmRelatorioConta.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="FrmSaida.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +176,21 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmSubgrupoPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Relatorios\FrmFiltroRelatorioProduto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Relatorios\Produtos\FrmDAV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Relatorios\Produtos\FrmDAVOrcamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Relatorios\Produtos\FrmRelProdutos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Relatorios\Produtos\FrmRelProdutosRevenda.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Sace.cs">

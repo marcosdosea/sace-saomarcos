@@ -1,4 +1,4 @@
-﻿namespace Telas
+﻿namespace Sace
 {
     partial class FrmCfop
     {
@@ -28,295 +28,299 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label descricaoLabel;
+            components = new System.ComponentModel.Container();
+            Label descricaoLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCfop));
-            this.codCfopLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.cfopBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_cfopBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.cfopTextBox = new System.Windows.Forms.TextBox();
-            this.descricaoTextBox = new System.Windows.Forms.TextBox();
-            descricaoLabel = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_cfopBindingNavigator)).BeginInit();
-            this.tb_cfopBindingNavigator.SuspendLayout();
-            this.SuspendLayout();
+            codCfopLabel = new Label();
+            label1 = new Label();
+            panel1 = new Panel();
+            btnSalvar = new Button();
+            btnBuscar = new Button();
+            btnCancelar = new Button();
+            btnNovo = new Button();
+            btnExcluir = new Button();
+            btnEditar = new Button();
+            cfopBindingSource = new BindingSource(components);
+            tb_cfopBindingNavigator = new BindingNavigator(components);
+            bindingNavigatorCountItem = new ToolStripLabel();
+            bindingNavigatorMoveFirstItem = new ToolStripButton();
+            bindingNavigatorMovePreviousItem = new ToolStripButton();
+            bindingNavigatorSeparator = new ToolStripSeparator();
+            bindingNavigatorPositionItem = new ToolStripTextBox();
+            bindingNavigatorSeparator1 = new ToolStripSeparator();
+            bindingNavigatorMoveNextItem = new ToolStripButton();
+            bindingNavigatorMoveLastItem = new ToolStripButton();
+            bindingNavigatorSeparator2 = new ToolStripSeparator();
+            cfopTextBox = new TextBox();
+            descricaoTextBox = new TextBox();
+            descricaoLabel = new Label();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)cfopBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tb_cfopBindingNavigator).BeginInit();
+            tb_cfopBindingNavigator.SuspendLayout();
+            SuspendLayout();
             // 
             // descricaoLabel
             // 
             descricaoLabel.AutoSize = true;
-            descricaoLabel.Location = new System.Drawing.Point(115, 71);
+            descricaoLabel.Location = new Point(153, 109);
+            descricaoLabel.Margin = new Padding(4, 0, 4, 0);
             descricaoLabel.Name = "descricaoLabel";
-            descricaoLabel.Size = new System.Drawing.Size(58, 13);
+            descricaoLabel.Size = new Size(77, 20);
             descricaoLabel.TabIndex = 23;
             descricaoLabel.Text = "Descrição:";
             // 
             // codCfopLabel
             // 
-            this.codCfopLabel.AutoSize = true;
-            this.codCfopLabel.Location = new System.Drawing.Point(4, 71);
-            this.codCfopLabel.Name = "codCfopLabel";
-            this.codCfopLabel.Size = new System.Drawing.Size(43, 13);
-            this.codCfopLabel.TabIndex = 21;
-            this.codCfopLabel.Text = "Código:";
+            codCfopLabel.AutoSize = true;
+            codCfopLabel.Location = new Point(5, 109);
+            codCfopLabel.Margin = new Padding(4, 0, 4, 0);
+            codCfopLabel.Name = "codCfopLabel";
+            codCfopLabel.Size = new Size(61, 20);
+            codCfopLabel.TabIndex = 21;
+            codCfopLabel.Text = "Código:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cadastro de CFOP";
+            label1.AutoSize = true;
+            label1.Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ControlLightLight;
+            label1.Location = new Point(4, 14);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(180, 28);
+            label1.TabIndex = 0;
+            label1.Text = "Cadastro de CFOP";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, -1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(475, 41);
-            this.panel1.TabIndex = 20;
+            panel1.BackColor = Color.SteelBlue;
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(0, -2);
+            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(633, 63);
+            panel1.TabIndex = 20;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(304, 125);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-            this.btnSalvar.TabIndex = 4;
-            this.btnSalvar.Text = "F6 - Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            btnSalvar.Location = new Point(405, 192);
+            btnSalvar.Margin = new Padding(4, 5, 4, 5);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(108, 35);
+            btnSalvar.TabIndex = 4;
+            btnSalvar.Text = "F6 - Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(4, 125);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 0;
-            this.btnBuscar.Text = "F2 - Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            btnBuscar.Location = new Point(5, 192);
+            btnBuscar.Margin = new Padding(4, 5, 4, 5);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(100, 35);
+            btnBuscar.TabIndex = 0;
+            btnBuscar.Text = "F2 - Buscar";
+            btnBuscar.TextAlign = ContentAlignment.MiddleLeft;
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(385, 125);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 5;
-            this.btnCancelar.Text = "Esc - Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            btnCancelar.Location = new Point(513, 192);
+            btnCancelar.Margin = new Padding(4, 5, 4, 5);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(112, 35);
+            btnCancelar.TabIndex = 5;
+            btnCancelar.Text = "Esc - Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(79, 125);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 23);
-            this.btnNovo.TabIndex = 1;
-            this.btnNovo.Text = "F3 - Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
+            btnNovo.Location = new Point(105, 192);
+            btnNovo.Margin = new Padding(4, 5, 4, 5);
+            btnNovo.Name = "btnNovo";
+            btnNovo.Size = new Size(100, 35);
+            btnNovo.TabIndex = 1;
+            btnNovo.Text = "F3 - Novo";
+            btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(229, 125);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
-            this.btnExcluir.TabIndex = 3;
-            this.btnExcluir.Text = "F5 - Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
-            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            btnExcluir.Location = new Point(305, 192);
+            btnExcluir.Margin = new Padding(4, 5, 4, 5);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(100, 35);
+            btnExcluir.TabIndex = 3;
+            btnExcluir.Text = "F5 - Excluir";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(154, 125);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 2;
-            this.btnEditar.Text = "F4 - Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            btnEditar.Location = new Point(205, 192);
+            btnEditar.Margin = new Padding(4, 5, 4, 5);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(100, 35);
+            btnEditar.TabIndex = 2;
+            btnEditar.Text = "F4 - Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // cfopBindingSource
             // 
-            this.cfopBindingSource.DataSource = typeof(Dominio.Cfop);
+            cfopBindingSource.DataSource = typeof(Dominio.Cfop);
             // 
             // tb_cfopBindingNavigator
             // 
-            this.tb_cfopBindingNavigator.AddNewItem = null;
-            this.tb_cfopBindingNavigator.BindingSource = this.cfopBindingSource;
-            this.tb_cfopBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.tb_cfopBindingNavigator.DeleteItem = null;
-            this.tb_cfopBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
-            this.tb_cfopBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2});
-            this.tb_cfopBindingNavigator.Location = new System.Drawing.Point(272, 42);
-            this.tb_cfopBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.tb_cfopBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.tb_cfopBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.tb_cfopBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.tb_cfopBindingNavigator.Name = "tb_cfopBindingNavigator";
-            this.tb_cfopBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_cfopBindingNavigator.Size = new System.Drawing.Size(209, 25);
-            this.tb_cfopBindingNavigator.TabIndex = 24;
-            this.tb_cfopBindingNavigator.Text = "bindingNavigator1";
+            tb_cfopBindingNavigator.AddNewItem = null;
+            tb_cfopBindingNavigator.BindingSource = cfopBindingSource;
+            tb_cfopBindingNavigator.CountItem = bindingNavigatorCountItem;
+            tb_cfopBindingNavigator.DeleteItem = null;
+            tb_cfopBindingNavigator.Dock = DockStyle.None;
+            tb_cfopBindingNavigator.ImageScalingSize = new Size(20, 20);
+            tb_cfopBindingNavigator.Items.AddRange(new ToolStripItem[] { bindingNavigatorMoveFirstItem, bindingNavigatorMovePreviousItem, bindingNavigatorSeparator, bindingNavigatorPositionItem, bindingNavigatorCountItem, bindingNavigatorSeparator1, bindingNavigatorMoveNextItem, bindingNavigatorMoveLastItem, bindingNavigatorSeparator2 });
+            tb_cfopBindingNavigator.Location = new Point(363, 65);
+            tb_cfopBindingNavigator.MoveFirstItem = bindingNavigatorMoveFirstItem;
+            tb_cfopBindingNavigator.MoveLastItem = bindingNavigatorMoveLastItem;
+            tb_cfopBindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
+            tb_cfopBindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
+            tb_cfopBindingNavigator.Name = "tb_cfopBindingNavigator";
+            tb_cfopBindingNavigator.PositionItem = bindingNavigatorPositionItem;
+            tb_cfopBindingNavigator.Size = new Size(262, 27);
+            tb_cfopBindingNavigator.TabIndex = 24;
+            tb_cfopBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            bindingNavigatorCountItem.Size = new Size(48, 24);
+            bindingNavigatorCountItem.Text = "de {0}";
+            bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
             // 
-            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
+            bindingNavigatorMoveFirstItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveFirstItem.Image = (Image)resources.GetObject("bindingNavigatorMoveFirstItem.Image");
+            bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveFirstItem.Size = new Size(29, 24);
+            bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
             // 
-            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
+            bindingNavigatorMovePreviousItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMovePreviousItem.Image = (Image)resources.GetObject("bindingNavigatorMovePreviousItem.Image");
+            bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMovePreviousItem.Size = new Size(29, 24);
+            bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
-            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            bindingNavigatorSeparator.Size = new Size(6, 27);
             // 
             // bindingNavigatorPositionItem
             // 
-            this.bindingNavigatorPositionItem.AccessibleName = "Position";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+            bindingNavigatorPositionItem.AccessibleName = "Position";
+            bindingNavigatorPositionItem.AutoSize = false;
+            bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            bindingNavigatorPositionItem.Size = new Size(65, 27);
+            bindingNavigatorPositionItem.Text = "0";
+            bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // bindingNavigatorSeparator1
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            bindingNavigatorSeparator1.Size = new Size(6, 27);
             // 
             // bindingNavigatorMoveNextItem
             // 
-            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
+            bindingNavigatorMoveNextItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveNextItem.Image = (Image)resources.GetObject("bindingNavigatorMoveNextItem.Image");
+            bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveNextItem.Size = new Size(29, 24);
+            bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
             // 
-            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
+            bindingNavigatorMoveLastItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveLastItem.Image = (Image)resources.GetObject("bindingNavigatorMoveLastItem.Image");
+            bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveLastItem.Size = new Size(29, 24);
+            bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            bindingNavigatorSeparator2.Size = new Size(6, 27);
             // 
             // cfopTextBox
             // 
-            this.cfopTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.cfopTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cfopBindingSource, "CodCfop", true));
-            this.cfopTextBox.Location = new System.Drawing.Point(4, 87);
-            this.cfopTextBox.Name = "cfopTextBox";
-            this.cfopTextBox.Size = new System.Drawing.Size(100, 20);
-            this.cfopTextBox.TabIndex = 25;
-            this.cfopTextBox.Enter += new System.EventHandler(this.cfopTextBox_Enter);
-            this.cfopTextBox.Leave += new System.EventHandler(this.cfopTextBox_Leave);
+            cfopTextBox.CharacterCasing = CharacterCasing.Upper;
+            cfopTextBox.DataBindings.Add(new Binding("Text", cfopBindingSource, "CodCfop", true));
+            cfopTextBox.Location = new Point(5, 134);
+            cfopTextBox.Margin = new Padding(4, 5, 4, 5);
+            cfopTextBox.Name = "cfopTextBox";
+            cfopTextBox.Size = new Size(132, 27);
+            cfopTextBox.TabIndex = 25;
+            cfopTextBox.Enter += cfopTextBox_Enter;
+            cfopTextBox.Leave += cfopTextBox_Leave;
             // 
             // descricaoTextBox
             // 
-            this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cfopBindingSource, "Descricao", true));
-            this.descricaoTextBox.Location = new System.Drawing.Point(118, 87);
-            this.descricaoTextBox.MaxLength = 40;
-            this.descricaoTextBox.Name = "descricaoTextBox";
-            this.descricaoTextBox.Size = new System.Drawing.Size(351, 20);
-            this.descricaoTextBox.TabIndex = 26;
-            this.descricaoTextBox.Enter += new System.EventHandler(this.cfopTextBox_Enter);
-            this.descricaoTextBox.Leave += new System.EventHandler(this.cfopTextBox_Leave);
+            descricaoTextBox.CharacterCasing = CharacterCasing.Upper;
+            descricaoTextBox.DataBindings.Add(new Binding("Text", cfopBindingSource, "Descricao", true));
+            descricaoTextBox.Location = new Point(157, 134);
+            descricaoTextBox.Margin = new Padding(4, 5, 4, 5);
+            descricaoTextBox.MaxLength = 40;
+            descricaoTextBox.Name = "descricaoTextBox";
+            descricaoTextBox.Size = new Size(467, 27);
+            descricaoTextBox.TabIndex = 26;
+            descricaoTextBox.Enter += cfopTextBox_Enter;
+            descricaoTextBox.Leave += cfopTextBox_Leave;
             // 
             // FrmCfop
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(473, 154);
-            this.Controls.Add(this.descricaoTextBox);
-            this.Controls.Add(this.cfopTextBox);
-            this.Controls.Add(this.tb_cfopBindingNavigator);
-            this.Controls.Add(this.codCfopLabel);
-            this.Controls.Add(descricaoLabel);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnNovo);
-            this.Controls.Add(this.btnExcluir);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.KeyPreview = true;
-            this.Name = "FrmCfop";
-            this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Cadastro CFOP";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmCfop_FormClosing);
-            this.Load += new System.EventHandler(this.FrmCfop_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCfop_KeyDown);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cfopBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_cfopBindingNavigator)).EndInit();
-            this.tb_cfopBindingNavigator.ResumeLayout(false);
-            this.tb_cfopBindingNavigator.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(631, 237);
+            Controls.Add(descricaoTextBox);
+            Controls.Add(cfopTextBox);
+            Controls.Add(tb_cfopBindingNavigator);
+            Controls.Add(codCfopLabel);
+            Controls.Add(descricaoLabel);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnBuscar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnNovo);
+            Controls.Add(btnExcluir);
+            Controls.Add(btnEditar);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            KeyPreview = true;
+            Margin = new Padding(4, 5, 4, 5);
+            Name = "FrmCfop";
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Cadastro CFOP";
+            FormClosing += FrmCfop_FormClosing;
+            Load += FrmCfop_Load;
+            KeyDown += FrmCfop_KeyDown;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)cfopBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tb_cfopBindingNavigator).EndInit();
+            tb_cfopBindingNavigator.ResumeLayout(false);
+            tb_cfopBindingNavigator.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

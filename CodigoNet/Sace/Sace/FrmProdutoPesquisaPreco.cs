@@ -10,7 +10,7 @@ using Util;
 using Dominio;
 using Negocio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmProdutoPesquisaPreco : Form
     {
@@ -49,11 +49,11 @@ namespace Telas
                 txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
                 if (ExibirTodos)
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNome(txtTexto.Text);
                 }
                 else
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
 
                 }
                 if (produtoBindingSource.Count > 0)
@@ -76,14 +76,14 @@ namespace Telas
             if ((txtTexto.Text.Trim().Length > 0) && (txtTexto.Text.Length > textoAtual.Length))
             {
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().Obter(int.Parse(txtTexto.Text));
+                    produtoBindingSource.DataSource = gerenciadorProduto.Obter(int.Parse(txtTexto.Text));
                 else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorReferenciaFabricante(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorReferenciaFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeProdutoFabricante(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNomeProdutoFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Length > 9))
                 {
@@ -91,7 +91,7 @@ namespace Telas
                     {
                         DateTime data = Convert.ToDateTime(txtTexto.Text);
                         // se conseguir converter para uma data válida ele faz a busca
-                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorDataAtualizacaoMaiorIgual(data);
+                        produtoBindingSource.DataSource = gerenciadorProduto.ObterPorDataAtualizacaoMaiorIgual(data);
                     }
                     catch (Exception)
                     {
@@ -105,7 +105,7 @@ namespace Telas
                     {
                         DateTime data = Convert.ToDateTime(txtTexto.Text);
                         // se conseguir converter para uma data válida ele faz a busca
-                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorDataMudancaPrecoMaiorIgual(data);
+                        produtoBindingSource.DataSource = gerenciadorProduto.ObterPorDataMudancaPrecoMaiorIgual(data);
                     }
                     catch (Exception)
                     {
@@ -115,11 +115,11 @@ namespace Telas
                 }
                 else if ((cmbBusca.SelectedIndex == 7) && (txtTexto.Text.Length > 4))
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorCodigoBarra(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigoBarra(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 5) && (txtTexto.Text.Length > 3))
                 {
-                    produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNcmsh(txtTexto.Text);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNcmsh(txtTexto.Text);
                 }
                 else
                 {
@@ -128,9 +128,9 @@ namespace Telas
                         if ((txtTexto.Text.Length == 4) || (listaProdutoBuffer == null) || listaProdutoBuffer.Count() == 0)
                         {
                             if (ExibirTodos)
-                                produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNome(txtTexto.Text);
+                                produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNome(txtTexto.Text);
                             else
-                                produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorNomeExibiveis(txtTexto.Text);
+                                produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
                            
                         }
                         else if (txtTexto.Text.Length > 4)
@@ -350,7 +350,7 @@ namespace Telas
             }
             if (MessageBox.Show(mensagem, "Confirmar Mudança Situação", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorProduto.GetInstance().AtualizarSituacaoProduto(solicitacao, Properties.Settings.Default.ServidorNfe);
+                gerenciadorProduto.AtualizarSituacaoProduto(solicitacao, Properties.Settings.Default.ServidorNfe);
                 txtTexto_TextChanged(sender, e);
             }
         }

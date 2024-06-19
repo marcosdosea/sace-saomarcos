@@ -10,7 +10,7 @@ using Negocio;
 using Dominio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSaidaPagamentoBoleto : Form
     {
@@ -19,7 +19,7 @@ namespace Telas
 
         public FrmSaidaPagamentoBoleto(String cupomFiscal)
         {
-            List<SaidaPesquisa> saidas = GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(cupomFiscal);
+            List<SaidaPesquisa> saidas = gerenciadorSaida.ObterPorCupomFiscal(cupomFiscal);
             if (saidas.Count > 0)
             {
                 saida = saidas.FirstOrDefault();

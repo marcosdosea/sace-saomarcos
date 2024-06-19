@@ -11,7 +11,7 @@ using Dominio;
 using Util;
 using Dados;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmProduto : Form
     {
@@ -45,8 +45,8 @@ namespace Telas
             fabricanteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
             subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo((Grupo)grupoBindingSource.Current);
-            situacaoprodutoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterSituacoesProduto();
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            situacaoprodutoBindingSource.DataSource = gerenciadorProduto.ObterSituacoesProduto();
+            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
             
             habilitaBotoes(true);
             InserirEntradaProduto(sender, e);
@@ -60,7 +60,7 @@ namespace Telas
             {
                 IEnumerable<ProdutoPesquisa> listaProdutosPesquisa = new List<ProdutoPesquisa>();
                 if (!string.IsNullOrWhiteSpace(entradaProduto.CodigoBarra))
-                    GerenciadorProduto.GetInstance().ObterPorCodigoBarraExato(entradaProduto.CodigoBarra);
+                    gerenciadorProduto.ObterPorCodigoBarraExato(entradaProduto.CodigoBarra);
                 if (listaProdutosPesquisa.Count() > 0)
                 {
                     ProdutoPesquisa _produto = listaProdutosPesquisa.ElementAtOrDefault(0);
@@ -81,7 +81,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmProdutoPesquisaPreco frmProdutoPesquisa = new Telas.FrmProdutoPesquisaPreco(true);
+            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {
@@ -128,7 +128,7 @@ namespace Telas
 
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorProduto.GetInstance().Remover(Convert.ToInt64(codProdutoTextBox.Text));
+                gerenciadorProduto.Remover(Convert.ToInt64(codProdutoTextBox.Text));
                 produtoBindingSource.RemoveCurrent();
             }
 
@@ -149,12 +149,12 @@ namespace Telas
             
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                long codProduto = GerenciadorProduto.GetInstance().Inserir(produto);
+                long codProduto = gerenciadorProduto.Inserir(produto);
                 codProdutoTextBox.Text = codProduto.ToString();
             }
             else
             {
-                GerenciadorProduto.GetInstance().Atualizar(produto);
+                gerenciadorProduto.Atualizar(produto);
             }
             produtoBindingSource.EndEdit();
             codProdutoTextBox_TextChanged(sender, e);
@@ -236,7 +236,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoComboBox.Focused))
                 {
-                    Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
+                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa();
                     frmGrupoPesquisa.ShowDialog();
                     if (frmGrupoPesquisa.SelectedGrupo != null)
                     {
@@ -246,7 +246,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoComboBox.Focused))
                 {
-                    Telas.FrmGrupo frmGrupo = new Telas.FrmGrupo();
+                    FrmGrupo frmGrupo = new FrmGrupo();
                     frmGrupo.ShowDialog();
                     if (frmGrupo.GrupoSelected != null)
                     {
@@ -256,7 +256,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codSubgrupoComboBox.Focused))
                 {
-                    Telas.FrmSubgrupoPesquisa frmSubGrupoPesquisa = new Telas.FrmSubgrupoPesquisa();
+                    FrmSubgrupoPesquisa frmSubGrupoPesquisa = new FrmSubgrupoPesquisa();
                     frmSubGrupoPesquisa.ShowDialog();
                     if (frmSubGrupoPesquisa.SubgrupoSelected != null)
                     {
@@ -267,7 +267,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codSubgrupoComboBox.Focused))
                 {
-                    Telas.FrmSubgrupo frmSubgrupo = new Telas.FrmSubgrupo( Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString() ) );
+                    FrmSubgrupo frmSubgrupo = new FrmSubgrupo( Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString() ) );
                     frmSubgrupo.ShowDialog();
                     if (frmSubgrupo.SubgrupoSelected != null)
                     {
@@ -278,7 +278,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codigoFabricanteComboBox.Focused))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -288,7 +288,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codigoFabricanteComboBox.Focused))
                 {
-                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {

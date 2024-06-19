@@ -10,7 +10,7 @@ using Negocio;
 using Dominio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSaidaNFe : Form
     {
@@ -28,7 +28,7 @@ namespace Telas
         {
             InitializeComponent();
             this.codSaida = codSaida;
-            this.Saida = GerenciadorSaida.GetInstance(null).Obter(codSaida);
+            this.Saida = gerenciadorSaida.Obter(codSaida);
             this.listaSaidaPedido = listaSaidaPedido;
             this.listaSaidaPagamento = listaSaidaPagamento;
             IEnumerable<Pessoa> listaPessoas = gerenciadorPessoa.Obter(Saida.CodCliente);
@@ -67,7 +67,7 @@ namespace Telas
                 }
                 else if (Saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
                 {
-                    SaidaPesquisa saidaCupomVenda = GerenciadorSaida.GetInstance(null).ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
+                    SaidaPesquisa saidaCupomVenda = gerenciadorSaida.ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
                     if (Saida.TotalAVista < saidaCupomVenda.TotalAVista)
                     {
                         Saida.Observacao += "Devolução Parcial referente ao cupom fiscal " + saidaCupomVenda.CupomFiscal + " emitido em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Cliente não precisou dos itens comprados. Cupom fiscal e Nf-e relativas a venda referenciadas abaixo";
@@ -79,7 +79,7 @@ namespace Telas
                 }
                 else if (Saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR)
                 {
-                    SaidaPesquisa saidaCupomVenda = GerenciadorSaida.GetInstance(null).ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
+                    SaidaPesquisa saidaCupomVenda = gerenciadorSaida.ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
                     if (Saida.TotalAVista < saidaCupomVenda.TotalAVista)
                     {
                         Saida.Observacao += "Devolução Parcial referente a nota fiscal " + saidaCupomVenda.CupomFiscal + " emitida em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Fornecedor não aceitou receber os itens devolvidos porque estavam danificados. Nf-e relativa a devolução referenciada abaixo";
@@ -127,7 +127,7 @@ namespace Telas
                     // Atualiza os dados da saída
                     Saida.Observacao = observacaoTextBox.Text.Trim();
                     if (Saida.CupomFiscal.Trim().Equals(""))
-                        GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
+                        gerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
                     //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
                     //List<SaidaPagamento> listaSaidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(Saida.CodSaida);
                     gerenciadorSolicitacaoDocumento.InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
@@ -145,17 +145,17 @@ namespace Telas
                 if (Cliente.CodPessoa != Saida.CodCliente)
                 {
                     Saida.CodCliente = Cliente.CodPessoa;
-                    GerenciadorSaida.GetInstance(null).Atualizar(Saida);
+                    gerenciadorSaida.Atualizar(Saida);
                 }
                 Saida.Observacao = observacaoTextBox.Text;
                 if (Saida.CupomFiscal.Trim().Equals(""))
                 {
                     foreach (SaidaPedido saidaPedido in listaSaidaPedido)
-                        GerenciadorSaida.GetInstance(null).AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, saidaPedido.CodSaida);
+                        gerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, saidaPedido.CodSaida);
                 }
                 else
                 {
-                    GerenciadorSaida.GetInstance(null).AtualizarPorPedido(Saida.Nfe, Saida.Observacao, Cliente.CodPessoa, Saida.CupomFiscal);
+                    gerenciadorSaida.AtualizarPorPedido(Saida.Nfe, Saida.Observacao, Cliente.CodPessoa, Saida.CupomFiscal);
                 }
                 NfeControle nfe = (NfeControle)nfeControleBindingSource.Current;
                 if (nfe != null)
@@ -163,8 +163,8 @@ namespace Telas
 
                 // envia nota fiscal
                 //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
-                //Saida saida = GerenciadorSaida.GetInstance(null).Obter(Saida.CodSaida);
-                List<SaidaPesquisa> listaSaidas = GerenciadorSaida.GetInstance(null).ObterPorCodSaidas(listaSaidaPedido.Select(s=>s.CodSaida).ToList());
+                //Saida saida = gerenciadorSaida.Obter(Saida.CodSaida);
+                List<SaidaPesquisa> listaSaidas = gerenciadorSaida.ObterPorCodSaidas(listaSaidaPedido.Select(s=>s.CodSaida).ToList());
                 List<string> listaDocumentosFiscais = listaSaidas.Select(s => s.CupomFiscal).Distinct().ToList();
                 if (listaSaidas.Where(s=> !string.IsNullOrEmpty(s.CupomFiscal)).Count() > 0)
                 {
@@ -173,7 +173,7 @@ namespace Telas
                     {
                         if (!string.IsNullOrEmpty(docFiscal))
                         {
-                            listaSaidas.AddRange(GerenciadorSaida.GetInstance(null).ObterPorCupomFiscal(Saida.CupomFiscal));    
+                            listaSaidas.AddRange(gerenciadorSaida.ObterPorCupomFiscal(Saida.CupomFiscal));    
                         }
                     }  
                         

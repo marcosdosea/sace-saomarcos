@@ -10,7 +10,7 @@ using Dominio;
 using Negocio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmEntradaPagamento : Form
     {

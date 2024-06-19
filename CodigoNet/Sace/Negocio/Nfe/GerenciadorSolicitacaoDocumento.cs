@@ -60,7 +60,7 @@ namespace Negocio
                     var pagamento = new TbSolicitacaoPagamento();
                     pagamento.CodCartao = _solicitacaoPagamento.CodCartaoCredito;
                     pagamento.CodFormaPagamento = _solicitacaoPagamento.CodFormaPagamento;
-                    pagamento.Parcelas = _solicitacaoPagamento.Parcelas;
+                    pagamento.Parcelas = (uint)_solicitacaoPagamento.Parcelas;
                     pagamento.Valor = _solicitacaoPagamento.Valor;
                     pagamento.CodSolicitacao = _solicitacao_documento.CodSolicitacao;
                     pagamento.CupomCliente = "";
@@ -138,7 +138,7 @@ namespace Negocio
 
         }
 
-       
+
         /// <summary>
         /// Remove dados do cupom
         /// </summary>
@@ -191,7 +191,7 @@ namespace Negocio
                             HostSolicitante = documento.HostSolicitante,
                             MotivoCartaoNegado = documento.MotivoCartaoNegado,
                             NfeProcessada = documento.NfeProcessada,
-                            TipoSolicitacao = documento.TipoSolicitacao    
+                            TipoSolicitacao = documento.TipoSolicitacao
                         };
             return query.FirstOrDefault();
         }
@@ -238,83 +238,76 @@ namespace Negocio
         /// Atualiza dados do cupom
         /// </summary>
         /// <param name="cupom"></param>
-        public void EnviarProximoNFe(string servidor)
+        public void EnviarProximoNF(string servidor, DocumentoFiscal.TipoSolicitacao tipoDocumento)
         {
             try
             {
                 string nomeComputador = SystemInformation.ComputerName;
-                
-                List<TbSolicitacaoDocumento> solicitacoes = context.TbSolicitacaoDocumentos.Where(C =>
-                    C.TipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFE.ToString())).OrderBy(s => s.DataSolicitacao).ToList();
-
+                var query = from solicitacaoDocumento in context.TbSolicitacaoDocumentos
+                            where solicitacaoDocumento.TipoSolicitacao.Equals(tipoDocumento.ToString())
+                                && !solicitacaoDocumento.EmProcessamento
+                            orderby solicitacaoDocumento.DataSolicitacao
+                            select new SolicitacaoDocumento
+                            {
+                                CartaoAutorizado = solicitacaoDocumento.CartaoAutorizado,
+                                CartaoProcessado = solicitacaoDocumento.CartaoProcessado,
+                                CodMotivoCartaoNegado = solicitacaoDocumento.CodMotivoCartaoNegado,
+                                CodSolicitacao = solicitacaoDocumento.CodSolicitacao,
+                                DataSolicitacao = solicitacaoDocumento.DataSolicitacao,
+                                EhComplementar = solicitacaoDocumento.EhComplementar,
+                                EhEspelho = solicitacaoDocumento.EhEspelho,
+                                EmProcessamento = solicitacaoDocumento.EmProcessamento,
+                                HaPagamentoCartao = solicitacaoDocumento.HaPagamentoCartao,
+                                HostSolicitante = solicitacaoDocumento.HostSolicitante,
+                                MotivoCartaoNegado = solicitacaoDocumento.MotivoCartaoNegado,
+                                NfeProcessada = solicitacaoDocumento.NfeProcessada,
+                                TipoSolicitacao = solicitacaoDocumento.TipoSolicitacao
+                            };
+                var solicitacoes = query.AsNoTracking().ToList();
                 if (solicitacoes.Any())
                 {
                     var solicitacaoDocumento = solicitacoes.FirstOrDefault();
-                    var listaSolicitacaoSaida = solicitacaoDocumento.TbSolicitacaoSaida.ToList();
+                    var query2 = from solicitacaoSaida in context.TbSolicitacaoSaida
+                                 where solicitacaoSaida.CodSolicitacao == solicitacaoDocumento.CodSolicitacao
+                                 select new SolicitacaoSaida
+                                 {
+                                     CodSaida = solicitacaoSaida.CodSaida,
+                                     CodSolicitacao = solicitacaoSaida.CodSolicitacao,
+                                     ValorTotal = solicitacaoSaida.ValorTotal,
+                                     CodLojaOrigem = solicitacaoSaida.CodSaidaNavigation.CodLojaOrigem
+
+                                 };
+
+                    var listaSolicitacaoSaida = query2.ToList();
                     if (listaSolicitacaoSaida.Count > 0)
                     {
-                        int codLoja = listaSolicitacaoSaida.FirstOrDefault().CodSaidaNavigation.CodLojaOrigem;
-                        if (codLoja.Equals(UtilConfig.Default.LOJA_PADRAO) || nomeComputador.Equals(servidor))
-                        {
-                            var query = from solicitacaoPagamento in context.TbSolicitacaoPagamentos
-                                        where solicitacaoPagamento.CodSolicitacao == solicitacaoDocumento.CodSolicitacao
-                                        select new SolicitacaoPagamento
-                                        {
-                                            CodCartao = solicitacaoPagamento.CodCartao,
-                                            CodFormaPagamento = solicitacaoPagamento.CodFormaPagamento,
-                                            CodSolicitacao = solicitacaoPagamento.CodSolicitacao,
-                                            CodSolicitacaoPagamento = solicitacaoPagamento.CodSolicitacaoPagamento,
-                                            CupomCliente = solicitacaoPagamento.CupomCliente,
-                                            CupomEstabelecimento = solicitacaoPagamento.CupomEstabelecimento,
-                                            CupomReduzido = solicitacaoPagamento.CupomReduzido,
-                                            Parcelas = solicitacaoPagamento.Parcelas,
-                                            Valor = solicitacaoPagamento.Valor
-                                        };
-                            var listaSolicitacaoPagamentos = query.AsNoTracking().ToList();
+                        int codLoja = listaSolicitacaoSaida.FirstOrDefault().CodLojaOrigem;
+                        var query3 = from solicitacaoPagamento in context.TbSolicitacaoPagamentos
+                                     where solicitacaoPagamento.CodSolicitacao == solicitacaoDocumento.CodSolicitacao
+                                     select new SolicitacaoPagamento
+                                     {
+                                         CodCartao = solicitacaoPagamento.CodCartao,
+                                         CodFormaPagamento = solicitacaoPagamento.CodFormaPagamento,
+                                         CodSolicitacao = solicitacaoPagamento.CodSolicitacao,
+                                         CodSolicitacaoPagamento = solicitacaoPagamento.CodSolicitacaoPagamento,
+                                         CupomCliente = solicitacaoPagamento.CupomCliente,
+                                         CupomEstabelecimento = solicitacaoPagamento.CupomEstabelecimento,
+                                         CupomReduzido = solicitacaoPagamento.CupomReduzido,
+                                         Parcelas = solicitacaoPagamento.Parcelas,
+                                         Valor = solicitacaoPagamento.Valor
+                                     };
+                        var listaSolicitacaoPagamentos = query3.AsNoTracking().ToList();
 
-                            context.Remove(solicitacaoDocumento);
-                            context.SaveChanges();
-                            var solicitacaoDocumentoE = new SolicitacaoDocumento();
-                            
-                            gerenciadorNFe.EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFE, solicitacaoE);
-                        }
+                        context.Remove(solicitacaoDocumento);
+                        context.SaveChanges();
+                        gerenciadorNFe.EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, tipoDocumento, solicitacaoDocumento);
+
                     }
                     else
                     {
                         context.Remove(solicitacaoDocumento);
                         context.SaveChanges();
                     }
-                }
-            }
-
-            catch (Exception e)
-            {
-                throw new DadosException("Cupom", e.Message, e);
-            }
-        }
-
-        /// <summary>
-        /// Atualiza dados do cupom NFCe
-        /// </summary>
-        /// <param name="cupom"></param>
-        public void EnviarProximoNFCe(string servidorCartao)
-        {
-            try
-            {
-                var querySolicitacoesNFCE = context.TbSolicitacaoDocumentos.Where(s => s.TipoSolicitacao.Equals(DocumentoFiscal.TipoSolicitacao.NFCE.ToString()) && !s.EmProcessamento);
-
-                var solicitacoes = querySolicitacoesNFCE.ToList();
-
-                if (solicitacoes.Any())
-                {
-                    var solicitacaoE = solicitacoes.FirstOrDefault();
-                    var listaSolicitacaoSaida = solicitacaoE.TbSolicitacaoSaida.ToList();
-                    var listaSolicitacaoPagamentos = solicitacaoE.TbSolicitacaoPagamentos.ToList();
-
-
-                    context.Remove(new TbSolicitacaoDocumento() { CodSolicitacao = solicitacaoE.codSolicitacao });
-                    context.SaveChanges();
-                    gerenciadorNFe.EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, DocumentoFiscal.TipoSolicitacao.NFCE, solicitacaoE);
                 }
             }
             catch (Exception e)

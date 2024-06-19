@@ -11,7 +11,7 @@ using Dominio;
 using Dados;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmGrupo : Form
     {
@@ -32,7 +32,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmGrupoPesquisa frmGrupoPesquisa = new Telas.FrmGrupoPesquisa();
+            FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa();
             frmGrupoPesquisa.ShowDialog();
             if (frmGrupoPesquisa.SelectedGrupo != null)
             {

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSaidaPesquisa : Form
     {
@@ -23,7 +23,7 @@ namespace Telas
 
         private void FrmSaidaPesquisa_Load(object sender, EventArgs e)
         {
-            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
+            saidaBindingSource.DataSource = gerenciadorSaida.ObterPreVendasPendentes();
             cmbBusca.SelectedIndex = 1;
          }
 
@@ -35,16 +35,16 @@ namespace Telas
             {
                 if (cmbBusca.SelectedIndex == 0)
                 {
-                    saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
+                    saidaBindingSource.DataSource = gerenciadorSaida.ObterPreVendasPendentes();
                 }
                 else
                     if (cmbBusca.SelectedIndex == 1)
-                       saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(long.Parse(txtTexto.Text));
+                       saidaBindingSource.DataSource = gerenciadorSaida.Obter(long.Parse(txtTexto.Text));
                     else if (cmbBusca.SelectedIndex == 2)
                     {
                         if (txtTexto.Text.Trim().Length >= 5)
                         {
-                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorPedido(txtTexto.Text);
+                            saidaBindingSource.DataSource = gerenciadorSaida.ObterPorPedido(txtTexto.Text);
                         }
                     }
                     else if (cmbBusca.SelectedIndex == 3)
@@ -52,14 +52,14 @@ namespace Telas
                         if (txtTexto.Text.Trim().Length > 3)
                         {
 
-                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorNomeCliente(txtTexto.Text);
+                            saidaBindingSource.DataSource = gerenciadorSaida.ObterPorNomeCliente(txtTexto.Text);
                         }
                     } 
                     else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Trim().Length >= 10))
                     {
                         if (txtTexto.Text.Trim().Length >= 10)
                         {
-                            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPorDataPedido(txtTexto.Text);
+                            saidaBindingSource.DataSource = gerenciadorSaida.ObterPorDataPedido(txtTexto.Text);
                         }
                     }
             }
@@ -107,7 +107,7 @@ namespace Telas
             txtTexto.Text = "";
             if (cmbBusca.SelectedIndex == 0)
             {
-                saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterPreVendasPendentes();
+                saidaBindingSource.DataSource = gerenciadorSaida.ObterPreVendasPendentes();
             }
             else if (cmbBusca.SelectedIndex == 4)
             {

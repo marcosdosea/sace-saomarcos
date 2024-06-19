@@ -16,6 +16,8 @@ namespace Negocio
         const string FORMATO_DATA_HORA = "yyyy-MM-ddTHH:mm:sszzz";
 
         private readonly SaceContext context;
+        private readonly GerenciadorCfop gerenciadorCfop;
+        private readonly GerenciadorImposto gerenciadorImposto;
         private readonly GerenciadorPessoa gerenciadorPessoa;
         private readonly GerenciadorLoja gerenciadorLoja;
         private readonly GerenciadorSaida gerenciadorSaida;
@@ -24,22 +26,25 @@ namespace Negocio
         private readonly GerenciadorEntrada gerenciadorEntrada;
         private readonly GerenciadorProduto gerenciadorProduto;
         private readonly GerenciadorSolicitacaoEvento gerenciadorSolicitacaoEvento;
-        private readonly GerenciadorCfop gerenciadorCfop;
+        private readonly GerenciadorImprimirDocumento gerenciadorImprimirDocumento;
+        
         private string chaveNfeGerada = "";
 
         public GerenciadorNFe(SaceContext saceContext)
         {
             context = saceContext;
             nomeComputador = SystemInformation.ComputerName;
+            gerenciadorCfop = new GerenciadorCfop(context);
+            gerenciadorImposto = new GerenciadorImposto(context);
             gerenciadorPessoa = new GerenciadorPessoa(context);
             gerenciadorLoja = new GerenciadorLoja(context);
             gerenciadorSaida = new GerenciadorSaida(context);
             gerenciadorSaidaPedido = new GerenciadorSaidaPedido(context);
             gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            gerenciadorProduto = new GerenciadorProduto(context);
-            gerenciadorCfop = new GerenciadorCfop(context);
+            gerenciadorProduto = new GerenciadorProduto(context);       
             gerenciadorEntrada = new GerenciadorEntrada(context);
             gerenciadorSolicitacaoEvento = new GerenciadorSolicitacaoEvento(context);
+            gerenciadorImprimirDocumento = new GerenciadorImprimirDocumento(context);
         }
         /// <summary>
         /// Insere os dados de uma conta bancária
@@ -2030,7 +2035,7 @@ namespace Negocio
                                 }
                                 nfeControle.SituacaoProtocoloCancelamento = retornoEvento.cStat;
                                 nfeControle.MensagemSitucaoProtocoloCancelamento = retornoEvento.xMotivo;
-                                gerenciadorNFe.Atualizar(nfeControle);
+                                Atualizar(nfeControle);
                                 files[i].Delete();
                             }
                             gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
@@ -2155,7 +2160,7 @@ namespace Negocio
                                 }
                                 nfeControle.SituacaoProtocoloCancelamento = retornoEvento.cStat;
                                 nfeControle.MensagemSitucaoProtocoloCancelamento = retornoEvento.xMotivo;
-                                gerenciadorNFe.Atualizar(nfeControle);
+                                Atualizar(nfeControle);
                                 files[i].Delete();
                             }
                             gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
@@ -2176,10 +2181,10 @@ namespace Negocio
             {
                 if (nfeControle != null)
                 {
-                    tb_solicitacao_evento_nfe solicitaEvento = new tb_solicitacao_evento_nfe();
-                    solicitaEvento.codNFe = nfeControle.CodNfe;
-                    solicitaEvento.tipoSolicitacao = EventoNfe.TIPO_CONSULTA;
-                    GerenciadorSolicitacaoEvento.GetInstance().Inserir(solicitaEvento);
+                    var solicitaEvento = new SolicitacaoEventoNfe();
+                    solicitaEvento.CodNfe = nfeControle.CodNfe;
+                    solicitaEvento.TipoSolicitacao = EventoNfe.TIPO_CONSULTA;
+                    gerenciadorSolicitacaoEvento.Inserir(solicitaEvento);
                 }
             }
             catch (NegocioException ne)
@@ -2200,12 +2205,12 @@ namespace Negocio
             try
             {
 
-                List<tb_solicitacao_evento_nfe> listaSolicitacaoEvento = GerenciadorSolicitacaoEvento.GetInstance().ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CONSULTA).ToList();
+                var listaSolicitacaoEvento = gerenciadorSolicitacaoEvento.ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CONSULTA);
 
-                foreach (tb_solicitacao_evento_nfe eventoNfe in listaSolicitacaoEvento)
+                foreach (SolicitacaoEventoNfe eventoNfe in listaSolicitacaoEvento)
                 {
-                    NfeControle nfeControle = gerenciadorNFe.Obter(eventoNfe.codNFe).FirstOrDefault();
-                    GerenciadorSolicitacaoEvento.GetInstance().Remover(eventoNfe.idSolicitacaoEvento);
+                    NfeControle nfeControle = Obter(eventoNfe.CodNfe).FirstOrDefault();
+                    gerenciadorSolicitacaoEvento.Remover(eventoNfe.IdSolicitacaoEvento);
                     if (nfeControle == null)
                         return;
 
@@ -2315,7 +2320,7 @@ namespace Negocio
                                     nfeControle.MensagemSitucaoProtocoloUso = protocoloNfe.xMotivo;
                                 }
                             }
-                            gerenciadorNFe.Atualizar(nfeControle);
+                            Atualizar(nfeControle);
                             gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
                             files[0].Delete();
 
@@ -2333,7 +2338,7 @@ namespace Negocio
         {
             try
             {
-                NfeControle nfeControleSeq = gerenciadorNFe.Obter(nfeControle.CodNfe).FirstOrDefault();
+                NfeControle nfeControleSeq = Obter(nfeControle.CodNfe).FirstOrDefault();
                 nfeControle.SeqCartaCorrecao = nfeControleSeq.SeqCartaCorrecao;
                 if (nfeControle.SituacaoNfe != NfeControle.SITUACAO_AUTORIZADA)
                 {
@@ -2501,7 +2506,7 @@ namespace Negocio
                                 }
                                 nfeControle.SituacaoProtocoloCartaCorrecao = retornoEvento.cStat;
                                 nfeControle.MensagemSitucaoCartaCorrecao = retornoEvento.xMotivo;
-                                gerenciadorNFe.Atualizar(nfeControle);
+                                Atualizar(nfeControle);
                                 files[i].Delete();
                             }
                         }
@@ -2660,39 +2665,40 @@ namespace Negocio
         {
             if (nfeControle != null)
             {
-                tb_imprimir_documento imprimir = new tb_imprimir_documento();
-                imprimir.codDocumento = nfeControle.CodNfe;
+                ImprimirDocumento imprimir = new ImprimirDocumento();
+                imprimir.CodDocumento = nfeControle.CodNfe;
                 if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
-                    imprimir.tipoDocumento = "NFCE";
+                    imprimir.TipoDocumento = "NFCE";
                 else
-                    imprimir.tipoDocumento = "NFE";
-                imprimir.hostSolicitante = nomeComputador;
+                    imprimir.TipoDocumento = "NFE";
+                imprimir.HostSolicitante = nomeComputador;
 
                 FileInfo fileUnidanfeInfo = new FileInfo("C:\\Unimake\\UniNFe\\unidanfe.exe");
                 bool sucessoImprimirLocal = false;
-                if (imprimir.tipoDocumento.Equals("NFE") && fileUnidanfeInfo.Exists)
+                if (imprimir.TipoDocumento.Equals("NFE") && fileUnidanfeInfo.Exists)
                 {
+                    //TODO: melhorar pesquisa
                     SaidaPesquisa saidaPesquisa = gerenciadorSaida.ObterSaidaPorNfe(nfeControle.CodNfe).FirstOrDefault();
                     Saida saida = gerenciadorSaida.Obter(saidaPesquisa.CodSaida);
                     Loja loja = gerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                     sucessoImprimirLocal = ImprimirUnidanfe(nfeControle, loja);
                 }
                 if (!sucessoImprimirLocal)
-                    GerenciadorImprimirDocumento.GetInstance().Inserir(imprimir);
+                    gerenciadorImprimirDocumento.Inserir(imprimir);
             }
             else
             {
-                List<tb_imprimir_documento> listaImprimirNfe = GerenciadorImprimirDocumento.GetInstance().ObterPorTipoDocumentoHost("NFE", nomeComputador).ToList();
-                List<tb_imprimir_documento> listaImprimirNfce = new List<tb_imprimir_documento>();
+                var listaImprimirNfe = gerenciadorImprimirDocumento.ObterPorTipoDocumentoHost("NFE", nomeComputador).ToList();
+                var listaImprimirNfce = new List<ImprimirDocumento>();
                 if (nomeComputador.Equals(servidorImprimirNFCe))
-                    listaImprimirNfce = GerenciadorImprimirDocumento.GetInstance().ObterPorTipoDocumento("NFCE").ToList();
-                IEnumerable<tb_imprimir_documento> listaImprimir = listaImprimirNfce.Union(listaImprimirNfe);
+                    listaImprimirNfce = gerenciadorImprimirDocumento.ObterPorTipoDocumento("NFCE").ToList();
+                var listaImprimir = listaImprimirNfce.Union(listaImprimirNfe);
                 if (listaImprimir != null && listaImprimir.Count() > 0)
                 {
-                    foreach (tb_imprimir_documento documento in listaImprimir)
+                    foreach (ImprimirDocumento documento in listaImprimir)
                     {
-                        GerenciadorImprimirDocumento.GetInstance().Remover(documento.codImprimir);
-                        nfeControle = Obter((int)documento.codDocumento).FirstOrDefault();
+                        gerenciadorImprimirDocumento.Remover(documento.CodImprimir);
+                        nfeControle = Obter((int)documento.CodDocumento).FirstOrDefault();
 
                         if ((nfeControle != null) && (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA) || nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE)))
                         {
@@ -2723,7 +2729,7 @@ namespace Negocio
         /// <returns></returns>
         private List<SaidaProduto> CalcularValorImpostoProdutos(List<SaidaProduto> listaSaidaProdutos)
         {
-            IEnumerable<Imposto> listaImpostos = GerenciadorImposto.GetInstance().ObterTodos(); ;
+            IEnumerable<Imposto> listaImpostos = gerenciadorImposto.ObterTodos(); ;
             foreach (SaidaProduto saidaProduto in listaSaidaProdutos)
             {
                 Imposto imposto = listaImpostos.Where(imp => imp.Ncmsh.Equals(saidaProduto.Ncmsh)).ElementAtOrDefault(0);
@@ -2822,8 +2828,7 @@ namespace Negocio
                 string arquivosCancelado = "*procEventoNFe.xml";
                 FileInfo[] filesCancelado = Dir.GetFiles(arquivosCancelado, SearchOption.TopDirectoryOnly);
 
-                //N_28180732799603000191650010000061911061363420_SE_279054513_procEventoNFe
-
+            
                 Dictionary<string, decimal> mapValores = new Dictionary<string, decimal>();
                 Dictionary<string, decimal> mapDesconto = new Dictionary<string, decimal>();
 

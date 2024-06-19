@@ -10,7 +10,7 @@ using Negocio;
 using Dominio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmPessoa : Form
     {
@@ -38,7 +38,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+            FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
             frmPessoaPesquisa.ShowDialog();
             if (frmPessoaPesquisa.PessoaSelected != null)
             {
@@ -182,7 +182,7 @@ namespace Telas
 
         private void btnAdicionarContato_Click(object sender, EventArgs e)
         {
-            Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+            FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
             frmPessoaPesquisa.ShowDialog();
             if (frmPessoaPesquisa.PessoaSelected != null)
             {

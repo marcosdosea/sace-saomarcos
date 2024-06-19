@@ -7,7 +7,7 @@ using System.Data;
 using Dados;
 using System.Collections.Generic;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmEntrada : Form
     {
@@ -27,7 +27,7 @@ namespace Telas
             Cursor.Current = Cursors.WaitCursor;
 
             GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos(); 
+            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos(); 
             fornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             empresaFreteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
@@ -45,7 +45,7 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmEntradaPesquisa frmEntradaPesquisa = new Telas.FrmEntradaPesquisa();
+            FrmEntradaPesquisa frmEntradaPesquisa = new FrmEntradaPesquisa();
             frmEntradaPesquisa.ShowDialog();
             if (frmEntradaPesquisa.EntradaSelected != null)
             {
@@ -502,7 +502,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codFornecedorComboBox.Focused))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -512,7 +512,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codFornecedorComboBox.Focused))
                 {
-                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -523,7 +523,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codEmpresaFreteComboBox.Focused))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa();
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -533,7 +533,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codEmpresaFreteComboBox.Focused))
                 {
-                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -544,7 +544,7 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F2) && (codProdutoComboBox.Focused))
                 {
-                    Telas.FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new Telas.FrmProdutoPesquisaPreco(true);
+                    FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new FrmProdutoPesquisaPreco(true);
                     frmProdutoPesquisaPreco.ShowDialog();
                     if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                     {
@@ -554,11 +554,11 @@ namespace Telas
                 }
                 else if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
                 {
-                    Telas.FrmProduto frmProduto = new Telas.FrmProduto();
+                    FrmProduto frmProduto = new FrmProduto();
                     frmProduto.ShowDialog();
                     if (frmProduto.ProdutoPesquisa != null)
                     {
-                        produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+                        produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
                         produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
                     }
                     frmProduto.Dispose();

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmCalculoParticipacao : Form
     {
@@ -52,7 +52,7 @@ namespace Telas
             decimal metaVendas = 0;
             decimal.TryParse(textMetaVendas.Text, out metaVendas);
             
-            List<Saida> saidas = GerenciadorSaida.GetInstance(null).ObterVendasParticipacaoLucros(dataInicial, dataFinal, valorMinimoVenda);
+            List<Saida> saidas = gerenciadorSaida.ObterVendasParticipacaoLucros(dataInicial, dataFinal, valorMinimoVenda);
             decimal lucroBruto = saidas.Sum(s => s.TotalLucro);
 
             decimal descontoAvaliacaoClientes = avaliacaoClientes / 5;

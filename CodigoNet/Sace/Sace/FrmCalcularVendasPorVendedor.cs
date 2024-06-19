@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
-using Dominio;
-
-namespace Telas
+﻿namespace Sace
 {
     public partial class FrmCalcularVendasPorVendedor : Form
     {
@@ -44,7 +33,7 @@ namespace Telas
             Cursor.Current = Cursors.WaitCursor; 
             DateTime dataInicial = dateTimeInicial.Value;
             DateTime dataFinal = dateTimeFinal.Value;
-            vendasVendedorBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterVendasPorVendedor(dataInicial, dataFinal);
+            vendasVendedorBindingSource.DataSource = gerenciadorSaida.ObterVendasPorVendedor(dataInicial, dataFinal);
             Cursor.Current = Cursors.Default; 
         }
 

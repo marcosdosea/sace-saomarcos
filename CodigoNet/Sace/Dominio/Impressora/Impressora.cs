@@ -1,4 +1,4 @@
-﻿namespace Dominio.Impressora
+﻿namespace Dominio
 {
     public class Impressora
     {

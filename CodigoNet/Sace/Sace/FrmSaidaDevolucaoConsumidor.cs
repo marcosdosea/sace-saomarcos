@@ -10,7 +10,7 @@ using Negocio;
 using Util;
 using System.Windows.Forms;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmSaidaDevolucaoConsumidor : Form
     {
@@ -25,7 +25,7 @@ namespace Telas
         private void FrmSaidaDevolucaoConsumidor_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saidaBindingSource.DataSource = GerenciadorSaida.GetInstance(null).Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
             saida = (Saida) saidaBindingSource.Current;
             
             lojaBindingSourceOrigem.DataSource = gerenciadorLoja.ObterTodos();
@@ -44,7 +44,7 @@ namespace Telas
                 if (MessageBox.Show("Confirma DEVOLUÇÃO do CONSUMIDOR/Fornecedor?", "Confirmar Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     saida.Nfe = docFiscalReferenciado;
-                    GerenciadorSaida.GetInstance(null).EncerrarDevolucaoConsumidor(saida);
+                    gerenciadorSaida.EncerrarDevolucaoConsumidor(saida);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
@@ -87,12 +87,12 @@ namespace Telas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Telas.FrmSaidaPesquisa frmSaidaPesquisa = new Telas.FrmSaidaPesquisa();
+            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa();
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.SaidaSelected != null)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                saidaCupomBindingSource.DataSource = GerenciadorSaida.GetInstance(null).ObterSaidaConsumidor(frmSaidaPesquisa.SaidaSelected.CodSaida);
+                saidaCupomBindingSource.DataSource = gerenciadorSaida.ObterSaidaConsumidor(frmSaidaPesquisa.SaidaSelected.CodSaida);
                 saidaCupomBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
                 Cursor.Current = Cursors.Default;
             }

@@ -1,4 +1,4 @@
-﻿namespace Telas
+﻿namespace Sace
 {
     partial class FrmProdutoSolicitacoesCompra
     {
@@ -986,8 +986,6 @@
         private System.Windows.Forms.TextBox vendidos6textBox;
         private System.Windows.Forms.TextBox vendidos12textBox;
         private System.Windows.Forms.BindingSource produtosVendidosTableAdapterBindingSource;
-        private Dados.saceDataSetConsultasTableAdapters.ProdutosVendidosTableAdapter produtosVendidosTableAdapter;
-        private Dados.saceDataSetConsultas saceDataSetConsultas;
         private System.Windows.Forms.TextBox vendidos18textBox;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.BindingSource entradasPorProdutoBindingSource;

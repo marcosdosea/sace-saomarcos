@@ -1,4 +1,4 @@
-﻿namespace Telas
+﻿namespace Sace
 {
     partial class FrmSaidaPagamento
     {
@@ -391,7 +391,6 @@
             // usuarioBindingSource
             // 
             this.usuarioBindingSource.AllowNew = false;
-            this.usuarioBindingSource.DataSource = typeof(Dominio.Usuario);
             // 
             // label5
             // 

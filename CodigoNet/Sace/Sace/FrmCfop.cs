@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmCfop : Form
     {

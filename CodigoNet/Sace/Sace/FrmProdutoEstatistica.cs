@@ -7,7 +7,7 @@ using Util;
 using System.Data;
 using Dados;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmProdutoEstatistica : Form
     {
@@ -29,14 +29,14 @@ namespace Telas
         public FrmProdutoEstatistica(long codProduto)
         {
             InitializeComponent();
-            this.produto = GerenciadorProduto.GetInstance().Obter(new ProdutoPesquisa() { CodProduto = codProduto });
+            this.produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = codProduto });
         }
 
 
         private void FrmProdutoEstatistica_Load(object sender, EventArgs e)
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodos();
+            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
             //this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, UtilConfig.Default.ACRESCIMO_PADRAO);
 
             if (produto != null)
@@ -86,7 +86,7 @@ namespace Telas
 
         private void preencherDadosEstatisticos(ProdutoPesquisa produtoPesquisa)
         {
-            Produto produto = GerenciadorProduto.GetInstance().Obter(produtoPesquisa);
+            Produto produto = gerenciadorProduto.Obter(produtoPesquisa);
             
             preco_custoTextBox.Text = produto.PrecoCusto.ToString("N2");
             precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString("N2");

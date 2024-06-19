@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 
-namespace Telas
+namespace Sace
 {
     public partial class FrmContaBancoPesquisa : Form
     {

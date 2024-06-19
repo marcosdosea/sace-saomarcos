@@ -1,6 +1,6 @@
 ﻿using Dominio;
 
-namespace Telas
+namespace Sace
 {
     partial class FrmBanco
     {

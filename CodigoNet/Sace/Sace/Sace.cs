@@ -1,45 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dados;
+using Dominio;
+using Microsoft.EntityFrameworkCore;
+using Negocio;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Telas;
-using System.Threading;
-using Dominio;
-using Negocio;
 using System.Diagnostics;
 using Util;
-using System.IO;
 
-namespace Telas
+namespace Sace
 {
     public partial class Principal : Form
     {
-        static Autenticacao autenticacao = new Autenticacao();
+       
 
-        static string nomeComputador = System.Windows.Forms.SystemInformation.ComputerName;
+        static string NOME_COMPUTADOR = SystemInformation.ComputerName.ToUpper();
+        static string SERVIDOR_NFE = UtilConfig.Default.SERVIDOR_NFE.ToUpper();
+        static string SERVIDOR_IMPRIMIR_REDUZIDO1 = UtilConfig.Default.SERVIDOR_IMPRIMIR_REDUZIDO1;
+        static string SERVIDOR_IMPRIMIR_REDUZIDO2 = UtilConfig.Default.SERVIDOR_IMPRIMIR_REDUZIDO2;
 
-        static string SERVIDOR_NFE = Properties.Settings.Default.ServidorNfe.ToUpper();
-        static string SERVIDOR_IMPRIMIR_REDUZIDO1 = Properties.Settings.Default.ServidorImprimirReduzido1;
-        static string SERVIDOR_IMPRIMIR_REDUZIDO2 = Properties.Settings.Default.ServidorImprimirReduzido2;
-        static Loja lojaMatriz;
-        static Loja lojaDeposito;
+        private static DbContextOptions<SaceContext> contextOptions;
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorNFe gerenciadorNFe;
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorSolicitacaoDocumento gerenciadorSolicitacaoDocumento;
 
-
-        public static Autenticacao Autenticacao
-        {
-            get { return Principal.autenticacao; }
-            set { Principal.autenticacao = value; }
-        }
-
-        public Principal()
+        public Principal(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            contextOptions = options;
+            var context = new SaceContext(contextOptions);
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorNFe = new GerenciadorNFe(context);
+            gerenciadorProduto = new GerenciadorProduto(context);
+            gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
+            AtualizarDadosAcompanhamentoVendas();
+        }
+
+        private void AtualizarDadosAcompanhamentoVendas()
+        {
             lblAno.Text = DateTime.Now.AddYears(-1).Year + " x " + DateTime.Now.Year;
-            NumerosPeriodo numeros = GerenciadorSaida.GetInstance(null).ObterVendasMensalComparandoAnoAnterior();
+
+            NumerosPeriodo numeros = gerenciadorSaida.ObterVendasMensalComparandoAnoAnterior();
 
             if (numeros.NumeroVendas > 0)
                 lblNumeroVendas.ForeColor = Color.Green;
@@ -52,7 +53,6 @@ namespace Telas
                 lblTicketMedio.ForeColor = Color.Red;
 
             lblTicketMedio.Text = "Total Vendas (R$): " + numeros.TotalVendas.ToString("N2") + "%";
-
         }
 
         private static bool IsAppAlreadyRunning()
@@ -76,7 +76,7 @@ namespace Telas
             //{
                 TratarException eh = new TratarException();
                 Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
-                Application.Run(new Principal());
+                Application.Run(new Principal(contextOptions));
             //}
 
         }
@@ -125,84 +125,84 @@ namespace Telas
 
         private void gruposDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmGrupo frmGrupo = new Telas.FrmGrupo();
+            FrmGrupo frmGrupo = new FrmGrupo();
             frmGrupo.ShowDialog();
             frmGrupo.Dispose();
         }
 
         private void subgrupoDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmSubgrupo frmSubgrupo = new Telas.FrmSubgrupo(1);
+            FrmSubgrupo frmSubgrupo = new FrmSubgrupo(1);
             frmSubgrupo.ShowDialog();
             frmSubgrupo.Dispose();
         }
 
         private void lojasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmLoja frmLoja = new Telas.FrmLoja();
+            FrmLoja frmLoja = new FrmLoja();
             frmLoja.ShowDialog();
             frmLoja.Dispose();
         }
 
         private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmProduto frmProduto = new Telas.FrmProduto();
+            FrmProduto frmProduto = new FrmProduto();
             frmProduto.ShowDialog();
             frmProduto.Dispose();
         }
 
         private void pessoasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+            FrmPessoa frmPessoa = new FrmPessoa();
             frmPessoa.ShowDialog();
             frmPessoa.Dispose();
         }
 
         private void bancosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmBanco frmBanco = new Telas.FrmBanco();
+            FrmBanco frmBanco = new FrmBanco(contextOptions);
             frmBanco.ShowDialog();
             frmBanco.Dispose();
         }
 
         private void contasBancáriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmContaBanco frmContaBanco = new Telas.FrmContaBanco();
+            FrmContaBanco frmContaBanco = new FrmContaBanco();
             frmContaBanco.ShowDialog();
             frmContaBanco.Dispose();
         }
 
         private void cartõesDeCréditoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmCartaoCredito frmCartaoCredito = new Telas.FrmCartaoCredito();
+            FrmCartaoCredito frmCartaoCredito = new FrmCartaoCredito(contextOptions);
             frmCartaoCredito.ShowDialog();
             frmCartaoCredito.Dispose();
         }
 
         private void planoDeContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmPlanoConta frmPlanoConta = new Telas.FrmPlanoConta();
+            FrmPlanoConta frmPlanoConta = new FrmPlanoConta();
             frmPlanoConta.ShowDialog();
             frmPlanoConta.Dispose();
         }
 
         private void tiposDeContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmGrupoConta frmTipoConta = new Telas.FrmGrupoConta();
+            FrmGrupoConta frmTipoConta = new FrmGrupoConta();
             frmTipoConta.ShowDialog();
             frmTipoConta.Dispose();
         }
 
         private void vendaAoConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida(Saida.TIPO_ORCAMENTO);
+            FrmSaida frmPreVenda = new FrmSaida(Saida.TIPO_ORCAMENTO);
             frmPreVenda.ShowDialog();
             frmPreVenda.Dispose();
         }
 
         private void devoluçãoDeConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR);
+            FrmSaida frmPreVenda = new FrmSaida(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR);
             frmPreVenda.ShowDialog();
             frmPreVenda.Dispose();
         }
@@ -210,22 +210,22 @@ namespace Telas
 
         private void entradaDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmEntrada frmEntrada = new Telas.FrmEntrada();
+            FrmEntrada frmEntrada = new FrmEntrada();
             frmEntrada.ShowDialog();
             frmEntrada.Dispose();
         }
 
         private void usuárioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmUsuario frmFrmUsuario = new Telas.FrmUsuario();
-            frmFrmUsuario.ShowDialog();
-            frmFrmUsuario.Dispose();
+           // FrmUsuario frmFrmUsuario = new FrmUsuario();
+            //frmFrmUsuario.ShowDialog();
+            //frmFrmUsuario.Dispose();
         }
 
         private void Principal_Load(object sender, EventArgs e)
         {
             //this.Visible = false;
-            //Telas.FrmLogin frmFrmLogin = new Telas.FrmLogin();
+            //FrmLogin frmFrmLogin = new FrmLogin();
             //frmFrmLogin.ShowDialog();
             //if (frmFrmLogin.Aturizado)
             //{
@@ -240,7 +240,7 @@ namespace Telas
             //}
 
             //MapearImpressorasSeriais();
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
+            if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_NFE))
             {
                 if (lojaMatriz == null)
                     lojaMatriz = gerenciadorLoja.Obter(1).ElementAtOrDefault(0);
@@ -257,7 +257,7 @@ namespace Telas
 
         private void contasAPagarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Telas.FrmConta frmConta = new Telas.FrmConta();
+            FrmConta frmConta = new FrmConta();
             frmConta.ShowDialog();
             frmConta.Dispose();
         }
@@ -333,7 +333,7 @@ namespace Telas
 
         private void códigoFiscalDeOperaçãoCFOPToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmCfop frmCfop = new FrmCfop();
+            FrmCfop frmCfop = new FrmCfop(contextOptions);
             frmCfop.ShowDialog();
             frmCfop.Dispose();
         }
@@ -349,24 +349,24 @@ namespace Telas
             ProcessarDocumentosFiscais();
         }
 
-        private static void ProcessarDocumentosFiscais()
+        private void ProcessarDocumentosFiscais()
         {
             gerenciadorNFe.imprimirDANFE(null, SERVIDOR_NFE);
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1.ToUpper()))
+            if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1.ToUpper()))
             {
-                GerenciadorSaida.GetInstance(null).ImprimirDAV(UtilConfig.Default.Impressora.REDUZIDO1, Properties.Settings.Default.PORTA_IMPRESSORA_REDUZIDA1);
+                gerenciadorSaida.ImprimirDAV(Impressora.REDUZIDO1, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA1);
             }
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO2.ToUpper()))
+            if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO2.ToUpper()))
             {
-                GerenciadorSaida.GetInstance(null).ImprimirDAV(UtilConfig.Default.Impressora.REDUZIDO2, Properties.Settings.Default.PORTA_IMPRESSORA_REDUZIDA2);
+                gerenciadorSaida.ImprimirDAV(Impressora.REDUZIDO2, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA2);
             }
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE.ToUpper()))
+            if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_NFE.ToUpper()))
             {
-                gerenciadorSolicitacaoDocumento.EnviarProximoNFe(SERVIDOR_NFE);
-                gerenciadorSolicitacaoDocumento.EnviarProximoNFCe(SERVIDOR_NFE);
+                gerenciadorSolicitacaoDocumento.EnviarProximoNF(SERVIDOR_NFE, DocumentoFiscal.TipoSolicitacao.NFE);
+                gerenciadorSolicitacaoDocumento.EnviarProximoNF(SERVIDOR_NFE, DocumentoFiscal.TipoSolicitacao.NFCE);
                 gerenciadorNFe.ProcessarSolicitacoesCancelamento();
                 gerenciadorNFe.ProcessaSolicitacaoConsultaNfe();
-                GerenciadorProduto.GetInstance().AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
+                gerenciadorProduto.AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
             }
         }
 
@@ -476,7 +476,7 @@ namespace Telas
 
         private void fileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
+            if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_NFE))
             {
                 if (lojaMatriz == null)
                     lojaMatriz = gerenciadorLoja.Obter(1).ElementAtOrDefault(0);
@@ -486,7 +486,7 @@ namespace Telas
 
         private void fileSystemWatcherDeposito_Changed(object sender, FileSystemEventArgs e)
         {
-            if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
+            if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_NFE))
             {
                 if (lojaDeposito == null)
                     lojaDeposito = gerenciadorLoja.Obter(2).ElementAtOrDefault(0);
@@ -496,7 +496,7 @@ namespace Telas
 
         private void retornoDeFornecedorvariaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Telas.FrmSaida frmPreVenda = new Telas.FrmSaida(Saida.TIPO_PRE_RETORNO_FORNECEDOR);
+            FrmSaida frmPreVenda = new FrmSaida(Saida.TIPO_PRE_RETORNO_FORNECEDOR);
             frmPreVenda.ShowDialog();
             frmPreVenda.Dispose();
         }
