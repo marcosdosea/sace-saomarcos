@@ -27,8 +27,8 @@ namespace Sace
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
             GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.PLANO_DE_CONTAS, Principal.Autenticacao.CodUsuario);
-            grupoContaBindingSource.DataSource = GerenciadorGrupoConta.GetInstance().ObterTodos();
-            planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterTodos();
+            grupoContaBindingSource.DataSource = gerenciadorGrupoConta.ObterTodos();
+            planoContaBindingSource.DataSource = gerenciadorPlanoConta.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -65,7 +65,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorPlanoConta.GetInstance().Remover(int.Parse(codPlanoContaTextBox.Text));
+                gerenciadorPlanoConta.Remover(int.Parse(codPlanoContaTextBox.Text));
                 planoContaBindingSource.RemoveCurrent();
             }
         }
@@ -89,7 +89,7 @@ namespace Sace
                 planoConta.DiaBase = (diaBaseTextBox.Text == "") ? short.Parse("0") : short.Parse(diaBaseTextBox.Text);
                 planoConta.CodPlanoConta = Int32.Parse(codPlanoContaTextBox.Text);
 
-                GerenciadorPlanoConta gPlanoConta = GerenciadorPlanoConta.GetInstance();
+                GerenciadorPlanoConta gPlanoConta = gerenciadorPlanoConta;
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     long codPlanoConta = gPlanoConta.Inserir(planoConta);

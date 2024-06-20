@@ -8,17 +8,22 @@ using System.Text;
 using System.Windows.Forms;
 using Negocio;
 using Dominio;
+using Dados;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
     public partial class FrmEntradaPesquisa : Form
     {
-        public Entrada EntradaSelected { get; set; } 
+        public Entrada EntradaSelected { get; set; }
 
-        public FrmEntradaPesquisa()
+        private readonly GerenciadorEntrada gerenciadorEntrada;
+        public FrmEntradaPesquisa(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
             EntradaSelected = null;
+            SaceContext context = new SaceContext(options);
+            gerenciadorEntrada = new GerenciadorEntrada(context);
         }
 
         private void FrmEntradaPesquisa_Load(object sender, EventArgs e)
@@ -26,19 +31,18 @@ namespace Sace
             cmbBusca.SelectedIndex = 0;
         }
 
-
-
-          private void txtTexto_TextChanged(object sender, EventArgs e)
+        private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                if (!txtTexto.Text.Equals("")) {
-                    if (cmbBusca.SelectedIndex == 0) 
-                        entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().Obter(long.Parse(txtTexto.Text));
+                if (!txtTexto.Text.Equals(""))
+                {
+                    if (cmbBusca.SelectedIndex == 0)
+                        entradaBindingSource.DataSource = gerenciadorEntrada.Obter(long.Parse(txtTexto.Text));
                     else if (cmbBusca.SelectedIndex == 1)
-                        entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterPorNumeroNotaFiscal(txtTexto.Text);
+                        entradaBindingSource.DataSource = gerenciadorEntrada.ObterPorNumeroNotaFiscal(txtTexto.Text);
                     else
-                        entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterPorNomeFornecedor(txtTexto.Text);
+                        entradaBindingSource.DataSource = gerenciadorEntrada.ObterPorNomeFornecedor(txtTexto.Text);
                 }
             }
             catch (System.Exception ex)
@@ -51,7 +55,7 @@ namespace Sace
         {
             if (tb_entradaDataGridView.SelectedRows.Count > 0)
             {
-                EntradaSelected = (Entrada) entradaBindingSource.Current;
+                EntradaSelected = (Entrada)entradaBindingSource.Current;
             }
             this.Close();
         }
@@ -61,11 +65,11 @@ namespace Sace
             if (e.KeyCode == Keys.Enter)
             {
                 tb_entradaDataGridView_CellClick(sender, null);
-            } 
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            } 
+            }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
                 entradaBindingSource.MoveNext();

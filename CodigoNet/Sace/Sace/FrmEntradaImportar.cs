@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
+using System.Runtime.CompilerServices;
 
 namespace Sace
 {
@@ -15,12 +10,18 @@ namespace Sace
     {
         IEnumerable<EntradaProduto> listaEntradaProduto;
         Entrada entrada;
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorEntradaProduto gerenciadorEntradaProduto;
 
-        public FrmEntradaImportar(Entrada entrada, IEnumerable<EntradaProduto> listaEntradaProduto)
+
+        public FrmEntradaImportar(Entrada entrada, IEnumerable<EntradaProduto> listaEntradaProduto, DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
             this.listaEntradaProduto = listaEntradaProduto;
-            this.entrada = entrada;            
+            this.entrada = entrada;
+            SaceContext context = new SaceContext(options);
+            gerenciadorProduto = new GerenciadorProduto(context);
+            gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
         }
 
         private void FrmEntradaImportar_Load(object sender, EventArgs e)
@@ -31,23 +32,23 @@ namespace Sace
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            EntradaProduto entradaProduto = (EntradaProduto) entradaProdutoBindingSource.Current;
+            EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
             entradaProduto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem == 0 ? 1 : entradaProduto.QuantidadeEmbalagem;
             entradaProduto.QuantidadeDisponivel = entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem;
             gerenciadorEntradaProduto.Inserir(entradaProduto, Entrada.TIPO_ENTRADA);
             entradaProdutoBindingSource.RemoveCurrent();
             codProdutoComboBox.Focus();
         }
-        
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-        
+
         }
 
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
-            ProdutoPesquisa produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, EstadoFormulario.INSERIR_DETALHE, produtoBindingSource, true);
+            ProdutoPesquisa produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, EstadoFormulario.INSERIR_DETALHE, produtoBindingSource, true, gerenciadorProduto);
             EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
             if (produtoPesquisa.CodProduto != 1)
             {
@@ -60,63 +61,61 @@ namespace Sace
                 entradaProduto.PrecoVendaAtacado = produtoPesquisa.PrecoVendaAtacado;
                 entradaProduto.PrecoRevenda = produtoPesquisa.PrecoRevenda;
                 entradaProdutoBindingSource.ResumeBinding();
-                this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produtoPesquisa.CodProduto);
-            
             }
         }
-        
+
 
         private void FrmEntradaImportar_KeyDown(object sender, KeyEventArgs e)
         {
-                if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
+            if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
+            {
+                FrmProduto frmProduto = new FrmProduto();
+                frmProduto.ShowDialog();
+                if (frmProduto.ProdutoPesquisa != null)
                 {
-                    FrmProduto frmProduto = new FrmProduto();
-                    frmProduto.ShowDialog();
-                    if (frmProduto.ProdutoPesquisa != null)
-                    {
-                        produtoBindingSource.DataSource = gerenciadorProduto.ObterTodosNomes();
-                        produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new ProdutoNome() { CodProduto = frmProduto.ProdutoPesquisa.CodProduto });
-                    }
-                    frmProduto.Dispose();
-                } 
-                else if (e.KeyCode == Keys.F6)
-                {
-                    btnSalvar_Click(sender, e);
+                    produtoBindingSource.DataSource = gerenciadorProduto.ObterTodosNomes();
+                    produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new ProdutoNome() { CodProduto = frmProduto.ProdutoPesquisa.CodProduto });
                 }
-                else if (e.KeyCode == Keys.F7)
+                frmProduto.Dispose();
+            }
+            else if (e.KeyCode == Keys.F6)
+            {
+                btnSalvar_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.F7)
+            {
+                btnNovoProduto_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.End)
+            {
+                entradaProdutoBindingSource.MoveLast();
+            }
+            else if (e.KeyCode == Keys.Home)
+            {
+                entradaProdutoBindingSource.MoveFirst();
+            }
+            else if (e.KeyCode == Keys.PageUp)
+            {
+                entradaProdutoBindingSource.MovePrevious();
+            }
+            else if (e.KeyCode == Keys.PageDown)
+            {
+                entradaProdutoBindingSource.MoveNext();
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                btnCancelar_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                if (codProdutoComboBox.Focused)
                 {
-                    btnNovoProduto_Click(sender, e);
+                    codProdutoComboBox_Leave(sender, e);
                 }
-                else if (e.KeyCode == Keys.End)
-                {
-                    entradaProdutoBindingSource.MoveLast();
-                }
-                else if (e.KeyCode == Keys.Home)
-                {
-                    entradaProdutoBindingSource.MoveFirst();
-                }
-                else if (e.KeyCode == Keys.PageUp)
-                {
-                    entradaProdutoBindingSource.MovePrevious();
-                }
-                else if (e.KeyCode == Keys.PageDown)
-                {
-                    entradaProdutoBindingSource.MoveNext();
-                }
-                else if (e.KeyCode == Keys.Escape)
-                {
-                    btnCancelar_Click(sender, e);
-                }
-                else if (e.KeyCode == Keys.Enter)
-                {
-                    if (codProdutoComboBox.Focused)
-                    {
-                        codProdutoComboBox_Leave(sender, e);
-                    }
 
-                    e.Handled = true;
-                    SendKeys.Send("{tab}");
-                }
+                e.Handled = true;
+                SendKeys.Send("{tab}");
+            }
         }
 
         private void codProdutoComboBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -127,7 +126,7 @@ namespace Sace
 
         private void entradaProdutoBindingSource_CurrentItemChanged(object sender, EventArgs e)
         {
-            EntradaProduto entradaProduto = (EntradaProduto) entradaProdutoBindingSource.Current;
+            EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
             if (entradaProduto != null)
             {
                 Cst cstProduto = new Cst() { CodCST = entradaProduto.CodCST };
@@ -175,7 +174,7 @@ namespace Sace
 
         private void btnNovoProduto_Click(object sender, EventArgs e)
         {
-            EntradaProduto entradaProduto = (EntradaProduto) entradaProdutoBindingSource.Current;
+            EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
             FrmProduto frmProduto = new FrmProduto(entradaProduto);
             frmProduto.ShowDialog();
             entradaProduto.CodProduto = frmProduto.ProdutoPesquisa.CodProduto;
@@ -185,5 +184,5 @@ namespace Sace
             frmProduto.Dispose();
         }
     }
-    
+
 }

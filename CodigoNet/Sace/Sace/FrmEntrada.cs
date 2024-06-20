@@ -6,6 +6,7 @@ using Util;
 using System.Data;
 using Dados;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
@@ -14,26 +15,42 @@ namespace Sace
         private EstadoFormulario estado;
         private Entrada entrada;
         private EntradaProduto entradaProduto;
-        private Int32 tipoEntrada;
+        private int tipoEntrada;
         private ProdutoPesquisa produtoPesquisa;
-        
-        public FrmEntrada()
+        private DbContextOptions<SaceContext> options;
+        private readonly GerenciadorNFe gerenciadorNFe;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorCfop gerenciadorCfop;
+        private readonly GerenciadorCst gerenciadorCst;
+        private readonly GerenciadorEntrada gerenciadorEntrada;
+        private readonly GerenciadorEntradaProduto gerenciadorEntradaProduto;
+
+        public FrmEntrada(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            this.options = options;
+            SaceContext context = new SaceContext(options);
+            gerenciadorNFe = new GerenciadorNFe(context);
+            gerenciadorCfop = new GerenciadorCfop(context);
+            gerenciadorCst = new GerenciadorCst(context);
+            gerenciadorEntrada = new GerenciadorEntrada(context);
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorProduto = new GerenciadorProduto(context);
+            gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
         }
 
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
             produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos(); 
             fornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             empresaFreteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
-            cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
-            entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodos();
-            situacaoPagamentosBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodosSituacoesPagamentos();
+            cfopBindingSource.DataSource = gerenciadorCfop.ObterTodos();
+            cstBindingSource.DataSource = gerenciadorCst.ObterTodos();
+            entradaBindingSource.DataSource = gerenciadorEntrada.ObterTodos();
+            situacaoPagamentosBindingSource.DataSource = gerenciadorEntrada.ObterTodosSituacoesPagamentos();
             entradaBindingSource.MoveLast();
             entrada = new Entrada();
             entradaProduto = new EntradaProduto();
@@ -45,7 +62,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmEntradaPesquisa frmEntradaPesquisa = new FrmEntradaPesquisa();
+            FrmEntradaPesquisa frmEntradaPesquisa = new FrmEntradaPesquisa(options);
             frmEntradaPesquisa.ShowDialog();
             if (frmEntradaPesquisa.EntradaSelected != null)
             {
@@ -78,7 +95,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorEntrada.GetInstance().Remover(Convert.ToInt64(codEntradaTextBox.Text));
+                gerenciadorEntrada.Remover(Convert.ToInt64(codEntradaTextBox.Text));
                 entradaBindingSource.RemoveCurrent();
             }
         }
@@ -100,7 +117,7 @@ namespace Sace
         {
             entrada = (Entrada)entradaBindingSource.Current;
 
-            GerenciadorEntrada gEntrada = GerenciadorEntrada.GetInstance();
+            GerenciadorEntrada gEntrada = gerenciadorEntrada;
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
                 entrada.CodTipoEntrada = tipoEntrada;
@@ -112,7 +129,6 @@ namespace Sace
             }
             else if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                GerenciadorEntradaProduto gEntradaProduto = gerenciadorEntradaProduto;
                 entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                 entradaProduto.CodProduto = Convert.ToInt32(codProdutoComboBox.SelectedValue.ToString());
                 entradaProduto.BaseCalculoICMS = Convert.ToDecimal(baseCalculoICMSTextBox.Text);
@@ -226,13 +242,13 @@ namespace Sace
 
         private void codFornecedorComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codFornecedorComboBox, estado, fornecedorBindingSource, false, true);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codFornecedorComboBox, estado, fornecedorBindingSource, false, true, gerenciadorPessoa);
             codEntradaTextBox_Leave(sender, e);
         }
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, estado, empresaFreteBindingSource, false, false);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, estado, empresaFreteBindingSource, false, false, gerenciadorPessoa);
             codEntradaTextBox_Leave(sender, e);
         }
 
@@ -240,12 +256,12 @@ namespace Sace
         {
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true);
+                produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true, gerenciadorProduto);
 
                 EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                 if (produtoPesquisa != null)
                 {
-                    data_validadeDateTimePicker.Enabled = produtoPesquisa.TemVencimento;
+                    data_validadeDateTimePicker.Enabled = (bool) produtoPesquisa.TemVencimento;
                     entradaProduto.NomeProduto = produtoPesquisa.Nome;
                     if (produtoPesquisa.QuantidadeEmbalagem <= 0)
                         quantidadeEmbalagemTextBox.Text = "1";
@@ -295,7 +311,7 @@ namespace Sace
             {
                 habilitaBotoes(true);
                 estado = EstadoFormulario.ESPERA;
-                entrada = GerenciadorEntrada.GetInstance().Obter(Convert.ToInt64(codEntradaTextBox.Text)).GetEnumerator().Current;
+                entrada = gerenciadorEntrada.Obter(Convert.ToInt64(codEntradaTextBox.Text)).GetEnumerator().Current;
                 //FrmEntradaPagamento frmEntradaPagamento = new FrmEntradaPagamento(entrada);
                 //frmEntradaPagamento.ShowDialog();
                 //frmEntradaPagamento.Dispose();
@@ -312,10 +328,10 @@ namespace Sace
                 if (MessageBox.Show("Deseja importar CABEÇALHO da NF-e?", "Confirmar Importar NF-e", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    long codEntrada = GerenciadorEntrada.GetInstance().Importar(nfe);
+                    long codEntrada = gerenciadorEntrada.Importar(nfe);
                     fornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
                     empresaFreteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-                    entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodos();
+                    entradaBindingSource.DataSource = gerenciadorEntrada.ObterTodos();
                     entradaBindingSource.Position = entradaBindingSource.List.IndexOf(new Entrada() { CodEntrada = codEntrada });
                     Cursor.Current = Cursors.Default;
                 }
@@ -331,7 +347,7 @@ namespace Sace
                         }
                     }
                     entrada = (Entrada) entradaBindingSource.Current;
-                    FrmEntradaImportar frmEntradaImportar = new FrmEntradaImportar(entrada, listaEntradaProduto);
+                    FrmEntradaImportar frmEntradaImportar = new FrmEntradaImportar(entrada, listaEntradaProduto, options);
                     frmEntradaImportar.ShowDialog();
                     frmEntradaImportar.Dispose();
                     codEntradaTextBox_TextChanged(sender, e);

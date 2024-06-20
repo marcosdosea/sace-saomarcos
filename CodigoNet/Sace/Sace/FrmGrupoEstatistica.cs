@@ -13,7 +13,7 @@ namespace Sace
 
         private void FrmGrupoEstatistica_Load(object sender, EventArgs e)
         {
-            grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
+            grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
 
             dataInicioTimePicker.Value = DateTime.Now.AddMonths(-12);
             dataFimTimePicker.Value = DateTime.Now;

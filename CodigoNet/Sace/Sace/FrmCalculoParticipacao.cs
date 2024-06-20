@@ -8,16 +8,20 @@ using System.Text;
 using System.Windows.Forms;
 using Negocio;
 using Dominio;
+using Dados;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
     public partial class FrmCalculoParticipacao : Form
     {
-
+        private readonly GerenciadorSaida gerenciadorSaida;
  
-        public FrmCalculoParticipacao()
+        public FrmCalculoParticipacao(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            SaceContext context = new SaceContext(options);
+            gerenciadorSaida = new GerenciadorSaida(context);
         }
 
         private void FrmCalculoParticipacao_KeyDown(object sender, KeyEventArgs e)

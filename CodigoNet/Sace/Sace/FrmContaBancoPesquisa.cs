@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
+using Negocio;
 
 namespace Sace
 {
     public partial class FrmContaBancoPesquisa : Form
     {
         public ContaBanco ContaBancoSelected { get; set; }
+        private readonly GerenciadorContaBanco gerenciadorContaBanco;
 
-        public FrmContaBancoPesquisa()
+        public FrmContaBancoPesquisa(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
             ContaBancoSelected = null;
+            SaceContext context = new SaceContext(options);
+            gerenciadorContaBanco = new GerenciadorContaBanco(context);
         }
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
@@ -32,13 +29,13 @@ namespace Sace
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
                 contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterPorNumero(txtTexto.Text);
             else
-                contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterPorDescricao(txtTexto.Text);              
-            
+                contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterPorDescricao(txtTexto.Text);
+
         }
 
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            ContaBancoSelected = (ContaBanco) contaBancoBindingSource.Current;
+            ContaBancoSelected = (ContaBanco)contaBancoBindingSource.Current;
             this.Close();
         }
 
@@ -47,11 +44,11 @@ namespace Sace
             if (e.KeyCode == Keys.Enter)
             {
                 tb_bancoDataGridView_CellClick(sender, null);
-            } 
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            } 
+            }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
                 contaBancoBindingSource.MoveNext();

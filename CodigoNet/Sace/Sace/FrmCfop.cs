@@ -12,10 +12,11 @@ namespace Sace
         private Cfop CfopSelected { get; set;}
         private GerenciadorCfop gerenciadorCfop;
         private FrmCfopPesquisa frmCfopPesquisa;
-
+        private DbContextOptions<SaceContext> options;
         public FrmCfop(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            this.options = options;
             SaceContext context = new SaceContext(options);
             gerenciadorCfop = new GerenciadorCfop(context);
         }
@@ -28,7 +29,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmCfopPesquisa frmCfopPesquisa = new FrmCfopPesquisa();
+            FrmCfopPesquisa frmCfopPesquisa = new FrmCfopPesquisa(options);
             frmCfopPesquisa.ShowDialog();
             if (frmCfopPesquisa.CfopSelected != null)
             {

@@ -46,9 +46,6 @@
     <Compile Update="FrmEntradaPagamento.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmEntradaPedido.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="FrmEntradaPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,9 +62,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmGrupoPesquisa.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmLoja.cs">

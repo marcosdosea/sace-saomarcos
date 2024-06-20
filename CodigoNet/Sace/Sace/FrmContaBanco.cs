@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using Dados;
+using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
-using Dominio;
 
 namespace Sace
 {
@@ -17,23 +11,29 @@ namespace Sace
         private EstadoFormulario estado;
 
         public ContaBanco ContaBancoSelected { get; set; }
+        private DbContextOptions<SaceContext> options;
+        private readonly GerenciadorBanco gerenciadorBanco;
+        private readonly GerenciadorContaBanco gerenciadorContaBanco;
 
-        public FrmContaBanco()
+        public FrmContaBanco(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            this.options = options; 
+            SaceContext context = new SaceContext(options);
+            gerenciadorBanco = new GerenciadorBanco(context);
+            gerenciadorContaBanco = new GerenciadorContaBanco(context);
         }
 
         private void FrmContaBanco_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
-            bancoBindingSource.DataSource = GerenciadorBanco.ObterTodos();
+            bancoBindingSource.DataSource = gerenciadorBanco.ObterTodos();
             contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa();
+            FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa(options);
             frmContaBancoPesquisa.ShowDialog();
             if (frmContaBancoPesquisa.ContaBancoSelected != null)
             {
@@ -163,7 +163,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codBancoComboBox.Focused))
                 {
-                    FrmBancoPesquisa frmBancoPesquisa = new FrmBancoPesquisa();
+                    FrmBancoPesquisa frmBancoPesquisa = new FrmBancoPesquisa(options);
                     frmBancoPesquisa.ShowDialog();
                     if (frmBancoPesquisa.BancoSelected != null)
                     {
@@ -173,7 +173,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codBancoComboBox.Focused))
                 {
-                    FrmBanco frmBanco = new FrmBanco();
+                    FrmBanco frmBanco = new FrmBanco(options);
                     frmBanco.ShowDialog();
                     if (frmBanco.BancoSelected != null)
                     {

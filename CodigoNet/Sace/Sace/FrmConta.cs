@@ -9,24 +9,35 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 using Util;
+using Dados;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
     public partial class FrmConta : Form
     {
         private EstadoFormulario estado;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorPlanoConta gerenciadorPlanoConta;
+        private readonly GerenciadorConta gerenciadorConta;
+        private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
+        private DbContextOptions<SaceContext> options;
 
-        public FrmConta()
+        public FrmConta(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            this.options = options;
+            SaceContext context = new SaceContext(options); 
+            gerenciadorPlanoConta = new GerenciadorPlanoConta(context);
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorConta = new GerenciadorConta(context);   
+            gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
         }
 
         private void FrmContas_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.CONTAS_PAGAR, Principal.Autenticacao.CodUsuario);
-
             pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterTodos();
+            planoContaBindingSource.DataSource = gerenciadorPlanoConta.ObterTodos();
             contaBindingSource.DataSource = gerenciadorConta.ObterTodos();
             situacaoContaBindingSource.DataSource = gerenciadorConta.ObterSituacoesConta();
             
@@ -50,7 +61,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmContaPesquisa frmContaPesquisa = new FrmContaPesquisa();
+            FrmContaPesquisa frmContaPesquisa = new FrmContaPesquisa(options);
             frmContaPesquisa.ShowDialog();
             if (frmContaPesquisa.ContaSelected != null)
             {

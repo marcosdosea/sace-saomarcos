@@ -10,6 +10,7 @@ using Negocio;
 using Dominio;
 using Dados;
 using Util;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
@@ -17,16 +18,18 @@ namespace Sace
     {
         private EstadoFormulario estado;
         public Grupo GrupoSelected { get; set; }
+        private readonly GerenciadorGrupo gerenciadorGrupo;
 
-        public FrmGrupo()
+        public FrmGrupo(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            SaceContext context = new SaceContext(options);
+            gerenciadorGrupo = new GerenciadorGrupo(context);
         }
 
         private void FrmGrupo_Load(object sender, EventArgs e)
         {
-            //GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
+            grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -61,7 +64,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorGrupo.GetInstance().Remover(Int32.Parse(codGrupoTextBox.Text));
+                gerenciadorGrupo.Remover(Int32.Parse(codGrupoTextBox.Text));
                 grupoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -83,12 +86,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codGrupo = GerenciadorGrupo.GetInstance().Inserir(grupo);
+                    long codGrupo = gerenciadorGrupo.Inserir(grupo);
                     codGrupoTextBox.Text = codGrupo.ToString();
                 }
                 else
                 {
-                    GerenciadorGrupo.GetInstance().Atualizar(grupo);
+                    gerenciadorGrupo.Atualizar(grupo);
                 }
                 grupoBindingSource.EndEdit();
             }

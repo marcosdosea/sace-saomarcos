@@ -6,7 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -14,11 +16,14 @@ namespace Sace
     public partial class FrmContaPesquisa : Form
     {
         public Conta ContaSelected { get; set; }
+        private readonly GerenciadorConta gerenciadorConta;
 
-        public FrmContaPesquisa()
+        public FrmContaPesquisa(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
             ContaSelected = null;
+            SaceContext context = new SaceContext();
+            gerenciadorConta = new GerenciadorConta(context);
         }
 
                 

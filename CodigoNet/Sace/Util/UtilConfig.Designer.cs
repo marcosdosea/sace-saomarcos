@@ -205,5 +205,23 @@ namespace Util {
                 return ((string)(this["SERVIDOR_IMPRIMIR_REDUZIDO2"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LightYellow")]
+        public global::System.Drawing.Color BACKCOLOR_FOCUS {
+            get {
+                return ((global::System.Drawing.Color)(this["BACKCOLOR_FOCUS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color BACKCOLOR_FOCUS_LEAVE {
+            get {
+                return ((global::System.Drawing.Color)(this["BACKCOLOR_FOCUS_LEAVE"]));
+            }
+        }
     }
 }

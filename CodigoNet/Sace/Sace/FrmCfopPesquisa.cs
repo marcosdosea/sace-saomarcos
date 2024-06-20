@@ -1,38 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
+using Negocio;
 
 namespace Sace
 {
     public partial class FrmCfopPesquisa : Form
     {
         public Cfop CfopSelected { get; set; }
+        private readonly GerenciadorCfop gerenciadorCfop;
 
-        public FrmCfopPesquisa()
+        public FrmCfopPesquisa(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
             CfopSelected = null;
+            SaceContext context = new SaceContext(options);
+            gerenciadorCfop = new GerenciadorCfop(context);
         }
 
         private void FrmCfopPesquisa_Load(object sender, EventArgs e)
         {
-            cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterTodos();
+            cfopBindingSource.DataSource = gerenciadorCfop.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().Obter(Convert.ToInt32(txtTexto.Text));
+                cfopBindingSource.DataSource = gerenciadorCfop.Obter(Convert.ToInt32(txtTexto.Text));
             else
-                cfopBindingSource.DataSource = GerenciadorCfop.GetInstance().ObterPorDescricao(txtTexto.Text);
+                cfopBindingSource.DataSource = gerenciadorCfop.ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_cfopDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

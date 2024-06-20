@@ -41,9 +41,9 @@ namespace Sace
             Cursor.Current = Cursors.WaitCursor;
             GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.PRODUTOS, Principal.Autenticacao.CodUsuario);
 
-            cstBindingSource.DataSource = GerenciadorCst.GetInstance().ObterTodos();
+            cstBindingSource.DataSource = gerenciadorCst.ObterTodos();
             fabricanteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
+            grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
             subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo((Grupo)grupoBindingSource.Current);
             situacaoprodutoBindingSource.DataSource = gerenciadorProduto.ObterSituacoesProduto();
             produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();

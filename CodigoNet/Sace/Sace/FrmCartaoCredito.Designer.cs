@@ -121,7 +121,6 @@
             diaBaseLabel.Size = new System.Drawing.Size(107, 13);
             diaBaseLabel.TabIndex = 23;
             diaBaseLabel.Text = "Qtd Dias Para Pagar:";
-            diaBaseLabel.Click += new System.EventHandler(this.diaBaseLabel_Click);
             // 
             // codPessoaLabel
             // 
@@ -140,7 +139,6 @@
             mapeamentoLabel.Size = new System.Drawing.Size(128, 13);
             mapeamentoLabel.TabIndex = 33;
             mapeamentoLabel.Text = "Mapeamento Markssyste:";
-            mapeamentoLabel.Click += new System.EventHandler(this.mapeamentoLabel_Click);
             // 
             // descontoLabel
             // 
@@ -150,7 +148,6 @@
             descontoLabel.Size = new System.Drawing.Size(56, 13);
             descontoLabel.TabIndex = 34;
             descontoLabel.Text = "Desconto:";
-            descontoLabel.Click += new System.EventHandler(this.descontoLabel_Click);
             // 
             // mapeamentoCapptaLabel
             // 
@@ -378,7 +375,6 @@
             this.diaBaseTextBox.Name = "diaBaseTextBox";
             this.diaBaseTextBox.Size = new System.Drawing.Size(104, 20);
             this.diaBaseTextBox.TabIndex = 33;
-            this.diaBaseTextBox.TextChanged += new System.EventHandler(this.diaBaseTextBox_TextChanged);
             this.diaBaseTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
             this.diaBaseTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
@@ -417,7 +413,6 @@
             this.codPessoaComboBox.Size = new System.Drawing.Size(336, 21);
             this.codPessoaComboBox.TabIndex = 29;
             this.codPessoaComboBox.ValueMember = "CodPessoa";
-            this.codPessoaComboBox.SelectedIndexChanged += new System.EventHandler(this.codPessoaComboBox_SelectedIndexChanged);
             this.codPessoaComboBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
             this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codContaBancoComboBox_KeyPress);
             this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
@@ -433,7 +428,6 @@
             this.mapeamentoTextBox.Name = "mapeamentoTextBox";
             this.mapeamentoTextBox.Size = new System.Drawing.Size(125, 20);
             this.mapeamentoTextBox.TabIndex = 34;
-            this.mapeamentoTextBox.TextChanged += new System.EventHandler(this.mapeamentoTextBox_TextChanged);
             this.mapeamentoTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
             this.mapeamentoTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
@@ -444,7 +438,6 @@
             this.descontoTextBox.Name = "descontoTextBox";
             this.descontoTextBox.Size = new System.Drawing.Size(63, 20);
             this.descontoTextBox.TabIndex = 32;
-            this.descontoTextBox.TextChanged += new System.EventHandler(this.descontoTextBox_TextChanged);
             this.descontoTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
             this.descontoTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
             // 
@@ -469,7 +462,6 @@
             this.tipoCartaoComboBox.Name = "tipoCartaoComboBox";
             this.tipoCartaoComboBox.Size = new System.Drawing.Size(113, 21);
             this.tipoCartaoComboBox.TabIndex = 28;
-            this.tipoCartaoComboBox.SelectedIndexChanged += new System.EventHandler(this.tipoCartaoComboBox_SelectedIndexChanged);
             // 
             // FrmCartaoCredito
             // 

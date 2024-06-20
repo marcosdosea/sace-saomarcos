@@ -15,11 +15,13 @@ namespace Sace
         private GerenciadorCartaoCredito gerenciadorCartaoCredito;
         private GerenciadorContaBanco gerenciadorContaBanco;
         private GerenciadorPessoa gerenciadorPessoa;
+        private DbContextOptions<SaceContext> options;
 
 
         public FrmCartaoCredito(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            this.options = options;
             SaceContext context = new SaceContext(options);
             gerenciadorCartaoCredito = new GerenciadorCartaoCredito(context);
             gerenciadorContaBanco = new GerenciadorContaBanco(context); 
@@ -37,7 +39,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmCartaoCreditoPesquisa frmCartaoCreditoPesquisa = new FrmCartaoCreditoPesquisa();
+            FrmCartaoCreditoPesquisa frmCartaoCreditoPesquisa = new FrmCartaoCreditoPesquisa(options);
             frmCartaoCreditoPesquisa.ShowDialog();
             if (frmCartaoCreditoPesquisa.CartaoCreditoSelected != null)
             {
@@ -177,7 +179,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codContaBancoComboBox.Focused))
                 {
-                    FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa();
+                    FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa(options);
                     frmContaBancoPesquisa.ShowDialog();
                     if (frmContaBancoPesquisa.ContaBancoSelected != null)
                     {
@@ -187,7 +189,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codContaBancoComboBox.Focused))
                 {
-                    FrmContaBanco frmContaBanco = new FrmContaBanco();
+                    FrmContaBanco frmContaBanco = new FrmContaBanco(options);
                     frmContaBanco.ShowDialog();
                     if (frmContaBanco.ContaBancoSelected != null)
                     {
@@ -240,7 +242,7 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true, gerenciadorPessoa);
         }
 
         private void codCartaoTextBox_Enter(object sender, EventArgs e)
@@ -275,46 +277,6 @@ namespace Sace
         {
             FormatTextBox.RemoverAcentos((TextBox)sender);
             codCartaoTextBox_Leave(sender, e);
-        }
-
-        private void mapeamentoLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mapeamentoTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void diaBaseTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void descontoTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void descontoLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void diaBaseLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void codPessoaComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tipoCartaoComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

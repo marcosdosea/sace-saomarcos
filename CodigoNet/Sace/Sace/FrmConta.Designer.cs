@@ -28,644 +28,669 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label codBancoLabel;
-            System.Windows.Forms.Label label3;
-            System.Windows.Forms.Label label4;
-            System.Windows.Forms.Label planoContaLabel;
-            System.Windows.Forms.Label pessoaLabel;
-            System.Windows.Forms.Label dataVencLabel;
-            System.Windows.Forms.Label valorLabel;
-            System.Windows.Forms.Label observacaoLabel;
-            System.Windows.Forms.Label label5;
+            components = new System.ComponentModel.Container();
+            Label codBancoLabel;
+            Label label3;
+            Label label4;
+            Label planoContaLabel;
+            Label pessoaLabel;
+            Label dataVencLabel;
+            Label valorLabel;
+            Label observacaoLabel;
+            Label label5;
+            Label numeroDocumentoLabel;
+            Label formatoContaLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConta));
-            System.Windows.Forms.Label numeroDocumentoLabel;
-            System.Windows.Forms.Label formatoContaLabel;
-            this.contaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tb_contaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.codContaTextBox = new System.Windows.Forms.TextBox();
-            this.codPlanoContaComboBox = new System.Windows.Forms.ComboBox();
-            this.planoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
-            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codEntradaTextBox = new System.Windows.Forms.TextBox();
-            this.codSaidaTextBox = new System.Windows.Forms.TextBox();
-            this.dataVencimentoDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.valorTextBox = new System.Windows.Forms.TextBox();
-            this.observacaoTextBox = new System.Windows.Forms.TextBox();
-            this.movimentacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_movimentacao_contaDataGridView = new System.Windows.Forms.DataGridView();
-            this.codMovimentacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescricaoTipoMovimentacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataHoraDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NomeResponsavel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descricaoTipoContaLabel1 = new System.Windows.Forms.Label();
-            this.codSituacaoComboBox = new System.Windows.Forms.ComboBox();
-            this.situacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.numeroDocumentoTextBox = new System.Windows.Forms.TextBox();
-            this.formatoContaComboBox = new System.Windows.Forms.ComboBox();
-            codBancoLabel = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
-            label4 = new System.Windows.Forms.Label();
-            planoContaLabel = new System.Windows.Forms.Label();
-            pessoaLabel = new System.Windows.Forms.Label();
-            dataVencLabel = new System.Windows.Forms.Label();
-            valorLabel = new System.Windows.Forms.Label();
-            observacaoLabel = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
-            numeroDocumentoLabel = new System.Windows.Forms.Label();
-            formatoContaLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.contaBindingSource)).BeginInit();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingNavigator)).BeginInit();
-            this.tb_contaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.movimentacaoContaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.situacaoContaBindingSource)).BeginInit();
-            this.SuspendLayout();
+            contaBindingSource = new BindingSource(components);
+            panel1 = new Panel();
+            label1 = new Label();
+            btnSalvar = new Button();
+            btnBuscar = new Button();
+            btnCancelar = new Button();
+            btnNovo = new Button();
+            btnExcluir = new Button();
+            btnEditar = new Button();
+            label2 = new Label();
+            tb_contaBindingNavigator = new BindingNavigator(components);
+            bindingNavigatorCountItem = new ToolStripLabel();
+            bindingNavigatorMoveFirstItem = new ToolStripButton();
+            bindingNavigatorMovePreviousItem = new ToolStripButton();
+            bindingNavigatorSeparator = new ToolStripSeparator();
+            bindingNavigatorPositionItem = new ToolStripTextBox();
+            bindingNavigatorSeparator1 = new ToolStripSeparator();
+            bindingNavigatorMoveNextItem = new ToolStripButton();
+            bindingNavigatorMoveLastItem = new ToolStripButton();
+            bindingNavigatorSeparator2 = new ToolStripSeparator();
+            codContaTextBox = new TextBox();
+            codPlanoContaComboBox = new ComboBox();
+            planoContaBindingSource = new BindingSource(components);
+            codPessoaComboBox = new ComboBox();
+            pessoaBindingSource = new BindingSource(components);
+            codEntradaTextBox = new TextBox();
+            codSaidaTextBox = new TextBox();
+            dataVencimentoDateTimePicker = new DateTimePicker();
+            valorTextBox = new TextBox();
+            observacaoTextBox = new TextBox();
+            movimentacaoContaBindingSource = new BindingSource(components);
+            tb_movimentacao_contaDataGridView = new DataGridView();
+            codMovimentacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            DescricaoTipoMovimentacao = new DataGridViewTextBoxColumn();
+            dataHoraDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            NomeResponsavel = new DataGridViewTextBoxColumn();
+            valorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            descricaoTipoContaLabel1 = new Label();
+            codSituacaoComboBox = new ComboBox();
+            situacaoContaBindingSource = new BindingSource(components);
+            numeroDocumentoTextBox = new TextBox();
+            formatoContaComboBox = new ComboBox();
+            codBancoLabel = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            planoContaLabel = new Label();
+            pessoaLabel = new Label();
+            dataVencLabel = new Label();
+            valorLabel = new Label();
+            observacaoLabel = new Label();
+            label5 = new Label();
+            numeroDocumentoLabel = new Label();
+            formatoContaLabel = new Label();
+            ((System.ComponentModel.ISupportInitialize)contaBindingSource).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tb_contaBindingNavigator).BeginInit();
+            tb_contaBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)planoContaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)movimentacaoContaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tb_movimentacao_contaDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)situacaoContaBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // codBancoLabel
             // 
             codBancoLabel.AutoSize = true;
-            codBancoLabel.Location = new System.Drawing.Point(4, 70);
+            codBancoLabel.Location = new Point(5, 108);
+            codBancoLabel.Margin = new Padding(4, 0, 4, 0);
             codBancoLabel.Name = "codBancoLabel";
-            codBancoLabel.Size = new System.Drawing.Size(43, 13);
+            codBancoLabel.Size = new Size(61, 20);
             codBancoLabel.TabIndex = 32;
             codBancoLabel.Text = "Código:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(136, 70);
+            label3.Location = new Point(181, 108);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(83, 13);
+            label3.Size = new Size(116, 20);
             label3.TabIndex = 36;
             label3.Text = "Código Entrada:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(264, 70);
+            label4.Location = new Point(352, 108);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(75, 13);
+            label4.Size = new Size(102, 20);
             label4.TabIndex = 38;
             label4.Text = "Código Saída:";
             // 
             // planoContaLabel
             // 
             planoContaLabel.AutoSize = true;
-            planoContaLabel.Location = new System.Drawing.Point(377, 161);
+            planoContaLabel.Location = new Point(503, 248);
+            planoContaLabel.Margin = new Padding(4, 0, 4, 0);
             planoContaLabel.Name = "planoContaLabel";
-            planoContaLabel.Size = new System.Drawing.Size(83, 13);
+            planoContaLabel.Size = new Size(113, 20);
             planoContaLabel.TabIndex = 41;
             planoContaLabel.Text = "Plano de Conta:";
             // 
             // pessoaLabel
             // 
             pessoaLabel.AutoSize = true;
-            pessoaLabel.Location = new System.Drawing.Point(4, 161);
+            pessoaLabel.Location = new Point(5, 248);
+            pessoaLabel.Margin = new Padding(4, 0, 4, 0);
             pessoaLabel.Name = "pessoaLabel";
-            pessoaLabel.Size = new System.Drawing.Size(45, 13);
+            pessoaLabel.Size = new Size(56, 20);
             pessoaLabel.TabIndex = 43;
             pessoaLabel.Text = "Pessoa:";
             // 
             // dataVencLabel
             // 
             dataVencLabel.AutoSize = true;
-            dataVencLabel.Location = new System.Drawing.Point(264, 111);
+            dataVencLabel.Location = new Point(352, 171);
+            dataVencLabel.Margin = new Padding(4, 0, 4, 0);
             dataVencLabel.Name = "dataVencLabel";
-            dataVencLabel.Size = new System.Drawing.Size(92, 13);
+            dataVencLabel.Size = new Size(126, 20);
             dataVencLabel.TabIndex = 45;
             dataVencLabel.Text = "Data Vencimento:";
             // 
             // valorLabel
             // 
             valorLabel.AutoSize = true;
-            valorLabel.Location = new System.Drawing.Point(377, 111);
+            valorLabel.Location = new Point(503, 171);
+            valorLabel.Margin = new Padding(4, 0, 4, 0);
             valorLabel.Name = "valorLabel";
-            valorLabel.Size = new System.Drawing.Size(34, 13);
+            valorLabel.Size = new Size(46, 20);
             valorLabel.TabIndex = 47;
             valorLabel.Text = "Valor:";
             // 
             // observacaoLabel
             // 
             observacaoLabel.AutoSize = true;
-            observacaoLabel.Location = new System.Drawing.Point(7, 206);
+            observacaoLabel.Location = new Point(9, 317);
+            observacaoLabel.Margin = new Padding(4, 0, 4, 0);
             observacaoLabel.Name = "observacaoLabel";
-            observacaoLabel.Size = new System.Drawing.Size(68, 13);
+            observacaoLabel.Size = new Size(90, 20);
             observacaoLabel.TabIndex = 51;
             observacaoLabel.Text = "Observacao:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(375, 70);
+            label5.Location = new Point(500, 108);
+            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(52, 13);
+            label5.Size = new Size(69, 20);
             label5.TabIndex = 57;
             label5.Text = "Situação:";
-            // 
-            // contaBindingSource
-            // 
-            this.contaBindingSource.DataSource = typeof(Dominio.Conta);
-            this.contaBindingSource.Sort = "codConta";
-            this.contaBindingSource.CurrentChanged += new System.EventHandler(this.tb_contaBindingSource_CurrentChanged);
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, -1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(639, 41);
-            this.panel1.TabIndex = 22;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(300, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cadastro de Contas a Pagar e a Receber";
-            // 
-            // btnSalvar
-            // 
-            this.btnSalvar.Location = new System.Drawing.Point(304, 415);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-            this.btnSalvar.TabIndex = 28;
-            this.btnSalvar.Text = "F6 - Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(4, 415);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 24;
-            this.btnBuscar.Text = "F2 - Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Location = new System.Drawing.Point(385, 415);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 29;
-            this.btnCancelar.Text = "Esc - Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnNovo
-            // 
-            this.btnNovo.Location = new System.Drawing.Point(79, 415);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 23);
-            this.btnNovo.TabIndex = 25;
-            this.btnNovo.Text = "F3 - Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
-            // 
-            // btnExcluir
-            // 
-            this.btnExcluir.Location = new System.Drawing.Point(229, 415);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
-            this.btnExcluir.TabIndex = 27;
-            this.btnExcluir.Text = "F5 - Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
-            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.Location = new System.Drawing.Point(154, 415);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 26;
-            this.btnEditar.Text = "F4 - Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 276);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 13);
-            this.label2.TabIndex = 31;
-            this.label2.Text = "Pagamentos:";
-            // 
-            // tb_contaBindingNavigator
-            // 
-            this.tb_contaBindingNavigator.AddNewItem = null;
-            this.tb_contaBindingNavigator.BindingSource = this.contaBindingSource;
-            this.tb_contaBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.tb_contaBindingNavigator.DeleteItem = null;
-            this.tb_contaBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
-            this.tb_contaBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2});
-            this.tb_contaBindingNavigator.Location = new System.Drawing.Point(433, 41);
-            this.tb_contaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.tb_contaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.tb_contaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.tb_contaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.tb_contaBindingNavigator.Name = "tb_contaBindingNavigator";
-            this.tb_contaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_contaBindingNavigator.Size = new System.Drawing.Size(209, 25);
-            this.tb_contaBindingNavigator.TabIndex = 58;
-            this.tb_contaBindingNavigator.Text = "bindingNavigator1";
-            // 
-            // bindingNavigatorCountItem
-            // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
-            // 
-            // bindingNavigatorMoveFirstItem
-            // 
-            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
-            // 
-            // bindingNavigatorMovePreviousItem
-            // 
-            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
-            // 
-            // bindingNavigatorSeparator
-            // 
-            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
-            // 
-            // bindingNavigatorPositionItem
-            // 
-            this.bindingNavigatorPositionItem.AccessibleName = "Position";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "Current position";
-            // 
-            // bindingNavigatorSeparator1
-            // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // bindingNavigatorMoveNextItem
-            // 
-            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
-            // 
-            // bindingNavigatorMoveLastItem
-            // 
-            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
-            // 
-            // bindingNavigatorSeparator2
-            // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // codContaTextBox
-            // 
-            this.codContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "CodConta", true));
-            this.codContaTextBox.Location = new System.Drawing.Point(7, 86);
-            this.codContaTextBox.Name = "codContaTextBox";
-            this.codContaTextBox.ReadOnly = true;
-            this.codContaTextBox.Size = new System.Drawing.Size(120, 20);
-            this.codContaTextBox.TabIndex = 30;
-            this.codContaTextBox.TabStop = false;
-            // 
-            // codPlanoContaComboBox
-            // 
-            this.codPlanoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "CodPlanoConta", true));
-            this.codPlanoContaComboBox.DataSource = this.planoContaBindingSource;
-            this.codPlanoContaComboBox.DisplayMember = "Descricao";
-            this.codPlanoContaComboBox.FormattingEnabled = true;
-            this.codPlanoContaComboBox.Location = new System.Drawing.Point(378, 181);
-            this.codPlanoContaComboBox.Name = "codPlanoContaComboBox";
-            this.codPlanoContaComboBox.Size = new System.Drawing.Size(248, 21);
-            this.codPlanoContaComboBox.TabIndex = 46;
-            this.codPlanoContaComboBox.ValueMember = "CodPlanoConta";
-            this.codPlanoContaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codDocumentoPagamentoComboBox_KeyPress);
-            this.codPlanoContaComboBox.Leave += new System.EventHandler(this.codPlanoContaComboBox_Leave);
-            // 
-            // planoContaBindingSource
-            // 
-            this.planoContaBindingSource.DataSource = typeof(Dominio.PlanoConta);
-            // 
-            // codPessoaComboBox
-            // 
-            this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "CodPessoa", true));
-            this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
-            this.codPessoaComboBox.DisplayMember = "Nome";
-            this.codPessoaComboBox.FormattingEnabled = true;
-            this.codPessoaComboBox.Location = new System.Drawing.Point(7, 181);
-            this.codPessoaComboBox.Name = "codPessoaComboBox";
-            this.codPessoaComboBox.Size = new System.Drawing.Size(358, 21);
-            this.codPessoaComboBox.TabIndex = 44;
-            this.codPessoaComboBox.ValueMember = "CodPessoa";
-            this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codDocumentoPagamentoComboBox_KeyPress);
-            this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
-            // 
-            // pessoaBindingSource
-            // 
-            this.pessoaBindingSource.AllowNew = false;
-            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
-            // 
-            // codEntradaTextBox
-            // 
-            this.codEntradaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "CodEntrada", true));
-            this.codEntradaTextBox.Location = new System.Drawing.Point(139, 87);
-            this.codEntradaTextBox.Name = "codEntradaTextBox";
-            this.codEntradaTextBox.ReadOnly = true;
-            this.codEntradaTextBox.Size = new System.Drawing.Size(114, 20);
-            this.codEntradaTextBox.TabIndex = 32;
-            this.codEntradaTextBox.TabStop = false;
-            // 
-            // codSaidaTextBox
-            // 
-            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "CodSaida", true));
-            this.codSaidaTextBox.Location = new System.Drawing.Point(267, 87);
-            this.codSaidaTextBox.Name = "codSaidaTextBox";
-            this.codSaidaTextBox.ReadOnly = true;
-            this.codSaidaTextBox.Size = new System.Drawing.Size(98, 20);
-            this.codSaidaTextBox.TabIndex = 34;
-            this.codSaidaTextBox.TabStop = false;
-            // 
-            // dataVencimentoDateTimePicker
-            // 
-            this.dataVencimentoDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.contaBindingSource, "DataVencimento", true));
-            this.dataVencimentoDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "DataVencimento", true));
-            this.dataVencimentoDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataVencimentoDateTimePicker.Location = new System.Drawing.Point(267, 130);
-            this.dataVencimentoDateTimePicker.Name = "dataVencimentoDateTimePicker";
-            this.dataVencimentoDateTimePicker.Size = new System.Drawing.Size(98, 20);
-            this.dataVencimentoDateTimePicker.TabIndex = 40;
-            // 
-            // valorTextBox
-            // 
-            this.valorTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.valorTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "Valor", true));
-            this.valorTextBox.Location = new System.Drawing.Point(377, 130);
-            this.valorTextBox.Name = "valorTextBox";
-            this.valorTextBox.Size = new System.Drawing.Size(128, 20);
-            this.valorTextBox.TabIndex = 42;
-            // 
-            // observacaoTextBox
-            // 
-            this.observacaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.observacaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "Observacao", true));
-            this.observacaoTextBox.Location = new System.Drawing.Point(7, 224);
-            this.observacaoTextBox.Multiline = true;
-            this.observacaoTextBox.Name = "observacaoTextBox";
-            this.observacaoTextBox.Size = new System.Drawing.Size(619, 45);
-            this.observacaoTextBox.TabIndex = 48;
-            // 
-            // movimentacaoContaBindingSource
-            // 
-            this.movimentacaoContaBindingSource.DataSource = typeof(Dominio.MovimentacaoConta);
-            // 
-            // tb_movimentacao_contaDataGridView
-            // 
-            this.tb_movimentacao_contaDataGridView.AllowUserToAddRows = false;
-            this.tb_movimentacao_contaDataGridView.AllowUserToDeleteRows = false;
-            this.tb_movimentacao_contaDataGridView.AutoGenerateColumns = false;
-            this.tb_movimentacao_contaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_movimentacao_contaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codMovimentacaoDataGridViewTextBoxColumn,
-            this.DescricaoTipoMovimentacao,
-            this.dataHoraDataGridViewTextBoxColumn,
-            this.NomeResponsavel,
-            this.valorDataGridViewTextBoxColumn});
-            this.tb_movimentacao_contaDataGridView.DataSource = this.movimentacaoContaBindingSource;
-            this.tb_movimentacao_contaDataGridView.Location = new System.Drawing.Point(7, 297);
-            this.tb_movimentacao_contaDataGridView.Name = "tb_movimentacao_contaDataGridView";
-            this.tb_movimentacao_contaDataGridView.ReadOnly = true;
-            this.tb_movimentacao_contaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_movimentacao_contaDataGridView.Size = new System.Drawing.Size(619, 112);
-            this.tb_movimentacao_contaDataGridView.TabIndex = 58;
-            this.tb_movimentacao_contaDataGridView.TabStop = false;
-            // 
-            // codMovimentacaoDataGridViewTextBoxColumn
-            // 
-            this.codMovimentacaoDataGridViewTextBoxColumn.DataPropertyName = "CodMovimentacao";
-            this.codMovimentacaoDataGridViewTextBoxColumn.HeaderText = "CodMovimentacao";
-            this.codMovimentacaoDataGridViewTextBoxColumn.Name = "codMovimentacaoDataGridViewTextBoxColumn";
-            this.codMovimentacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codMovimentacaoDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // DescricaoTipoMovimentacao
-            // 
-            this.DescricaoTipoMovimentacao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DescricaoTipoMovimentacao.DataPropertyName = "DescricaoTipoMovimentacao";
-            this.DescricaoTipoMovimentacao.HeaderText = "Movimentacao";
-            this.DescricaoTipoMovimentacao.Name = "DescricaoTipoMovimentacao";
-            this.DescricaoTipoMovimentacao.ReadOnly = true;
-            // 
-            // dataHoraDataGridViewTextBoxColumn
-            // 
-            this.dataHoraDataGridViewTextBoxColumn.DataPropertyName = "DataHora";
-            this.dataHoraDataGridViewTextBoxColumn.HeaderText = "Data / Hora";
-            this.dataHoraDataGridViewTextBoxColumn.Name = "dataHoraDataGridViewTextBoxColumn";
-            this.dataHoraDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // NomeResponsavel
-            // 
-            this.NomeResponsavel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NomeResponsavel.DataPropertyName = "NomeResponsavel";
-            this.NomeResponsavel.HeaderText = "Responsável";
-            this.NomeResponsavel.Name = "NomeResponsavel";
-            this.NomeResponsavel.ReadOnly = true;
-            // 
-            // valorDataGridViewTextBoxColumn
-            // 
-            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
-            this.valorDataGridViewTextBoxColumn.HeaderText = "Valor (R$)";
-            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
-            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descricaoTipoContaLabel1
-            // 
-            this.descricaoTipoContaLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "DescricaoTipoConta", true));
-            this.descricaoTipoContaLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descricaoTipoContaLabel1.Location = new System.Drawing.Point(526, 127);
-            this.descricaoTipoContaLabel1.Name = "descricaoTipoContaLabel1";
-            this.descricaoTipoContaLabel1.Size = new System.Drawing.Size(113, 35);
-            this.descricaoTipoContaLabel1.TabIndex = 60;
-            this.descricaoTipoContaLabel1.Text = "PAGAR";
-            // 
-            // codSituacaoComboBox
-            // 
-            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "DescricaoSituacao", true));
-            this.codSituacaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contaBindingSource, "CodSituacao", true));
-            this.codSituacaoComboBox.DataSource = this.situacaoContaBindingSource;
-            this.codSituacaoComboBox.DisplayMember = "Descricao";
-            this.codSituacaoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.codSituacaoComboBox.Enabled = false;
-            this.codSituacaoComboBox.FormattingEnabled = true;
-            this.codSituacaoComboBox.Location = new System.Drawing.Point(380, 85);
-            this.codSituacaoComboBox.Name = "codSituacaoComboBox";
-            this.codSituacaoComboBox.Size = new System.Drawing.Size(224, 21);
-            this.codSituacaoComboBox.TabIndex = 61;
-            this.codSituacaoComboBox.ValueMember = "CodSituacao";
-            // 
-            // situacaoContaBindingSource
-            // 
-            this.situacaoContaBindingSource.DataSource = typeof(Dominio.SituacaoConta);
             // 
             // numeroDocumentoLabel
             // 
             numeroDocumentoLabel.AutoSize = true;
-            numeroDocumentoLabel.Location = new System.Drawing.Point(136, 110);
+            numeroDocumentoLabel.Location = new Point(181, 169);
+            numeroDocumentoLabel.Margin = new Padding(4, 0, 4, 0);
             numeroDocumentoLabel.Name = "numeroDocumentoLabel";
-            numeroDocumentoLabel.Size = new System.Drawing.Size(105, 13);
+            numeroDocumentoLabel.Size = new Size(148, 20);
             numeroDocumentoLabel.TabIndex = 61;
             numeroDocumentoLabel.Text = "Numero Documento:";
-            // 
-            // numeroDocumentoTextBox
-            // 
-            this.numeroDocumentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "NumeroDocumento", true));
-            this.numeroDocumentoTextBox.Location = new System.Drawing.Point(141, 130);
-            this.numeroDocumentoTextBox.Name = "numeroDocumentoTextBox";
-            this.numeroDocumentoTextBox.Size = new System.Drawing.Size(100, 20);
-            this.numeroDocumentoTextBox.TabIndex = 62;
             // 
             // formatoContaLabel
             // 
             formatoContaLabel.AutoSize = true;
-            formatoContaLabel.Location = new System.Drawing.Point(4, 111);
+            formatoContaLabel.Location = new Point(5, 171);
+            formatoContaLabel.Margin = new Padding(4, 0, 4, 0);
             formatoContaLabel.Name = "formatoContaLabel";
-            formatoContaLabel.Size = new System.Drawing.Size(79, 13);
+            formatoContaLabel.Size = new Size(111, 20);
             formatoContaLabel.TabIndex = 62;
             formatoContaLabel.Text = "Formato Conta:";
             // 
+            // contaBindingSource
+            // 
+            contaBindingSource.DataSource = typeof(Dominio.Conta);
+            contaBindingSource.Sort = "codConta";
+            contaBindingSource.CurrentChanged += tb_contaBindingSource_CurrentChanged;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.SteelBlue;
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(0, -2);
+            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(852, 63);
+            panel1.TabIndex = 22;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ControlLightLight;
+            label1.Location = new Point(4, 14);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(381, 28);
+            label1.TabIndex = 0;
+            label1.Text = "Cadastro de Contas a Pagar e a Receber";
+            // 
+            // btnSalvar
+            // 
+            btnSalvar.Location = new Point(405, 638);
+            btnSalvar.Margin = new Padding(4, 5, 4, 5);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(108, 35);
+            btnSalvar.TabIndex = 28;
+            btnSalvar.Text = "F6 - Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
+            // 
+            // btnBuscar
+            // 
+            btnBuscar.Location = new Point(5, 638);
+            btnBuscar.Margin = new Padding(4, 5, 4, 5);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(100, 35);
+            btnBuscar.TabIndex = 24;
+            btnBuscar.Text = "F2 - Buscar";
+            btnBuscar.TextAlign = ContentAlignment.MiddleLeft;
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.Location = new Point(513, 638);
+            btnCancelar.Margin = new Padding(4, 5, 4, 5);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(112, 35);
+            btnCancelar.TabIndex = 29;
+            btnCancelar.Text = "Esc - Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
+            // 
+            // btnNovo
+            // 
+            btnNovo.Location = new Point(105, 638);
+            btnNovo.Margin = new Padding(4, 5, 4, 5);
+            btnNovo.Name = "btnNovo";
+            btnNovo.Size = new Size(100, 35);
+            btnNovo.TabIndex = 25;
+            btnNovo.Text = "F3 - Novo";
+            btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
+            // 
+            // btnExcluir
+            // 
+            btnExcluir.Location = new Point(305, 638);
+            btnExcluir.Margin = new Padding(4, 5, 4, 5);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(100, 35);
+            btnExcluir.TabIndex = 27;
+            btnExcluir.Text = "F5 - Excluir";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
+            // 
+            // btnEditar
+            // 
+            btnEditar.Location = new Point(205, 638);
+            btnEditar.Margin = new Padding(4, 5, 4, 5);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(100, 35);
+            btnEditar.TabIndex = 26;
+            btnEditar.Text = "F4 - Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(9, 425);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(93, 20);
+            label2.TabIndex = 31;
+            label2.Text = "Pagamentos:";
+            // 
+            // tb_contaBindingNavigator
+            // 
+            tb_contaBindingNavigator.AddNewItem = null;
+            tb_contaBindingNavigator.BindingSource = contaBindingSource;
+            tb_contaBindingNavigator.CountItem = bindingNavigatorCountItem;
+            tb_contaBindingNavigator.DeleteItem = null;
+            tb_contaBindingNavigator.Dock = DockStyle.None;
+            tb_contaBindingNavigator.ImageScalingSize = new Size(20, 20);
+            tb_contaBindingNavigator.Items.AddRange(new ToolStripItem[] { bindingNavigatorMoveFirstItem, bindingNavigatorMovePreviousItem, bindingNavigatorSeparator, bindingNavigatorPositionItem, bindingNavigatorCountItem, bindingNavigatorSeparator1, bindingNavigatorMoveNextItem, bindingNavigatorMoveLastItem, bindingNavigatorSeparator2 });
+            tb_contaBindingNavigator.Location = new Point(577, 63);
+            tb_contaBindingNavigator.MoveFirstItem = bindingNavigatorMoveFirstItem;
+            tb_contaBindingNavigator.MoveLastItem = bindingNavigatorMoveLastItem;
+            tb_contaBindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
+            tb_contaBindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
+            tb_contaBindingNavigator.Name = "tb_contaBindingNavigator";
+            tb_contaBindingNavigator.PositionItem = bindingNavigatorPositionItem;
+            tb_contaBindingNavigator.Size = new Size(262, 27);
+            tb_contaBindingNavigator.TabIndex = 58;
+            tb_contaBindingNavigator.Text = "bindingNavigator1";
+            // 
+            // bindingNavigatorCountItem
+            // 
+            bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            bindingNavigatorCountItem.Size = new Size(48, 24);
+            bindingNavigatorCountItem.Text = "de {0}";
+            bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            // 
+            // bindingNavigatorMoveFirstItem
+            // 
+            bindingNavigatorMoveFirstItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveFirstItem.Image = (Image)resources.GetObject("bindingNavigatorMoveFirstItem.Image");
+            bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveFirstItem.Size = new Size(29, 24);
+            bindingNavigatorMoveFirstItem.Text = "Move first";
+            // 
+            // bindingNavigatorMovePreviousItem
+            // 
+            bindingNavigatorMovePreviousItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMovePreviousItem.Image = (Image)resources.GetObject("bindingNavigatorMovePreviousItem.Image");
+            bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMovePreviousItem.Size = new Size(29, 24);
+            bindingNavigatorMovePreviousItem.Text = "Move previous";
+            // 
+            // bindingNavigatorSeparator
+            // 
+            bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            bindingNavigatorSeparator.Size = new Size(6, 27);
+            // 
+            // bindingNavigatorPositionItem
+            // 
+            bindingNavigatorPositionItem.AccessibleName = "Position";
+            bindingNavigatorPositionItem.AutoSize = false;
+            bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            bindingNavigatorPositionItem.Size = new Size(65, 27);
+            bindingNavigatorPositionItem.Text = "0";
+            bindingNavigatorPositionItem.ToolTipText = "Current position";
+            // 
+            // bindingNavigatorSeparator1
+            // 
+            bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            bindingNavigatorSeparator1.Size = new Size(6, 27);
+            // 
+            // bindingNavigatorMoveNextItem
+            // 
+            bindingNavigatorMoveNextItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveNextItem.Image = (Image)resources.GetObject("bindingNavigatorMoveNextItem.Image");
+            bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveNextItem.Size = new Size(29, 24);
+            bindingNavigatorMoveNextItem.Text = "Move next";
+            // 
+            // bindingNavigatorMoveLastItem
+            // 
+            bindingNavigatorMoveLastItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveLastItem.Image = (Image)resources.GetObject("bindingNavigatorMoveLastItem.Image");
+            bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveLastItem.Size = new Size(29, 24);
+            bindingNavigatorMoveLastItem.Text = "Move last";
+            // 
+            // bindingNavigatorSeparator2
+            // 
+            bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            bindingNavigatorSeparator2.Size = new Size(6, 27);
+            // 
+            // codContaTextBox
+            // 
+            codContaTextBox.DataBindings.Add(new Binding("Text", contaBindingSource, "CodConta", true));
+            codContaTextBox.Location = new Point(9, 132);
+            codContaTextBox.Margin = new Padding(4, 5, 4, 5);
+            codContaTextBox.Name = "codContaTextBox";
+            codContaTextBox.ReadOnly = true;
+            codContaTextBox.Size = new Size(159, 27);
+            codContaTextBox.TabIndex = 30;
+            codContaTextBox.TabStop = false;
+            // 
+            // codPlanoContaComboBox
+            // 
+            codPlanoContaComboBox.DataBindings.Add(new Binding("SelectedValue", contaBindingSource, "CodPlanoConta", true));
+            codPlanoContaComboBox.DataSource = planoContaBindingSource;
+            codPlanoContaComboBox.DisplayMember = "Descricao";
+            codPlanoContaComboBox.FormattingEnabled = true;
+            codPlanoContaComboBox.Location = new Point(504, 278);
+            codPlanoContaComboBox.Margin = new Padding(4, 5, 4, 5);
+            codPlanoContaComboBox.Name = "codPlanoContaComboBox";
+            codPlanoContaComboBox.Size = new Size(329, 28);
+            codPlanoContaComboBox.TabIndex = 46;
+            codPlanoContaComboBox.ValueMember = "CodPlanoConta";
+            codPlanoContaComboBox.KeyPress += codDocumentoPagamentoComboBox_KeyPress;
+            codPlanoContaComboBox.Leave += codPlanoContaComboBox_Leave;
+            // 
+            // planoContaBindingSource
+            // 
+            planoContaBindingSource.DataSource = typeof(Dominio.PlanoConta);
+            // 
+            // codPessoaComboBox
+            // 
+            codPessoaComboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+            codPessoaComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            codPessoaComboBox.DataBindings.Add(new Binding("SelectedValue", contaBindingSource, "CodPessoa", true));
+            codPessoaComboBox.DataSource = pessoaBindingSource;
+            codPessoaComboBox.DisplayMember = "Nome";
+            codPessoaComboBox.FormattingEnabled = true;
+            codPessoaComboBox.Location = new Point(9, 278);
+            codPessoaComboBox.Margin = new Padding(4, 5, 4, 5);
+            codPessoaComboBox.Name = "codPessoaComboBox";
+            codPessoaComboBox.Size = new Size(476, 28);
+            codPessoaComboBox.TabIndex = 44;
+            codPessoaComboBox.ValueMember = "CodPessoa";
+            codPessoaComboBox.KeyPress += codDocumentoPagamentoComboBox_KeyPress;
+            codPessoaComboBox.Leave += codPessoaComboBox_Leave;
+            // 
+            // pessoaBindingSource
+            // 
+            pessoaBindingSource.AllowNew = false;
+            pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            // 
+            // codEntradaTextBox
+            // 
+            codEntradaTextBox.DataBindings.Add(new Binding("Text", contaBindingSource, "CodEntrada", true));
+            codEntradaTextBox.Location = new Point(185, 134);
+            codEntradaTextBox.Margin = new Padding(4, 5, 4, 5);
+            codEntradaTextBox.Name = "codEntradaTextBox";
+            codEntradaTextBox.ReadOnly = true;
+            codEntradaTextBox.Size = new Size(151, 27);
+            codEntradaTextBox.TabIndex = 32;
+            codEntradaTextBox.TabStop = false;
+            // 
+            // codSaidaTextBox
+            // 
+            codSaidaTextBox.DataBindings.Add(new Binding("Text", contaBindingSource, "CodSaida", true));
+            codSaidaTextBox.Location = new Point(356, 134);
+            codSaidaTextBox.Margin = new Padding(4, 5, 4, 5);
+            codSaidaTextBox.Name = "codSaidaTextBox";
+            codSaidaTextBox.ReadOnly = true;
+            codSaidaTextBox.Size = new Size(129, 27);
+            codSaidaTextBox.TabIndex = 34;
+            codSaidaTextBox.TabStop = false;
+            // 
+            // dataVencimentoDateTimePicker
+            // 
+            dataVencimentoDateTimePicker.DataBindings.Add(new Binding("Value", contaBindingSource, "DataVencimento", true));
+            dataVencimentoDateTimePicker.DataBindings.Add(new Binding("Text", contaBindingSource, "DataVencimento", true));
+            dataVencimentoDateTimePicker.Format = DateTimePickerFormat.Short;
+            dataVencimentoDateTimePicker.Location = new Point(356, 200);
+            dataVencimentoDateTimePicker.Margin = new Padding(4, 5, 4, 5);
+            dataVencimentoDateTimePicker.Name = "dataVencimentoDateTimePicker";
+            dataVencimentoDateTimePicker.Size = new Size(129, 27);
+            dataVencimentoDateTimePicker.TabIndex = 40;
+            // 
+            // valorTextBox
+            // 
+            valorTextBox.CharacterCasing = CharacterCasing.Upper;
+            valorTextBox.DataBindings.Add(new Binding("Text", contaBindingSource, "Valor", true));
+            valorTextBox.Location = new Point(503, 200);
+            valorTextBox.Margin = new Padding(4, 5, 4, 5);
+            valorTextBox.Name = "valorTextBox";
+            valorTextBox.Size = new Size(169, 27);
+            valorTextBox.TabIndex = 42;
+            // 
+            // observacaoTextBox
+            // 
+            observacaoTextBox.CharacterCasing = CharacterCasing.Upper;
+            observacaoTextBox.DataBindings.Add(new Binding("Text", contaBindingSource, "Observacao", true));
+            observacaoTextBox.Location = new Point(9, 345);
+            observacaoTextBox.Margin = new Padding(4, 5, 4, 5);
+            observacaoTextBox.Multiline = true;
+            observacaoTextBox.Name = "observacaoTextBox";
+            observacaoTextBox.Size = new Size(824, 67);
+            observacaoTextBox.TabIndex = 48;
+            // 
+            // movimentacaoContaBindingSource
+            // 
+            movimentacaoContaBindingSource.DataSource = typeof(Dominio.MovimentacaoConta);
+            // 
+            // tb_movimentacao_contaDataGridView
+            // 
+            tb_movimentacao_contaDataGridView.AllowUserToAddRows = false;
+            tb_movimentacao_contaDataGridView.AllowUserToDeleteRows = false;
+            tb_movimentacao_contaDataGridView.AutoGenerateColumns = false;
+            tb_movimentacao_contaDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tb_movimentacao_contaDataGridView.Columns.AddRange(new DataGridViewColumn[] { codMovimentacaoDataGridViewTextBoxColumn, DescricaoTipoMovimentacao, dataHoraDataGridViewTextBoxColumn, NomeResponsavel, valorDataGridViewTextBoxColumn });
+            tb_movimentacao_contaDataGridView.DataSource = movimentacaoContaBindingSource;
+            tb_movimentacao_contaDataGridView.Location = new Point(9, 457);
+            tb_movimentacao_contaDataGridView.Margin = new Padding(4, 5, 4, 5);
+            tb_movimentacao_contaDataGridView.Name = "tb_movimentacao_contaDataGridView";
+            tb_movimentacao_contaDataGridView.ReadOnly = true;
+            tb_movimentacao_contaDataGridView.RowHeadersWidth = 51;
+            tb_movimentacao_contaDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tb_movimentacao_contaDataGridView.Size = new Size(825, 172);
+            tb_movimentacao_contaDataGridView.TabIndex = 58;
+            tb_movimentacao_contaDataGridView.TabStop = false;
+            // 
+            // codMovimentacaoDataGridViewTextBoxColumn
+            // 
+            codMovimentacaoDataGridViewTextBoxColumn.DataPropertyName = "CodMovimentacao";
+            codMovimentacaoDataGridViewTextBoxColumn.HeaderText = "CodMovimentacao";
+            codMovimentacaoDataGridViewTextBoxColumn.MinimumWidth = 6;
+            codMovimentacaoDataGridViewTextBoxColumn.Name = "codMovimentacaoDataGridViewTextBoxColumn";
+            codMovimentacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            codMovimentacaoDataGridViewTextBoxColumn.Visible = false;
+            codMovimentacaoDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // DescricaoTipoMovimentacao
+            // 
+            DescricaoTipoMovimentacao.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DescricaoTipoMovimentacao.DataPropertyName = "DescricaoTipoMovimentacao";
+            DescricaoTipoMovimentacao.HeaderText = "Movimentacao";
+            DescricaoTipoMovimentacao.MinimumWidth = 6;
+            DescricaoTipoMovimentacao.Name = "DescricaoTipoMovimentacao";
+            DescricaoTipoMovimentacao.ReadOnly = true;
+            // 
+            // dataHoraDataGridViewTextBoxColumn
+            // 
+            dataHoraDataGridViewTextBoxColumn.DataPropertyName = "DataHora";
+            dataHoraDataGridViewTextBoxColumn.HeaderText = "Data / Hora";
+            dataHoraDataGridViewTextBoxColumn.MinimumWidth = 6;
+            dataHoraDataGridViewTextBoxColumn.Name = "dataHoraDataGridViewTextBoxColumn";
+            dataHoraDataGridViewTextBoxColumn.ReadOnly = true;
+            dataHoraDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // NomeResponsavel
+            // 
+            NomeResponsavel.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            NomeResponsavel.DataPropertyName = "NomeResponsavel";
+            NomeResponsavel.HeaderText = "Responsável";
+            NomeResponsavel.MinimumWidth = 6;
+            NomeResponsavel.Name = "NomeResponsavel";
+            NomeResponsavel.ReadOnly = true;
+            // 
+            // valorDataGridViewTextBoxColumn
+            // 
+            valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
+            valorDataGridViewTextBoxColumn.HeaderText = "Valor (R$)";
+            valorDataGridViewTextBoxColumn.MinimumWidth = 6;
+            valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
+            valorDataGridViewTextBoxColumn.ReadOnly = true;
+            valorDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // descricaoTipoContaLabel1
+            // 
+            descricaoTipoContaLabel1.DataBindings.Add(new Binding("Text", planoContaBindingSource, "DescricaoTipoConta", true));
+            descricaoTipoContaLabel1.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            descricaoTipoContaLabel1.Location = new Point(701, 195);
+            descricaoTipoContaLabel1.Margin = new Padding(4, 0, 4, 0);
+            descricaoTipoContaLabel1.Name = "descricaoTipoContaLabel1";
+            descricaoTipoContaLabel1.Size = new Size(151, 54);
+            descricaoTipoContaLabel1.TabIndex = 60;
+            descricaoTipoContaLabel1.Text = "PAGAR";
+            // 
+            // codSituacaoComboBox
+            // 
+            codSituacaoComboBox.DataBindings.Add(new Binding("Text", contaBindingSource, "DescricaoSituacao", true));
+            codSituacaoComboBox.DataBindings.Add(new Binding("SelectedValue", contaBindingSource, "CodSituacao", true));
+            codSituacaoComboBox.DataSource = situacaoContaBindingSource;
+            codSituacaoComboBox.DisplayMember = "Descricao";
+            codSituacaoComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            codSituacaoComboBox.Enabled = false;
+            codSituacaoComboBox.FormattingEnabled = true;
+            codSituacaoComboBox.Location = new Point(507, 131);
+            codSituacaoComboBox.Margin = new Padding(4, 5, 4, 5);
+            codSituacaoComboBox.Name = "codSituacaoComboBox";
+            codSituacaoComboBox.Size = new Size(297, 28);
+            codSituacaoComboBox.TabIndex = 61;
+            codSituacaoComboBox.ValueMember = "CodSituacao";
+            // 
+            // situacaoContaBindingSource
+            // 
+            situacaoContaBindingSource.DataSource = typeof(Dominio.SituacaoConta);
+            // 
+            // numeroDocumentoTextBox
+            // 
+            numeroDocumentoTextBox.DataBindings.Add(new Binding("Text", contaBindingSource, "NumeroDocumento", true));
+            numeroDocumentoTextBox.Location = new Point(188, 200);
+            numeroDocumentoTextBox.Margin = new Padding(4, 5, 4, 5);
+            numeroDocumentoTextBox.Name = "numeroDocumentoTextBox";
+            numeroDocumentoTextBox.Size = new Size(132, 27);
+            numeroDocumentoTextBox.TabIndex = 62;
+            // 
             // formatoContaComboBox
             // 
-            this.formatoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.contaBindingSource, "FormatoConta", true));
-            this.formatoContaComboBox.FormattingEnabled = true;
-            this.formatoContaComboBox.Items.AddRange(new object[] {
-            "FICHA",
-            "BOLETO",
-            "CARTAO",
-            "CHEQUE"});
-            this.formatoContaComboBox.Location = new System.Drawing.Point(6, 127);
-            this.formatoContaComboBox.Name = "formatoContaComboBox";
-            this.formatoContaComboBox.Size = new System.Drawing.Size(121, 21);
-            this.formatoContaComboBox.TabIndex = 63;
+            formatoContaComboBox.DataBindings.Add(new Binding("Text", contaBindingSource, "FormatoConta", true));
+            formatoContaComboBox.FormattingEnabled = true;
+            formatoContaComboBox.Items.AddRange(new object[] { "FICHA", "BOLETO", "CARTAO", "CHEQUE" });
+            formatoContaComboBox.Location = new Point(8, 195);
+            formatoContaComboBox.Margin = new Padding(4, 5, 4, 5);
+            formatoContaComboBox.Name = "formatoContaComboBox";
+            formatoContaComboBox.Size = new Size(160, 28);
+            formatoContaComboBox.TabIndex = 63;
             // 
             // FrmConta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 458);
-            this.Controls.Add(this.formatoContaComboBox);
-            this.Controls.Add(formatoContaLabel);
-            this.Controls.Add(numeroDocumentoLabel);
-            this.Controls.Add(this.numeroDocumentoTextBox);
-            this.Controls.Add(this.codSituacaoComboBox);
-            this.Controls.Add(this.descricaoTipoContaLabel1);
-            this.Controls.Add(this.tb_movimentacao_contaDataGridView);
-            this.Controls.Add(this.tb_contaBindingNavigator);
-            this.Controls.Add(this.codContaTextBox);
-            this.Controls.Add(this.codPlanoContaComboBox);
-            this.Controls.Add(this.codPessoaComboBox);
-            this.Controls.Add(this.codEntradaTextBox);
-            this.Controls.Add(this.codSaidaTextBox);
-            this.Controls.Add(this.dataVencimentoDateTimePicker);
-            this.Controls.Add(this.valorTextBox);
-            this.Controls.Add(this.observacaoTextBox);
-            this.Controls.Add(label5);
-            this.Controls.Add(observacaoLabel);
-            this.Controls.Add(valorLabel);
-            this.Controls.Add(dataVencLabel);
-            this.Controls.Add(pessoaLabel);
-            this.Controls.Add(planoContaLabel);
-            this.Controls.Add(label4);
-            this.Controls.Add(label3);
-            this.Controls.Add(codBancoLabel);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnNovo);
-            this.Controls.Add(this.btnExcluir);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.panel1);
-            this.KeyPreview = true;
-            this.Name = "FrmConta";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Contas a Pagar e a Receber";
-            this.Load += new System.EventHandler(this.FrmContas_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmContas_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.contaBindingSource)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_contaBindingNavigator)).EndInit();
-            this.tb_contaBindingNavigator.ResumeLayout(false);
-            this.tb_contaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.movimentacaoContaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.situacaoContaBindingSource)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(852, 705);
+            Controls.Add(formatoContaComboBox);
+            Controls.Add(formatoContaLabel);
+            Controls.Add(numeroDocumentoLabel);
+            Controls.Add(numeroDocumentoTextBox);
+            Controls.Add(codSituacaoComboBox);
+            Controls.Add(descricaoTipoContaLabel1);
+            Controls.Add(tb_movimentacao_contaDataGridView);
+            Controls.Add(tb_contaBindingNavigator);
+            Controls.Add(codContaTextBox);
+            Controls.Add(codPlanoContaComboBox);
+            Controls.Add(codPessoaComboBox);
+            Controls.Add(codEntradaTextBox);
+            Controls.Add(codSaidaTextBox);
+            Controls.Add(dataVencimentoDateTimePicker);
+            Controls.Add(valorTextBox);
+            Controls.Add(observacaoTextBox);
+            Controls.Add(label5);
+            Controls.Add(observacaoLabel);
+            Controls.Add(valorLabel);
+            Controls.Add(dataVencLabel);
+            Controls.Add(pessoaLabel);
+            Controls.Add(planoContaLabel);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(codBancoLabel);
+            Controls.Add(label2);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnBuscar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnNovo);
+            Controls.Add(btnExcluir);
+            Controls.Add(btnEditar);
+            Controls.Add(panel1);
+            KeyPreview = true;
+            Margin = new Padding(4, 5, 4, 5);
+            Name = "FrmConta";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Contas a Pagar e a Receber";
+            Load += FrmContas_Load;
+            KeyDown += FrmContas_KeyDown;
+            ((System.ComponentModel.ISupportInitialize)contaBindingSource).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tb_contaBindingNavigator).EndInit();
+            tb_contaBindingNavigator.ResumeLayout(false);
+            tb_contaBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)planoContaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)movimentacaoContaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tb_movimentacao_contaDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)situacaoContaBindingSource).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

@@ -1,13 +1,19 @@
-﻿namespace Sace
+﻿using Dados;
+using Microsoft.EntityFrameworkCore;
+using Negocio;
+
+namespace Sace
 {
     public partial class FrmCalcularVendasPorVendedor : Form
     {
 
- 
-        public FrmCalcularVendasPorVendedor()
+        private readonly GerenciadorSaida gerenciadorSaida;
+        public FrmCalcularVendasPorVendedor(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
             dateTimeInicial.Value = DateTime.Now.AddMonths(-1);
+            SaceContext context = new SaceContext(options);
+            gerenciadorSaida = new GerenciadorSaida(context);
         }
 
         private void FrmCalcularVendasPorVendedor_KeyDown(object sender, KeyEventArgs e)

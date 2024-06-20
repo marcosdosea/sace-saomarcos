@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
-using Dados;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
+using Negocio;
 using Util;
 
 namespace Sace
@@ -17,22 +10,25 @@ namespace Sace
     {
         private EstadoFormulario estado;
         public GrupoConta GrupoContaSelected { get; set; }
-
-        public FrmGrupoConta()
+        private readonly GerenciadorGrupoConta gerenciadorGrupoConta;
+        private DbContextOptions<SaceContext> options;
+        public FrmGrupoConta(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            this.options = options;
+            SaceContext context = new SaceContext(options);
+            gerenciadorGrupoConta = new GerenciadorGrupoConta(context);
         }
 
         private void FrmGrupoConta_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.GRUPOS_DE_CONTAS, Principal.Autenticacao.CodUsuario);
-            grupoContaBindingSource.DataSource = GerenciadorGrupoConta.GetInstance().ObterTodos();
+            grupoContaBindingSource.DataSource = gerenciadorGrupoConta.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmGrupoContaPesquisa frmTipoContaPesquisa = new FrmGrupoContaPesquisa();
+            FrmGrupoContaPesquisa frmTipoContaPesquisa = new FrmGrupoContaPesquisa(options);
             frmTipoContaPesquisa.ShowDialog();
             if (frmTipoContaPesquisa.GrupoConta != null)
             {
@@ -61,7 +57,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorGrupoConta.GetInstance().Remover(Int32.Parse(codGrupoContaTextBox.Text));
+                gerenciadorGrupoConta.Remover(Int32.Parse(codGrupoContaTextBox.Text));
                 grupoContaBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -83,7 +79,7 @@ namespace Sace
                 grupoConta.CodGrupoConta = Int32.Parse(codGrupoContaTextBox.Text);
                 grupoConta.Descricao = descricaoTextBox.Text;
 
-                GerenciadorGrupoConta gGrupoConta = GerenciadorGrupoConta.GetInstance();
+                GerenciadorGrupoConta gGrupoConta = gerenciadorGrupoConta;
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     grupoConta.CodGrupoConta = (int) gGrupoConta.Inserir(grupoConta);

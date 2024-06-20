@@ -58,7 +58,7 @@ namespace Sace
                 }
                 else if (Saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
-                    Entrada entrada = GerenciadorEntrada.GetInstance().Obter(Saida.CodEntrada).ElementAtOrDefault(0);
+                    Entrada entrada = gerenciadorEntrada.Obter(Saida.CodEntrada).ElementAtOrDefault(0);
                     Saida.Observacao += " Devolução de Mercadorias relativo a nota fiscal número " + entrada.NumeroNotaFiscal +
                         " de " + entrada.DataEmissao.ToShortDateString() + " por estar em desacordo com o pedido. Valor da operação = R$ " +
                         Saida.TotalNotaFiscal.ToString("N2") + ". Base de Cálculo do ICMS = R$ " + Saida.BaseCalculoICMS.ToString("N2") +

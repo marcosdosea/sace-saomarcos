@@ -29,7 +29,7 @@ namespace Sace
         private void FrmSubgrupo_Load(object sender, EventArgs e)
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
-            grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
+            grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
             subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterTodos();
             habilitaBotoes(true);
         }
@@ -206,7 +206,7 @@ namespace Sace
         private void FrmSubgrupo_FormClosing(object sender, FormClosingEventArgs e)
         {
             SubgrupoSelected = (Subgrupo)subgrupoBindingSource.Current;
-            GrupoSelected = GerenciadorGrupo.GetInstance().Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
+            GrupoSelected = gerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
         }
 
         private void codGrupoComboBox_KeyPress(object sender, KeyPressEventArgs e)

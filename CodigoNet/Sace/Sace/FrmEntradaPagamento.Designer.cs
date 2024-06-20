@@ -40,7 +40,6 @@
             System.Windows.Forms.Label valorLabel;
             System.Windows.Forms.Label dataLabel;
             System.Windows.Forms.Label label7;
-            this.saceDataSet = new Dados.saceDataSet();
             this.tb_entradaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codEntradaTextBox = new System.Windows.Forms.TextBox();
             this.codEmpresaFreteTextBox = new System.Windows.Forms.TextBox();
@@ -71,10 +70,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.tb_forma_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_forma_pagamentoTableAdapter();
-            this.tb_conta_bancoTableAdapter = new Dados.saceDataSetTableAdapters.tb_conta_bancoTableAdapter();
-            this.tb_documento_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_documento_pagamentoTableAdapter();
-            this.tb_entrada_forma_pagamentoTableAdapter = new Dados.saceDataSetTableAdapters.tb_entrada_forma_pagamentoTableAdapter();
             codEntradaLabel = new System.Windows.Forms.Label();
             codEmpresaFreteLabel = new System.Windows.Forms.Label();
             valorFreteLabel = new System.Windows.Forms.Label();
@@ -86,7 +81,6 @@
             valorLabel = new System.Windows.Forms.Label();
             dataLabel = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_forma_pagamentoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbformapagamentoBindingSource)).BeginInit();
@@ -205,17 +199,6 @@
             label7.TabIndex = 79;
             label7.Text = "Total Recebido:";
             // 
-            // saceDataSet
-            // 
-            this.saceDataSet.DataSetName = "saceDataSet";
-            this.saceDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tb_entradaBindingSource
-            // 
-            this.tb_entradaBindingSource.DataMember = "tb_entrada";
-            this.tb_entradaBindingSource.DataSource = this.saceDataSet;
-            this.tb_entradaBindingSource.Sort = "codEntrada";
-            // 
             // codEntradaTextBox
             // 
             this.codEntradaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.tb_entradaBindingSource, "codEntrada", true));
@@ -275,11 +258,6 @@
             this.totalNotaTextBox.TabIndex = 6;
             this.totalNotaTextBox.TabStop = false;
             // 
-            // tb_entrada_forma_pagamentoBindingSource
-            // 
-            this.tb_entrada_forma_pagamentoBindingSource.DataMember = "tb_entrada_forma_pagamento";
-            this.tb_entrada_forma_pagamentoBindingSource.DataSource = this.saceDataSet;
-            // 
             // codFormaPagamentoComboBox
             // 
             this.codFormaPagamentoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entrada_forma_pagamentoBindingSource, "codFormaPagamento", true));
@@ -295,11 +273,6 @@
             this.codFormaPagamentoComboBox.TabIndex = 12;
             this.codFormaPagamentoComboBox.ValueMember = "codFormaPagamento";
             this.codFormaPagamentoComboBox.SelectedIndexChanged += new System.EventHandler(this.codFormaPagamentoComboBox_SelectedIndexChanged);
-            // 
-            // tbformapagamentoBindingSource
-            // 
-            this.tbformapagamentoBindingSource.DataMember = "tb_forma_pagamento";
-            this.tbformapagamentoBindingSource.DataSource = this.saceDataSet;
             // 
             // codDocumentoPagamentoComboBox
             // 
@@ -318,11 +291,6 @@
             this.codDocumentoPagamentoComboBox.ValueMember = "codDocumentoPagamento";
             this.codDocumentoPagamentoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codDocumentoPagamentoComboBox_KeyPress);
             // 
-            // tbdocumentopagamentoBindingSource
-            // 
-            this.tbdocumentopagamentoBindingSource.DataMember = "tb_documento_pagamento";
-            this.tbdocumentopagamentoBindingSource.DataSource = this.saceDataSet;
-            // 
             // codContaBancoComboBox
             // 
             this.codContaBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.tb_entrada_forma_pagamentoBindingSource, "codContaBanco", true));
@@ -338,11 +306,6 @@
             this.codContaBancoComboBox.Size = new System.Drawing.Size(227, 26);
             this.codContaBancoComboBox.TabIndex = 14;
             this.codContaBancoComboBox.ValueMember = "codContaBanco";
-            // 
-            // tbcontabancoBindingSource
-            // 
-            this.tbcontabancoBindingSource.DataMember = "tb_conta_banco";
-            this.tbcontabancoBindingSource.DataSource = this.saceDataSet;
             // 
             // valorTextBox
             // 
@@ -516,22 +479,6 @@
             this.label6.TabIndex = 77;
             this.label6.Text = "F12 - Navegar";
             // 
-            // tb_forma_pagamentoTableAdapter
-            // 
-            this.tb_forma_pagamentoTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_conta_bancoTableAdapter
-            // 
-            this.tb_conta_bancoTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_documento_pagamentoTableAdapter
-            // 
-            this.tb_documento_pagamentoTableAdapter.ClearBeforeFill = true;
-            // 
-            // tb_entrada_forma_pagamentoTableAdapter
-            // 
-            this.tb_entrada_forma_pagamentoTableAdapter.ClearBeforeFill = true;
-            // 
             // FrmEntradaPagamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -572,7 +519,6 @@
             this.Text = "Pagamentos da Entrada";
             this.Load += new System.EventHandler(this.FrmEntradaPagamento_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmEntradaPagamento_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entradaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_entrada_forma_pagamentoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbformapagamentoBindingSource)).EndInit();

@@ -26,7 +26,7 @@ namespace Sace
         private void FrmSaidaDevolucao_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            entradaBindingSource.DataSource = GerenciadorEntrada.GetInstance().ObterTodos();
+            entradaBindingSource.DataSource = gerenciadorEntrada.ObterTodos();
             saida = gerenciadorSaida.Obter(saida.CodSaida);
             entradaBindingSource.Position = entradaBindingSource.IndexOf(new Entrada() { CodEntrada = saida.CodEntrada });
             saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);

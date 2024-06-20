@@ -102,11 +102,6 @@
             this.chart1.TabIndex = 113;
             this.chart1.Text = "chart1";
             // 
-            // vendasPorGrupoBindingSource
-            // 
-            this.vendasPorGrupoBindingSource.DataMember = "VendasPorGrupo";
-            this.vendasPorGrupoBindingSource.DataSource = typeof(Dados.saceDataSetConsultas);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;

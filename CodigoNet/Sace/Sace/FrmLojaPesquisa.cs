@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
@@ -15,7 +8,7 @@ namespace Sace
     {
         public Loja LojaSelected { get; set; }
 
-        public FrmLojaPesquisa()
+        public FrmLojaPesquisa(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
             LojaSelected = null;

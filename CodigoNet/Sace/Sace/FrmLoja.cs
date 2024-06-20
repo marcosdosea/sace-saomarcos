@@ -10,6 +10,7 @@ using Negocio;
 using Dados;
 using Dominio;
 using Util;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
@@ -17,9 +18,10 @@ namespace Sace
     {
         private EstadoFormulario estado;
 
-        public FrmLoja()
+        public FrmLoja(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            
         }
 
         private void FrmLoja_Load(object sender, EventArgs e)

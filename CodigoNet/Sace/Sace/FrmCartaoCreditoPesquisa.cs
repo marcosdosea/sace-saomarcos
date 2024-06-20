@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
+using Negocio;
 
 namespace Sace
 {
     public partial class FrmCartaoCreditoPesquisa : Form
     {
         public CartaoCredito CartaoCreditoSelected { get; set; }
-
-        public FrmCartaoCreditoPesquisa()
+        private readonly GerenciadorCartaoCredito gerenciadorCartaoCredito;
+        public FrmCartaoCreditoPesquisa(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
             CartaoCreditoSelected = null;
+            SaceContext context = new SaceContext(options);
+            gerenciadorCartaoCredito = new GerenciadorCartaoCredito(context);
+            
         }
 
         private void FrmCartaoCreditoPesquisa_Load(object sender, EventArgs e)

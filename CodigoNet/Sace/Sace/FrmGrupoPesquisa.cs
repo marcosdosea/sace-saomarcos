@@ -6,7 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -14,24 +16,29 @@ namespace Sace
     public partial class FrmGrupoPesquisa : Form
     {
         public Grupo SelectedGrupo { get; set; }
+        private DbContextOptions<SaceContext> options;
+        private readonly GerenciadorGrupo gerenciadorGrupo;
 
-        public FrmGrupoPesquisa()
+        public FrmGrupoPesquisa(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            this.options = options;
+            SaceContext context = new SaceContext(options);
+            gerenciadorGrupo = new GerenciadorGrupo(context);
         }
 
         private void FrmGrupoPesquisa_Load(object sender, EventArgs e)
         {
-            grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterTodos();
+            grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().Obter(Convert.ToInt32(txtTexto.Text));
+                grupoBindingSource.DataSource = gerenciadorGrupo.Obter(Convert.ToInt32(txtTexto.Text));
             else
-                grupoBindingSource.DataSource = GerenciadorGrupo.GetInstance().ObterPorDescricao(txtTexto.Text);
+                grupoBindingSource.DataSource = gerenciadorGrupo.ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_grupoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

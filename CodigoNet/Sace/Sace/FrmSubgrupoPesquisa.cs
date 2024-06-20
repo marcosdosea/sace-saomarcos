@@ -35,7 +35,7 @@ namespace Sace
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             SubgrupoSelected = (Subgrupo) subgrupoBindingSource.Current;
-            GrupoSelected = GerenciadorGrupo.GetInstance().Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
+            GrupoSelected = gerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
             this.Close();
         }
 

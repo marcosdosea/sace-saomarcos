@@ -125,8 +125,6 @@
             this.codCSTNFeTextBox = new System.Windows.Forms.TextBox();
             this.entradasPorProdutoDataGridView = new System.Windows.Forms.DataGridView();
             this.entradasPorProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.entradasPorProdutoTableAdapter = new Dados.saceDataSetConsultasTableAdapters.EntradasPorProdutoTableAdapter();
-            this.saceDataSetConsultas = new Dados.saceDataSetConsultas();
             this.codEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeFornecedorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -178,7 +176,6 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSetConsultas)).BeginInit();
             this.SuspendLayout();
             // 
             // baseCalculoICMSLabel
@@ -1039,16 +1036,6 @@
             // entradasPorProdutoBindingSource
             // 
             this.entradasPorProdutoBindingSource.DataMember = "EntradasPorProduto";
-            this.entradasPorProdutoBindingSource.DataSource = this.saceDataSetConsultas;
-            // 
-            // entradasPorProdutoTableAdapter
-            // 
-            this.entradasPorProdutoTableAdapter.ClearBeforeFill = true;
-            // 
-            // saceDataSetConsultas
-            // 
-            this.saceDataSetConsultas.DataSetName = "saceDataSetConsultas";
-            this.saceDataSetConsultas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // codEntradaDataGridViewTextBoxColumn
             // 
@@ -1232,7 +1219,6 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSetConsultas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

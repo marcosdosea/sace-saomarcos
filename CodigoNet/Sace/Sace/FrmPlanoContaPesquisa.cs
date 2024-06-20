@@ -23,16 +23,16 @@ namespace Sace
 
         private void FrmPlanoContaPesquisa_Load(object sender, EventArgs e)
         {
-            planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterTodos();
+            planoContaBindingSource.DataSource = gerenciadorPlanoConta.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().Obter(Convert.ToInt32(txtTexto.Text));
+                planoContaBindingSource.DataSource = gerenciadorPlanoConta.Obter(Convert.ToInt32(txtTexto.Text));
             else
-                planoContaBindingSource.DataSource = GerenciadorPlanoConta.GetInstance().ObterPorDescricao(txtTexto.Text);
+                planoContaBindingSource.DataSource = gerenciadorPlanoConta.ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_plano_contaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
