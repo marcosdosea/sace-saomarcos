@@ -111,7 +111,7 @@ namespace Negocio
         /// Remove os dados de uma pessoa
         /// </summary>
         /// <param name="codpessoa"></param>
-        public void Remover(int codpessoa)
+        public void Remover(long codpessoa)
         {
             if (codpessoa == UtilConfig.Default.CLIENTE_PADRAO)
                 throw new NegocioException("Essa pessoa não pode ser removida.");
@@ -441,7 +441,7 @@ namespace Negocio
             return _pessoa;
         }
 
-        public void SubstituirPessoa(int codPessoaExcluir, int codPessoaManter)
+        public void SubstituirPessoa(long codPessoaExcluir, long codPessoaManter)
         {
             var transaction = context.Database.BeginTransaction();
             try

@@ -17,18 +17,18 @@ namespace Sace
 
         private void FrmSubgrupoPesquisa_Load(object sender, EventArgs e)
         {
-            subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterTodos();
+            subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterTodos();
             cmbBusca.SelectedIndex = 1;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().Obter(Convert.ToInt32(txtTexto.Text));
+                subgrupoBindingSource.DataSource = gerenciadorSubgrupo.Obter(Convert.ToInt32(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorDescricao(txtTexto.Text);                
+                subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterPorDescricao(txtTexto.Text);                
             else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorDescricaoGrupo(txtTexto.Text);
+                subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterPorDescricaoGrupo(txtTexto.Text);
             
         }
 

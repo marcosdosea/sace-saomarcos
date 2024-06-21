@@ -76,5 +76,20 @@
     <Setting Name="BACKCOLOR_FOCUS_LEAVE" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">White</Value>
     </Setting>
+    <Setting Name="PORTA_IMPRESSORA_REDUZIDA2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\\VENDAS02\MP-4200 TH</Value>
+    </Setting>
+    <Setting Name="PORTA_IMPRESSORA_REDUZIDA1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\\VENDAS01\DARUMA</Value>
+    </Setting>
+    <Setting Name="PROFISSIONAL_PADRAO" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DEPOSITO_PADRAO" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="DESCONTO_PADRAO" Type="System.Decimal" Scope="Application">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
-using Dados;
+using Negocio;
+using System.Data;
 using Util;
 
 namespace Sace
 {
-	public partial class FrmSaida : Form
+    public partial class FrmSaida : Form
 	{
 
 		private const string ENTRADA_MANUAL = "F1-MANUAL";
@@ -27,11 +21,28 @@ namespace Sace
 
 		private Saida saida;
 		private ProdutoPesquisa produto;
+		private SaceContext context;
 
-		public FrmSaida(int tipoSaida)
+		private readonly GerenciadorSaida gerenciadorSaida;
+		private readonly GerenciadorNFe gerenciadorNFe;
+		private readonly GerenciadorProduto gerenciadorProduto;
+		private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;	
+		private readonly GerenciadorPontaEstoque gerenciadorPontaEstoque;
+        private readonly GerenciadorSaidaProduto gerenciadorSaidaProduto;
+		private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;	
+
+        public FrmSaida(int tipoSaida, SaceContext context)
 		{
 			InitializeComponent();
 			tipoSaidaFormulario = tipoSaida;
+			this.context = context;
+			gerenciadorNFe = new GerenciadorNFe(context);
+			gerenciadorSaida = new GerenciadorSaida(context);
+			gerenciadorProduto = new GerenciadorProduto(context);
+			gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+			gerenciadorPontaEstoque = new GerenciadorPontaEstoque(context);
+			gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+			gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
 		}
 
 		/// <summary>
@@ -287,11 +298,11 @@ namespace Sace
 				bool saidaProdutoInvalida = (saidaProduto.CodProduto == 1) || (saidaProduto.Quantidade == 0) || (saidaProduto.ValorVendaAVista == 0);
 				if (estado.Equals(EstadoFormulario.INSERIR_DETALHE) && !saidaProdutoInvalida)
 				{
-					GerenciadorSaidaProduto.GetInstance(null).Inserir(saidaProduto, saida);
+					gerenciadorSaidaProduto.Inserir(saidaProduto, saida);
 					codSaidaTextBox_TextChanged(sender, e);
 					saidaProdutoBindingSource.MoveLast();
 					if (saida.TipoSaida == Saida.TIPO_ORCAMENTO &&
-						GerenciadorProdutoLoja.GetInstance(null).ObterEstoque(saidaProduto.CodProduto) < saidaProduto.Quantidade)
+						gerenciadorProdutoLoja.ObterEstoque(saidaProduto.CodProduto) < saidaProduto.Quantidade)
 					{
 						MessageBox.Show("Estoque INSUFICIENTE em caso de VENDA", "ATENÇÃO", MessageBoxButtons.OK);
 					}
@@ -315,7 +326,7 @@ namespace Sace
 					SaidaProduto saidaProduto = (SaidaProduto)saidaProdutoBindingSource.Current;
 					//saida = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
 
-					Negocio.GerenciadorSaidaProduto.GetInstance(null).Remover(saidaProduto, saida);
+					gerenciadorSaidaProduto.Remover(saidaProduto, saida);
 					saidaProdutoBindingSource.RemoveCurrent();
 
 				}
@@ -436,7 +447,7 @@ namespace Sace
 			long result;
 			bool ehCodigoBarra = long.TryParse(codProdutoComboBox.Text, out result) && (codProdutoComboBox.Text.Length > 7);
 
-			produto = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, false);
+			produto = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, false, context);
 			if (produto != null)
 			{
 				quantidadeTextBox.Text = "1";
@@ -445,10 +456,10 @@ namespace Sace
 				{
 					quantidadeTextBox.Text = produto.QtdProdutoAtacado.ToString();
 				}
-				IEnumerable<PontaEstoque> listaPontaEstoque = GerenciadorPontaEstoque.GetInstace().ObterPorProduto(produto.CodProduto);
+				IEnumerable<PontaEstoque> listaPontaEstoque = gerenciadorPontaEstoque.ObterPorProduto(produto.CodProduto);
 				if (listaPontaEstoque.Count() > 0)
 				{
-					FrmPontaEstoquePesquisa frmPontaEstoquePesquisa = new FrmPontaEstoquePesquisa(listaPontaEstoque);
+					FrmPontaEstoquePesquisa frmPontaEstoquePesquisa = new FrmPontaEstoquePesquisa(listaPontaEstoque, context);
 					frmPontaEstoquePesquisa.ShowDialog();
 					if (frmPontaEstoquePesquisa.PontaEstoqueSelected != null)
 					{
@@ -546,8 +557,8 @@ namespace Sace
 						precoVendatextBox.Text = produto.PrecoVendaVarejo.ToString();
 					}
 
-					data_validadeDateTimePicker.Enabled = produto.TemVencimento;
-					data_validadeDateTimePicker.TabStop = produto.TemVencimento;
+					data_validadeDateTimePicker.Enabled = (bool) produto.TemVencimento;
+					data_validadeDateTimePicker.TabStop = (bool) produto.TemVencimento;
 				}
 			}
 		}
@@ -592,7 +603,7 @@ namespace Sace
 				if ((saida != null) && (saida.CodSaida > 0))
 				{
 					saida = gerenciadorSaida.Obter(saida.CodSaida);
-					saidaProdutoBindingSource.DataSource = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaida(saida.CodSaida);
+					saidaProdutoBindingSource.DataSource = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
 					descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
 					pedidoGeradoTextBox.Text = saida.CupomFiscal;
 					VendedorTextBox.Text = saida.LoginVendedor;
@@ -757,12 +768,12 @@ namespace Sace
 			DialogResult result = MessageBox.Show("Se for possível PODE BAIXAR o PREÇO de VENDA?", "Atualizar Preços com Valores do Dia", MessageBoxButtons.YesNoCancel);
 			if (result == DialogResult.Yes)
 			{
-				GerenciadorSaidaProduto.GetInstance(null).AtualizarPrecosComValoresDia(saida, true);
+				gerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, true);
 				codSaidaTextBox_TextChanged(sender, e);
 			}
 			else if (result.Equals(DialogResult.No))
 			{
-				GerenciadorSaidaProduto.GetInstance(null).AtualizarPrecosComValoresDia(saida, false);
+				gerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, false);
 				codSaidaTextBox_TextChanged(sender, e);
 			}
 		}

@@ -27,7 +27,7 @@ namespace Sace.Relatorios.Produtos
         private void FrmDAV_Load(object sender, EventArgs e)
         {
             // Obtém os produtos das saídas
-            List<SaidaProdutoRelatorio> listaSaidaProdutoRelatorio = GerenciadorSaidaProduto.GetInstance(null).ObterPorSaidasRelatorio(listaCodSaidas);
+            List<SaidaProdutoRelatorio> listaSaidaProdutoRelatorio = gerenciadorSaidaProduto.ObterPorSaidasRelatorio(listaCodSaidas);
             SaidaProdutoRelatorioBindingSource.DataSource = listaSaidaProdutoRelatorio;
 
             if (listaSaidaProdutoRelatorio.Count > 0)

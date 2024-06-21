@@ -18,11 +18,10 @@ namespace Sace
         public Conta ContaSelected { get; set; }
         private readonly GerenciadorConta gerenciadorConta;
 
-        public FrmContaPesquisa(DbContextOptions<SaceContext> options)
+        public FrmContaPesquisa(SaceContext context)
         {
             InitializeComponent();
             ContaSelected = null;
-            SaceContext context = new SaceContext();
             gerenciadorConta = new GerenciadorConta(context);
         }
 

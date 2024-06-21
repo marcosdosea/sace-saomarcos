@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
-using Dados;
+using Microsoft.EntityFrameworkCore;
+using Negocio;
 using Util;
 
 namespace Sace
@@ -18,18 +11,23 @@ namespace Sace
         private EstadoFormulario estado;
         public ProdutoPesquisa ProdutoSelected { get; set; }
      
+        private readonly GerenciadorLoja gerenciadorLoja;
+        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
 
-        public FrmProdutoAjusteEstoque(ProdutoPesquisa _produto)
+        private SaceContext context;
+        public FrmProdutoAjusteEstoque(ProdutoPesquisa _produto, SaceContext context)
         {
             InitializeComponent();
+            this.context = context;
             ProdutoSelected = _produto;
+            gerenciadorLoja = new GerenciadorLoja(context);
+            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
         }
 
         private void FrmProdutoAjusteEstoque_Load(object sender, EventArgs e)
         {
-            //GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.GRUPOS_DE_PRODUTOS, Principal.Autenticacao.CodUsuario);
             lojaBindingSource.DataSource = gerenciadorLoja.ObterTodos();
-            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(ProdutoSelected.CodProduto);
+            produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
             habilitaBotoes(true);
         }
 
@@ -80,7 +78,7 @@ namespace Sace
                 produtoLoja.Localizacao2 = localizacao2TextBox.Text;
 
                 
-                GerenciadorProdutoLoja gProdutoLoja = GerenciadorProdutoLoja.GetInstance(null);
+                GerenciadorProdutoLoja gProdutoLoja = gerenciadorProdutoLoja;
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
                     gProdutoLoja.Inserir(produtoLoja);
@@ -204,13 +202,13 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true);
+            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true, context);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {
                 nomeProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.Nome;
                 codProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.CodProduto.ToString();
-                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
+                produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
                 ProdutoSelected = frmProdutoPesquisa.ProdutoPesquisa;
                 habilitaBotoes(true);
             }

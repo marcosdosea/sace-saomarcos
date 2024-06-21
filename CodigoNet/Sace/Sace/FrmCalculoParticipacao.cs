@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
-using Dados;
-using Microsoft.EntityFrameworkCore;
+using Negocio;
 
 namespace Sace
 {
@@ -17,10 +8,9 @@ namespace Sace
     {
         private readonly GerenciadorSaida gerenciadorSaida;
  
-        public FrmCalculoParticipacao(DbContextOptions<SaceContext> options)
+        public FrmCalculoParticipacao(SaceContext context)
         {
             InitializeComponent();
-            SaceContext context = new SaceContext(options);
             gerenciadorSaida = new GerenciadorSaida(context);
         }
 

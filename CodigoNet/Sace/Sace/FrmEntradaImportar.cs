@@ -1,8 +1,6 @@
 ﻿using Dados;
 using Dominio;
-using Microsoft.EntityFrameworkCore;
 using Negocio;
-using System.Runtime.CompilerServices;
 
 namespace Sace
 {
@@ -12,14 +10,15 @@ namespace Sace
         Entrada entrada;
         private readonly GerenciadorProduto gerenciadorProduto;
         private readonly GerenciadorEntradaProduto gerenciadorEntradaProduto;
+        private SaceContext context;
 
 
-        public FrmEntradaImportar(Entrada entrada, IEnumerable<EntradaProduto> listaEntradaProduto, DbContextOptions<SaceContext> options)
+        public FrmEntradaImportar(Entrada entrada, IEnumerable<EntradaProduto> listaEntradaProduto, SaceContext context)
         {
             InitializeComponent();
+            this.context = context; 
             this.listaEntradaProduto = listaEntradaProduto;
             this.entrada = entrada;
-            SaceContext context = new SaceContext(options);
             gerenciadorProduto = new GerenciadorProduto(context);
             gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
         }
@@ -48,7 +47,7 @@ namespace Sace
 
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
-            ProdutoPesquisa produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, EstadoFormulario.INSERIR_DETALHE, produtoBindingSource, true, gerenciadorProduto);
+            ProdutoPesquisa produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, EstadoFormulario.INSERIR_DETALHE, produtoBindingSource, true, context);
             EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
             if (produtoPesquisa.CodProduto != 1)
             {
@@ -69,7 +68,7 @@ namespace Sace
         {
             if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
             {
-                FrmProduto frmProduto = new FrmProduto();
+                FrmProduto frmProduto = new FrmProduto(context);
                 frmProduto.ShowDialog();
                 if (frmProduto.ProdutoPesquisa != null)
                 {

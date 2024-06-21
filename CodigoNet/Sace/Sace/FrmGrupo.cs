@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
-using Dados;
+using Negocio;
 using Util;
-using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
@@ -19,11 +10,12 @@ namespace Sace
         private EstadoFormulario estado;
         public Grupo GrupoSelected { get; set; }
         private readonly GerenciadorGrupo gerenciadorGrupo;
+        private SaceContext context;
 
-        public FrmGrupo(DbContextOptions<SaceContext> options)
+        public FrmGrupo(SaceContext context)
         {
             InitializeComponent();
-            SaceContext context = new SaceContext(options);
+            this.context = context;
             gerenciadorGrupo = new GerenciadorGrupo(context);
         }
 
@@ -35,7 +27,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa();
+            FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa(context);
             frmGrupoPesquisa.ShowDialog();
             if (frmGrupoPesquisa.SelectedGrupo != null)
             {

@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
+using Negocio;
 
 namespace Sace
 {
     public partial class FrmPessoaExcluir : Form
     {
         EstadoFormulario estado = EstadoFormulario.ESPERA;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
 
-        public FrmPessoaExcluir()
+        public FrmPessoaExcluir(DbContextOptions<SaceContext> options)
         {
             InitializeComponent();
+            SaceContext context = new SaceContext(options);
+            gerenciadorPessoa = new GerenciadorPessoa(context);
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -46,12 +43,12 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa _pessoaPesquisa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, false);
+            Pessoa _pessoaPesquisa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, false, gerenciadorPessoa);
         }
 
         private void codPessoaComboBox1_Leave(object sender, EventArgs e)
         {
-            Pessoa _pessoaPesquisa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox1, estado, pessoaBindingSource1, true, false);
+            Pessoa _pessoaPesquisa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox1, estado, pessoaBindingSource1, true, false, gerenciadorPessoa);
         }
 
         private void FrmPessoaExcluir_KeyDown(object sender, KeyEventArgs e)

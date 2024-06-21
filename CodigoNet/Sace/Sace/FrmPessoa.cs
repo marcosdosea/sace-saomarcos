@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 using Util;
+using Dados;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
@@ -17,18 +19,26 @@ namespace Sace
         private EstadoFormulario estado;
         public Pessoa PessoaSelected { get; set; }
         private Loja loja;
- 
-        public FrmPessoa()
+        private SaceContext context;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorLoja gerenciadorLoja;
+        private readonly GerenciadorMunicipio gerenciadorMunicipio;
+
+
+        public FrmPessoa(SaceContext context)
         {
             InitializeComponent();
+            this.context = context;
+            gerenciadorLoja = new GerenciadorLoja(context);
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorMunicipio = new GerenciadorMunicipio(context);
         }
 
         private void FrmPessoa_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.PESSOAS, Principal.Autenticacao.CodUsuario);
             pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            municipiosIBGEBindingSource.DataSource = GerenciadorMunicipio.GetInstance().ObterTodos();
+            municipiosIBGEBindingSource.DataSource = gerenciadorMunicipio.ObterTodos();
             loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
             if (!codPessoaTextBox.Text.Trim().Equals(""))
                 contatosBindingSource.DataSource = gerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
@@ -38,7 +48,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
+            FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(context);
             frmPessoaPesquisa.ShowDialog();
             if (frmPessoaPesquisa.PessoaSelected != null)
             {
@@ -78,7 +88,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorPessoa.Remover(Int64.Parse(codPessoaTextBox.Text));
+                gerenciadorPessoa.Remover(Int32.Parse(codPessoaTextBox.Text));
                 pessoaBindingSource.RemoveCurrent();
             }
         }
@@ -182,7 +192,7 @@ namespace Sace
 
         private void btnAdicionarContato_Click(object sender, EventArgs e)
         {
-            FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
+            FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(context);
             frmPessoaPesquisa.ShowDialog();
             if (frmPessoaPesquisa.PessoaSelected != null)
             {

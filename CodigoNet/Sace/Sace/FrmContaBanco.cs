@@ -11,15 +11,14 @@ namespace Sace
         private EstadoFormulario estado;
 
         public ContaBanco ContaBancoSelected { get; set; }
-        private DbContextOptions<SaceContext> options;
         private readonly GerenciadorBanco gerenciadorBanco;
         private readonly GerenciadorContaBanco gerenciadorContaBanco;
+        private SaceContext context;
 
-        public FrmContaBanco(DbContextOptions<SaceContext> options)
+        public FrmContaBanco(SaceContext context)
         {
             InitializeComponent();
-            this.options = options; 
-            SaceContext context = new SaceContext(options);
+            this.context = context;
             gerenciadorBanco = new GerenciadorBanco(context);
             gerenciadorContaBanco = new GerenciadorContaBanco(context);
         }
@@ -33,7 +32,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa(options);
+            FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa(context);
             frmContaBancoPesquisa.ShowDialog();
             if (frmContaBancoPesquisa.ContaBancoSelected != null)
             {
@@ -163,7 +162,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codBancoComboBox.Focused))
                 {
-                    FrmBancoPesquisa frmBancoPesquisa = new FrmBancoPesquisa(options);
+                    FrmBancoPesquisa frmBancoPesquisa = new FrmBancoPesquisa(context);
                     frmBancoPesquisa.ShowDialog();
                     if (frmBancoPesquisa.BancoSelected != null)
                     {
@@ -173,7 +172,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codBancoComboBox.Focused))
                 {
-                    FrmBanco frmBanco = new FrmBanco(options);
+                    FrmBanco frmBanco = new FrmBanco(context);
                     frmBanco.ShowDialog();
                     if (frmBanco.BancoSelected != null)
                     {

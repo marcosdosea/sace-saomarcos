@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Negocio;
 
 namespace Sace
 {
     public partial class FrmProdutoExcluir : Form
     {
       
-        public FrmProdutoExcluir()
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly SaceContext context;
+        public FrmProdutoExcluir(SaceContext context)
         {
             InitializeComponent();
-            
+            this.context = context;
+            gerenciadorProduto = new GerenciadorProduto(context);
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -47,13 +43,13 @@ namespace Sace
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true, context);
         }
 
         private void codProdutoComboBox1_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox1, estado, produtoBindingSource1, true);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox1, estado, produtoBindingSource1, true, context);
         }
 
         private void FrmProdutoExcluir_KeyDown(object sender, KeyEventArgs e)

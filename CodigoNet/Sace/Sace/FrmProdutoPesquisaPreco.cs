@@ -1,40 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Util;
+﻿using Dados;
 using Dominio;
 using Negocio;
+using System.Data;
+using Util;
 
 namespace Sace
 {
     public partial class FrmProdutoPesquisaPreco : Form
     {
-        private String filtroNome;
-        private String textoAtual;
+        private string filtroNome;
+        private string textoAtual;
         private bool ExibirTodos { get; set;}
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
         IEnumerable<ProdutoPesquisa> listaProdutoBuffer;
 
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
+        private SaceContext context;
 
-        public FrmProdutoPesquisaPreco(bool exibirTodos)
+        public FrmProdutoPesquisaPreco(bool exibirTodos, SaceContext context)
         {
             InitializeComponent();
+            this.context = context;
             ProdutoPesquisa = null;
             filtroNome = null;
             ExibirTodos = exibirTodos;
+            gerenciadorProduto = new GerenciadorProduto(context);
+            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
         }
 
-        public FrmProdutoPesquisaPreco(bool exibirTodos, String nome)
+        public FrmProdutoPesquisaPreco(bool exibirTodos, String nome, SaceContext context)
         {
             InitializeComponent();
             ProdutoPesquisa = null;
             filtroNome = nome;
             ExibirTodos = exibirTodos;
+            gerenciadorProduto = new GerenciadorProduto(context);
         }
 
         private void FrmProdutoPesquisaPreco_Load(object sender, EventArgs e)
@@ -59,7 +60,7 @@ namespace Sace
                 if (produtoBindingSource.Count > 0)
                 {
                     ProdutoPesquisa produto = (ProdutoPesquisa)produtoBindingSource.Current;
-                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(produto.CodProduto);
+                    produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
                     listaProdutoBuffer = (IEnumerable<ProdutoPesquisa>)produtoBindingSource.DataSource;
                 }
             }
@@ -158,7 +159,7 @@ namespace Sace
             if (produtoBindingSource.Count > 0)
             {
                 ProdutoPesquisa produto = (ProdutoPesquisa) produtoBindingSource.Current;
-                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(produto.CodProduto);
+                produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
             }
             Cursor.Current = Cursors.Default;
         }
@@ -203,10 +204,10 @@ namespace Sace
                 if (tb_produtoDataGridView.RowCount > 0)
                 {
                     ProdutoPesquisa _produto = (ProdutoPesquisa) produtoBindingSource.Current;
-                    FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produto);
+                    FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produto, context);
                     frmAjuste.ShowDialog();
                     frmAjuste.Dispose();
-                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(_produto.CodProduto);
+                    produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(_produto.CodProduto);
                 }
             }
             //else if (e.KeyCode == Keys.F9)
@@ -274,7 +275,7 @@ namespace Sace
             if ((tb_produtoDataGridView.RowCount > 0) && (tb_produtoDataGridView.SelectedRows.Count > 0))
             {
                 Int32 codProduto = int.Parse(tb_produtoDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
-                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(codProduto);
+                produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(codProduto);
             }
         }
 
@@ -350,7 +351,7 @@ namespace Sace
             }
             if (MessageBox.Show(mensagem, "Confirmar Mudança Situação", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorProduto.AtualizarSituacaoProduto(solicitacao, Properties.Settings.Default.ServidorNfe);
+                gerenciadorProduto.AtualizarSituacaoProduto(solicitacao, UtilConfig.Default.SERVIDOR_NFE);
                 txtTexto_TextChanged(sender, e);
             }
         }

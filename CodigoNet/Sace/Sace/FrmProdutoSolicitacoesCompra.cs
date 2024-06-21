@@ -1,22 +1,24 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Collections.Generic;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Negocio;
 using Util;
-using System.Data;
-using Dados;
-using System.Drawing;
 
 namespace Sace
 {
     public partial class FrmProdutoSolicitacoesCompra : Form
     {
-
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
+        private readonly GerenciadorSaidaProduto gerenciadorSaidaProduto;
      
-        public FrmProdutoSolicitacoesCompra()
+        public FrmProdutoSolicitacoesCompra(SaceContext context)
         {
             InitializeComponent();
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorProduto = new GerenciadorProduto(context);
+            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
         }
 
 
@@ -28,7 +30,7 @@ namespace Sace
             if (MessageBox.Show("Deseja ANALISAR ESTOQUE para atualizar SOLICITAÇÕES DE COMPRA?", "Confirmar Análise Estoque", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                GerenciadorSaidaProduto.GetInstance(null).AtualizarSituacaoEstoqueProdutos();
+                gerenciadorSaidaProduto.AtualizarSituacaoEstoqueProdutos();
                 Cursor.Current = Cursors.Default;
             }
             comboBoxFornecedor_SelectedIndexChanged(sender, e);
@@ -50,7 +52,7 @@ namespace Sace
                     SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.NAO_COMPRAR;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe.ToUpper());
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -61,7 +63,7 @@ namespace Sace
                     SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -73,7 +75,7 @@ namespace Sace
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
                     solicitacaoCompra.DataSolicitacaoCompra = DateTime.Now;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -86,7 +88,7 @@ namespace Sace
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
                     solicitacaoCompra.DataSolicitacaoCompra = DateTime.Now;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -99,7 +101,7 @@ namespace Sace
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRADO;
                     solicitacaoCompra.DataPedidoCompra = DateTime.Now;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, Properties.Settings.Default.ServidorNfe);
+                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -114,7 +116,6 @@ namespace Sace
             }
 
         }
-
       
         private void preencherDadosEstatisticos(ProdutoPesquisa produtoPesquisa)
         {
@@ -124,25 +125,25 @@ namespace Sace
             precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString("N2");
             precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString("N2");
 
-            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(produto.CodProduto);
-            this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produto.CodProduto);
-            this.produtosVendidosTableAdapter.FillQuantidadeProdutosVendidosMesAnoAsc(saceDataSetConsultas.ProdutosVendidos, produto.CodProduto);
+            produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
+            //this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produto.CodProduto);
+            //this.produtosVendidosTableAdapter.FillQuantidadeProdutosVendidosMesAnoAsc(saceDataSetConsultas.ProdutosVendidos, produto.CodProduto);
 
-            Dados.saceDataSetConsultas.ProdutosVendidosDataTable pVendidosTable = new Dados.saceDataSetConsultas.ProdutosVendidosDataTable();
-            pVendidosTable = this.saceDataSetConsultas.ProdutosVendidos;
+            //Dados.saceDataSetConsultas.ProdutosVendidosDataTable pVendidosTable = new Dados.saceDataSetConsultas.ProdutosVendidosDataTable();
+            //pVendidosTable = this.saceDataSetConsultas.ProdutosVendidos;
 
-            chart1.DataSource = produtosVendidosTableAdapterBindingSource;
+            chart1.DataSource = gerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 5); // produtosVendidosTableAdapterBindingSource;
 
             chart1.Series[0].Name = "Qtd Vendidos";
-            chart1.Series[0].XValueMember = pVendidosTable.mesanoColumn.ToString();
+            chart1.Series[0].XValueMember = "MesAno"; //pVendidosTable.mesanoColumn.ToString();
             chart1.EndInit();
             //chart1.Series[0].
-            chart1.Series[0].YValueMembers = pVendidosTable.quantidadeVendidaColumn.ToString();
+            chart1.Series[0].YValueMembers = "QuantidadeVendido";//pVendidosTable.quantidadeVendidaColumn.ToString();
 
             chart1.DataBind();
             chart1.Visible = true;
 
-            List<ProdutoVendido> produtosVendidos = GerenciadorProdutosVendidos.getInstace().ObterProdutosVendidosDezoitoMeses(produto.CodProduto);
+            List<ProdutoVendido> produtosVendidos = gerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 2);
 
             decimal somaVendidos = 0;
             if (produtosVendidos.Count == 0)
@@ -185,7 +186,7 @@ namespace Sace
 
         private void comboBoxFornecedor_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, comboBoxFornecedor, EstadoFormulario.ATUALIZAR, pessoaBindingSource, true, false); 
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, comboBoxFornecedor, EstadoFormulario.ATUALIZAR, pessoaBindingSource, true, false, gerenciadorPessoa); 
         }
 
         private void comboBoxFornecedor_SelectedIndexChanged(object sender, EventArgs e)

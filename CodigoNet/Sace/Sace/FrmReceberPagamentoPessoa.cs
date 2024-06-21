@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
+﻿using Dados;
 using Dominio;
 using Negocio;
 using Util;
@@ -22,10 +17,24 @@ namespace Sace
         private bool quitadaChecked;
         private decimal descontoCalculado;
         private bool alterouDesconto;
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorConta gerenciadorConta;
+        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
+        private readonly GerenciadorSolicitacaoDocumento gerenciadorSolicitacaoDocumento;
+        private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
+        private readonly GerenciadorFormaPagamento gerenciadorFormaPagamento;
 
-        public FrmReceberPagamentoPessoa()
+        public FrmReceberPagamentoPessoa(SaceContext context)
         {
             InitializeComponent();
+            gerenciadorConta = new GerenciadorConta(context);
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
+            gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
+            gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
+            gerenciadorFormaPagamento = new GerenciadorFormaPagamento(context);
         }
 
         private void FrmReceberPagamentoPessoa_Load(object sender, EventArgs e)
@@ -91,7 +100,7 @@ namespace Sace
                 if (MessageBox.Show("Confirma pagamento?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     var listaMovimentacaoConta = (List<MovimentacaoConta>)movimentacaoContaBindingSource.DataSource;
-                    gerenciadorConta.ReceberPagamentosContas(listaContaSaida, listaSaidaPagamentos, listaMovimentacaoConta, saida);
+                    gerenciadorSaida.ReceberPagamentosContas(listaContaSaida, listaSaidaPagamentos, listaMovimentacaoConta, saida);
                 }
                 else
                 {
@@ -112,14 +121,14 @@ namespace Sace
                             listaSaidaPagamentos.AddRange(gerenciadorSaidaPagamento.ObterPorSaida(contaSaida.CodSaida));
                         }
                     }
-                    gerenciadorSolicitacaoDocumento.InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                    gerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                     FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaContaSaida.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
                     frmSaidaAutorizacao.ShowDialog();
                     frmSaidaAutorizacao.Dispose();
                 }
                 else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.ImprimirCreditoPagamento(saida, Properties.Settings.Default.PORTA_IMPRESSORA_REDUZIDA2);
+                    gerenciadorSaida.ImprimirCreditoPagamento(saida, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA2);
                 }
             }
             codClienteComboBox_Leave(sender, e);
@@ -220,7 +229,7 @@ namespace Sace
 
             
             SaidaPagamento saidaPagamento = new SaidaPagamento();
-            FormaPagamento dinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
+            FormaPagamento dinheiro = gerenciadorFormaPagamento.Obter(FormaPagamento.DINHEIRO).ElementAt(0);
             saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
             saidaPagamento.CodCartaoCredito = UtilConfig.Default.CARTAO_LOJA;
             saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
@@ -242,7 +251,7 @@ namespace Sace
                 if (MessageBox.Show("Confirma emisssão da NFce das Contas Selecionadas?", "Confirmar Impressão NFe/NFCe", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     AtualizarValoresDescontosContas();
-                    gerenciadorSolicitacaoDocumento.InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                    gerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                     FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
                     frmSaidaAutorizacao.ShowDialog();
                     frmSaidaAutorizacao.Dispose();
@@ -308,7 +317,7 @@ namespace Sace
                 if (tb_movimentacao_contaDataGridView.Rows.Count > 0)
                 {
                     long codMovimentacaoConta = long.Parse(tb_movimentacao_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    Negocio.gerenciadorMovimentacaoConta.Remover(codMovimentacaoConta);
+                    gerenciadorMovimentacaoConta.Remover(codMovimentacaoConta);
                 }
                 ObterTodasContasAbertas(pessoa);
             }
@@ -338,7 +347,7 @@ namespace Sace
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            pessoa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, estado, pessoaBindingSource, true, true);
+            pessoa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, estado, pessoaBindingSource, true, true, gerenciadorPessoa);
             if ((pessoa != null) && (!pessoa.CodPessoa.Equals(UtilConfig.Default.CLIENTE_PADRAO)))
             {
                 // Obter todas as contas da pessoa em aberto

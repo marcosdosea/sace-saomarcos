@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using Dados;
+using Dominio;
 using Negocio;
 using Util;
 
@@ -86,9 +87,10 @@ namespace Sace
         /// <param name="ultimoCodigoBarraLido"></param>
         /// <param name="exibirTodos"></param>
         /// <returns></returns>
-        public static ProdutoPesquisa ProdutoComboBox_Leave(object sender, EventArgs e, ComboBox produtoComboBox, EstadoFormulario estado, BindingSource produtoBindingSource, bool exibirTodos, GerenciadorProduto gerenciadorProduto)
+        public static ProdutoPesquisa ProdutoComboBox_Leave(object sender, EventArgs e, ComboBox produtoComboBox, EstadoFormulario estado, BindingSource produtoBindingSource, bool exibirTodos, SaceContext context)
         {
             ProdutoPesquisa _produtoPesquisa = null;
+            GerenciadorProduto gerenciadorProduto = new GerenciadorProduto(context);
             if (produtoComboBox.DataSource != null)
             {
                 List<ProdutoPesquisa> _listaProdutos = new List<ProdutoPesquisa>();
@@ -131,7 +133,7 @@ namespace Sace
                         }
                         if ((_listaProdutos.Count == 0) || ((_listaProdutos.Count >= 1) && (produtoNomeIgual == null)))
                         {
-                            FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new FrmProdutoPesquisaPreco(exibirTodos, produtoComboBox.Text);
+                            FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new FrmProdutoPesquisaPreco(exibirTodos, produtoComboBox.Text, context);
                             frmProdutoPesquisaPreco.ShowDialog();
                             if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                             {

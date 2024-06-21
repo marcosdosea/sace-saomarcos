@@ -254,7 +254,7 @@
             // 
             // totaisSaidaBindingSource
             // 
-            this.totaisSaidaBindingSource.DataSource = typeof(Dominio.Consultas.TotalPagamentoSaida);
+            this.totaisSaidaBindingSource.DataSource = typeof(Dominio.TotalPagamentoSaida);
             // 
             // totaisSaidaDataGridView
             // 
@@ -295,7 +295,7 @@
             // 
             // vendasCartaoRede
             // 
-            this.vendasCartaoRede.DataSource = typeof(Dominio.Consultas.VendasCartao);
+            this.vendasCartaoRede.DataSource = typeof(Dominio.VendasCartao);
             // 
             // totaisCartaoDataGridView
             // 
@@ -529,7 +529,7 @@
             // 
             // vendasCartaoBaneseCredito
             // 
-            this.vendasCartaoBaneseCredito.DataSource = typeof(Dominio.Consultas.VendasCartao);
+            this.vendasCartaoBaneseCredito.DataSource = typeof(Dominio.VendasCartao);
             // 
             // btnDetalhes
             // 
@@ -678,7 +678,7 @@
             // 
             // totaisPagamentosBindingSource
             // 
-            this.totaisPagamentosBindingSource.DataSource = typeof(Dominio.Consultas.TotalPagamentoSaida);
+            this.totaisPagamentosBindingSource.DataSource = typeof(Dominio.TotalPagamentoSaida);
             // 
             // FrmMovimentacaoCaixa
             // 

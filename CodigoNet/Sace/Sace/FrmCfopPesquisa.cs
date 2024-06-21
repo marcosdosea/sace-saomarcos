@@ -10,11 +10,10 @@ namespace Sace
         public Cfop CfopSelected { get; set; }
         private readonly GerenciadorCfop gerenciadorCfop;
 
-        public FrmCfopPesquisa(DbContextOptions<SaceContext> options)
+        public FrmCfopPesquisa(SaceContext context)
         {
             InitializeComponent();
             CfopSelected = null;
-            SaceContext context = new SaceContext(options);
             gerenciadorCfop = new GerenciadorCfop(context);
         }
 

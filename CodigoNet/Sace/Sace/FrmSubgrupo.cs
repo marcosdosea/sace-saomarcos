@@ -30,7 +30,7 @@ namespace Sace
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
             grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
-            subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterTodos();
+            subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -67,7 +67,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorSubgrupo.GetInstance().Remover(Int32.Parse(codSubgrupoTextBox.Text));
+                gerenciadorSubgrupo.Remover(Int32.Parse(codSubgrupoTextBox.Text));
                 subgrupoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -89,12 +89,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codSubgrupo = GerenciadorSubgrupo.GetInstance().Inserir(subgrupo);
+                    long codSubgrupo = gerenciadorSubgrupo.Inserir(subgrupo);
                     codSubgrupoTextBox.Text = codSubgrupo.ToString();
                 }
                 else
                 {
-                    GerenciadorSubgrupo.GetInstance().Atualizar(subgrupo);
+                    gerenciadorSubgrupo.Atualizar(subgrupo);
                 }
                 subgrupoBindingSource.EndEdit();
             }

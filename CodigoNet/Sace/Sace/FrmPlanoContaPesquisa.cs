@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -14,11 +8,13 @@ namespace Sace
     public partial class FrmPlanoContaPesquisa : Form
     {
         public PlanoConta PlanoContaSelected;
+        private readonly GerenciadorPlanoConta gerenciadorPlanoConta;
 
-        public FrmPlanoContaPesquisa()
+        public FrmPlanoContaPesquisa(SaceContext context)
         {
             InitializeComponent();
             PlanoContaSelected = null;
+            gerenciadorPlanoConta = new GerenciadorPlanoConta(context);
         }
 
         private void FrmPlanoContaPesquisa_Load(object sender, EventArgs e)

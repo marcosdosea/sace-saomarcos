@@ -223,5 +223,50 @@ namespace Util {
                 return ((global::System.Drawing.Color)(this["BACKCOLOR_FOCUS_LEAVE"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\VENDAS02\\MP-4200 TH")]
+        public string PORTA_IMPRESSORA_REDUZIDA2 {
+            get {
+                return ((string)(this["PORTA_IMPRESSORA_REDUZIDA2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\VENDAS01\\DARUMA")]
+        public string PORTA_IMPRESSORA_REDUZIDA1 {
+            get {
+                return ((string)(this["PORTA_IMPRESSORA_REDUZIDA1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int PROFISSIONAL_PADRAO {
+            get {
+                return ((int)(this["PROFISSIONAL_PADRAO"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int DEPOSITO_PADRAO {
+            get {
+                return ((int)(this["DEPOSITO_PADRAO"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public decimal DESCONTO_PADRAO {
+            get {
+                return ((decimal)(this["DESCONTO_PADRAO"]));
+            }
+        }
     }
 }

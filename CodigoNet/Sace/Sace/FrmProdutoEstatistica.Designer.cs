@@ -60,7 +60,6 @@
             this.valorUnitarioTextBox = new System.Windows.Forms.TextBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.produtosVendidosTableAdapterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saceDataSetConsultas = new Dados.saceDataSetConsultas();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -68,7 +67,6 @@
             this.vendidos3textBox = new System.Windows.Forms.TextBox();
             this.vendidos6textBox = new System.Windows.Forms.TextBox();
             this.vendidos12textBox = new System.Windows.Forms.TextBox();
-            this.produtosVendidosTableAdapter = new Dados.saceDataSetConsultasTableAdapters.ProdutosVendidosTableAdapter();
             this.vendidos18textBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.entradasPorProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -89,7 +87,6 @@
             this.qtdEstoqueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.qtdEstoqueAuxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label13 = new System.Windows.Forms.Label();
-            this.entradasPorProdutoTableAdapter = new Dados.saceDataSetConsultasTableAdapters.EntradasPorProdutoTableAdapter();
             this.codProdutoComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -106,7 +103,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtosVendidosTableAdapterBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSetConsultas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).BeginInit();
@@ -380,12 +376,6 @@
             // produtosVendidosTableAdapterBindingSource
             // 
             this.produtosVendidosTableAdapterBindingSource.DataMember = "ProdutosVendidos";
-            this.produtosVendidosTableAdapterBindingSource.DataSource = this.saceDataSetConsultas;
-            // 
-            // saceDataSetConsultas
-            // 
-            this.saceDataSetConsultas.DataSetName = "saceDataSetConsultas";
-            this.saceDataSetConsultas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // label5
             // 
@@ -457,10 +447,6 @@
             this.vendidos12textBox.TabIndex = 108;
             this.vendidos12textBox.TabStop = false;
             // 
-            // produtosVendidosTableAdapter
-            // 
-            this.produtosVendidosTableAdapter.ClearBeforeFill = true;
-            // 
             // vendidos18textBox
             // 
             this.vendidos18textBox.Location = new System.Drawing.Point(295, 243);
@@ -484,7 +470,6 @@
             // entradasPorProdutoBindingSource
             // 
             this.entradasPorProdutoBindingSource.DataMember = "EntradasPorProduto";
-            this.entradasPorProdutoBindingSource.DataSource = this.saceDataSetConsultas;
             // 
             // entradasPorProdutoDataGridView
             // 
@@ -668,10 +653,6 @@
             this.label13.TabIndex = 125;
             this.label13.Text = "Estoque";
             // 
-            // entradasPorProdutoTableAdapter
-            // 
-            this.entradasPorProdutoTableAdapter.ClearBeforeFill = true;
-            // 
             // codProdutoComboBox
             // 
             this.codProdutoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -745,7 +726,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtosVendidosTableAdapterBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saceDataSetConsultas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entradasPorProdutoDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.produtoLojaBindingSource)).EndInit();

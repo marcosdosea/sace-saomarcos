@@ -6,6 +6,10 @@
         public const string TIPO_CARTAO_DEBITO = "DEBITO";
         public const string TIPO_CARTAO_CREDIARIO = "CREDIARIO";
 
+        public const int CARTAO_PIX = 11;
+        public const int CARTAO_BANESECARD_CREDITO = 5;
+        
+
         public int CodCartao { get; set; }
         public string? Nome { get; set; }
         public int DiaBase { get; set; }

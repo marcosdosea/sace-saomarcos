@@ -98,7 +98,7 @@
             // 
             // movimentacaoPeriodoBindingSource
             // 
-            this.movimentacaoPeriodoBindingSource.DataSource = typeof(Dominio.Consultas.MovimentacaoPeriodo);
+            this.movimentacaoPeriodoBindingSource.DataSource = typeof(Dominio.MovimentacaoPeriodo);
             // 
             // label3
             // 

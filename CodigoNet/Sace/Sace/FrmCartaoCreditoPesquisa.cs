@@ -9,11 +9,11 @@ namespace Sace
     {
         public CartaoCredito CartaoCreditoSelected { get; set; }
         private readonly GerenciadorCartaoCredito gerenciadorCartaoCredito;
-        public FrmCartaoCreditoPesquisa(DbContextOptions<SaceContext> options)
+        
+        public FrmCartaoCreditoPesquisa(SaceContext context)
         {
             InitializeComponent();
             CartaoCreditoSelected = null;
-            SaceContext context = new SaceContext(options);
             gerenciadorCartaoCredito = new GerenciadorCartaoCredito(context);
             
         }

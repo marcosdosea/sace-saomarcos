@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dados;
+﻿using Dados;
 using Dominio;
-using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -18,11 +9,10 @@ namespace Sace
         public GrupoConta GrupoConta { get; set; }
         private readonly GerenciadorGrupoConta gerenciadorGrupoConta;
 
-        public FrmGrupoContaPesquisa(DbContextOptions<SaceContext> options)
+        public FrmGrupoContaPesquisa(SaceContext context)
         {
             InitializeComponent();
             GrupoConta = null;
-            SaceContext context = new SaceContext(options);
             gerenciadorGrupoConta = new GerenciadorGrupoConta(context); 
         }
 

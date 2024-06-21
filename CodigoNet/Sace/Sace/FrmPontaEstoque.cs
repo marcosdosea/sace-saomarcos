@@ -1,11 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using Dados;
+﻿using Dados;
 using Dominio;
 using Negocio;
 using Util;
-using System.Collections.Generic;
-
 
 namespace Sace
 {
@@ -15,15 +11,21 @@ namespace Sace
         public ProdutoPesquisa ProdutoSelected { get; set; }
         private IEnumerable<ProdutoPesquisa> bufferListaProdutos;
 
-        public FrmPontaEstoque(ProdutoPesquisa _produto)
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorPontaEstoque gerenciadorPontaEstoque;
+
+        private SaceContext context;
+        public FrmPontaEstoque(ProdutoPesquisa _produto, SaceContext context)
         {
             InitializeComponent();
+            this.context = context;
             ProdutoSelected = _produto;
+            gerenciadorProduto = new GerenciadorProduto(context);
+            gerenciadorPontaEstoque = new GerenciadorPontaEstoque(context);
         }
 
         private void FrmPontaEstoque_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.BANCOS, Principal.Autenticacao.CodUsuario);
             bufferListaProdutos = gerenciadorProduto.ObterTodos();
             produtoBindingSource.DataSource = bufferListaProdutos;
             produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new Produto() { CodProduto = ProdutoSelected.CodProduto });
@@ -64,10 +66,10 @@ namespace Sace
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    GerenciadorPontaEstoque.GetInstace().Inserir(pontaEstoque);
+                    gerenciadorPontaEstoque.Inserir(pontaEstoque);
                 }
                 pontaEstoqueBindingSource.EndEdit();
-                pontaEstoqueDataGridView.DataSource = GerenciadorPontaEstoque.GetInstace().ObterPorProduto(ProdutoSelected.CodProduto);
+                pontaEstoqueDataGridView.DataSource = gerenciadorPontaEstoque.ObterPorProduto(ProdutoSelected.CodProduto);
             }
             catch (DadosException de)
             {
@@ -150,10 +152,10 @@ namespace Sace
                 if (pontaEstoqueDataGridView.Rows.Count > 0)
                 {
                     int codPontaEstoque = int.Parse(pontaEstoqueDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    GerenciadorPontaEstoque.GetInstace().Remover(codPontaEstoque);
+                    gerenciadorPontaEstoque.Remover(codPontaEstoque);
                 }
             }
-            pontaEstoqueDataGridView.DataSource = GerenciadorPontaEstoque.GetInstace().ObterPorProduto(ProdutoSelected.CodProduto);
+            pontaEstoqueDataGridView.DataSource = gerenciadorPontaEstoque.ObterPorProduto(ProdutoSelected.CodProduto);
             btnNovo.Focus();
         }
 
@@ -177,7 +179,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true);
+            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true, context);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {
@@ -194,7 +196,7 @@ namespace Sace
         private void codProdutoTextBox_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(codProdutoTextBox.Text))
-                pontaEstoqueDataGridView.DataSource = GerenciadorPontaEstoque.GetInstace().ObterPorProduto(Convert.ToInt64(codProdutoTextBox.Text));
+                pontaEstoqueDataGridView.DataSource = gerenciadorPontaEstoque.ObterPorProduto(Convert.ToInt64(codProdutoTextBox.Text));
         }
 
     }

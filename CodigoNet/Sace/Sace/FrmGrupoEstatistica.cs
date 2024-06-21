@@ -1,13 +1,18 @@
-﻿using Negocio;
+﻿using Dados;
+using Negocio;
 
 namespace Sace
 {
     public partial class FrmGrupoEstatistica : Form
     {
+        private readonly GerenciadorGrupo gerenciadorGrupo;
+        private readonly GerenciadorSaida gerenciadorSaida;
 
-        public FrmGrupoEstatistica()
+        public FrmGrupoEstatistica(SaceContext context)
         {
             InitializeComponent();
+            gerenciadorGrupo = new GerenciadorGrupo(context);
+            gerenciadorSaida = new GerenciadorSaida(context);
         }
 
 
@@ -52,16 +57,18 @@ namespace Sace
                 Cursor.Current = Cursors.WaitCursor;
                 int codGrupo = (int)codGrupoComboBox.SelectedValue;
 
-                saceDataSetConsultas.VendasPorGrupoDataTable vendasgrupoDataTable = new saceDataSetConsultas.VendasPorGrupoDataTable();
-                Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter vendasGrupoTA = new Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter();
-                vendasGrupoTA.FillValorVendidoPorGrupoAnoMes(vendasgrupoDataTable, codGrupo, dataInicial, dataFinal);
+                var vendasPorGrupo = gerenciadorSaida.ObterVendasPorGrupo(codGrupo, dataInicial, dataFinal);
 
-                vendasPorGrupoBindingSource.DataSource = vendasgrupoDataTable;
+                //saceDataSetConsultas.VendasPorGrupoDataTable vendasgrupoDataTable = new saceDataSetConsultas.VendasPorGrupoDataTable();
+                //Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter vendasGrupoTA = new Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter();
+                //vendasGrupoTA.FillValorVendidoPorGrupoAnoMes(vendasgrupoDataTable, codGrupo, dataInicial, dataFinal);
+
+                vendasPorGrupoBindingSource.DataSource = vendasPorGrupo;
 
                 chart1.Series[0].Name = "Qtd Vendidos";
-                chart1.Series[0].XValueMember = vendasgrupoDataTable.mesanoColumn.ToString();
+                chart1.Series[0].XValueMember = "MesAno";
                 chart1.EndInit();
-                chart1.Series[0].YValueMembers = vendasgrupoDataTable.totalAVistaColumn.ToString();
+                chart1.Series[0].YValueMembers = "TotalVendas";
 
                 chart1.DataBind();
                 chart1.Visible = true;

@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using Negocio;
 using Dominio;
+using Dados;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
@@ -17,13 +19,15 @@ namespace Sace
         private String filtroNome;
 
         public Pessoa PessoaSelected { get; set; }
+        private readonly GerenciadorPessoa gerenciadorPessoa;
 
-        public FrmPessoaPesquisa()
+        public FrmPessoaPesquisa(SaceContext context)
         {
             InitializeComponent();
             PessoaSelected = null;
             filtroTipoPessoa = null;
             filtroNome = null;
+            gerenciadorPessoa = new GerenciadorPessoa(context);
         }
 
         public FrmPessoaPesquisa(Char tipoPessoa)

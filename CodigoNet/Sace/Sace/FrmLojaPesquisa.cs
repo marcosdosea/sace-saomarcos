@@ -1,17 +1,20 @@
 ﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
+using Negocio;
 
 namespace Sace
 {
     public partial class FrmLojaPesquisa : Form
     {
         public Loja LojaSelected { get; set; }
+        private readonly GerenciadorLoja gerenciadorLoja;
 
-        public FrmLojaPesquisa(DbContextOptions<SaceContext> options)
+        public FrmLojaPesquisa(SaceContext context)
         {
             InitializeComponent();
             LojaSelected = null;
+            gerenciadorLoja = new GerenciadorLoja(context);
         }
 
         private void FrmLojaPesquisa_Load(object sender, EventArgs e)

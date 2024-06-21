@@ -9,25 +9,29 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 using Util;
+using Dados;
 
 namespace Sace
 {
     public partial class FrmSaidaNFe : Form
     {
-        static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorNfe;
-
         public Saida Saida { get; set; }
         private Pessoa Cliente { get; set; }
         private long codSaida;
         private List<SaidaPedido> listaSaidaPedido;
         private List<SaidaPagamento> listaSaidaPagamento;
-        
-       
 
-        public FrmSaidaNFe(long codSaida, List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento)
+
+        private readonly GerenciadorNFe gerenciadorNFe;
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        public FrmSaidaNFe(long codSaida, List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento, SaceContext context)
         {
             InitializeComponent();
             this.codSaida = codSaida;
+            gerenciadorNFe = new GerenciadorNFe(context);
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorPessoa = new GerenciadorPessoa(context);
             this.Saida = gerenciadorSaida.Obter(codSaida);
             this.listaSaidaPedido = listaSaidaPedido;
             this.listaSaidaPagamento = listaSaidaPagamento;

@@ -9,13 +9,17 @@ namespace Sace
 {
     public partial class FrmMovimentacaoCaixa : Form
     {
-        private GerenciadorContaBanco gerenciadorContaBanco;
-      
-        public FrmMovimentacaoCaixa(DbContextOptions<SaceContext> options)
+        private readonly GerenciadorContaBanco gerenciadorContaBanco;
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
+        private readonly SaceContext context;
+        public FrmMovimentacaoCaixa(SaceContext context)
         {
             InitializeComponent();
-            SaceContext context = new SaceContext();
+            this.context = context; 
             gerenciadorContaBanco = new GerenciadorContaBanco(context);
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
             contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
             dateTimePickerFinal.Value = DateTime.Now;
             dateTimePickerInicial.Value = DateTime.Now;
@@ -60,10 +64,10 @@ namespace Sace
             textTotalVendas.Text = totaisSaida.Sum(t => t.TotalPagamento).ToString("N2");
 
             IEnumerable<VendasCartao> vendasCartao = gerenciadorSaidaPagamento.ObterVendasCartao(dataInicial, dataFinal);
-            IEnumerable<VendasCartao> redeCredito = vendasCartao.Where(vendas => vendas.CodCartao != UtilConfig.Default.CARTAO_BANESECARD_CREDITO && vendas.TipoCartao != "DEBITO");
-            IEnumerable<VendasCartao> redeDebito = vendasCartao.Where(vendas => vendas.TipoCartao == "DEBITO" && vendas.CodCartao != UtilConfig.Default.CARTAO_PIX);
-            IEnumerable<VendasCartao> redePix = vendasCartao.Where(vendas => vendas.CodCartao == UtilConfig.Default.CARTAO_PIX);
-            IEnumerable<VendasCartao> baneseCredito = vendasCartao.Where(vendas => vendas.CodCartao == UtilConfig.Default.CARTAO_BANESECARD_CREDITO);
+            IEnumerable<VendasCartao> redeCredito = vendasCartao.Where(vendas => vendas.CodCartao != CartaoCredito.CARTAO_BANESECARD_CREDITO && vendas.TipoCartao != "DEBITO");
+            IEnumerable<VendasCartao> redeDebito = vendasCartao.Where(vendas => vendas.TipoCartao == "DEBITO" && vendas.CodCartao != CartaoCredito.CARTAO_PIX);
+            IEnumerable<VendasCartao> redePix = vendasCartao.Where(vendas => vendas.CodCartao == CartaoCredito.CARTAO_PIX);
+            IEnumerable<VendasCartao> baneseCredito = vendasCartao.Where(vendas => vendas.CodCartao == CartaoCredito.CARTAO_BANESECARD_CREDITO);
 
             vendasCartaoRede.DataSource = RemoverDuplicados(redeCredito.Union(redeDebito).Union(redePix));
             vendasCartaoBaneseCredito.DataSource = RemoverDuplicados(baneseCredito);
@@ -116,7 +120,7 @@ namespace Sace
 
         private void btnDetalhes_Click(object sender, EventArgs e)
         {
-            FrmMovimentacaoCaixaRecebido frmRecebido = new FrmMovimentacaoCaixaRecebido(dateTimePickerInicial.Value, dateTimePickerFinal.Value);
+            FrmMovimentacaoCaixaRecebido frmRecebido = new FrmMovimentacaoCaixaRecebido(dateTimePickerInicial.Value, dateTimePickerFinal.Value, context);
             frmRecebido.ShowDialog();
             frmRecebido.Dispose();
         }

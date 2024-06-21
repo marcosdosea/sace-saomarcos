@@ -1,8 +1,7 @@
-﻿using Dominio;
+﻿using Dados;
+using Dominio;
 using Negocio;
-using System;
 using System.Globalization;
-using System.Windows.Forms;
 
 namespace Sace
 {
@@ -13,14 +12,17 @@ namespace Sace
 
         public bool ExibirTodos { get; set;}
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
+
+        private readonly GerenciadorProduto gerenciadorProduto;
         
         
-        public FrmProdutoPreco(bool exibirTodos)
+        public FrmProdutoPreco(bool exibirTodos, SaceContext context)
         {
             InitializeComponent();
             ProdutoPesquisa = null;
             filtroNome = null;
             ExibirTodos = exibirTodos;
+            gerenciadorProduto = new GerenciadorProduto(context);
         }
 
         public FrmProdutoPreco(String nome, bool exibirTodos)

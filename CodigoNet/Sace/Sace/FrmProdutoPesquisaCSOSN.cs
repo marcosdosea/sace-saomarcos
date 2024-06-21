@@ -1,4 +1,6 @@
-﻿using Dominio;
+﻿using Dados;
+using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using System.Globalization;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -7,19 +9,24 @@ namespace Sace
 {
     public partial class FrmProdutoPesquisaCSON : Form
     {
-        private String filtroNome;
-        private String textoAtual;
+        private string filtroNome;
+        private string textoAtual;
 
         public bool ExibirTodos { get; set;}
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
+
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private SaceContext context;
         
         
-        public FrmProdutoPesquisaCSON(bool exibirTodos)
+        public FrmProdutoPesquisaCSON(bool exibirTodos, SaceContext context)
         {
             InitializeComponent();
+            this.context = context;
             ProdutoPesquisa = null;
             filtroNome = null;
             ExibirTodos = exibirTodos;
+            gerenciadorProduto = new GerenciadorProduto(context);
         }
 
         public FrmProdutoPesquisaCSON(String nome, bool exibirTodos)
@@ -166,7 +173,7 @@ namespace Sace
                 if (tb_produtoDataGridView.RowCount > 0)
                 {
                     ProdutoPesquisa _produto = (ProdutoPesquisa) produtoBindingSource.Current;
-                    FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produto);
+                    FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produto, context);
                     frmAjuste.ShowDialog();
                     frmAjuste.Dispose();
                 }

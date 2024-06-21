@@ -16,14 +16,11 @@ namespace Sace
     public partial class FrmGrupoPesquisa : Form
     {
         public Grupo SelectedGrupo { get; set; }
-        private DbContextOptions<SaceContext> options;
         private readonly GerenciadorGrupo gerenciadorGrupo;
 
-        public FrmGrupoPesquisa(DbContextOptions<SaceContext> options)
+        public FrmGrupoPesquisa(SaceContext context)
         {
             InitializeComponent();
-            this.options = options;
-            SaceContext context = new SaceContext(options);
             gerenciadorGrupo = new GerenciadorGrupo(context);
         }
 

@@ -1,32 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
-using Dados;
+﻿using Dados;
 using Dominio;
-using Util;
 using Microsoft.EntityFrameworkCore;
+using Negocio;
+using Util;
 
 namespace Sace
 {
     public partial class FrmLoja : Form
     {
         private EstadoFormulario estado;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorLoja gerenciadorLoja;
+        private SaceContext context;
 
-        public FrmLoja(DbContextOptions<SaceContext> options)
+        public FrmLoja(SaceContext context)
         {
             InitializeComponent();
-            
+            this.context = context;
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorLoja = new GerenciadorLoja(context);
         }
 
         private void FrmLoja_Load(object sender, EventArgs e)
         {
-            //GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.LOJAS, Principal.Autenticacao.CodUsuario);
             pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
             lojaBindingSource.DataSource = gerenciadorLoja.ObterTodos();
             habilitaBotoes(true);
@@ -34,7 +30,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmLojaPesquisa frmLojaPesquisa = new FrmLojaPesquisa();
+            FrmLojaPesquisa frmLojaPesquisa = new FrmLojaPesquisa(context);
             frmLojaPesquisa.ShowDialog();
             if (frmLojaPesquisa.LojaSelected != null)
             {
@@ -177,7 +173,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa(context);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -209,7 +205,7 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true, gerenciadorPessoa);
         }
 
         private void nomeTextBox_Leave(object sender, EventArgs e)

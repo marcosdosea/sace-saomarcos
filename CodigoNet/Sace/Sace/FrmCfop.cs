@@ -1,6 +1,5 @@
 ﻿using Dados;
 using Dominio;
-using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -12,12 +11,12 @@ namespace Sace
         private Cfop CfopSelected { get; set;}
         private GerenciadorCfop gerenciadorCfop;
         private FrmCfopPesquisa frmCfopPesquisa;
-        private DbContextOptions<SaceContext> options;
-        public FrmCfop(DbContextOptions<SaceContext> options)
+        private SaceContext context;
+       
+        public FrmCfop(SaceContext context)
         {
             InitializeComponent();
-            this.options = options;
-            SaceContext context = new SaceContext(options);
+            this.context = context; 
             gerenciadorCfop = new GerenciadorCfop(context);
         }
 
@@ -29,7 +28,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmCfopPesquisa frmCfopPesquisa = new FrmCfopPesquisa(options);
+            FrmCfopPesquisa frmCfopPesquisa = new FrmCfopPesquisa(context);
             frmCfopPesquisa.ShowDialog();
             if (frmCfopPesquisa.CfopSelected != null)
             {

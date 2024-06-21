@@ -1,7 +1,6 @@
 ﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
 
 namespace Negocio
 {

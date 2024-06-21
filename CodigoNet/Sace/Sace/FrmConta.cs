@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
-using Util;
-using Dados;
-using Microsoft.EntityFrameworkCore;
+using Negocio;
 
 namespace Sace
 {
@@ -21,13 +11,12 @@ namespace Sace
         private readonly GerenciadorPlanoConta gerenciadorPlanoConta;
         private readonly GerenciadorConta gerenciadorConta;
         private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
-        private DbContextOptions<SaceContext> options;
+        private readonly SaceContext context;
 
-        public FrmConta(DbContextOptions<SaceContext> options)
+        public FrmConta(SaceContext context)
         {
             InitializeComponent();
-            this.options = options;
-            SaceContext context = new SaceContext(options); 
+            this.context = context;
             gerenciadorPlanoConta = new GerenciadorPlanoConta(context);
             gerenciadorPessoa = new GerenciadorPessoa(context);
             gerenciadorConta = new GerenciadorConta(context);   
@@ -61,7 +50,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmContaPesquisa frmContaPesquisa = new FrmContaPesquisa(options);
+            FrmContaPesquisa frmContaPesquisa = new FrmContaPesquisa(context);
             frmContaPesquisa.ShowDialog();
             if (frmContaPesquisa.ContaSelected != null)
             {
@@ -187,7 +176,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(context);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -197,7 +186,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa(context);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -208,7 +197,7 @@ namespace Sace
 
                 else if ((e.KeyCode == Keys.F2) && (codPlanoContaComboBox.Focused))
                 {
-                    FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa();
+                    FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa(context);
                     frmPlanoContaPesquisa.ShowDialog();
                     if (frmPlanoContaPesquisa.PlanoContaSelected != null)
                     {
@@ -218,7 +207,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPlanoContaComboBox.Focused))
                 {
-                    FrmPlanoConta frmPlanoConta = new FrmPlanoConta();
+                    FrmPlanoConta frmPlanoConta = new FrmPlanoConta(context);
                     frmPlanoConta.ShowDialog();
                     if (frmPlanoConta.PlanoContaSelected != null)
                     {

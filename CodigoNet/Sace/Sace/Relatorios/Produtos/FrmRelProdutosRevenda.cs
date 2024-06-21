@@ -1,33 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
 using Microsoft.Reporting.WinForms;
+using Negocio;
+using System.Data;
+using Util;
 
 namespace Sace.Relatorios.Produtos
 {
     public partial class FrmRelProdutosRevenda : Form
     {
         private long codPessoa;
-        private decimal lucro; 
-        public FrmRelProdutosRevenda(long codPessoa, decimal lucro)
+        private decimal lucro;
+        private readonly GerenciadorLoja gerenciadorLoja;
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+
+        public FrmRelProdutosRevenda(long codPessoa, decimal lucro, SaceContext context)
         {
             this.codPessoa = codPessoa;
             this.lucro = lucro;
             InitializeComponent();
+            gerenciadorLoja = new GerenciadorLoja(context);
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorProduto = new GerenciadorProduto(context);
         }
 
         private void FrmRelProdutosRevenda_Load(object sender, EventArgs e)
         {
-            ProdutoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterPorCodigoFabricante(codPessoa);
-            Loja loja = GerenciadorLoja.GetInstance().Obter(Util.Global.LOJA_PADRAO).ElementAtOrDefault(0);
-            PessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().Obter(loja.CodPessoa);
+            var context = new SaceContext(options);
+
+            ProdutoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigoFabricante(codPessoa);
+            Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
+            PessoaBindingSource.DataSource = gerenciadorPessoa.Obter(loja.CodPessoa);
 
             string parametroLucro = (1 + lucro / 100).ToString();
 

@@ -11,24 +11,24 @@ namespace Sace
 {
     public partial class Principal : Form
     {
-       
+
 
         static string NOME_COMPUTADOR = SystemInformation.ComputerName.ToUpper();
         static string SERVIDOR_NFE = UtilConfig.Default.SERVIDOR_NFE.ToUpper();
         static string SERVIDOR_IMPRIMIR_REDUZIDO1 = UtilConfig.Default.SERVIDOR_IMPRIMIR_REDUZIDO1;
         static string SERVIDOR_IMPRIMIR_REDUZIDO2 = UtilConfig.Default.SERVIDOR_IMPRIMIR_REDUZIDO2;
 
-        private static DbContextOptions<SaceContext> contextOptions;
+        private static DbContextOptions<SaceContext> options;
         private readonly GerenciadorSaida gerenciadorSaida;
         private readonly GerenciadorNFe gerenciadorNFe;
         private readonly GerenciadorProduto gerenciadorProduto;
         private readonly GerenciadorSolicitacaoDocumento gerenciadorSolicitacaoDocumento;
 
-        public Principal(DbContextOptions<SaceContext> options)
+        public Principal(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            contextOptions = options;
-            var context = new SaceContext(contextOptions);
+            options = saceOptions;
+            var context = new SaceContext(options);
             gerenciadorSaida = new GerenciadorSaida(context);
             gerenciadorNFe = new GerenciadorNFe(context);
             gerenciadorProduto = new GerenciadorProduto(context);
@@ -74,9 +74,9 @@ namespace Sace
             //}
             //else
             //{
-                TratarException eh = new TratarException();
-                Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
-                Application.Run(new Principal(contextOptions));
+            TratarException eh = new TratarException();
+            Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
+            Application.Run(new Principal(options));
             //}
 
         }
@@ -125,84 +125,94 @@ namespace Sace
 
         private void gruposDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmGrupo frmGrupo = new FrmGrupo();
+            var context = new SaceContext(options);
+            FrmGrupo frmGrupo = new FrmGrupo(context);
             frmGrupo.ShowDialog();
             frmGrupo.Dispose();
         }
 
         private void subgrupoDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmSubgrupo frmSubgrupo = new FrmSubgrupo(1);
+            var context = new SaceContext(options);
+            FrmSubgrupo frmSubgrupo = new FrmSubgrupo(context);
             frmSubgrupo.ShowDialog();
             frmSubgrupo.Dispose();
         }
 
         private void lojasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmLoja frmLoja = new FrmLoja();
+            var context = new SaceContext(options);
+            FrmLoja frmLoja = new FrmLoja(context);
             frmLoja.ShowDialog();
             frmLoja.Dispose();
         }
 
         private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmProduto frmProduto = new FrmProduto();
+            var context = new SaceContext(options);
+            FrmProduto frmProduto = new FrmProduto(context);
             frmProduto.ShowDialog();
             frmProduto.Dispose();
         }
 
         private void pessoasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmPessoa frmPessoa = new FrmPessoa();
+            var context = new SaceContext(options);
+            FrmPessoa frmPessoa = new FrmPessoa(context);
             frmPessoa.ShowDialog();
             frmPessoa.Dispose();
         }
 
         private void bancosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmBanco frmBanco = new FrmBanco(contextOptions);
+            var context = new SaceContext(options);
+            FrmBanco frmBanco = new FrmBanco(context);
             frmBanco.ShowDialog();
             frmBanco.Dispose();
         }
 
         private void contasBancáriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmContaBanco frmContaBanco = new FrmContaBanco();
+            var context = new SaceContext(options);
+            FrmContaBanco frmContaBanco = new FrmContaBanco(context);
             frmContaBanco.ShowDialog();
             frmContaBanco.Dispose();
         }
 
         private void cartõesDeCréditoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmCartaoCredito frmCartaoCredito = new FrmCartaoCredito(contextOptions);
+            var context = new SaceContext(options);
+            FrmCartaoCredito frmCartaoCredito = new FrmCartaoCredito(context);
             frmCartaoCredito.ShowDialog();
             frmCartaoCredito.Dispose();
         }
 
         private void planoDeContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmPlanoConta frmPlanoConta = new FrmPlanoConta();
+            var context = new SaceContext(options);
+            FrmPlanoConta frmPlanoConta = new FrmPlanoConta(context);
             frmPlanoConta.ShowDialog();
             frmPlanoConta.Dispose();
         }
 
         private void tiposDeContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmGrupoConta frmTipoConta = new FrmGrupoConta();
+            var context = new SaceContext(options);
+            FrmGrupoConta frmTipoConta = new FrmGrupoConta(context);
             frmTipoConta.ShowDialog();
             frmTipoConta.Dispose();
         }
 
         private void vendaAoConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmSaida frmPreVenda = new FrmSaida(Saida.TIPO_ORCAMENTO);
+            FrmSaida frmPreVenda = new FrmSaida(Saida.TIPO_ORCAMENTO, context);
             frmPreVenda.ShowDialog();
             frmPreVenda.Dispose();
         }
 
         private void devoluçãoDeConsumidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmSaida frmPreVenda = new FrmSaida(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR);
+            FrmSaida frmPreVenda = new FrmSaida(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR, context);
             frmPreVenda.ShowDialog();
             frmPreVenda.Dispose();
         }
@@ -210,14 +220,15 @@ namespace Sace
 
         private void entradaDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmEntrada frmEntrada = new FrmEntrada();
+            var context = new SaceContext(options);
+            FrmEntrada frmEntrada = new FrmEntrada(context);
             frmEntrada.ShowDialog();
             frmEntrada.Dispose();
         }
 
         private void usuárioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           // FrmUsuario frmFrmUsuario = new FrmUsuario();
+            // FrmUsuario frmFrmUsuario = new FrmUsuario();
             //frmFrmUsuario.ShowDialog();
             //frmFrmUsuario.Dispose();
         }
@@ -245,7 +256,7 @@ namespace Sace
                 if (lojaMatriz == null)
                     lojaMatriz = gerenciadorLoja.Obter(1).ElementAtOrDefault(0);
                 fileSystemWatcher.Path = lojaMatriz.PastaNfeRetorno;
-               if (lojaDeposito == null)
+                if (lojaDeposito == null)
                     lojaDeposito = gerenciadorLoja.Obter(2).ElementAtOrDefault(0);
                 fileSystemWatcherDeposito.Path = lojaDeposito.PastaNfeRetorno;
             }
@@ -257,7 +268,8 @@ namespace Sace
 
         private void contasAPagarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            FrmConta frmConta = new FrmConta();
+            var context = new SaceContext(options);
+            FrmConta frmConta = new FrmConta(context);
             frmConta.ShowDialog();
             frmConta.Dispose();
         }
@@ -275,7 +287,7 @@ namespace Sace
             if (MessageBox.Show("Confirma criação do backup?", "Confirmar Backup", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                Negocio.GerenciadorSeguranca.getInstance().Backup(System.Windows.Forms.SystemInformation.ComputerName);
+                //Negocio.GerenciadorSeguranca.getInstance().Backup(SystemInformation.ComputerName);
                 Cursor.Current = Cursors.Default;
             }
         }
@@ -290,7 +302,7 @@ namespace Sace
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                Negocio.GerenciadorSeguranca.getInstance().Restore(openFileDialog.FileName);
+                //Negocio.GerenciadorSeguranca.getInstance().Restore(openFileDialog.FileName);
                 Cursor.Current = Cursors.Default;
             }
 
@@ -333,7 +345,8 @@ namespace Sace
 
         private void códigoFiscalDeOperaçãoCFOPToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmCfop frmCfop = new FrmCfop(contextOptions);
+            var context = new SaceContext(options);
+            FrmCfop frmCfop = new FrmCfop(context);
             frmCfop.ShowDialog();
             frmCfop.Dispose();
         }
@@ -372,14 +385,16 @@ namespace Sace
 
         private void estatísticaPorProdutoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmProdutoEstatistica frmProdutoEstatistica = new FrmProdutoEstatistica();
+            var context = new SaceContext(options);
+            FrmProdutoEstatistica frmProdutoEstatistica = new FrmProdutoEstatistica(context);
             frmProdutoEstatistica.ShowDialog();
             frmProdutoEstatistica.Dispose();
         }
 
         private void atualizarCSOSNToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmProdutoPesquisaCSON frmCSOSN = new FrmProdutoPesquisaCSON(false);
+            var context = new SaceContext(options);
+            FrmProdutoPesquisaCSON frmCSOSN = new FrmProdutoPesquisaCSON(false, context);
             frmCSOSN.ShowDialog();
             frmCSOSN.Dispose();
         }
@@ -394,30 +409,24 @@ namespace Sace
 
         private void pontaDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(new ProdutoPesquisa() { CodProduto = 1 });
+            var context = new SaceContext(options);
+            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(new ProdutoPesquisa() { CodProduto = 1 }, context);
             frmPontaEstoque.ShowDialog();
             frmPontaEstoque.Dispose();
         }
 
         private void movimentaçãoDeCaixasContasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //DateTime agora = DateTime.Now;
-            //if ((agora.Hour > 12) && (agora.Hour < 15) && nomeComputador.ToUpper().Equals(SERVIDOR_NFE))
-            //{
-            //    MessageBox.Show("Funcionalidade indisponível após às 12:30 para processamento interno do SACE.");
-            //    this.Close();
-            //}
-            //else
-            //{
-                FrmMovimentacaoCaixa frmMovimentacaoCaixa = new FrmMovimentacaoCaixa();
-                frmMovimentacaoCaixa.ShowDialog();
-                frmMovimentacaoCaixa.Dispose();
-            //}
+            var context = new SaceContext(options);
+            FrmMovimentacaoCaixa frmMovimentacaoCaixa = new FrmMovimentacaoCaixa(context);
+            frmMovimentacaoCaixa.ShowDialog();
+            frmMovimentacaoCaixa.Dispose();
         }
 
         private void solicitaçõesDeCompraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmProdutoSolicitacoesCompra frmProdutoSolicitacoesCompra = new FrmProdutoSolicitacoesCompra();
+            var context = new SaceContext(options);
+            FrmProdutoSolicitacoesCompra frmProdutoSolicitacoesCompra = new FrmProdutoSolicitacoesCompra(context);
             frmProdutoSolicitacoesCompra.ShowDialog();
             frmProdutoSolicitacoesCompra.Dispose();
         }

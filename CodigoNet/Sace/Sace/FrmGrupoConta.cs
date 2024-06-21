@@ -1,6 +1,5 @@
 ﻿using Dados;
 using Dominio;
-using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -11,12 +10,12 @@ namespace Sace
         private EstadoFormulario estado;
         public GrupoConta GrupoContaSelected { get; set; }
         private readonly GerenciadorGrupoConta gerenciadorGrupoConta;
-        private DbContextOptions<SaceContext> options;
-        public FrmGrupoConta(DbContextOptions<SaceContext> options)
+        private SaceContext context;
+       
+        public FrmGrupoConta(SaceContext context)
         {
             InitializeComponent();
-            this.options = options;
-            SaceContext context = new SaceContext(options);
+            this.context = context;
             gerenciadorGrupoConta = new GerenciadorGrupoConta(context);
         }
 
@@ -28,7 +27,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmGrupoContaPesquisa frmTipoContaPesquisa = new FrmGrupoContaPesquisa(options);
+            FrmGrupoContaPesquisa frmTipoContaPesquisa = new FrmGrupoContaPesquisa(context);
             frmTipoContaPesquisa.ShowDialog();
             if (frmTipoContaPesquisa.GrupoConta != null)
             {

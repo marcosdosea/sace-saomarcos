@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
-using Dominio;
+﻿using Dominio;
 
 namespace Sace
 {
@@ -56,12 +47,6 @@ namespace Sace
         private void btnOrcamento_Click(object sender, EventArgs e)
         {
             Opcao = Saida.TIPO_ORCAMENTO;
-            this.Close();
-        }
-
-        private void btnPreVendaNfce_Click(object sender, EventArgs e)
-        {
-            Opcao = Saida.TIPO_PRE_VENDA_NFCE;
             this.Close();
         }
 

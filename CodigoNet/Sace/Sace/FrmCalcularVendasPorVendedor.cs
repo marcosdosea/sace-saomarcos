@@ -1,5 +1,4 @@
 ﻿using Dados;
-using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -8,11 +7,10 @@ namespace Sace
     {
 
         private readonly GerenciadorSaida gerenciadorSaida;
-        public FrmCalcularVendasPorVendedor(DbContextOptions<SaceContext> options)
+        public FrmCalcularVendasPorVendedor(SaceContext context)
         {
             InitializeComponent();
             dateTimeInicial.Value = DateTime.Now.AddMonths(-1);
-            SaceContext context = new SaceContext(options);
             gerenciadorSaida = new GerenciadorSaida(context);
         }
 

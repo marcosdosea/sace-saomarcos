@@ -1,11 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Collections.Generic;
-using Negocio;
+﻿using Dados;
 using Dominio;
-using Util;
-using System.Data;
-using Dados;
+using Negocio;
 
 namespace Sace
 {
@@ -14,10 +9,18 @@ namespace Sace
 
         private Produto produto;
 
-        public FrmProdutoEstatistica()
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
+        private readonly GerenciadorSaidaProduto gerenciadorSaidaProduto;
+        private SaceContext context;
+        public FrmProdutoEstatistica(SaceContext context)
         {
             InitializeComponent();
             produto = null;
+            this.context = context; 
+            gerenciadorProduto = new GerenciadorProduto(context);
+            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
         }
 
         public FrmProdutoEstatistica(Produto produto)
@@ -73,7 +76,7 @@ namespace Sace
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true, context);
             
             if (_produtoPesquisa != null)
             {
@@ -92,27 +95,27 @@ namespace Sace
             precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString("N2");
             precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString("N2");
 
-            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(produto.CodProduto);
-            this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produto.CodProduto);
-            this.produtosVendidosTableAdapter.FillQuantidadeProdutosVendidosMesAnoAsc(saceDataSetConsultas.ProdutosVendidos, produto.CodProduto);
+            produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
+            //this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produto.CodProduto);
+            //this.produtosVendidosTableAdapter.FillQuantidadeProdutosVendidosMesAnoAsc(saceDataSetConsultas.ProdutosVendidos, produto.CodProduto);
 
-            Dados.saceDataSetConsultas.ProdutosVendidosDataTable pVendidosTable = new Dados.saceDataSetConsultas.ProdutosVendidosDataTable();
-            pVendidosTable = this.saceDataSetConsultas.ProdutosVendidos;
+            //Dados.saceDataSetConsultas.ProdutosVendidosDataTable pVendidosTable = new Dados.saceDataSetConsultas.ProdutosVendidosDataTable();
+            //pVendidosTable = this.saceDataSetConsultas.ProdutosVendidos;
 
-           chart1.DataSource = produtosVendidosTableAdapterBindingSource;
+            chart1.DataSource = gerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 5);
 
             chart1.Series[0].Name = "Qtd Vendidos";
-            chart1.Series[0].XValueMember = pVendidosTable.mesanoColumn.ToString();
+            chart1.Series[0].XValueMember = "MesAno";
             chart1.EndInit();
             //chart1.Series[0].
-            chart1.Series[0].YValueMembers = pVendidosTable.quantidadeVendidaColumn.ToString();
+            chart1.Series[0].YValueMembers = "QuantidadeVendida";//pVendidosTable.quantidadeVendidaColumn.ToString();
 
             chart1.DataBind();
             chart1.Visible = true;
 
-            List<ProdutoVendido> produtosVendidos = GerenciadorProdutosVendidos.getInstace().ObterProdutosVendidosDezoitoMeses(produto.CodProduto);
+            List<ProdutoVendido> produtosVendidos = gerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 2);
 
-           decimal somaVendidos = 0;
+            decimal somaVendidos = 0;
             if (produtosVendidos.Count == 0)
             {
                 vendidos3textBox.Text = "0,00";

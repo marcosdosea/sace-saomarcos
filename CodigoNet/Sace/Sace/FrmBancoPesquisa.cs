@@ -1,6 +1,5 @@
 ﻿using Dados;
 using Dominio;
-using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -10,11 +9,10 @@ namespace Sace
         public Banco BancoSelected { get; set; }
         private GerenciadorBanco gerenciadorBanco;
 
-        public FrmBancoPesquisa(DbContextOptions<SaceContext> options)
+        public FrmBancoPesquisa(SaceContext context)
         {
             InitializeComponent();
             BancoSelected = null;
-            SaceContext context = new SaceContext(options);
             gerenciadorBanco = new GerenciadorBanco(context);
         }
 

@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Negocio;
+using System.Data;
 using Util;
-using Dados;
 
 namespace Sace
 {
@@ -20,12 +13,28 @@ namespace Sace
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
         // Usado para criar um produto a partir de uma Entrada
         private EntradaProduto entradaProduto;
-
-        public FrmProduto()
+        private SaceContext context;
+        private readonly GerenciadorProduto gerenciadorProduto;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorCst gerenciadorCst;
+        private readonly GerenciadorGrupo gerenciadorGrupo;
+        private readonly GerenciadorSubgrupo gerenciadorSubgrupo;
+        private readonly GerenciadorEntradaProduto gerenciadorEntradaProduto;
+        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
+        
+        public FrmProduto(SaceContext context)
         {
             InitializeComponent();
+            this.context = context;
             ProdutoPesquisa = null;
             entradaProduto = null;
+            gerenciadorCst = new GerenciadorCst(context);
+            gerenciadorGrupo = new GerenciadorGrupo(context);
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorProduto = new GerenciadorProduto(context);
+            gerenciadorSubgrupo = new GerenciadorSubgrupo(context);
+            gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
+            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
         }
 
         public FrmProduto(EntradaProduto entradaProduto)
@@ -39,12 +48,11 @@ namespace Sace
         private void FrmProduto_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.PRODUTOS, Principal.Autenticacao.CodUsuario);
-
+            
             cstBindingSource.DataSource = gerenciadorCst.ObterTodos();
             fabricanteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
-            subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo((Grupo)grupoBindingSource.Current);
+            subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterPorGrupo((Grupo)grupoBindingSource.Current);
             situacaoprodutoBindingSource.DataSource = gerenciadorProduto.ObterSituacoesProduto();
             produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
             
@@ -81,7 +89,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true);
+            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true, context);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {
@@ -236,7 +244,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoComboBox.Focused))
                 {
-                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa();
+                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa(context);
                     frmGrupoPesquisa.ShowDialog();
                     if (frmGrupoPesquisa.SelectedGrupo != null)
                     {
@@ -246,7 +254,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoComboBox.Focused))
                 {
-                    FrmGrupo frmGrupo = new FrmGrupo();
+                    FrmGrupo frmGrupo = new FrmGrupo(context);
                     frmGrupo.ShowDialog();
                     if (frmGrupo.GrupoSelected != null)
                     {
@@ -288,7 +296,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codigoFabricanteComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa(context);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -333,7 +341,7 @@ namespace Sace
 
         private void codigoFabricanteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codigoFabricanteComboBox, estado, fabricanteBindingSource, true, false);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codigoFabricanteComboBox, estado, fabricanteBindingSource, true, false, gerenciadorPessoa);
             codProdutoTextBox_Leave(sender, e);
         }
 
@@ -345,14 +353,14 @@ namespace Sace
         private void codProdutoTextBox_TextChanged(object sender, EventArgs e)
         {
             if ((codProdutoTextBox.Text != null) && (codProdutoTextBox.Text != ""))
-                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.GetInstance(null).ObterPorProduto(Convert.ToInt64(codProdutoTextBox.Text));
+                produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(Convert.ToInt64(codProdutoTextBox.Text));
             
         }
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
             ProdutoPesquisa _produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
-            FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produtoPesquisa);
+            FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produtoPesquisa, context);
             frmAjuste.ShowDialog();
             frmAjuste.Dispose();
             if (frmAjuste.ProdutoSelected != null)
@@ -365,7 +373,7 @@ namespace Sace
         private void btnPontaEstoque_Click(object sender, EventArgs e)
         {
             ProdutoPesquisa _produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
-            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(_produtoPesquisa);
+            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(_produtoPesquisa, context);
             frmPontaEstoque.ShowDialog();
             frmPontaEstoque.Dispose();
             if (frmPontaEstoque.ProdutoSelected != null)
@@ -411,7 +419,7 @@ namespace Sace
                 Produto produto = (Produto)produtoBindingSource.Current;
                 grupoBindingSource.Position = grupoBindingSource.List.IndexOf(new Grupo() { CodGrupo = produto.CodGrupo });
                 Grupo grupoSelected = (Grupo) grupoBindingSource.Current;
-                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.GetInstance().ObterPorGrupo(grupoSelected);
+                subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterPorGrupo(grupoSelected);
                 subgrupoBindingSource.Position = subgrupoBindingSource.List.IndexOf(produto.CodSubgrupo);
             }
         }

@@ -10,6 +10,7 @@ using Negocio;
 using Dados;
 using Dominio;
 using Util;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
@@ -18,15 +19,21 @@ namespace Sace
         private EstadoFormulario estado;
 
         public PlanoConta PlanoContaSelected;
+        private readonly GerenciadorGrupoConta gerenciadorGrupoConta;
+        private readonly GerenciadorPlanoConta gerenciadorPlanoConta;
+        private SaceContext context;
 
-        public FrmPlanoConta()
+        public FrmPlanoConta(SaceContext context)
         {
             InitializeComponent();
+            this.context = context;
+            gerenciadorGrupoConta = new GerenciadorGrupoConta(context);
+            gerenciadorPlanoConta = new GerenciadorPlanoConta(context);
+
         }
 
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.PLANO_DE_CONTAS, Principal.Autenticacao.CodUsuario);
             grupoContaBindingSource.DataSource = gerenciadorGrupoConta.ObterTodos();
             planoContaBindingSource.DataSource = gerenciadorPlanoConta.ObterTodos();
             habilitaBotoes(true);
@@ -34,7 +41,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa();
+            FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa(context);
             frmPlanoContaPesquisa.ShowDialog();
             if (frmPlanoContaPesquisa.PlanoContaSelected != null)
             {
@@ -170,7 +177,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoContaComboBox.Focused))
                 {
-                    FrmGrupoContaPesquisa frmGrupoContaPesquisa = new FrmGrupoContaPesquisa();
+                    FrmGrupoContaPesquisa frmGrupoContaPesquisa = new FrmGrupoContaPesquisa(context);
                     frmGrupoContaPesquisa.ShowDialog();
                     if (frmGrupoContaPesquisa.GrupoConta != null)
                     {
@@ -180,7 +187,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoContaComboBox.Focused))
                 {
-                    FrmGrupoConta frmGrupoConta = new FrmGrupoConta();
+                    FrmGrupoConta frmGrupoConta = new FrmGrupoConta(context);
                     frmGrupoConta.ShowDialog();
                     if (frmGrupoConta.GrupoContaSelected != null)
                     {
