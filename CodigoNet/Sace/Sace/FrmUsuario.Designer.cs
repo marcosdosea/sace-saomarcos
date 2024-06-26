@@ -304,7 +304,6 @@
             this.pessoaBindingSource.AllowNew = false;
             this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             this.pessoaBindingSource.Sort = "codPessoa";
-            this.pessoaBindingSource.CurrentChanged += new System.EventHandler(this.pessoaBindingSource_CurrentChanged);
             // 
             // confirmarSenhaTextBox
             // 

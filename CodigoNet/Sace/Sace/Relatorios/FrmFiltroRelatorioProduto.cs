@@ -1,4 +1,5 @@
 ﻿using Dados;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Sace.Relatorios.Produtos;
 
@@ -6,36 +7,32 @@ namespace Sace.Relatorios
 {
     public partial class FrmFiltroRelatorioProduto : Form
     {
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private SaceContext context;
-        public FrmFiltroRelatorioProduto(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+
+        public FrmFiltroRelatorioProduto(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context; 
-            gerenciadorPessoa = new GerenciadorPessoa(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            this.service = new SaceService(context);
         }
 
         private void FrmFiltroRelatorioProduto_Load(object sender, EventArgs e)
         {
-            codPessoaComboBox.DataSource = gerenciadorPessoa.ObterTodos();
-        }
-
-        private void pessoaBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-
+            codPessoaComboBox.DataSource = service.GerenciadorPessoa.ObterTodos();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             long codPessoa = Convert.ToInt64(codPessoaComboBox.SelectedValue.ToString());
             decimal lucro = Convert.ToDecimal(lucroTextBox.Text);
-            FrmRelProdutosRevenda relatorio = new FrmRelProdutosRevenda(codPessoa, lucro, context);
+            FrmRelProdutosRevenda relatorio = new FrmRelProdutosRevenda(codPessoa, lucro, saceOptions);
             relatorio.ShowDialog();
             relatorio.Dispose();
         }

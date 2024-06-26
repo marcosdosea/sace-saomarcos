@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using System.Data;
 using Util;
@@ -21,29 +22,17 @@ namespace Sace
 
 		private Saida saida;
 		private ProdutoPesquisa produto;
-		private SaceContext context;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-		private readonly GerenciadorSaida gerenciadorSaida;
-		private readonly GerenciadorNFe gerenciadorNFe;
-		private readonly GerenciadorProduto gerenciadorProduto;
-		private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;	
-		private readonly GerenciadorPontaEstoque gerenciadorPontaEstoque;
-        private readonly GerenciadorSaidaProduto gerenciadorSaidaProduto;
-		private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;	
-
-        public FrmSaida(int tipoSaida, SaceContext context)
+        public FrmSaida(int tipoSaida, DbContextOptions<SaceContext> saceOptions)
 		{
 			InitializeComponent();
 			tipoSaidaFormulario = tipoSaida;
-			this.context = context;
-			gerenciadorNFe = new GerenciadorNFe(context);
-			gerenciadorSaida = new GerenciadorSaida(context);
-			gerenciadorProduto = new GerenciadorProduto(context);
-			gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-			gerenciadorPontaEstoque = new GerenciadorPontaEstoque(context);
-			gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
-			gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
-		}
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
+        }
 
 		/// <summary>
 		/// Carrega os dados de todas os Pedidos e faz uma cache da lista
@@ -54,10 +43,10 @@ namespace Sace
 		private void FrmSaida_Load(object sender, EventArgs e)
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			produtoBindingSource.DataSource = gerenciadorProduto.ObterTodosNomesExibiveis();
+			produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodosNomesExibiveis();
 			ObterSaidas(0);
 
-			cfopPadrao = gerenciadorSaida.ObterCfopTipoSaida(tipoSaidaFormulario);
+			cfopPadrao = service.GerenciadorSaida.ObterCfopTipoSaida(tipoSaidaFormulario);
 			saidaBindingSource.MoveLast();
 			quantidadeTextBox.Text = "1";
 			precoVendatextBox.Text = "0,00";
@@ -76,7 +65,7 @@ namespace Sace
 		/// <param name="e"></param>
 		private void btnBuscar_Click(object sender, EventArgs e)
 		{
-			FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa(context);
+			FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa(saceOptions);
 			frmSaidaPesquisa.ShowDialog();
 			if (frmSaidaPesquisa.SaidaSelected != null)
 			{
@@ -177,9 +166,9 @@ namespace Sace
 		private void btnEditar_Click(object sender, EventArgs e)
 		{
 			long codSaida = Convert.ToInt64(codSaidaTextBox.Text);
-			saida = gerenciadorSaida.Obter(codSaida);
+			saida = service.GerenciadorSaida.Obter(codSaida);
 
-			gerenciadorSaida.PrepararEdicaoSaida(saida);
+			service.GerenciadorSaida.PrepararEdicaoSaida(saida);
 
 			codSaidaTextBox_TextChanged(sender, e);
 			codProdutoComboBox.Focus();
@@ -191,7 +180,7 @@ namespace Sace
 		private void btnExcluir_Click(object sender, EventArgs e)
 		{
 			saida = (Saida)saidaBindingSource.Current;
-			saida = gerenciadorSaida.Obter(saida.CodSaida);
+			saida = service.GerenciadorSaida.Obter(saida.CodSaida);
 			if (saida.TipoSaida == Saida.TIPO_VENDA)
 			{
 				throw new TelaException("Pedido possui Nota Fiscal AUTORIZADA. Para ele ser editado é necessário CANCELAR a nota.");
@@ -201,13 +190,13 @@ namespace Sace
 			{
 				if (MessageBox.Show("Confirma transformar PRÉ-VENDA em ORÇAMENTO?", "Confirmar Transformar Venda em Orçamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
 				{
-					gerenciadorSaida.Remover(saida);
+					service.GerenciadorSaida.Remover(saida);
 					codSaidaTextBox_TextChanged(sender, e);
 				}
 			}
 			else if (MessageBox.Show("Confirma EXCLUSÃO?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
-				gerenciadorSaida.Remover(saida);
+				service.GerenciadorSaida.Remover(saida);
 				saidaBindingSource.RemoveCurrent();
 			}
 			estado = EstadoFormulario.ESPERA;
@@ -237,7 +226,7 @@ namespace Sace
 				else if ((tb_saida_produtoDataGridView.RowCount == 0) && (codSaida > 0))
 				{
 					//saida = (Saida) saidaBindingSource.Current;
-					gerenciadorSaida.Remover(saida);
+					service.GerenciadorSaida.Remover(saida);
 					saidaBindingSource.RemoveCurrent();
 					saidaBindingSource.MoveLast();
 					habilitaBotoes(true);
@@ -270,7 +259,7 @@ namespace Sace
 
 			if (saida.CodSaida <= 0)
 			{
-				saida.CodSaida = gerenciadorSaida.Inserir(saida);
+				saida.CodSaida = service.GerenciadorSaida.Inserir(saida);
 				codSaidaTextBox.Text = saida.CodSaida.ToString();
 			}
 
@@ -298,11 +287,11 @@ namespace Sace
 				bool saidaProdutoInvalida = (saidaProduto.CodProduto == 1) || (saidaProduto.Quantidade == 0) || (saidaProduto.ValorVendaAVista == 0);
 				if (estado.Equals(EstadoFormulario.INSERIR_DETALHE) && !saidaProdutoInvalida)
 				{
-					gerenciadorSaidaProduto.Inserir(saidaProduto, saida);
+					service.GerenciadorSaidaProduto.Inserir(saidaProduto, saida);
 					codSaidaTextBox_TextChanged(sender, e);
 					saidaProdutoBindingSource.MoveLast();
 					if (saida.TipoSaida == Saida.TIPO_ORCAMENTO &&
-						gerenciadorProdutoLoja.ObterEstoque(saidaProduto.CodProduto) < saidaProduto.Quantidade)
+						service.GerenciadorProdutoLoja.ObterEstoque(saidaProduto.CodProduto) < saidaProduto.Quantidade)
 					{
 						MessageBox.Show("Estoque INSUFICIENTE em caso de VENDA", "ATENÇÃO", MessageBoxButtons.OK);
 					}
@@ -324,9 +313,9 @@ namespace Sace
 				if (tb_saida_produtoDataGridView.Rows.Count > 0)
 				{
 					SaidaProduto saidaProduto = (SaidaProduto)saidaProdutoBindingSource.Current;
-					//saida = GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
+					//saida = service.GerenciadorSaida.GetInstance().Obter(saida.CodSaida);
 
-					gerenciadorSaidaProduto.Remover(saidaProduto, saida);
+					service.GerenciadorSaidaProduto.Remover(saidaProduto, saida);
 					saidaProdutoBindingSource.RemoveCurrent();
 
 				}
@@ -347,7 +336,7 @@ namespace Sace
 				this.Text = "Remessa para Depósito";
 				lblBalcao.Text = "Remessa para Depósito";
 
-				saidaBindingSource.DataSource = gerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_REMESSA_DEPOSITO);
+				saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_REMESSA_DEPOSITO);
 				tb_saida_produtoDataGridView.Height = 370;
 			}
 			else if (Saida.LISTA_TIPOS_RETORNO_DEPOSITO.Contains(tipoSaidaFormulario))
@@ -356,7 +345,7 @@ namespace Sace
 				this.Text = "Retorno de Depósito Fechado";
 				lblBalcao.Text = "Retorno de Depósito";
 
-				saidaBindingSource.DataSource = gerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_RETORNO_DEPOSITO);
+				saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_RETORNO_DEPOSITO);
 				tb_saida_produtoDataGridView.Height = 370;
 			}
 			else if (Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR.Contains(tipoSaidaFormulario))
@@ -366,7 +355,7 @@ namespace Sace
 				lblBalcao.Text = "Devolução de Consumidor";
 
 
-				saidaBindingSource.DataSource = gerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR);
+				saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR);
 				tb_saida_produtoDataGridView.Height = 370;
 			}
 			else if (Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR.Contains(tipoSaidaFormulario))
@@ -387,7 +376,7 @@ namespace Sace
 				valorIPITextBox.TabStop = true;
 				tb_saida_produtoDataGridView.Height = 300;
 
-				saidaBindingSource.DataSource = gerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR);
+				saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR);
 			}
 			else if (Saida.LISTA_TIPOS_RETORNO_FORNECEDOR.Contains(tipoSaidaFormulario))
 			{
@@ -407,7 +396,7 @@ namespace Sace
 				valorIPITextBox.TabStop = true;
 				tb_saida_produtoDataGridView.Height = 300;
 
-				saidaBindingSource.DataSource = gerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_RETORNO_FORNECEDOR);
+				saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_RETORNO_FORNECEDOR);
 			}
 			else if (Saida.LISTA_TIPOS_REMESSA_CONSERTO.Contains(tipoSaidaFormulario))
 			{
@@ -427,11 +416,11 @@ namespace Sace
 				valorIPITextBox.TabStop = true;
 				tb_saida_produtoDataGridView.Height = 300;
 
-				saidaBindingSource.DataSource = gerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_REMESSA_CONSERTO);
+				saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_REMESSA_CONSERTO);
 			}
 			else
 			{
-				saidaBindingSource.DataSource = gerenciadorSaida.ObterSaidaConsumidor(codSaidaInicial);
+				saidaBindingSource.DataSource = service.GerenciadorSaida.ObterSaidaConsumidor(codSaidaInicial);
 				tb_saida_produtoDataGridView.Height = 370;
 			}
 			saidaBindingSource.MoveLast();
@@ -447,7 +436,7 @@ namespace Sace
 			long result;
 			bool ehCodigoBarra = long.TryParse(codProdutoComboBox.Text, out result) && (codProdutoComboBox.Text.Length > 7);
 
-			produto = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, false, context);
+			produto = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, false, service, saceOptions);
 			if (produto != null)
 			{
 				quantidadeTextBox.Text = "1";
@@ -456,10 +445,10 @@ namespace Sace
 				{
 					quantidadeTextBox.Text = produto.QtdProdutoAtacado.ToString();
 				}
-				IEnumerable<PontaEstoque> listaPontaEstoque = gerenciadorPontaEstoque.ObterPorProduto(produto.CodProduto);
+				IEnumerable<PontaEstoque> listaPontaEstoque = service.GerenciadorPontaEstoque.ObterPorProduto(produto.CodProduto);
 				if (listaPontaEstoque.Count() > 0)
 				{
-					FrmPontaEstoquePesquisa frmPontaEstoquePesquisa = new FrmPontaEstoquePesquisa(listaPontaEstoque, context);
+					FrmPontaEstoquePesquisa frmPontaEstoquePesquisa = new FrmPontaEstoquePesquisa(listaPontaEstoque, saceOptions);
 					frmPontaEstoquePesquisa.ShowDialog();
 					if (frmPontaEstoquePesquisa.PontaEstoqueSelected != null)
 					{
@@ -602,8 +591,8 @@ namespace Sace
 				saida = (Saida)saidaBindingSource.Current;
 				if ((saida != null) && (saida.CodSaida > 0))
 				{
-					saida = gerenciadorSaida.Obter(saida.CodSaida);
-					saidaProdutoBindingSource.DataSource = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+					saida = service.GerenciadorSaida.Obter(saida.CodSaida);
+					saidaProdutoBindingSource.DataSource = service.GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
 					descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
 					pedidoGeradoTextBox.Text = saida.CupomFiscal;
 					VendedorTextBox.Text = saida.LoginVendedor;
@@ -641,44 +630,44 @@ namespace Sace
 
 				if (Saida.LISTA_TIPOS_REMESSA_DEPOSITO.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida, context);
+					FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida, saceOptions);
 					frmSaidaDeposito.ShowDialog();
 					frmSaidaDeposito.Dispose();
 				}
 				if (Saida.LISTA_TIPOS_RETORNO_DEPOSITO.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida, context);
+					FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida, saceOptions);
 					frmSaidaDeposito.ShowDialog();
 					frmSaidaDeposito.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida, context);
+					FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida, saceOptions);
 					frmSaidaDevolucao.ShowDialog();
 					frmSaidaDevolucao.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_RETORNO_FORNECEDOR.Contains(saida.TipoSaida))
 				{
-					FrmSaidaRetornoFornecedor frmSaidaRetornoFornecedor = new FrmSaidaRetornoFornecedor(saida, context);
+					FrmSaidaRetornoFornecedor frmSaidaRetornoFornecedor = new FrmSaidaRetornoFornecedor(saida, saceOptions);
 					frmSaidaRetornoFornecedor.ShowDialog();
 					frmSaidaRetornoFornecedor.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_REMESSA_CONSERTO.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida, context);
+					FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida, saceOptions);
 					frmSaidaDevolucao.ShowDialog();
 					frmSaidaDevolucao.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDevolucaoConsumidor frmSaidaDevolucaoConsumidor = new FrmSaidaDevolucaoConsumidor(saida, context);
+					FrmSaidaDevolucaoConsumidor frmSaidaDevolucaoConsumidor = new FrmSaidaDevolucaoConsumidor(saida, saceOptions);
 					frmSaidaDevolucaoConsumidor.ShowDialog();
 					frmSaidaDevolucaoConsumidor.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
 				{
 					List<SaidaProduto> listaSaidaProduto = (List<SaidaProduto>)saidaProdutoBindingSource.DataSource;
-					FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, listaSaidaProduto, context);
+					FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, listaSaidaProduto, saceOptions);
 					frmSaidaPagamento.ShowDialog();
 					frmSaidaPagamento.Dispose();
 				}
@@ -704,7 +693,7 @@ namespace Sace
 			long codSaida = Convert.ToInt64(codSaidaTextBox.Text);
 			bool ehOrcamento = ((Saida)saidaBindingSource.Current).TipoSaida == Saida.TIPO_ORCAMENTO;
 
-			FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV(new HashSet<long>() { codSaida }, total, totalAVista, desconto, ehOrcamento, context);
+			FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV(new HashSet<long>() { codSaida }, total, totalAVista, desconto, ehOrcamento, saceOptions);
 			frmSaidaDav.ShowDialog();
 			frmSaidaDav.Dispose();
 		}
@@ -716,26 +705,26 @@ namespace Sace
 		/// <param name="e"></param>
 		private void btnCfNfe_Click(object sender, EventArgs e)
 		{
-			saida = gerenciadorSaida.Obter(long.Parse(codSaidaTextBox.Text));
+			saida = service.GerenciadorSaida.Obter(long.Parse(codSaidaTextBox.Text));
 
 			List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
 			List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
 
 			listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
-			listaSaidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+			listaSaidaPagamento = service.GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
 
-			FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, context);
+			FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, saceOptions);
 			frmSaidaNF.ShowDialog();
 			frmSaidaNF.Dispose();
 
-			List<NfeControle> listaNfes = gerenciadorNFe.ObterPorSaida(saida.CodSaida).ToList();
+			List<NfeControle> listaNfes = service.GerenciadorNFe.ObterPorSaida(saida.CodSaida).ToList();
 
-			saida = gerenciadorSaida.Obter(saida.CodSaida);
+			saida = service.GerenciadorSaida.Obter(saida.CodSaida);
 			if ((saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA)) && (listaNfes.Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() == 0))
 			{
 				if (MessageBox.Show("Não há NFes AUTORIZADAS. Deseja transformar essa PRÉ-VENDA em ORÇAMENTO?", "PRÉ-VENDA para ORÇAMENTO", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
 				{
-					gerenciadorSaida.Remover(saida);
+					service.GerenciadorSaida.Remover(saida);
 				}
 			}
 			codSaidaTextBox_TextChanged(sender, e);
@@ -750,7 +739,7 @@ namespace Sace
 		private void data_validadeDateTimePicker_Leave(object sender, EventArgs e)
 		{
 			DateTime dataVencimento = Convert.ToDateTime(data_validadeDateTimePicker.Text);
-			if (!gerenciadorSaida.DataVencimentoProdutoAceitavel(produto, dataVencimento))
+			if (!service.GerenciadorSaida.DataVencimentoProdutoAceitavel(produto, dataVencimento))
 			{
 				if (MessageBox.Show("Existem Produtos no estoque com data de validade mais antiga. Manter o Produto lançado?", "Confirmar Data Validade", MessageBoxButtons.YesNo) == DialogResult.No)
 				{
@@ -768,12 +757,12 @@ namespace Sace
 			DialogResult result = MessageBox.Show("Se for possível PODE BAIXAR o PREÇO de VENDA?", "Atualizar Preços com Valores do Dia", MessageBoxButtons.YesNoCancel);
 			if (result == DialogResult.Yes)
 			{
-				gerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, true);
+				service.GerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, true);
 				codSaidaTextBox_TextChanged(sender, e);
 			}
 			else if (result.Equals(DialogResult.No))
 			{
-				gerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, false);
+				service.GerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, false);
 				codSaidaTextBox_TextChanged(sender, e);
 			}
 		}

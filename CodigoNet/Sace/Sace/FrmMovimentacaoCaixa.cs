@@ -3,24 +3,22 @@ using Dominio;
 using Microsoft.EntityFrameworkCore;
 using Negocio;
 using System.Data;
-using Util;
 
 namespace Sace
 {
     public partial class FrmMovimentacaoCaixa : Form
     {
-        private readonly GerenciadorContaBanco gerenciadorContaBanco;
-        private readonly GerenciadorSaida gerenciadorSaida;
-        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
-        private readonly SaceContext context;
-        public FrmMovimentacaoCaixa(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+
+        public FrmMovimentacaoCaixa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context; 
-            gerenciadorContaBanco = new GerenciadorContaBanco(context);
-            gerenciadorSaida = new GerenciadorSaida(context);
-            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
-            contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context);
+
+            contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterTodos();
             dateTimePickerFinal.Value = DateTime.Now;
             dateTimePickerInicial.Value = DateTime.Now;
             ObterMovimentacaoPeriodo();
@@ -40,22 +38,22 @@ namespace Sace
             int codContaBanco = (int)codContaBancoComboBox.SelectedValue;
 
             // Totais de Pagamentos no período
-            IEnumerable<TotalPagamentoSaida> totaisPagamentos = gerenciadorSaidaPagamento.ObterTotalPagamento(dataInicial, dataFinal);
+            IEnumerable<TotalPagamentoSaida> totaisPagamentos = service.GerenciadorSaidaPagamento.ObterTotalPagamento(dataInicial, dataFinal);
             TotalPagamentoSaida totalPagamentoDinheiro = totaisPagamentos.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
             if (totalPagamentoDinheiro != null)
             {
-                decimal trocoPorPeriodo = gerenciadorSaida.ObterTrocoPagamentos(dataInicial, dataFinal);
+                decimal trocoPorPeriodo = service.GerenciadorSaida.ObterTrocoPagamentos(dataInicial, dataFinal);
                 totalPagamentoDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisPagamentosBindingSource.DataSource = totaisPagamentos;
 
 
             // Totais de Vendas no período
-            IEnumerable<TotalPagamentoSaida> totaisSaida = gerenciadorSaidaPagamento.ObterTotalPagamentoSaida(dataInicial, dataFinal);
+            IEnumerable<TotalPagamentoSaida> totaisSaida = service.GerenciadorSaidaPagamento.ObterTotalPagamentoSaida(dataInicial, dataFinal);
             TotalPagamentoSaida totalPagamentoSaidaDinheiro = totaisSaida.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
             if (totalPagamentoSaidaDinheiro != null)
             {
-                decimal trocoPorPeriodo = gerenciadorSaida.ObterTrocoSaidas(dataInicial, dataFinal);
+                decimal trocoPorPeriodo = service.GerenciadorSaida.ObterTrocoSaidas(dataInicial, dataFinal);
                 totalPagamentoSaidaDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisSaidaBindingSource.DataSource = totaisSaida;
@@ -63,7 +61,7 @@ namespace Sace
             textTotalPagamentos.Text = totaisPagamentos.Sum(t => t.TotalPagamento).ToString("N2");
             textTotalVendas.Text = totaisSaida.Sum(t => t.TotalPagamento).ToString("N2");
 
-            IEnumerable<VendasCartao> vendasCartao = gerenciadorSaidaPagamento.ObterVendasCartao(dataInicial, dataFinal);
+            IEnumerable<VendasCartao> vendasCartao = service.GerenciadorSaidaPagamento.ObterVendasCartao(dataInicial, dataFinal);
             IEnumerable<VendasCartao> redeCredito = vendasCartao.Where(vendas => vendas.CodCartao != CartaoCredito.CARTAO_BANESECARD_CREDITO && vendas.TipoCartao != "DEBITO");
             IEnumerable<VendasCartao> redeDebito = vendasCartao.Where(vendas => vendas.TipoCartao == "DEBITO" && vendas.CodCartao != CartaoCredito.CARTAO_PIX);
             IEnumerable<VendasCartao> redePix = vendasCartao.Where(vendas => vendas.CodCartao == CartaoCredito.CARTAO_PIX);
@@ -77,7 +75,7 @@ namespace Sace
             totalPix.Text = redePix.Sum(t => t.TotalCartao).ToString("N2");
             totalCreditoBanese.Text = baneseCredito.Sum(t => t.TotalCartao).ToString("N2");
 
-            var vendasPixDeposito = gerenciadorSaidaPagamento.ObterVendasPixDeposito(dataInicial, dataFinal);
+            var vendasPixDeposito = service.GerenciadorSaidaPagamento.ObterVendasPixDeposito(dataInicial, dataFinal);
             vendasPixDepositoBindingSource.DataSource = vendasPixDeposito;
             totalPixDepositoText.Text = vendasPixDeposito.Sum(t => t.Valor).ToString("N2");
         }
@@ -120,7 +118,7 @@ namespace Sace
 
         private void btnDetalhes_Click(object sender, EventArgs e)
         {
-            FrmMovimentacaoCaixaRecebido frmRecebido = new FrmMovimentacaoCaixaRecebido(dateTimePickerInicial.Value, dateTimePickerFinal.Value, context);
+            FrmMovimentacaoCaixaRecebido frmRecebido = new FrmMovimentacaoCaixaRecebido(dateTimePickerInicial.Value, dateTimePickerFinal.Value, saceOptions);
             frmRecebido.ShowDialog();
             frmRecebido.Dispose();
         }

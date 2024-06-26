@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -9,25 +10,26 @@ namespace Sace
     {
         private EstadoFormulario estado;
         private Cfop CfopSelected { get; set;}
-        private GerenciadorCfop gerenciadorCfop;
-        private SaceContext context;
-       
-        public FrmCfop(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+
+        public FrmCfop(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context; 
-            gerenciadorCfop = new GerenciadorCfop(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            SaceService service = new SaceService(context);
         }
 
         private void FrmCfop_Load(object sender, EventArgs e)
         {
-            cfopBindingSource.DataSource = gerenciadorCfop.ObterTodos();
+            cfopBindingSource.DataSource = service.service.GerenciadorCfop.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmCfopPesquisa frmCfopPesquisa = new FrmCfopPesquisa(context);
+            FrmCfopPesquisa frmCfopPesquisa = new FrmCfopPesquisa(saceOptions);
             frmCfopPesquisa.ShowDialog();
             if (frmCfopPesquisa.CfopSelected != null)
             {
@@ -55,7 +57,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorCfop.Remover(Int32.Parse(cfopTextBox.Text));
+                service.service.GerenciadorCfop.Remover(Int32.Parse(cfopTextBox.Text));
                 cfopBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -80,11 +82,11 @@ namespace Sace
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gerenciadorCfop.Inserir(cfop);
+                    service.service.GerenciadorCfop.Inserir(cfop);
                 }
                 else
                 {
-                    gerenciadorCfop.Atualizar(cfop);
+                    service.service.GerenciadorCfop.Atualizar(cfop);
                 }
                 cfopBindingSource.EndEdit();
             }

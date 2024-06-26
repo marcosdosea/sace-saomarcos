@@ -8,20 +8,23 @@ namespace Sace
 {
     public partial class FrmMovimentacaoCaixaRecebido: Form
     {
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
-        public FrmMovimentacaoCaixaRecebido(DateTime dataInicio, DateTime dataFim, SaceContext context)
+        public FrmMovimentacaoCaixaRecebido(DateTime dataInicio, DateTime dataFim, DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             dataInicioDateTimePicker.Value = dataInicio;
             dataFinalDateTimePicker.Value = dataFim;
-            gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmSaidaPagamentoRecebido_Load(object sender, EventArgs e)
         {
 
-            movimentacaoPeriodoBindingSource.DataSource = gerenciadorMovimentacaoConta.ObterMovimentacaoContaPeriodo(dataInicioDateTimePicker.Value, dataFinalDateTimePicker.Value);
+            movimentacaoPeriodoBindingSource.DataSource = service.GerenciadorMovimentacaoConta.ObterMovimentacaoContaPeriodo(dataInicioDateTimePicker.Value, dataFinalDateTimePicker.Value);
            
         }
 

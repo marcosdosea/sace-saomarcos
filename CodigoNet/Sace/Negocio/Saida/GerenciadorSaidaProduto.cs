@@ -1,7 +1,6 @@
 ﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
 using Util;
 
 
@@ -10,16 +9,9 @@ namespace Negocio
     public class GerenciadorSaidaProduto {
 
         private readonly SaceContext context;
-        private readonly GerenciadorProduto gerenciadorProduto;
-        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
-        private readonly GerenciadorSaida gerenciadorSaida; 
-
         public GerenciadorSaidaProduto(SaceContext saceContext)
         {
             context = saceContext;
-            gerenciadorProduto = new GerenciadorProduto(context);
-            gerenciadorSaida = new GerenciadorSaida(context);
-            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
         }
 
         /// <summary>
@@ -28,9 +20,8 @@ namespace Negocio
         /// <param name="saidaProduto"></param>
         /// <param name="saida"></param>
         /// <returns></returns>
-        public Int64 Inserir(SaidaProduto saidaProduto, Saida saida)
+        public long Inserir(SaidaProduto saidaProduto, Saida saida)
         {
-            
             if (saidaProduto.Quantidade == 0)
                 throw new NegocioException("A quantidade do produto não pode ser igual a zero.");
             else if (saidaProduto.ValorVendaAVista <= 0)
@@ -101,6 +92,8 @@ namespace Negocio
         /// <param name="p"></param>
         public void AtualizarPrecosComValoresDia(Saida saida, bool podeBaixarPreco)
         {
+            var gerenciadorProduto = new GerenciadorProduto(context);
+
             if (!saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
             {
                 throw new NegocioException("A atualização de preços com os preços do dia só pode ser realizada em ORÇAMENTOS.");
@@ -558,6 +551,7 @@ namespace Negocio
         /// <returns></returns>
         public void AtualizarSituacaoEstoqueProdutos()
         {
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
             AtualizarSituacaoProdutosComprados(UtilConfig.Default.NUMERO_MESES_ANALISAR_ESTOQUE);
 
             List<ProdutoVendido> listaProdutosVendidos = ObterProdutosVendidosUltimosMeses(UtilConfig.Default.NUMERO_MESES_ANALISAR_ESTOQUE);
@@ -659,6 +653,7 @@ namespace Negocio
         /// <param name="saida"></param>
         private void RecalcularTotais(Saida saida)
         {
+            var gerenciadorSaida = new GerenciadorSaida(context);
             var query = from saidaProduto in context.TbSaidaProdutos
                         where saidaProduto.CodSaida == saida.CodSaida
                         select saidaProduto;

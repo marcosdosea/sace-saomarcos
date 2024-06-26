@@ -8,28 +8,31 @@ namespace Sace
     public partial class FrmLojaPesquisa : Form
     {
         public Loja LojaSelected { get; set; }
-        private readonly GerenciadorLoja gerenciadorLoja;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmLojaPesquisa(SaceContext context)
+        public FrmLojaPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             LojaSelected = null;
-            gerenciadorLoja = new GerenciadorLoja(context);
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmLojaPesquisa_Load(object sender, EventArgs e)
         {
-            lojaBindingSource.DataSource = gerenciadorLoja.ObterTodos();
+            lojaBindingSource.DataSource = service.GerenciadorLoja.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                lojaBindingSource.DataSource = gerenciadorLoja.Obter(int.Parse(txtTexto.Text));
+                lojaBindingSource.DataSource = service.GerenciadorLoja.Obter(int.Parse(txtTexto.Text));
 
             else
-                lojaBindingSource.DataSource = gerenciadorLoja.ObterPorNome(txtTexto.Text);
+                lojaBindingSource.DataSource = service.GerenciadorLoja.ObterPorNome(txtTexto.Text);
         }
 
         private void tb_lojaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

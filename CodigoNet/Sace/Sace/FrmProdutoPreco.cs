@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using System.Globalization;
 
@@ -7,22 +8,23 @@ namespace Sace
 {
     public partial class FrmProdutoPreco : Form
     {
-        private String filtroNome;
-        private String textoAtual;
+        private string filtroNome;
+        private string textoAtual;
 
         public bool ExibirTodos { get; set;}
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        private readonly GerenciadorProduto gerenciadorProduto;
-        
-        
-        public FrmProdutoPreco(bool exibirTodos, SaceContext context)
+        public FrmProdutoPreco(bool exibirTodos, DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             ProdutoPesquisa = null;
             filtroNome = null;
             ExibirTodos = exibirTodos;
-            gerenciadorProduto = new GerenciadorProduto(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         public FrmProdutoPreco(String nome, bool exibirTodos)
@@ -44,11 +46,11 @@ namespace Sace
                 txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
                 if (ExibirTodos)
                 {
-                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNome(txtTexto.Text);
+                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNome(txtTexto.Text);
                 }
                 else
                 {
-                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
+                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
                 }
             }
             else
@@ -64,14 +66,14 @@ namespace Sace
             if ((txtTexto.Text.Trim().Length > 0) && (txtTexto.Text.Length > textoAtual.Length))
             {
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    produtoBindingSource.DataSource = gerenciadorProduto.Obter(int.Parse(txtTexto.Text));
+                    produtoBindingSource.DataSource = service.GerenciadorProduto.Obter(int.Parse(txtTexto.Text));
                 else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
                 {
-                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorReferenciaFabricante(txtTexto.Text);
+                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorReferenciaFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
                 {
-                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNomeProdutoFabricante(txtTexto.Text);
+                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNomeProdutoFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Length > 9))
                 {
@@ -79,7 +81,7 @@ namespace Sace
                     {
                         DateTime data = Convert.ToDateTime(txtTexto.Text);
                         // se conseguir converter para uma data válida ele faz a busca
-                        produtoBindingSource.DataSource = gerenciadorProduto.ObterPorDataAtualizacaoMaiorIgual(data);
+                        produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorDataAtualizacaoMaiorIgual(data);
                     }
                     catch (Exception)
                     {
@@ -89,11 +91,11 @@ namespace Sace
                 }
                 else if (cmbBusca.SelectedIndex == 5) // códigos de barra inválidos
                 {
-                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigosBarraInvalidos();
+                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorCodigosBarraInvalidos();
                 }
                 else if (cmbBusca.SelectedIndex == 6) // códigos de barra inválidos
                 {
-                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigosBarraEmBranco();
+                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorCodigosBarraEmBranco();
                 }
                 else if ((cmbBusca.SelectedIndex == 7) && (txtTexto.Text.Length > 9))
                 {
@@ -101,7 +103,7 @@ namespace Sace
                     {
                         DateTime data = Convert.ToDateTime(txtTexto.Text);
                         // se conseguir converter para uma data válida ele faz a busca
-                        produtoBindingSource.DataSource = gerenciadorProduto.ObterPorDataMudancaPrecoMaiorIgual(data);
+                        produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorDataMudancaPrecoMaiorIgual(data);
                     }
                     catch (Exception)
                     {
@@ -112,16 +114,16 @@ namespace Sace
                 else if ((cmbBusca.SelectedIndex == 8) && (txtTexto.Text.Length > 0))
                 {
                     long codFabricante = long.Parse(txtTexto.Text);
-                    produtoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigoFabricante(codFabricante);
+                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorCodigoFabricante(codFabricante);
                 }
                 else
                 {
                     if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length >= 1)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length >= 1))))
                     {
                         if (ExibirTodos)
-                            produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNome(txtTexto.Text);
+                            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNome(txtTexto.Text);
                         else
-                            produtoBindingSource.DataSource = gerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
+                            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
                     }
                 }
                             }
@@ -234,7 +236,7 @@ namespace Sace
                     decimal precoVarejo = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[4].Value.ToString());
                     decimal precoAtacado = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[5].Value.ToString());
                     decimal precoRevenda = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[6].Value.ToString());
-                    gerenciadorProduto.AtualizarPrecoVarejoAtacado(codProduto, nomeProduto, precoVarejo, precoAtacado, precoRevenda);
+                    service.GerenciadorProduto.AtualizarPrecoVarejoAtacado(codProduto, nomeProduto, precoVarejo, precoAtacado, precoRevenda);
                 }
 
             }

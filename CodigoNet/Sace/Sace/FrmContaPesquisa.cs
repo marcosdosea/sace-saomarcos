@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dados;
+﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
 using Negocio;
@@ -16,19 +8,22 @@ namespace Sace
     public partial class FrmContaPesquisa : Form
     {
         public Conta ContaSelected { get; set; }
-        private readonly GerenciadorConta gerenciadorConta;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmContaPesquisa(SaceContext context)
+        public FrmContaPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             ContaSelected = null;
-            gerenciadorConta = new GerenciadorConta(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
                 
         private void FrmContaPesquisa_Load(object sender, EventArgs e)
         {
-            contaBindingSource.DataSource = gerenciadorConta.ObterTodos();
+            contaBindingSource.DataSource = service.GerenciadorConta.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
@@ -36,11 +31,11 @@ namespace Sace
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                contaBindingSource.DataSource = gerenciadorConta.Obter(Convert.ToInt64(txtTexto.Text));
+                contaBindingSource.DataSource = service.GerenciadorConta.Obter(Convert.ToInt64(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                contaBindingSource.DataSource = gerenciadorConta.ObterPorEntrada(Convert.ToInt64(txtTexto.Text));
+                contaBindingSource.DataSource = service.GerenciadorConta.ObterPorEntrada(Convert.ToInt64(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                contaBindingSource.DataSource = gerenciadorConta.ObterPorSaida(Convert.ToInt64(txtTexto.Text));
+                contaBindingSource.DataSource = service.GerenciadorConta.ObterPorSaida(Convert.ToInt64(txtTexto.Text));
             }
 
         private void tb_grupo_contaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

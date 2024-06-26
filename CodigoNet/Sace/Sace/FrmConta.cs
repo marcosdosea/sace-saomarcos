@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -7,28 +8,23 @@ namespace Sace
     public partial class FrmConta : Form
     {
         private EstadoFormulario estado;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private readonly GerenciadorPlanoConta gerenciadorPlanoConta;
-        private readonly GerenciadorConta gerenciadorConta;
-        private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
-        private readonly SaceContext context;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmConta(SaceContext context)
+        public FrmConta(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
-            gerenciadorPlanoConta = new GerenciadorPlanoConta(context);
-            gerenciadorPessoa = new GerenciadorPessoa(context);
-            gerenciadorConta = new GerenciadorConta(context);   
-            gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmContas_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            planoContaBindingSource.DataSource = gerenciadorPlanoConta.ObterTodos();
-            contaBindingSource.DataSource = gerenciadorConta.ObterTodos();
-            situacaoContaBindingSource.DataSource = gerenciadorConta.ObterSituacoesConta();
+            pessoaBindingSource.DataSource = service.service.GerenciadorPessoa.ObterTodos();
+            planoContaBindingSource.DataSource = service.GerenciadorPlanoConta.ObterTodos();
+            contaBindingSource.DataSource = service.GerenciadorConta.ObterTodos();
+            situacaoContaBindingSource.DataSource = service.GerenciadorConta.ObterSituacoesConta();
             
             habilitaBotoes(true);
         }
@@ -50,7 +46,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmContaPesquisa frmContaPesquisa = new FrmContaPesquisa(context);
+            FrmContaPesquisa frmContaPesquisa = new FrmContaPesquisa(saceOptions);
             frmContaPesquisa.ShowDialog();
             if (frmContaPesquisa.ContaSelected != null)
             {

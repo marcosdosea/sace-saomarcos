@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Dados;
+﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
 using Negocio;
@@ -16,26 +8,29 @@ namespace Sace
     public partial class FrmGrupoPesquisa : Form
     {
         public Grupo SelectedGrupo { get; set; }
-        private readonly GerenciadorGrupo gerenciadorGrupo;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmGrupoPesquisa(SaceContext context)
+        public FrmGrupoPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            gerenciadorGrupo = new GerenciadorGrupo(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmGrupoPesquisa_Load(object sender, EventArgs e)
         {
-            grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
+            grupoBindingSource.DataSource = service.GerenciadorGrupo.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                grupoBindingSource.DataSource = gerenciadorGrupo.Obter(Convert.ToInt32(txtTexto.Text));
+                grupoBindingSource.DataSource = service.GerenciadorGrupo.Obter(Convert.ToInt32(txtTexto.Text));
             else
-                grupoBindingSource.DataSource = gerenciadorGrupo.ObterPorDescricao(txtTexto.Text);
+                grupoBindingSource.DataSource = service.GerenciadorGrupo.ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_grupoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

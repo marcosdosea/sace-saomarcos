@@ -1,24 +1,26 @@
 ﻿using Dados;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
 {
     public partial class FrmGrupoEstatistica : Form
     {
-        private readonly GerenciadorGrupo gerenciadorGrupo;
-        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmGrupoEstatistica(SaceContext context)
+        public FrmGrupoEstatistica(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            gerenciadorGrupo = new GerenciadorGrupo(context);
-            gerenciadorSaida = new GerenciadorSaida(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            SaceService service = new SaceService(context); 
         }
 
 
         private void FrmGrupoEstatistica_Load(object sender, EventArgs e)
         {
-            grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
+            grupoBindingSource.DataSource = service.GerenciadorGrupo.ObterTodos();
 
             dataInicioTimePicker.Value = DateTime.Now.AddMonths(-12);
             dataFimTimePicker.Value = DateTime.Now;
@@ -57,7 +59,7 @@ namespace Sace
                 Cursor.Current = Cursors.WaitCursor;
                 int codGrupo = (int)codGrupoComboBox.SelectedValue;
 
-                var vendasPorGrupo = gerenciadorSaida.ObterVendasPorGrupo(codGrupo, dataInicial, dataFinal);
+                var vendasPorGrupo = service.GerenciadorSaida.ObterVendasPorGrupo(codGrupo, dataInicial, dataFinal);
 
                 //saceDataSetConsultas.VendasPorGrupoDataTable vendasgrupoDataTable = new saceDataSetConsultas.VendasPorGrupoDataTable();
                 //Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter vendasGrupoTA = new Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter();

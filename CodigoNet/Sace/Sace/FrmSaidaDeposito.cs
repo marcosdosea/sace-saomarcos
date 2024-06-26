@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -8,27 +9,24 @@ namespace Sace
     public partial class FrmSaidaDeposito : Form
     {
         private Saida saida;
-        private readonly GerenciadorSaida gerenciadorSaida;
-        private readonly GerenciadorLoja gerenciadorLoja;
-        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
-        private SaceContext context;
 
-        public FrmSaidaDeposito(Saida saida, SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+        public FrmSaidaDeposito(Saida saida, DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             this.saida = saida;
-            this.context = context;
-            gerenciadorLoja = new GerenciadorLoja(context);
-            gerenciadorSaida = new GerenciadorSaida(context);
-            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmSaidaDeposito_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = service.GerenciadorSaida.Obter(saida.CodSaida);
             saida = (Saida) saidaBindingSource.Current;
-            List<Loja> listaLojas = gerenciadorLoja.ObterTodos();
+            List<Loja> listaLojas = service.GerenciadorLoja.ObterTodos();
             lojaBindingSourceDestino.DataSource = listaLojas;
             lojaBindingSourceOrigem.DataSource = listaLojas;
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO))
@@ -48,18 +46,18 @@ namespace Sace
             saida.CodProfissional = UtilConfig.Default.CLIENTE_PADRAO;
             saida.CodCliente = long.Parse(codPessoaComboBoxDestino.SelectedValue.ToString());
             
-            gerenciadorSaida.Atualizar(saida);
+            service.GerenciadorSaida.Atualizar(saida);
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO))
             {
                 if (MessageBox.Show("Confirma REMESSA para DEPÓSITO?", "Confirmar Remessa", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_REMESSA_DEPOSITO, null, null);
+                    service.GerenciadorSaida.Encerrar(saida, Saida.TIPO_REMESSA_DEPOSITO, null, null);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
-                    listaSaidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+                    listaSaidaPagamento = service.GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
                     
-                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, context);
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, saceOptions);
                     frmSaidaNF.ShowDialog();
                     frmSaidaNF.Dispose();
                     this.Close();
@@ -69,13 +67,13 @@ namespace Sace
             {
                 if (MessageBox.Show("Confirma RETORNO de DEPÓSITO FECHADO?", "Confirmar Retorno", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_RETORNO_DEPOSITO, null, null);
+                    service.GerenciadorSaida.Encerrar(saida, Saida.TIPO_RETORNO_DEPOSITO, null, null);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
-                    listaSaidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+                    listaSaidaPagamento = service.GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
                     
-                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, context);
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, saceOptions);
                     frmSaidaNF.ShowDialog();
                     frmSaidaNF.Dispose();
                     this.Close();

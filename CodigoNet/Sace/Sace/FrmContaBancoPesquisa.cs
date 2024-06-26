@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -7,27 +8,30 @@ namespace Sace
     public partial class FrmContaBancoPesquisa : Form
     {
         public ContaBanco ContaBancoSelected { get; set; }
-        private readonly GerenciadorContaBanco gerenciadorContaBanco;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmContaBancoPesquisa(SaceContext context)
+        public FrmContaBancoPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             ContaBancoSelected = null;
-            gerenciadorContaBanco = new GerenciadorContaBanco(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
         {
-            contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
+            contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterTodos();
             cmbBusca.SelectedIndex = 1;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterPorNumero(txtTexto.Text);
+                contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterPorNumero(txtTexto.Text);
             else
-                contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterPorDescricao(txtTexto.Text);
+                contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterPorDescricao(txtTexto.Text);
 
         }
 

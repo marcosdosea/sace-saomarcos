@@ -8,27 +8,30 @@ namespace Sace
     public partial class FrmPlanoContaPesquisa : Form
     {
         public PlanoConta PlanoContaSelected;
-        private readonly GerenciadorPlanoConta gerenciadorPlanoConta;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmPlanoContaPesquisa(SaceContext context)
+        public FrmPlanoContaPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             PlanoContaSelected = null;
-            gerenciadorPlanoConta = new GerenciadorPlanoConta(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmPlanoContaPesquisa_Load(object sender, EventArgs e)
         {
-            planoContaBindingSource.DataSource = gerenciadorPlanoConta.ObterTodos();
+            planoContaBindingSource.DataSource = service.GerenciadorPlanoConta.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                planoContaBindingSource.DataSource = gerenciadorPlanoConta.Obter(Convert.ToInt32(txtTexto.Text));
+                planoContaBindingSource.DataSource = service.GerenciadorPlanoConta.Obter(Convert.ToInt32(txtTexto.Text));
             else
-                planoContaBindingSource.DataSource = gerenciadorPlanoConta.ObterPorDescricao(txtTexto.Text);
+                planoContaBindingSource.DataSource = service.GerenciadorPlanoConta.ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_plano_contaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -8,27 +8,30 @@ namespace Sace
     public partial class FrmCfopPesquisa : Form
     {
         public Cfop CfopSelected { get; set; }
-        private readonly GerenciadorCfop gerenciadorCfop;
 
-        public FrmCfopPesquisa(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+
+        public FrmCfopPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             CfopSelected = null;
-            gerenciadorCfop = new GerenciadorCfop(context);
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmCfopPesquisa_Load(object sender, EventArgs e)
         {
-            cfopBindingSource.DataSource = gerenciadorCfop.ObterTodos();
+            cfopBindingSource.DataSource = service.GerenciadorCfop.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                cfopBindingSource.DataSource = gerenciadorCfop.Obter(Convert.ToInt32(txtTexto.Text));
+                cfopBindingSource.DataSource = service.GerenciadorCfop.Obter(Convert.ToInt32(txtTexto.Text));
             else
-                cfopBindingSource.DataSource = gerenciadorCfop.ObterPorDescricao(txtTexto.Text);
+                cfopBindingSource.DataSource = service.GerenciadorCfop.ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_cfopDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

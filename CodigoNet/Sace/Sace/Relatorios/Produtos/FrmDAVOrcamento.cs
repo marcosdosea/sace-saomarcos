@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Reporting.WinForms;
 using Negocio;
 using System.Data;
@@ -14,37 +15,36 @@ namespace Sace.Relatorios.Produtos
         private decimal total;
         private decimal totalPagar;
         private decimal desconto;
-        private readonly GerenciadorLoja gerenciadorLoja;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private readonly GerenciadorSaidaProduto gerenciadorSaidaProduto;   
+    
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-
-        public FrmDAVOrcamento(List<long> listaCodSaidas, decimal total, decimal totalPagar, decimal desconto, SaceContext context)
+        public FrmDAVOrcamento(List<long> listaCodSaidas, decimal total, decimal totalPagar, decimal desconto, DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             this.listaCodSaidas = listaCodSaidas;
             this.total = total;
             this.totalPagar = totalPagar;
             this.desconto = desconto;
-            gerenciadorLoja = new GerenciadorLoja(context);
-            gerenciadorPessoa = new GerenciadorPessoa(context); 
-            gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmDAV_Load(object sender, EventArgs e)
         {
             // Obtém os produtos das saídas
-            List<SaidaProdutoRelatorio> listaSaidaProdutoRelatorio = gerenciadorSaidaProduto.ObterPorSaidasRelatorio(listaCodSaidas);
+            List<SaidaProdutoRelatorio> listaSaidaProdutoRelatorio = service.GerenciadorSaidaProduto.ObterPorSaidasRelatorio(listaCodSaidas);
             SaidaProdutoRelatorioBindingSource.DataSource = listaSaidaProdutoRelatorio;
 
             if (listaSaidaProdutoRelatorio.Count > 0)
             {
                 // Obtém os demais dados para preenchimento do relatório
                 long codCliente = listaSaidaProdutoRelatorio.ElementAtOrDefault(0).CodCliente;
-                PessoaBindingSource.DataSource = gerenciadorPessoa.Obter(codCliente);
+                PessoaBindingSource.DataSource = service.GerenciadorPessoa.Obter(codCliente);
                 
-                Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
-                PessoaLojaBindingSource.DataSource = gerenciadorPessoa.Obter(loja.CodPessoa);
+                Loja loja = service.GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
+                PessoaLojaBindingSource.DataSource = service.GerenciadorPessoa.Obter(loja.CodPessoa);
 
                 ReportParameterCollection parameterCollection = new ReportParameterCollection();
                 parameterCollection.Add(new ReportParameter("TotalSaidas", total.ToString("N2")));

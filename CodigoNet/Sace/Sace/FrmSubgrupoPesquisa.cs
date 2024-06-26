@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -9,38 +10,39 @@ namespace Sace
         public Subgrupo SubgrupoSelected { get; set; }
         public Grupo GrupoSelected { get; set; }
 
-        private readonly GerenciadorSubgrupo gerenciadorSubgrupo;
-        private readonly GerenciadorGrupo gerenciadorGrupo;
-        public FrmSubgrupoPesquisa(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+        public FrmSubgrupoPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             SubgrupoSelected = null;
             GrupoSelected = null;
-            gerenciadorSubgrupo = new GerenciadorSubgrupo(context);
-            gerenciadorGrupo = new GerenciadorGrupo(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            SaceService service = new SaceService(context);
         }
 
         private void FrmSubgrupoPesquisa_Load(object sender, EventArgs e)
         {
-            subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterTodos();
+            subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.ObterTodos();
             cmbBusca.SelectedIndex = 1;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                subgrupoBindingSource.DataSource = gerenciadorSubgrupo.Obter(Convert.ToInt32(txtTexto.Text));
+                subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.Obter(Convert.ToInt32(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterPorDescricao(txtTexto.Text);                
+                subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.ObterPorDescricao(txtTexto.Text);                
             else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterPorDescricaoGrupo(txtTexto.Text);
+                subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.ObterPorDescricaoGrupo(txtTexto.Text);
             
         }
 
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             SubgrupoSelected = (Subgrupo) subgrupoBindingSource.Current;
-            GrupoSelected = gerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
+            GrupoSelected = service.GerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
             this.Close();
         }
 

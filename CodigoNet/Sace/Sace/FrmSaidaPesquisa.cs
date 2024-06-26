@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -7,17 +8,20 @@ namespace Sace
     public partial class FrmSaidaPesquisa : Form
     {
         public SaidaPesquisa SaidaSelected { get; set; }
-        private readonly GerenciadorSaida gerenciadorSaida;
-        public FrmSaidaPesquisa(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+        public FrmSaidaPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             SaidaSelected = null;
-            gerenciadorSaida = new GerenciadorSaida(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmSaidaPesquisa_Load(object sender, EventArgs e)
         {
-            saidaBindingSource.DataSource = gerenciadorSaida.ObterPreVendasPendentes();
+            saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPreVendasPendentes();
             cmbBusca.SelectedIndex = 1;
          }
 
@@ -29,16 +33,16 @@ namespace Sace
             {
                 if (cmbBusca.SelectedIndex == 0)
                 {
-                    saidaBindingSource.DataSource = gerenciadorSaida.ObterPreVendasPendentes();
+                    saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPreVendasPendentes();
                 }
                 else
                     if (cmbBusca.SelectedIndex == 1)
-                       saidaBindingSource.DataSource = gerenciadorSaida.Obter(long.Parse(txtTexto.Text));
+                       saidaBindingSource.DataSource = service.GerenciadorSaida.Obter(long.Parse(txtTexto.Text));
                     else if (cmbBusca.SelectedIndex == 2)
                     {
                         if (txtTexto.Text.Trim().Length >= 5)
                         {
-                            saidaBindingSource.DataSource = gerenciadorSaida.ObterPorPedido(txtTexto.Text);
+                            saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPorPedido(txtTexto.Text);
                         }
                     }
                     else if (cmbBusca.SelectedIndex == 3)
@@ -46,14 +50,14 @@ namespace Sace
                         if (txtTexto.Text.Trim().Length > 3)
                         {
 
-                            saidaBindingSource.DataSource = gerenciadorSaida.ObterPorNomeCliente(txtTexto.Text);
+                            saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPorNomeCliente(txtTexto.Text);
                         }
                     } 
                     else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Trim().Length >= 10))
                     {
                         if (txtTexto.Text.Trim().Length >= 10)
                         {
-                            saidaBindingSource.DataSource = gerenciadorSaida.ObterPorDataPedido(txtTexto.Text);
+                            saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPorDataPedido(txtTexto.Text);
                         }
                     }
             }
@@ -101,7 +105,7 @@ namespace Sace
             txtTexto.Text = "";
             if (cmbBusca.SelectedIndex == 0)
             {
-                saidaBindingSource.DataSource = gerenciadorSaida.ObterPreVendasPendentes();
+                saidaBindingSource.DataSource = service.GerenciadorSaida.ObterPreVendasPendentes();
             }
             else if (cmbBusca.SelectedIndex == 4)
             {

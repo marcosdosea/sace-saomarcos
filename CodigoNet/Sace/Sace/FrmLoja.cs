@@ -9,28 +9,27 @@ namespace Sace
     public partial class FrmLoja : Form
     {
         private EstadoFormulario estado;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private readonly GerenciadorLoja gerenciadorLoja;
-        private SaceContext context;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmLoja(SaceContext context)
+        public FrmLoja(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
-            gerenciadorPessoa = new GerenciadorPessoa(context);
-            gerenciadorLoja = new GerenciadorLoja(context);
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmLoja_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
-            lojaBindingSource.DataSource = gerenciadorLoja.ObterTodos();
+            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
+            lojaBindingSource.DataSource = service.GerenciadorLoja.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmLojaPesquisa frmLojaPesquisa = new FrmLojaPesquisa(context);
+            FrmLojaPesquisa frmLojaPesquisa = new FrmLojaPesquisa(saceOptions);
             frmLojaPesquisa.ShowDialog();
             if (frmLojaPesquisa.LojaSelected != null)
             {
@@ -43,7 +42,7 @@ namespace Sace
         {
             lojaBindingSource.AddNew();
             codPessoaComboBox.SelectedIndex = 1;
-            Loja loja = (Loja) lojaBindingSource.Current;
+            Loja loja = (Loja)lojaBindingSource.Current;
             loja.CodPessoa = ((Pessoa)pessoaBindingSource.Current).CodPessoa;
             nomeTextBox.Focus();
             habilitaBotoes(false);
@@ -61,7 +60,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorLoja.Remover(int.Parse(codLojaTextBox.Text));
+                service.GerenciadorLoja.Remover(int.Parse(codLojaTextBox.Text));
                 lojaBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -79,16 +78,16 @@ namespace Sace
         {
             try
             {
-                Loja loja = (Loja) lojaBindingSource.Current;
-                
+                Loja loja = (Loja)lojaBindingSource.Current;
+
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codLoja = gerenciadorLoja.Inserir(loja);
+                    long codLoja = service.GerenciadorLoja.Inserir(loja);
                     codLojaTextBox.Text = codLoja.ToString();
                 }
                 else
                 {
-                    gerenciadorLoja.Atualizar(loja);
+                    service.GerenciadorLoja.Atualizar(loja);
                 }
                 lojaBindingSource.EndEdit();
             }
@@ -173,7 +172,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa(context);
+                    FrmPessoa frmPessoa = new FrmPessoa(saceOptions);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -205,7 +204,7 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true, gerenciadorPessoa);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true, service);
         }
 
         private void nomeTextBox_Leave(object sender, EventArgs e)

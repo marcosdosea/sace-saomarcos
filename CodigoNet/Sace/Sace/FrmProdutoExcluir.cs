@@ -1,19 +1,22 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
 {
     public partial class FrmProdutoExcluir : Form
     {
-      
-        private readonly GerenciadorProduto gerenciadorProduto;
-        private readonly SaceContext context;
-        public FrmProdutoExcluir(SaceContext context)
+
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+
+        public FrmProdutoExcluir(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
-            gerenciadorProduto = new GerenciadorProduto(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -23,7 +26,7 @@ namespace Sace
 
             if (MessageBox.Show("Confirma exclusão do PRODUTO DO SISTEMA?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorProduto.SubstituirProduto(codProdutoExcluir, codProdutoManter);
+                service.GerenciadorProduto.SubstituirProduto(codProdutoExcluir, codProdutoManter);
                 //produtoBindingSource.RemoveCurrent();
             }
             codProdutoComboBox.Focus();
@@ -31,7 +34,7 @@ namespace Sace
 
         private void FrmProdutoExcluir_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
+            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodos();
             produtoBindingSource1.DataSource = produtoBindingSource.DataSource;
         }
 
@@ -43,13 +46,13 @@ namespace Sace
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true, context);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true, service, saceOptions);
         }
 
         private void codProdutoComboBox1_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox1, estado, produtoBindingSource1, true, context);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox1, estado, produtoBindingSource1, true, service, saceOptions);
         }
 
         private void FrmProdutoExcluir_KeyDown(object sender, KeyEventArgs e)

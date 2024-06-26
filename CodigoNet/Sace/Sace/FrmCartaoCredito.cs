@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -9,32 +10,29 @@ namespace Sace
     public partial class FrmCartaoCredito : Form
     {
         private EstadoFormulario estado;
-        private GerenciadorCartaoCredito gerenciadorCartaoCredito;
-        private GerenciadorContaBanco gerenciadorContaBanco;
-        private GerenciadorPessoa gerenciadorPessoa;
-        private SaceContext context;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmCartaoCredito(SaceContext context)
+        public FrmCartaoCredito(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
-            gerenciadorCartaoCredito = new GerenciadorCartaoCredito(context);
-            gerenciadorContaBanco = new GerenciadorContaBanco(context); 
-            gerenciadorPessoa = new GerenciadorPessoa(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            SaceService service = new SaceService(context);
         }
 
         private void FrmCartaoCredito_Load(object sender, EventArgs e)
         {
-            cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterTodos();
-            contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
+            cartaoCreditoBindingSource.DataSource = service.GerenciadorCartaoCredito.ObterTodos();
+            contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterTodos();
+            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
             
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmCartaoCreditoPesquisa frmCartaoCreditoPesquisa = new FrmCartaoCreditoPesquisa(context);
+            FrmCartaoCreditoPesquisa frmCartaoCreditoPesquisa = new FrmCartaoCreditoPesquisa(saceOptions);
             frmCartaoCreditoPesquisa.ShowDialog();
             if (frmCartaoCreditoPesquisa.CartaoCreditoSelected != null)
             {
@@ -68,7 +66,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorCartaoCredito.Remover(int.Parse(codCartaoTextBox.Text));
+                service.GerenciadorCartaoCredito.Remover(int.Parse(codCartaoTextBox.Text));
                 cartaoCreditoBindingSource.RemoveCurrent();
             }
         }
@@ -90,12 +88,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codCartao = gerenciadorCartaoCredito.Inserir(_cartaoCredito);
+                    long codCartao = service.GerenciadorCartaoCredito.Inserir(_cartaoCredito);
                     codCartaoTextBox.Text = codCartao.ToString();
                 }
                 else
                 {
-                    gerenciadorCartaoCredito.Atualizar(_cartaoCredito);
+                    service.GerenciadorCartaoCredito.Atualizar(_cartaoCredito);
                 }
                 cartaoCreditoBindingSource.EndEdit();
             }
@@ -174,7 +172,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codContaBancoComboBox.Focused))
                 {
-                    FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa(context);
+                    FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa(saceOptions);
                     frmContaBancoPesquisa.ShowDialog();
                     if (frmContaBancoPesquisa.ContaBancoSelected != null)
                     {
@@ -184,7 +182,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codContaBancoComboBox.Focused))
                 {
-                    FrmContaBanco frmContaBanco = new FrmContaBanco(context);
+                    FrmContaBanco frmContaBanco = new FrmContaBanco(saceOptions);
                     frmContaBanco.ShowDialog();
                     if (frmContaBanco.ContaBancoSelected != null)
                     {
@@ -194,7 +192,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa(context);
+                    FrmPessoa frmPessoa = new FrmPessoa(saceOptions);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -237,7 +235,7 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true, gerenciadorPessoa);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true, service);
         }
 
         private void codCartaoTextBox_Enter(object sender, EventArgs e)

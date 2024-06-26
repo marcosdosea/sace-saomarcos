@@ -58,7 +58,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma lançamentos de pagamentos?", "Confirmar Pagamentos", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-               // gerenciadorEntrada.Encerrar(entrada);
+               // service.GerenciadorEntrada.Encerrar(entrada);
 
                 this.Close();
             }

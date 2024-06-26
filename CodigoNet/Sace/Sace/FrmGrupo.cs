@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -9,25 +10,26 @@ namespace Sace
     {
         private EstadoFormulario estado;
         public Grupo GrupoSelected { get; set; }
-        private readonly GerenciadorGrupo gerenciadorGrupo;
-        private SaceContext context;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmGrupo(SaceContext context)
+        public FrmGrupo(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
-            gerenciadorGrupo = new GerenciadorGrupo(context);
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context); 
         }
 
         private void FrmGrupo_Load(object sender, EventArgs e)
         {
-            grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
+            grupoBindingSource.DataSource = service.GerenciadorGrupo.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa(context);
+            FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa(saceOptions);
             frmGrupoPesquisa.ShowDialog();
             if (frmGrupoPesquisa.SelectedGrupo != null)
             {
@@ -56,7 +58,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorGrupo.Remover(Int32.Parse(codGrupoTextBox.Text));
+                service.GerenciadorGrupo.Remover(Int32.Parse(codGrupoTextBox.Text));
                 grupoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -78,12 +80,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codGrupo = gerenciadorGrupo.Inserir(grupo);
+                    long codGrupo = service.GerenciadorGrupo.Inserir(grupo);
                     codGrupoTextBox.Text = codGrupo.ToString();
                 }
                 else
                 {
-                    gerenciadorGrupo.Atualizar(grupo);
+                    service.GerenciadorGrupo.Atualizar(grupo);
                 }
                 grupoBindingSource.EndEdit();
             }

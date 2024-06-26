@@ -12,36 +12,9 @@ namespace Negocio
     {
         private readonly SaceContext context;
 
-        private readonly GerenciadorNFe gerenciadorNFe;
-        private readonly GerenciadorLoja gerenciadorLoja;
-        private readonly GerenciadorConta gerenciadorConta;
-        private readonly GerenciadorProduto gerenciadorProduto;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private readonly GerenciadorCartaoCredito gerenciadorCartaoCredito;
-        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
-        private readonly GerenciadorSaidaProduto gerenciadorSaidaProduto;
-        private readonly GerenciadorEntradaProduto gerenciadorEntradaProduto;
-        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
-        private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
-        private readonly GerenciadorSolicitacaoDocumento gerenciadorSolicitacaoDocumento;
-        private readonly GerenciadorImprimirDocumento gerenciadorImprimirDocumento;
-
         public GerenciadorSaida(SaceContext saceContext)
         {
             context = saceContext;
-            gerenciadorNFe = new GerenciadorNFe(context);
-            gerenciadorConta = new GerenciadorConta(context);
-            gerenciadorLoja = new GerenciadorLoja(context);
-            gerenciadorPessoa = new GerenciadorPessoa(context);
-            gerenciadorCartaoCredito = new GerenciadorCartaoCredito(context);
-            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
-            gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context); 
-            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
-            gerenciadorProduto = new GerenciadorProduto(context);
-            gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
-            gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
-            gerenciadorImprimirDocumento = new GerenciadorImprimirDocumento(context);
         }
 
         /// <summary>
@@ -262,6 +235,11 @@ namespace Negocio
         /// <param name="saida"></param>
         public void Remover(Saida saida)
         {
+            var gerenciadorNFe = new GerenciadorNFe(context);
+            var gerenciadorConta = new GerenciadorConta(context);
+            var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
+            var gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
+            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
             try
             {
                 context.Database.BeginTransaction();
@@ -349,6 +327,12 @@ namespace Negocio
         /// <param name="saida"></param>
         public void PrepararEdicaoSaida(Saida saida)
         {
+            var gerenciadorNFe = new GerenciadorNFe(context);
+            var gerenciadorConta = new GerenciadorConta(context);
+            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+            var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
+            var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
+            var gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
             try
             {
                 if (saida.TipoSaida == Saida.TIPO_CREDITO)
@@ -900,6 +884,9 @@ namespace Negocio
         /// <param name="tipo_encerramento"></param>
         public void Encerrar(Saida saida, int tipo_encerramento, List<SaidaPagamento> saidaPagamentos, Pessoa cliente)
         {
+            var gerenciadorLoja = new GerenciadorLoja(context);
+            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+
             using (TransactionScope transaction = new TransactionScope())
             {
                 try
@@ -1007,6 +994,7 @@ namespace Negocio
         /// <param name="consumidor"></param>
         public void EncerrarDevolucaoConsumidor(Saida saida)
         {
+            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
             using (TransactionScope transaction = new TransactionScope())
             {
                 try
@@ -1042,31 +1030,35 @@ namespace Negocio
         /// <param name="consumidor"></param>
         public void EncerrarRetornoFornecedor(Saida saida)
         {
-            using (TransactionScope transaction = new TransactionScope())
-            {
-                try
-                {
-                    saida.TipoSaida = Saida.TIPO_RETORNO_FORNECEDOR;
-                    Atualizar(saida);
-                    List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                    RegistrarEstornoEstoque(saida, saidaProdutos);
-                    AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
-                    transaction.Complete();
-                }
-                catch (NegocioException ne)
-                {
-                    throw ne;
-                }
-                catch (DadosException de)
-                {
-                    throw de;
-                }
-                catch (Exception e)
-                {
-                    throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
-                }
+            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
 
+            try
+            {
+                context.Database.BeginTransaction();
+                saida.TipoSaida = Saida.TIPO_RETORNO_FORNECEDOR;
+                Atualizar(saida);
+                List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                RegistrarEstornoEstoque(saida, saidaProdutos);
+                AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
+                context.Database.CommitTransaction();
             }
+            catch (NegocioException ne)
+            {
+                context.Database.RollbackTransaction();
+                throw ne;
+            }
+            catch (DadosException de)
+            {
+                context.Database.RollbackTransaction();
+                throw de;
+            }
+            catch (Exception e)
+            {
+                context.Database.RollbackTransaction();
+                throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
+            }
+
+
         }
 
         /// <summary>
@@ -1076,6 +1068,10 @@ namespace Negocio
         /// <param name="_saida"></param>
         private void AtualizarCfopProdutosDevolucao(List<SaidaProduto> saidaProdutos, Saida saida)
         {
+            var gerenciadorPessoa = new GerenciadorPessoa(context);
+            var gerenciadorLoja = new GerenciadorLoja(context);
+            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+
             Pessoa fornecedor = gerenciadorPessoa.Obter(saida.CodCliente).ElementAtOrDefault(0);
             Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
             Pessoa pessoaLoja = gerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
@@ -1133,7 +1129,8 @@ namespace Negocio
         /// <returns></returns>
         public Boolean DataVencimentoProdutoAceitavel(ProdutoPesquisa produto, DateTime dataVencimento)
         {
-            if ((bool) produto.TemVencimento)
+            var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
+            if ((bool)produto.TemVencimento)
             {
                 DateTime dataMaisAntigo = gerenciadorEntradaProduto.GetDataProdutoMaisAntigoEstoque(produto);
                 return (dataMaisAntigo >= dataVencimento);
@@ -1148,6 +1145,9 @@ namespace Negocio
         /// <param name="saida"></param>
         public void RegistrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida)
         {
+            var gerenciadorConta = new GerenciadorConta(context);
+            var gerenciadorCartaoCredito = new GerenciadorCartaoCredito(context);
+            var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
             decimal totalRegistrado = 0;
 
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
@@ -1289,6 +1289,9 @@ namespace Negocio
         /// <param name="saidaProdutos"></param>
         public void RegistrarEstornoEstoque(Saida saida, List<SaidaProduto> saidaProdutos)
         {
+            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
             if (saidaProdutos == null)
                 saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
 
@@ -1314,9 +1317,12 @@ namespace Negocio
         /// </summary>
         /// <param name="saidaProdutos"></param>
         /// <returns> A soma dos preços de custo dos produtos baixados para determinar o lucro</returns>
-        private Decimal RegistrarBaixaEstoque(List<SaidaProduto> saidaProdutos)
+        private decimal RegistrarBaixaEstoque(List<SaidaProduto> saidaProdutos)
         {
-            Decimal somaPrecosCusto = 0;
+            var gerenciadorProduto = new GerenciadorProduto(context);
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
+            decimal somaPrecosCusto = 0;
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
                 Produto produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
@@ -1372,6 +1378,8 @@ namespace Negocio
         /// <param name="lojaDestino"></param>
         private void RegistrarTransferenciaEstoque(List<SaidaProduto> saidaProdutos, int lojaOrigem, int lojaDestino)
         {
+            var gerenciadorProduto = new GerenciadorProduto(context);
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
                 ProdutoPesquisa produto = gerenciadorProduto.Obter(saidaProduto.CodProduto).ElementAt(0);
@@ -1387,7 +1395,6 @@ namespace Negocio
         /// </summary>
         public void ReceberPagamentosContas(List<ContaSaida> listaContaSaida, List<SaidaPagamento> pagamentos, List<MovimentacaoConta> listaMovimentacaoConta, Saida saida)
         {
-            
             try
             {
                 context.Database.BeginTransaction();
@@ -1492,8 +1499,10 @@ namespace Negocio
 
         public bool SolicitaImprimirDAV(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Impressora.Tipo impressora)
         {
-            string tipoDocumento = impressora.Equals(Impressora.Tipo.REDUZIDO1) ? Impressora.REDUZIDO1 : Impressora.REDUZIDO2;
+            var gerenciadorImprimirDocumento = new GerenciadorImprimirDocumento(context);
 
+            string tipoDocumento = impressora.Equals(Impressora.Tipo.REDUZIDO1) ? Impressora.REDUZIDO1 : Impressora.REDUZIDO2;
+                       
             if (gerenciadorImprimirDocumento.ObterPorTipoDocumentoCodDocumento(tipoDocumento, listaCodSaidas.Min()).Count() > 0)
                 throw new NegocioException("Documento já foi solicitado para impressão. Verifique se impressora ligada.");
 
@@ -1538,7 +1547,7 @@ namespace Negocio
                 context.SaveChanges();
                 List<SaidaPesquisa> saidas = ObterPorCodSaidas(listaCodSaidas).ToList();
                 if (impressora.Equals(Impressora.Tipo.REDUZIDO1))
-                    return ImprimirDAVComprimido(saidas, (decimal) documento.Total, (decimal)documento.TotalAvista, (decimal)documento.Desconto, portaImpressora);
+                    return ImprimirDAVComprimido(saidas, (decimal)documento.Total, (decimal)documento.TotalAvista, (decimal)documento.Desconto, portaImpressora);
                 else
                     ImprimirDAVComprimidoVip(saidas, (decimal)documento.Total, (decimal)documento.TotalAvista, (decimal)documento.Desconto, portaImpressora);
             }
@@ -1547,6 +1556,9 @@ namespace Negocio
 
         private bool ImprimirDAVComprimido(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string portaImpressora)
         {
+            var gerenciadorPessoa = new GerenciadorPessoa(context);
+            var gerenciadorLoja = new GerenciadorLoja(context);
+            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
             try
             {
                 ImprimeTexto imp = new ImprimeTexto();
@@ -1557,7 +1569,7 @@ namespace Negocio
 
 
                 Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-                Pessoa pessoaLoja = (Pessoa)gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+                Pessoa pessoaLoja = (Pessoa) gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
 
                 imp.Imp(imp.Comprimido);
                 imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
@@ -1650,10 +1662,13 @@ namespace Negocio
 
         private void ImprimirDAVComprimidoVip(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string porta)
         {
+            var gerenciadorLoja = new GerenciadorLoja(context);
+            var gerenciadorPessoa = new GerenciadorPessoa(context);
+            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
             var printer = new Printer(porta, PrinterType.Bematech);
 
             Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-            Pessoa pessoaLoja = (Pessoa)gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+            Pessoa pessoaLoja = (Pessoa) gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
 
             //chamando a função para impressão do texto
             printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
@@ -1753,6 +1768,8 @@ namespace Negocio
 
         public void ImprimirCreditoPagamento(Saida saidaCredito, string portaImpressora)
         {
+            var gerenciadorLoja = new GerenciadorLoja(context);
+            var gerenciadorPessoa = new GerenciadorPessoa(context);
             var printer = new Printer(portaImpressora, PrinterType.Bematech);
             Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
             Pessoa pessoaLoja = (Pessoa)gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);

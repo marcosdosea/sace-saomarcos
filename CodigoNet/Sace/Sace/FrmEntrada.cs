@@ -1,12 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
-using Util;
-using System.Data;
-using Dados;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Negocio;
+using Util;
 
 namespace Sace
 {
@@ -17,39 +13,29 @@ namespace Sace
         private EntradaProduto entradaProduto;
         private int tipoEntrada;
         private ProdutoPesquisa produtoPesquisa;
-        private readonly GerenciadorNFe gerenciadorNFe;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private readonly GerenciadorProduto gerenciadorProduto;
-        private readonly GerenciadorCfop gerenciadorCfop;
-        private readonly GerenciadorCst gerenciadorCst;
-        private readonly GerenciadorEntrada gerenciadorEntrada;
-        private readonly GerenciadorEntradaProduto gerenciadorEntradaProduto;
-        private SaceContext context;
 
-        public FrmEntrada(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+        
+        public FrmEntrada(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
-            gerenciadorNFe = new GerenciadorNFe(context);
-            gerenciadorCfop = new GerenciadorCfop(context);
-            gerenciadorCst = new GerenciadorCst(context);
-            gerenciadorEntrada = new GerenciadorEntrada(context);
-            gerenciadorPessoa = new GerenciadorPessoa(context);
-            gerenciadorProduto = new GerenciadorProduto(context);
-            gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmEntrada_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos(); 
-            fornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            empresaFreteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            cfopBindingSource.DataSource = gerenciadorCfop.ObterTodos();
-            cstBindingSource.DataSource = gerenciadorCst.ObterTodos();
-            entradaBindingSource.DataSource = gerenciadorEntrada.ObterTodos();
-            situacaoPagamentosBindingSource.DataSource = gerenciadorEntrada.ObterTodosSituacoesPagamentos();
+            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodos(); 
+            fornecedorBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            empresaFreteBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            cfopBindingSource.DataSource = service.GerenciadorCfop.ObterTodos();
+            cstBindingSource.DataSource = service.GerenciadorCst.ObterTodos();
+            entradaBindingSource.DataSource = service.GerenciadorEntrada.ObterTodos();
+            situacaoPagamentosBindingSource.DataSource = service.GerenciadorEntrada.ObterTodosSituacoesPagamentos();
             entradaBindingSource.MoveLast();
             entrada = new Entrada();
             entradaProduto = new EntradaProduto();
@@ -61,7 +47,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmEntradaPesquisa frmEntradaPesquisa = new FrmEntradaPesquisa(context);
+            FrmEntradaPesquisa frmEntradaPesquisa = new FrmEntradaPesquisa(saceOptions);
             frmEntradaPesquisa.ShowDialog();
             if (frmEntradaPesquisa.EntradaSelected != null)
             {
@@ -94,7 +80,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorEntrada.Remover(Convert.ToInt64(codEntradaTextBox.Text));
+                service.GerenciadorEntrada.Remover(Convert.ToInt64(codEntradaTextBox.Text));
                 entradaBindingSource.RemoveCurrent();
             }
         }
@@ -116,12 +102,11 @@ namespace Sace
         {
             entrada = (Entrada)entradaBindingSource.Current;
 
-            GerenciadorEntrada gEntrada = gerenciadorEntrada;
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
                 entrada.CodTipoEntrada = tipoEntrada;
                 entrada.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
-                entrada.CodEntrada = gEntrada.Inserir(entrada);
+                entrada.CodEntrada = service.GerenciadorEntrada.Inserir(entrada);
                 codEntradaTextBox.Text = entrada.CodEntrada.ToString();
                 habilitaBotoes(true);
                 btnProdutos.Focus();
@@ -163,13 +148,13 @@ namespace Sace
                 entradaProduto.FornecedorEhFabricante = ((Pessoa)fornecedorBindingSource.Current).EhFabricante;
                 entradaProduto.CodFornecedor = ((Pessoa)fornecedorBindingSource.Current).CodPessoa;
 
-                gerenciadorEntradaProduto.Inserir(entradaProduto, entrada.CodTipoEntrada);
+                service.GerenciadorEntradaProduto.Inserir(entradaProduto, entrada.CodTipoEntrada);
                 codEntradaTextBox_TextChanged(sender, e);
                 btnProdutos_Click(sender, e);
             }
             else
             {
-                gEntrada.Atualizar(entrada);
+                service.GerenciadorEntrada.Atualizar(entrada);
                 produtoBindingSource.Position = 0;
                 habilitaBotoes(true);
                 btnProdutos.Focus();
@@ -187,7 +172,7 @@ namespace Sace
                 {
                     EntradaProduto _entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                     Entrada _entrada = (Entrada)entradaBindingSource.Current;
-                    gerenciadorEntradaProduto.Remover(_entradaProduto, entrada.CodTipoEntrada);
+                    service.GerenciadorEntradaProduto.Remover(_entradaProduto, entrada.CodTipoEntrada);
                 }
             }
             codEntradaTextBox_TextChanged(sender, e);
@@ -241,13 +226,13 @@ namespace Sace
 
         private void codFornecedorComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codFornecedorComboBox, estado, fornecedorBindingSource, false, true, gerenciadorPessoa);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codFornecedorComboBox, estado, fornecedorBindingSource, false, true, service);
             codEntradaTextBox_Leave(sender, e);
         }
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, estado, empresaFreteBindingSource, false, false, gerenciadorPessoa);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, estado, empresaFreteBindingSource, false, false, service);
             codEntradaTextBox_Leave(sender, e);
         }
 
@@ -255,7 +240,7 @@ namespace Sace
         {
             if (estado.Equals(EstadoFormulario.INSERIR_DETALHE))
             {
-                produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true, context);
+                produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true, service, saceOptions);
 
                 EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
                 if (produtoPesquisa != null)
@@ -293,7 +278,7 @@ namespace Sace
             decimal totalNotaCalculado = 0;
             if ((!codEntradaTextBox.Text.Trim().Equals("")) && (long.Parse(codEntradaTextBox.Text) > 1))
             {
-                IEnumerable<EntradaProduto> listaEntradaProduto = gerenciadorEntradaProduto.ObterPorEntrada(long.Parse(codEntradaTextBox.Text));
+                IEnumerable<EntradaProduto> listaEntradaProduto = service.GerenciadorEntradaProduto.ObterPorEntrada(long.Parse(codEntradaTextBox.Text));
                 entradaProdutoBindingSource.DataSource = listaEntradaProduto;
                 foreach (EntradaProduto entradaProduto in listaEntradaProduto)
                 {
@@ -310,7 +295,7 @@ namespace Sace
             {
                 habilitaBotoes(true);
                 estado = EstadoFormulario.ESPERA;
-                entrada = gerenciadorEntrada.Obter(Convert.ToInt64(codEntradaTextBox.Text)).GetEnumerator().Current;
+                entrada = service.GerenciadorEntrada.Obter(Convert.ToInt64(codEntradaTextBox.Text)).GetEnumerator().Current;
                 //FrmEntradaPagamento frmEntradaPagamento = new FrmEntradaPagamento(entrada);
                 //frmEntradaPagamento.ShowDialog();
                 //frmEntradaPagamento.Dispose();
@@ -323,20 +308,20 @@ namespace Sace
             if (openFileDialogNfe.ShowDialog() == DialogResult.OK)
             {
                 string nomearquivo = openFileDialogNfe.FileName;
-                TNfeProc nfe = gerenciadorNFe.LerNFE(nomearquivo);
+                TNfeProc nfe = service.GerenciadorNFe.LerNFE(nomearquivo);
                 if (MessageBox.Show("Deseja importar CABEÇALHO da NF-e?", "Confirmar Importar NF-e", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    long codEntrada = gerenciadorEntrada.Importar(nfe);
-                    fornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-                    empresaFreteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-                    entradaBindingSource.DataSource = gerenciadorEntrada.ObterTodos();
+                    long codEntrada = service.GerenciadorEntrada.Importar(nfe);
+                    fornecedorBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+                    empresaFreteBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+                    entradaBindingSource.DataSource = service.GerenciadorEntrada.ObterTodos();
                     entradaBindingSource.Position = entradaBindingSource.List.IndexOf(new Entrada() { CodEntrada = codEntrada });
                     Cursor.Current = Cursors.Default;
                 }
                 if (MessageBox.Show("Deseja importar PRODUTOS da NF-e?", "Confirmar Importar NF-e", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    List<EntradaProduto> listaEntradaProduto = gerenciadorEntradaProduto.Importar(nfe);
+                    List<EntradaProduto> listaEntradaProduto = service.GerenciadorEntradaProduto.Importar(nfe);
                     Entrada entrada = (Entrada)entradaBindingSource.Current;
                     if (listaEntradaProduto.Count > 0)
                     {
@@ -346,7 +331,7 @@ namespace Sace
                         }
                     }
                     entrada = (Entrada) entradaBindingSource.Current;
-                    FrmEntradaImportar frmEntradaImportar = new FrmEntradaImportar(entrada, listaEntradaProduto, context);
+                    FrmEntradaImportar frmEntradaImportar = new FrmEntradaImportar(entrada, listaEntradaProduto, saceOptions);
                     frmEntradaImportar.ShowDialog();
                     frmEntradaImportar.Dispose();
                     codEntradaTextBox_TextChanged(sender, e);
@@ -517,7 +502,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codFornecedorComboBox.Focused))
                 {
-                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(context);
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(saceOptions);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -527,18 +512,18 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codFornecedorComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa(context);
+                    FrmPessoa frmPessoa = new FrmPessoa(saceOptions);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
-                        fornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+                        fornecedorBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
                         fornecedorBindingSource.Position = fornecedorBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }
                 else if ((e.KeyCode == Keys.F2) && (codEmpresaFreteComboBox.Focused))
                 {
-                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(context);
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(saceOptions);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -548,18 +533,18 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codEmpresaFreteComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa(context);
+                    FrmPessoa frmPessoa = new FrmPessoa(saceOptions);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
-                        empresaFreteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+                        empresaFreteBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
                         empresaFreteBindingSource.Position = empresaFreteBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
                 }
                 else if ((e.KeyCode == Keys.F2) && (codProdutoComboBox.Focused))
                 {
-                    FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new FrmProdutoPesquisaPreco(true, context);
+                    FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new FrmProdutoPesquisaPreco(true, saceOptions);
                     frmProdutoPesquisaPreco.ShowDialog();
                     if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                     {
@@ -569,11 +554,11 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
                 {
-                    FrmProduto frmProduto = new FrmProduto(context);
+                    FrmProduto frmProduto = new FrmProduto(saceOptions);
                     frmProduto.ShowDialog();
                     if (frmProduto.ProdutoPesquisa != null)
                     {
-                        produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
+                        produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodos();
                         produtoBindingSource.Position = produtoBindingSource.List.IndexOf(frmProduto.ProdutoPesquisa);
                     }
                     frmProduto.Dispose();

@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -8,27 +9,26 @@ namespace Sace
     public partial class FrmSaidaDevolucao : Form
     {
         private Saida saida;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        private readonly GerenciadorSaida gerenciadorSaida;
-        private readonly GerenciadorEntrada gerenciadorEntrada;
-        private readonly GerenciadorPessoa gerenciadorPessoa;   
-        public FrmSaidaDevolucao(Saida saida, SaceContext context)
+        public FrmSaidaDevolucao(Saida saida, DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             this.saida = saida;
-            gerenciadorEntrada = new GerenciadorEntrada(context);
-            gerenciadorSaida = new GerenciadorSaida(context);
-            gerenciadorPessoa = new GerenciadorPessoa(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmSaidaDevolucao_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            entradaBindingSource.DataSource = gerenciadorEntrada.ObterTodos();
-            saida = gerenciadorSaida.Obter(saida.CodSaida);
+            entradaBindingSource.DataSource = service.GerenciadorEntrada.ObterTodos();
+            saida = service.GerenciadorSaida.Obter(saida.CodSaida);
             entradaBindingSource.Position = entradaBindingSource.IndexOf(new Entrada() { CodEntrada = saida.CodEntrada });
-            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
-            IEnumerable<Pessoa> pessoas = gerenciadorPessoa.ObterTodos();
+            saidaBindingSource.DataSource = service.GerenciadorSaida.Obter(saida.CodSaida);
+            IEnumerable<Pessoa> pessoas = service.GerenciadorPessoa.ObterTodos();
             pessoaDestinoBindingSource.DataSource = pessoas;
             pessoaFreteBindingSource.DataSource = pessoas;
             pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.List.IndexOf(new Pessoa() { CodPessoa = saida.CodCliente });
@@ -66,17 +66,17 @@ namespace Sace
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO)) {
                 if (MessageBox.Show("Confirma Remessa de Produtos para Conserto?", "Confirmar Remessa para Conserto", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null, null);
+                    service.GerenciadorSaida.Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null, null);
                 }
             }
             else if (saida.TipoSaida == Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR)
             {
                 if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null, null);
+                    service.GerenciadorSaida.Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null, null);
                 }
             }
-            gerenciadorSaida.Atualizar(saida);
+            service.GerenciadorSaida.Atualizar(saida);
             
             this.Close();
         }
@@ -116,7 +116,7 @@ namespace Sace
                 saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
                 saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
 
-                totalNotaFiscalTextBox.Text = gerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
+                totalNotaFiscalTextBox.Text = service.GerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
             }
             codSaidaTextBox_Leave(sender, e);
         }
@@ -135,7 +135,7 @@ namespace Sace
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false, gerenciadorPessoa);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false, service);
             codSaidaTextBox_Leave(sender, e);
         }
 

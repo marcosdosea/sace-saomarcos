@@ -9,20 +9,10 @@ namespace Negocio
     public class GerenciadorEntrada
     {
         private readonly SaceContext context;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private readonly GerenciadorMunicipio gerenciadorMunicipio;
-        private readonly GerenciadorConta gerenciadorConta;
-        private readonly GerenciadorLoja gerenciadorLoja;
-        private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
 
         public GerenciadorEntrada(SaceContext saceContext)
         {
             context = saceContext;
-            gerenciadorPessoa = new GerenciadorPessoa(context);
-            gerenciadorMunicipio = new GerenciadorMunicipio(context);
-            gerenciadorConta = new GerenciadorConta(context);
-            gerenciadorLoja = new GerenciadorLoja(context);
-            gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
         }
 
         /// <summary>
@@ -136,6 +126,9 @@ namespace Negocio
 
         private long ObterInserirEmpresaFrete(TNFe nfe)
         {
+            var gerenciadorPessoa = new GerenciadorPessoa(context);
+            var gerenciadorMunicipio = new GerenciadorMunicipio(context);
+
             if (nfe.infNFe.transp != null && nfe.infNFe.transp.transporta != null && !string.IsNullOrEmpty(nfe.infNFe.transp.transporta.Item))
             {
                 Pessoa empresaFrete = gerenciadorPessoa.ObterPorCpfCnpj(nfe.infNFe.transp.transporta.Item).ElementAtOrDefault(0);
@@ -173,6 +166,8 @@ namespace Negocio
 
         private long ObterInserirFornecedor(TNFe nfe)
         {
+            var gerenciadorPessoa = new GerenciadorPessoa(context);
+
             if (nfe.infNFe.emit != null)
             {
                 Pessoa fornecedor = gerenciadorPessoa.ObterPorCpfCnpj(nfe.infNFe.emit.Item).ElementAtOrDefault(0);
@@ -356,7 +351,10 @@ namespace Negocio
         /// <param name="entrada"></param>
         private void RegistrarPagamentosEntrada(List<TbEntradaFormaPagamento> pagamentos, Entrada entrada)
         {
-
+            var gerenciadorConta = new GerenciadorConta(context);
+            var gerenciadorLoja = new GerenciadorLoja(context);
+            var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
+            context.Database.BeginTransaction();
             foreach (TbEntradaFormaPagamento pagamento in pagamentos)
             {
                 // Para cada pagamento é criada uma nova conta
@@ -408,7 +406,9 @@ namespace Negocio
 
                     gerenciadorMovimentacaoConta.Inserir(movimentacao);
                 }
+
             }
+            context.Database.CommitTransaction();
         }
 
         /// <summary>

@@ -9,15 +9,17 @@ namespace Sace
     {
         public PontaEstoque PontaEstoqueSelected { get; set; }
         IEnumerable<PontaEstoque> listaPontaEstoque;
-
-        private readonly GerenciadorPontaEstoque gerenciadorPontaEstoque;
-
-        public FrmPontaEstoquePesquisa(IEnumerable<PontaEstoque> listaPontaEstoque, SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+        
+        public FrmPontaEstoquePesquisa(IEnumerable<PontaEstoque> listaPontaEstoque, DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             PontaEstoqueSelected = null;
             this.listaPontaEstoque = listaPontaEstoque;
-            gerenciadorPontaEstoque = new GerenciadorPontaEstoque(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
@@ -31,7 +33,7 @@ namespace Sace
             if (MessageBox.Show("Confirma Exclusão e Utilização dessa Ponta de Estoque?", "Confirmar Seleção Ponta Estoque", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 PontaEstoqueSelected = (PontaEstoque)pontaEstoqueBindingSource.Current;
-                gerenciadorPontaEstoque.Remover(PontaEstoqueSelected.CodPontaEstoque);
+                service.GerenciadorPontaEstoque.Remover(PontaEstoqueSelected.CodPontaEstoque);
             }
             else
             {

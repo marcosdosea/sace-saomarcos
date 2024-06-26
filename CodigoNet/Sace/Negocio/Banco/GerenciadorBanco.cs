@@ -18,7 +18,7 @@ namespace Negocio
         /// </summary>
         /// <param name="banco"></param>
         /// <returns></returns>
-        public Int64 Inserir(Banco banco)
+        public long Inserir(Banco banco)
         {
             TbBanco _banco = new TbBanco();
             try

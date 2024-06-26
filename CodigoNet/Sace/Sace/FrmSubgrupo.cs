@@ -10,6 +10,7 @@ using Negocio;
 using Dominio;
 using Util;
 using Dados;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sace
 {
@@ -19,31 +20,29 @@ namespace Sace
 
         public Subgrupo SubgrupoSelected { get; set; }
         public Grupo GrupoSelected { get; set; }
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        private readonly GerenciadorGrupo gerenciadorGrupo;
-        private readonly GerenciadorSubgrupo gerenciadorSubgrupo;
-        private SaceContext context;
-
-        public FrmSubgrupo(SaceContext context)
+        public FrmSubgrupo(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             GrupoSelected = null;
             SubgrupoSelected = null;
-            this.context = context;
-            gerenciadorGrupo = new GerenciadorGrupo(context);
-            gerenciadorSubgrupo = new GerenciadorSubgrupo(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmSubgrupo_Load(object sender, EventArgs e)
         {
-            grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
-            subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterTodos();
+            grupoBindingSource.DataSource = service.GerenciadorGrupo.ObterTodos();
+            subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmSubgrupoPesquisa frmSubgrupoPesquisa = new FrmSubgrupoPesquisa(context);
+            FrmSubgrupoPesquisa frmSubgrupoPesquisa = new FrmSubgrupoPesquisa(saceOptions);
             frmSubgrupoPesquisa.ShowDialog();
             if (frmSubgrupoPesquisa.SubgrupoSelected != null)
             {
@@ -74,7 +73,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorSubgrupo.Remover(Int32.Parse(codSubgrupoTextBox.Text));
+                service.GerenciadorSubgrupo.Remover(Int32.Parse(codSubgrupoTextBox.Text));
                 subgrupoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -96,12 +95,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codSubgrupo = gerenciadorSubgrupo.Inserir(subgrupo);
+                    long codSubgrupo = service.GerenciadorSubgrupo.Inserir(subgrupo);
                     codSubgrupoTextBox.Text = codSubgrupo.ToString();
                 }
                 else
                 {
-                    gerenciadorSubgrupo.Atualizar(subgrupo);
+                    service.GerenciadorSubgrupo.Atualizar(subgrupo);
                 }
                 subgrupoBindingSource.EndEdit();
             }
@@ -174,7 +173,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoComboBox.Focused))
                 {
-                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa(context);
+                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa(saceOptions);
                     frmGrupoPesquisa.ShowDialog();
                     if (frmGrupoPesquisa.SelectedGrupo != null)
                     {
@@ -184,7 +183,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoComboBox.Focused))
                 {
-                    FrmGrupo frmGrupo = new FrmGrupo(context);
+                    FrmGrupo frmGrupo = new FrmGrupo(saceOptions);
                     frmGrupo.ShowDialog();
                     if (frmGrupo.GrupoSelected != null)
                     {
@@ -213,7 +212,7 @@ namespace Sace
         private void FrmSubgrupo_FormClosing(object sender, FormClosingEventArgs e)
         {
             SubgrupoSelected = (Subgrupo)subgrupoBindingSource.Current;
-            GrupoSelected = gerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
+            GrupoSelected = service.GerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
         }
 
         private void codGrupoComboBox_KeyPress(object sender, KeyPressEventArgs e)

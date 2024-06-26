@@ -1,4 +1,5 @@
 ﻿using Dados;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -6,12 +7,15 @@ namespace Sace
     public partial class FrmCalcularVendasPorVendedor : Form
     {
 
-        private readonly GerenciadorSaida gerenciadorSaida;
-        public FrmCalcularVendasPorVendedor(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+        public FrmCalcularVendasPorVendedor(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             dateTimeInicial.Value = DateTime.Now.AddMonths(-1);
-            gerenciadorSaida = new GerenciadorSaida(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext();
+            SaceService service = new SaceService(context);
         }
 
         private void FrmCalcularVendasPorVendedor_KeyDown(object sender, KeyEventArgs e)
@@ -37,7 +41,7 @@ namespace Sace
             Cursor.Current = Cursors.WaitCursor; 
             DateTime dataInicial = dateTimeInicial.Value;
             DateTime dataFinal = dateTimeFinal.Value;
-            vendasVendedorBindingSource.DataSource = gerenciadorSaida.ObterVendasPorVendedor(dataInicial, dataFinal);
+            vendasVendedorBindingSource.DataSource = service.GerenciadorSaida.ObterVendasPorVendedor(dataInicial, dataFinal);
             Cursor.Current = Cursors.Default; 
         }
 

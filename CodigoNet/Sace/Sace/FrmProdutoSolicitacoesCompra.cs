@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -7,30 +8,26 @@ namespace Sace
 {
     public partial class FrmProdutoSolicitacoesCompra : Form
     {
-        private readonly GerenciadorProduto gerenciadorProduto;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
-        private readonly GerenciadorSaidaProduto gerenciadorSaidaProduto;
-     
-        public FrmProdutoSolicitacoesCompra(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+
+        public FrmProdutoSolicitacoesCompra(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            gerenciadorPessoa = new GerenciadorPessoa(context);
-            gerenciadorProduto = new GerenciadorProduto(context);
-            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
-            gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
-
 
         private void FrmProdutoEstatistica_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodos();
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodos();
+            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
 
             if (MessageBox.Show("Deseja ANALISAR ESTOQUE para atualizar SOLICITAÇÕES DE COMPRA?", "Confirmar Análise Estoque", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                gerenciadorSaidaProduto.AtualizarSituacaoEstoqueProdutos();
+                service.GerenciadorSaidaProduto.AtualizarSituacaoEstoqueProdutos();
                 Cursor.Current = Cursors.Default;
             }
             comboBoxFornecedor_SelectedIndexChanged(sender, e);
@@ -52,7 +49,7 @@ namespace Sace
                     SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.NAO_COMPRAR;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
+                    service.GerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -63,7 +60,7 @@ namespace Sace
                     SolicitacoesCompra solicitacaoCompra = new SolicitacoesCompra();
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
+                    service.GerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -75,7 +72,7 @@ namespace Sace
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRA_NECESSARIA;
                     solicitacaoCompra.DataSolicitacaoCompra = DateTime.Now;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
+                    service.GerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -88,7 +85,7 @@ namespace Sace
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRA_URGENTE;
                     solicitacaoCompra.DataSolicitacaoCompra = DateTime.Now;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
+                    service.GerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -101,7 +98,7 @@ namespace Sace
                     solicitacaoCompra = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
                     solicitacaoCompra.CodSituacaoProduto = SituacaoProduto.COMPRADO;
                     solicitacaoCompra.DataPedidoCompra = DateTime.Now;
-                    gerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
+                    service.GerenciadorProduto.AtualizarSituacaoProduto(solicitacaoCompra, UtilConfig.Default.SERVIDOR_NFE);
                     comboBoxFornecedor_SelectedIndexChanged(sender, e);
                 }
             }
@@ -119,20 +116,20 @@ namespace Sace
       
         private void preencherDadosEstatisticos(ProdutoPesquisa produtoPesquisa)
         {
-            Produto produto = gerenciadorProduto.Obter(produtoPesquisa);
+            Produto produto = service.GerenciadorProduto.Obter(produtoPesquisa);
             
             preco_custoTextBox.Text = produto.PrecoCusto.ToString("N2");
             precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString("N2");
             precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString("N2");
 
-            produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
+            produtoLojaBindingSource.DataSource = service.GerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
             //this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produto.CodProduto);
             //this.produtosVendidosTableAdapter.FillQuantidadeProdutosVendidosMesAnoAsc(saceDataSetConsultas.ProdutosVendidos, produto.CodProduto);
 
             //Dados.saceDataSetConsultas.ProdutosVendidosDataTable pVendidosTable = new Dados.saceDataSetConsultas.ProdutosVendidosDataTable();
             //pVendidosTable = this.saceDataSetConsultas.ProdutosVendidos;
 
-            chart1.DataSource = gerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 5); // produtosVendidosTableAdapterBindingSource;
+            chart1.DataSource = service.GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 5); // produtosVendidosTableAdapterBindingSource;
 
             chart1.Series[0].Name = "Qtd Vendidos";
             chart1.Series[0].XValueMember = "MesAno"; //pVendidosTable.mesanoColumn.ToString();
@@ -143,7 +140,7 @@ namespace Sace
             chart1.DataBind();
             chart1.Visible = true;
 
-            List<ProdutoVendido> produtosVendidos = gerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 2);
+            List<ProdutoVendido> produtosVendidos = service.GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 2);
 
             decimal somaVendidos = 0;
             if (produtosVendidos.Count == 0)
@@ -186,7 +183,7 @@ namespace Sace
 
         private void comboBoxFornecedor_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, comboBoxFornecedor, EstadoFormulario.ATUALIZAR, pessoaBindingSource, true, false, gerenciadorPessoa); 
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, comboBoxFornecedor, EstadoFormulario.ATUALIZAR, pessoaBindingSource, true, false, service); 
         }
 
         private void comboBoxFornecedor_SelectedIndexChanged(object sender, EventArgs e)
@@ -205,7 +202,7 @@ namespace Sace
             long codFornecedor = 1;
             if (comboBoxFornecedor.SelectedValue != null)
                 codFornecedor = (long) comboBoxFornecedor.SelectedValue;
-            solicitacoesCompraBindingSource.DataSource = gerenciadorProduto.ObterSolicitacoesCompra(listaSituacoesProdutoChecked, codFornecedor);
+            solicitacoesCompraBindingSource.DataSource = service.GerenciadorProduto.ObterSolicitacoesCompra(listaSituacoesProdutoChecked, codFornecedor);
         }
 
         private void DestacarProdutos()
@@ -254,7 +251,7 @@ namespace Sace
             if (solicitacoesCompraBindingSource.Count > 0)
             {
                 SolicitacoesCompra solicitacao = (SolicitacoesCompra)solicitacoesCompraBindingSource.Current;
-                ProdutoPesquisa produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = solicitacao.CodProduto });
+                ProdutoPesquisa produto = service.GerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = solicitacao.CodProduto });
                 produtoBindingSource.DataSource = produto;
                 preencherDadosEstatisticos(produto);
             }

@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
@@ -7,27 +8,30 @@ namespace Sace
     public partial class FrmGrupoContaPesquisa : Form
     {
         public GrupoConta GrupoConta { get; set; }
-        private readonly GerenciadorGrupoConta gerenciadorGrupoConta;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmGrupoContaPesquisa(SaceContext context)
+        public FrmGrupoContaPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             GrupoConta = null;
-            gerenciadorGrupoConta = new GerenciadorGrupoConta(context); 
+            this.saceOptions = saceOptions; 
+            SaceContext context = new SaceContext(saceOptions);
+            SaceService service = new SaceService(context);
         }
 
         private void FrmGrupoContaPesquisa_Load(object sender, EventArgs e)
         {
-            grupoContaBindingSource.DataSource = gerenciadorGrupoConta.ObterTodos();
+            grupoContaBindingSource.DataSource = service.GerenciadorGrupoConta.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-               grupoContaBindingSource.DataSource = gerenciadorGrupoConta.Obter(Convert.ToInt32(txtTexto.Text));
+               grupoContaBindingSource.DataSource = service.GerenciadorGrupoConta.Obter(Convert.ToInt32(txtTexto.Text));
             else
-              grupoContaBindingSource.DataSource = gerenciadorGrupoConta.ObterPorDescricao(txtTexto.Text);
+              grupoContaBindingSource.DataSource = service.GerenciadorGrupoConta.ObterPorDescricao(txtTexto.Text);
          }
 
         private void tb_grupo_contaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

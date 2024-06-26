@@ -10,24 +10,22 @@ namespace Sace
     {
         private EstadoFormulario estado;
         public ProdutoPesquisa ProdutoSelected { get; set; }
-     
-        private readonly GerenciadorLoja gerenciadorLoja;
-        private readonly GerenciadorProdutoLoja gerenciadorProdutoLoja;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        private SaceContext context;
-        public FrmProdutoAjusteEstoque(ProdutoPesquisa _produto, SaceContext context)
+        public FrmProdutoAjusteEstoque(ProdutoPesquisa _produto, DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
             ProdutoSelected = _produto;
-            gerenciadorLoja = new GerenciadorLoja(context);
-            gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmProdutoAjusteEstoque_Load(object sender, EventArgs e)
         {
-            lojaBindingSource.DataSource = gerenciadorLoja.ObterTodos();
-            produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
+            lojaBindingSource.DataSource = service.GerenciadorLoja.ObterTodos();
+            produtoLojaBindingSource.DataSource = service.GerenciadorProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
             habilitaBotoes(true);
         }
 
@@ -78,16 +76,15 @@ namespace Sace
                 produtoLoja.Localizacao2 = localizacao2TextBox.Text;
 
                 
-                GerenciadorProdutoLoja gProdutoLoja = gerenciadorProdutoLoja;
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    gProdutoLoja.Inserir(produtoLoja);
-                    produtoLojaBindingSource.DataSource = gProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
+                    service.GerenciadorProdutoLoja.Inserir(produtoLoja);
+                    produtoLojaBindingSource.DataSource = service.GerenciadorProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
                     produtoLojaBindingSource.MoveLast();
                 }
                 else
                 {
-                    gProdutoLoja.Atualizar(produtoLoja);
+                    service.GerenciadorProdutoLoja.Atualizar(produtoLoja);
                     produtoLojaBindingSource.EndEdit();
                 }
             }
@@ -202,13 +199,13 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true, context);
+            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true, saceOptions);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {
                 nomeProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.Nome;
                 codProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.CodProduto.ToString();
-                produtoLojaBindingSource.DataSource = gerenciadorProdutoLoja.ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
+                produtoLojaBindingSource.DataSource = service.GerenciadorProdutoLoja.ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
                 ProdutoSelected = frmProdutoPesquisa.ProdutoPesquisa;
                 habilitaBotoes(true);
             }

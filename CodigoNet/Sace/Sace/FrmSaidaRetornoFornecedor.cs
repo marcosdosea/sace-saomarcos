@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -8,26 +9,24 @@ namespace Sace
     public partial class FrmSaidaRetornoFornecedor : Form
     {
         private Saida saida;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        private readonly GerenciadorSaida gerenciadorSaida;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private readonly SaceContext context;
-
-        public FrmSaidaRetornoFornecedor(Saida saida, SaceContext context)
+        public FrmSaidaRetornoFornecedor(Saida saida, DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             this.saida = saida;
-            this.context = context; 
-            gerenciadorPessoa = new GerenciadorPessoa(context);
-            gerenciadorSaida = new GerenciadorSaida(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmSaidaRetornoFornecedor_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saida = gerenciadorSaida.Obter(saida.CodSaida);
-            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
-            IEnumerable<Pessoa> pessoas = gerenciadorPessoa.ObterTodos();
+            saida = service.GerenciadorSaida.Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = service.GerenciadorSaida.Obter(saida.CodSaida);
+            IEnumerable<Pessoa> pessoas = service.GerenciadorPessoa.ObterTodos();
             pessoaDestinoBindingSource.DataSource = pessoas;
             pessoaFreteBindingSource.DataSource = pessoas;
             pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.List.IndexOf(new Pessoa() { CodPessoa = saida.CodCliente });
@@ -64,10 +63,10 @@ namespace Sace
             {
                 if (MessageBox.Show("Confirma Retorno de mercadorias do fornecedor?", "Confirmar Dados do Retorno de Mercadorias", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.EncerrarRetornoFornecedor(saida);
+                    service.GerenciadorSaida.EncerrarRetornoFornecedor(saida);
                 }
             }
-            gerenciadorSaida.Atualizar(saida);
+            service.GerenciadorSaida.Atualizar(saida);
             
             this.Close();
         }
@@ -107,7 +106,7 @@ namespace Sace
                 saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
                 saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
 
-                totalNotaFiscalTextBox.Text = gerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
+                totalNotaFiscalTextBox.Text = service.GerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
             }
             codSaidaTextBox_Leave(sender, e);
         }
@@ -126,7 +125,7 @@ namespace Sace
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false, gerenciadorPessoa);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false, service);
             codSaidaTextBox_Leave(sender, e);
         }
 
@@ -150,12 +149,12 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa(context);
+            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa(saceOptions);
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.SaidaSelected != null)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                saidaCupomBindingSource.DataSource = gerenciadorSaida.Obter(frmSaidaPesquisa.SaidaSelected.CodSaida);
+                saidaCupomBindingSource.DataSource = service.GerenciadorSaida.Obter(frmSaidaPesquisa.SaidaSelected.CodSaida);
                 saidaCupomBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
                 Cursor.Current = Cursors.Default;
             }

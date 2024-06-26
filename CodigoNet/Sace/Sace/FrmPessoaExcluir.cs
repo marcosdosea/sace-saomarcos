@@ -8,12 +8,15 @@ namespace Sace
     public partial class FrmPessoaExcluir : Form
     {
         EstadoFormulario estado = EstadoFormulario.ESPERA;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmPessoaExcluir(SaceContext context)
+        public FrmPessoaExcluir(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            gerenciadorPessoa = new GerenciadorPessoa(context);
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -23,7 +26,7 @@ namespace Sace
 
             if (MessageBox.Show("Confirma exclusão da PESSOA DO SISTEMA?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorPessoa.SubstituirPessoa(codPessoaExcluir, codPessoaManter);
+                service.GerenciadorPessoa.SubstituirPessoa(codPessoaExcluir, codPessoaManter);
                 pessoaBindingSource.RemoveCurrent();
             }
             codPessoaComboBox.Focus();
@@ -31,7 +34,7 @@ namespace Sace
 
         private void FrmPessoaExcluir_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
             pessoaBindingSource1.DataSource = pessoaBindingSource.DataSource;
         }
 
@@ -42,12 +45,12 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa _pessoaPesquisa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, false, gerenciadorPessoa);
+            Pessoa _pessoaPesquisa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, false, service);
         }
 
         private void codPessoaComboBox1_Leave(object sender, EventArgs e)
         {
-            Pessoa _pessoaPesquisa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox1, estado, pessoaBindingSource1, true, false, gerenciadorPessoa);
+            Pessoa _pessoaPesquisa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox1, estado, pessoaBindingSource1, true, false, service);
         }
 
         private void FrmPessoaExcluir_KeyDown(object sender, KeyEventArgs e)

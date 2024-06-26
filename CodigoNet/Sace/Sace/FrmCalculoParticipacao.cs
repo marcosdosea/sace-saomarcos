@@ -1,17 +1,21 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 
 namespace Sace
 {
     public partial class FrmCalculoParticipacao : Form
     {
-        private readonly GerenciadorSaida gerenciadorSaida;
- 
-        public FrmCalculoParticipacao(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+
+        public FrmCalculoParticipacao(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            gerenciadorSaida = new GerenciadorSaida(context);
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmCalculoParticipacao_KeyDown(object sender, KeyEventArgs e)
@@ -46,7 +50,7 @@ namespace Sace
             decimal metaVendas = 0;
             decimal.TryParse(textMetaVendas.Text, out metaVendas);
             
-            List<Saida> saidas = gerenciadorSaida.ObterVendasParticipacaoLucros(dataInicial, dataFinal, valorMinimoVenda);
+            List<Saida> saidas = service.GerenciadorSaida.ObterVendasParticipacaoLucros(dataInicial, dataFinal, valorMinimoVenda);
             decimal lucroBruto = saidas.Sum(s => s.TotalLucro);
 
             decimal descontoAvaliacaoClientes = avaliacaoClientes / 5;

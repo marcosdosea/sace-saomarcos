@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Reporting.WinForms;
 using Negocio;
 using System.Data;
@@ -11,25 +12,24 @@ namespace Sace.Relatorios.Produtos
     {
         private long codPessoa;
         private decimal lucro;
-        private readonly GerenciadorLoja gerenciadorLoja;
-        private readonly GerenciadorProduto gerenciadorProduto;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmRelProdutosRevenda(long codPessoa, decimal lucro, SaceContext context)
+        public FrmRelProdutosRevenda(long codPessoa, decimal lucro, DbContextOptions<SaceContext> saceOptions)
         {
             this.codPessoa = codPessoa;
             this.lucro = lucro;
             InitializeComponent();
-            gerenciadorLoja = new GerenciadorLoja(context);
-            gerenciadorPessoa = new GerenciadorPessoa(context);
-            gerenciadorProduto = new GerenciadorProduto(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmRelProdutosRevenda_Load(object sender, EventArgs e)
         {
-            ProdutoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigoFabricante(codPessoa);
-            Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
-            PessoaBindingSource.DataSource = gerenciadorPessoa.Obter(loja.CodPessoa);
+            ProdutoBindingSource.DataSource = service.GerenciadorProduto.ObterPorCodigoFabricante(codPessoa);
+            Loja loja = service.GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
+            PessoaBindingSource.DataSource = service.GerenciadorPessoa.Obter(loja.CodPessoa);
 
             string parametroLucro = (1 + lucro / 100).ToString();
 

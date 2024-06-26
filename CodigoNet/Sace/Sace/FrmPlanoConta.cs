@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
-using Dados;
+﻿using Dados;
 using Dominio;
-using Util;
 using Microsoft.EntityFrameworkCore;
+using Negocio;
+using Util;
 
 namespace Sace
 {
@@ -19,29 +11,27 @@ namespace Sace
         private EstadoFormulario estado;
 
         public PlanoConta PlanoContaSelected;
-        private readonly GerenciadorGrupoConta gerenciadorGrupoConta;
-        private readonly GerenciadorPlanoConta gerenciadorPlanoConta;
-        private SaceContext context;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmPlanoConta(SaceContext context)
+        public FrmPlanoConta(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
-            gerenciadorGrupoConta = new GerenciadorGrupoConta(context);
-            gerenciadorPlanoConta = new GerenciadorPlanoConta(context);
-
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
-            grupoContaBindingSource.DataSource = gerenciadorGrupoConta.ObterTodos();
-            planoContaBindingSource.DataSource = gerenciadorPlanoConta.ObterTodos();
+            grupoContaBindingSource.DataSource = service.GerenciadorGrupoConta.ObterTodos();
+            planoContaBindingSource.DataSource = service.GerenciadorPlanoConta.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa(context);
+            FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa(saceOptions);
             frmPlanoContaPesquisa.ShowDialog();
             if (frmPlanoContaPesquisa.PlanoContaSelected != null)
             {
@@ -72,7 +62,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorPlanoConta.Remover(int.Parse(codPlanoContaTextBox.Text));
+                service.GerenciadorPlanoConta.Remover(int.Parse(codPlanoContaTextBox.Text));
                 planoContaBindingSource.RemoveCurrent();
             }
         }
@@ -96,15 +86,14 @@ namespace Sace
                 planoConta.DiaBase = (diaBaseTextBox.Text == "") ? short.Parse("0") : short.Parse(diaBaseTextBox.Text);
                 planoConta.CodPlanoConta = Int32.Parse(codPlanoContaTextBox.Text);
 
-                GerenciadorPlanoConta gPlanoConta = gerenciadorPlanoConta;
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codPlanoConta = gPlanoConta.Inserir(planoConta);
+                    long codPlanoConta = service.GerenciadorPlanoConta.Inserir(planoConta);
                     codPlanoContaTextBox.Text = codPlanoConta.ToString();
                 }
                 else
                 {
-                    gPlanoConta.Atualizar(planoConta);
+                    service.GerenciadorPlanoConta.Atualizar(planoConta);
                 }
                 planoContaBindingSource.EndEdit();
             }
@@ -187,7 +176,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoContaComboBox.Focused))
                 {
-                    FrmGrupoConta frmGrupoConta = new FrmGrupoConta(context);
+                    FrmGrupoConta frmGrupoConta = new FrmGrupoConta(saceOptions);
                     frmGrupoConta.ShowDialog();
                     if (frmGrupoConta.GrupoContaSelected != null)
                     {

@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -9,17 +10,17 @@ namespace Sace
     {
         SaidaPesquisa saida;
         List<Conta> listaContaBoletos;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        private readonly GerenciadorSaida gerenciadorSaida;
-        private readonly GerenciadorConta gerenciadorConta;
-        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
-        public FrmSaidaPagamentoBoleto(string cupomFiscal, SaceContext context)
+        public FrmSaidaPagamentoBoleto(string cupomFiscal, DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            gerenciadorSaida = new GerenciadorSaida(context);
-            gerenciadorConta = new GerenciadorConta(context);
-            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
-            List<SaidaPesquisa> saidas = gerenciadorSaida.ObterPorCupomFiscal(cupomFiscal);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
+
+            List<SaidaPesquisa> saidas = service.GerenciadorSaida.ObterPorCupomFiscal(cupomFiscal);
             if (saidas.Count > 0)
             {
                 saida = saidas.FirstOrDefault();
@@ -78,7 +79,7 @@ namespace Sace
         {
             decimal total = decimal.Parse(totalTextBox.Text);
             if (saida != null) {
-                SaidaPagamento saidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida).FirstOrDefault();
+                SaidaPagamento saidaPagamento = service.GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida).FirstOrDefault();
                 Conta conta = new Conta();
                 conta.CF = saida.CupomFiscal;
                 conta.CodEntrada = UtilConfig.Default.ENTRADA_PADRAO;
@@ -102,7 +103,7 @@ namespace Sace
             if (listaContaBoletos.Sum(b => b.Valor) >= total)
             {
                 if (MessageBox.Show("Confirma Substitução por Boletos?", "Confirmar Substituição por Boletos", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    gerenciadorConta.Substituir(saida.CupomFiscal, listaContaBoletos);
+                    service.GerenciadorConta.Substituir(saida.CupomFiscal, listaContaBoletos);
                 }
             
             }

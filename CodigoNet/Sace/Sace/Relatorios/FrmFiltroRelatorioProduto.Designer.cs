@@ -45,7 +45,6 @@
             // 
             pessoaBindingSource.AllowNew = false;
             pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
-            pessoaBindingSource.CurrentChanged += new System.EventHandler(this.pessoaBindingSource_CurrentChanged);
             // 
             // codPessoaLabel
             // 

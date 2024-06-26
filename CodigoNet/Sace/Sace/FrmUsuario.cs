@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -9,25 +10,24 @@ namespace Sace
     {
         private EstadoFormulario estado;
 
-        private readonly GerenciadorUsuario gerenciadorUsuario;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private SaceContext context;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmUsuario(SaceContext context)
+        public FrmUsuario(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
-            gerenciadorPessoa = new GerenciadorPessoa(context);
-            gerenciadorUsuario = new GerenciadorUsuario(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.USUARIOS, Principal.Autenticacao.CodUsuario);
 
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            usuarioBindingSource.DataSource = gerenciadorUsuario.ObterTodos();
-            perfilBindingSource.DataSource = gerenciadorUsuario.ObterPerfis();
+            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            usuarioBindingSource.DataSource = service.GerenciadorUsuario.ObterTodos();
+            perfilBindingSource.DataSource = service.GerenciadorUsuario.ObterPerfis();
             habilitaBotoes(true);
         }
 
@@ -68,12 +68,12 @@ namespace Sace
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                gerenciadorUsuario.Inserir(usuario);
+                service.GerenciadorUsuario.Inserir(usuario);
                 usuarioBindingSource.MoveLast();
             }
             else
             {
-                gerenciadorUsuario.Atualizar(usuario);
+                service.GerenciadorUsuario.Atualizar(usuario);
                 usuarioBindingSource.EndEdit();
             }
             habilitaBotoes(true);
@@ -97,7 +97,7 @@ namespace Sace
 
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorUsuario.Remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
+                service.GerenciadorUsuario.Remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
             }
 
         }
@@ -192,7 +192,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa(context);
+                    FrmPessoa frmPessoa = new FrmPessoa(saceOptions);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -206,11 +206,6 @@ namespace Sace
         private void loginTextBox_Leave(object sender, EventArgs e)
         {
             FormatTextBox.RemoverAcentos((TextBox)sender);
-        }
-
-        private void pessoaBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void codPessoaComboBox_KeyPress(object sender, KeyPressEventArgs e)

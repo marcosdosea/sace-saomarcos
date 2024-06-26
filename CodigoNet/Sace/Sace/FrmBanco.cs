@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -8,27 +9,29 @@ namespace Sace
     public partial class FrmBanco : Form
     {
         private EstadoFormulario estado;
-        private GerenciadorBanco gerenciadorBanco;
-        private FrmBancoPesquisa frmBancoPesquisa;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
         public Banco BancoSelected { get; set; }
 
-        public FrmBanco(SaceContext context)
+        public FrmBanco(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             BancoSelected = null;
-            gerenciadorBanco = new GerenciadorBanco(context);
-            frmBancoPesquisa = new FrmBancoPesquisa(context);
+            this.saceOptions = saceOptions; 
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context); 
         }
 
         private void FrmBanco_Load(object sender, EventArgs e)
         {
-            bancoBindingSource.DataSource = gerenciadorBanco.ObterTodos();
+            bancoBindingSource.DataSource = service.GerenciadorBanco.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            var frmBancoPesquisa = new FrmBancoPesquisa(saceOptions);
             frmBancoPesquisa.ShowDialog();
             if (frmBancoPesquisa.BancoSelected != null)
             {
@@ -57,7 +60,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorBanco.Remover(int.Parse(codBancoTextBox.Text));
+                service.GerenciadorBanco.Remover(int.Parse(codBancoTextBox.Text));
                 bancoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -79,12 +82,12 @@ namespace Sace
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    int codBanco = (int)gerenciadorBanco.Inserir(banco);
+                    int codBanco = (int)service.GerenciadorBanco.Inserir(banco);
                     codBancoTextBox.Text = codBanco.ToString();
                 }
                 else
                 {
-                    gerenciadorBanco.Atualizar(banco);
+                    service.GerenciadorBanco.Atualizar(banco);
                 }
                 bancoBindingSource.EndEdit();
             }

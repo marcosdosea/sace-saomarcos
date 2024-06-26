@@ -9,12 +9,16 @@ namespace Sace
     {
         public Entrada EntradaSelected { get; set; }
 
-        private readonly GerenciadorEntrada gerenciadorEntrada;
-        public FrmEntradaPesquisa(SaceContext context)
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
+
+        public FrmEntradaPesquisa(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
             EntradaSelected = null;
-            gerenciadorEntrada = new GerenciadorEntrada(context);
+            this.saceOptions = saceOptions;
+            var context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmEntradaPesquisa_Load(object sender, EventArgs e)
@@ -29,11 +33,11 @@ namespace Sace
                 if (!txtTexto.Text.Equals(""))
                 {
                     if (cmbBusca.SelectedIndex == 0)
-                        entradaBindingSource.DataSource = gerenciadorEntrada.Obter(long.Parse(txtTexto.Text));
+                        entradaBindingSource.DataSource = service.GerenciadorEntrada.Obter(long.Parse(txtTexto.Text));
                     else if (cmbBusca.SelectedIndex == 1)
-                        entradaBindingSource.DataSource = gerenciadorEntrada.ObterPorNumeroNotaFiscal(txtTexto.Text);
+                        entradaBindingSource.DataSource = service.GerenciadorEntrada.ObterPorNumeroNotaFiscal(txtTexto.Text);
                     else
-                        entradaBindingSource.DataSource = gerenciadorEntrada.ObterPorNomeFornecedor(txtTexto.Text);
+                        entradaBindingSource.DataSource = service.GerenciadorEntrada.ObterPorNomeFornecedor(txtTexto.Text);
                 }
             }
             catch (System.Exception ex)

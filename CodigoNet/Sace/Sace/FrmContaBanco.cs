@@ -11,28 +11,27 @@ namespace Sace
         private EstadoFormulario estado;
 
         public ContaBanco ContaBancoSelected { get; set; }
-        private readonly GerenciadorBanco gerenciadorBanco;
-        private readonly GerenciadorContaBanco gerenciadorContaBanco;
-        private SaceContext context;
+        private readonly SaceService service;
+        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmContaBanco(SaceContext context)
+        public FrmContaBanco(DbContextOptions<SaceContext> saceOptions)
         {
             InitializeComponent();
-            this.context = context;
-            gerenciadorBanco = new GerenciadorBanco(context);
-            gerenciadorContaBanco = new GerenciadorContaBanco(context);
+            this.saceOptions = saceOptions;
+            SaceContext context = new SaceContext(saceOptions);
+            service = new SaceService(context);
         }
 
         private void FrmContaBanco_Load(object sender, EventArgs e)
         {
-            bancoBindingSource.DataSource = gerenciadorBanco.ObterTodos();
-            contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
+            bancoBindingSource.DataSource = service.GerenciadorBanco.ObterTodos();
+            contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa(context);
+            FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa(saceOptions);
             frmContaBancoPesquisa.ShowDialog();
             if (frmContaBancoPesquisa.ContaBancoSelected != null)
             {
@@ -63,7 +62,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorContaBanco.Remover(Int32.Parse(codContaBancoTextBox.Text));
+                service.GerenciadorContaBanco.Remover(Int32.Parse(codContaBancoTextBox.Text));
                 contaBancoBindingSource.RemoveCurrent();
             }
         }
@@ -84,12 +83,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codContaBanco = gerenciadorContaBanco.Inserir(_contaBanco);
+                    long codContaBanco = service.GerenciadorContaBanco.Inserir(_contaBanco);
                     codContaBancoTextBox.Text = codContaBanco.ToString();
                 }
                 else
                 {
-                    gerenciadorContaBanco.Atualizar(_contaBanco);
+                    service.GerenciadorContaBanco.Atualizar(_contaBanco);
                 }
                 contaBancoBindingSource.EndEdit();
             }
@@ -162,7 +161,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codBancoComboBox.Focused))
                 {
-                    FrmBancoPesquisa frmBancoPesquisa = new FrmBancoPesquisa(context);
+                    FrmBancoPesquisa frmBancoPesquisa = new FrmBancoPesquisa(saceOptions);
                     frmBancoPesquisa.ShowDialog();
                     if (frmBancoPesquisa.BancoSelected != null)
                     {
@@ -172,7 +171,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codBancoComboBox.Focused))
                 {
-                    FrmBanco frmBanco = new FrmBanco(context);
+                    FrmBanco frmBanco = new FrmBanco(saceOptions);
                     frmBanco.ShowDialog();
                     if (frmBanco.BancoSelected != null)
                     {
