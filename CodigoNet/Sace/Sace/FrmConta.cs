@@ -21,7 +21,7 @@ namespace Sace
 
         private void FrmContas_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = service.service.GerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
             planoContaBindingSource.DataSource = service.GerenciadorPlanoConta.ObterTodos();
             contaBindingSource.DataSource = service.GerenciadorConta.ObterTodos();
             situacaoContaBindingSource.DataSource = service.GerenciadorConta.ObterSituacoesConta();
@@ -76,7 +76,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorConta.Remover(long.Parse(codContaTextBox.Text));
+                service.GerenciadorConta.Remover(long.Parse(codContaTextBox.Text));
                 contaBindingSource.RemoveCurrent();
             }
         }
@@ -98,12 +98,12 @@ namespace Sace
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                long codConta = gerenciadorConta.Inserir(conta);
+                long codConta = service.GerenciadorConta.Inserir(conta);
                 codContaTextBox.Text = codConta.ToString();
             }
             else
             {
-                gerenciadorConta.Atualizar(conta);
+                service.GerenciadorConta.Atualizar(conta);
             }
             contaBindingSource.EndEdit();
             habilitaBotoes(true);
@@ -172,7 +172,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(context);
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(saceOptions);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -182,7 +182,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa(context);
+                    FrmPessoa frmPessoa = new FrmPessoa(saceOptions);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -193,7 +193,7 @@ namespace Sace
 
                 else if ((e.KeyCode == Keys.F2) && (codPlanoContaComboBox.Focused))
                 {
-                    FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa(context);
+                    FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa(saceOptions);
                     frmPlanoContaPesquisa.ShowDialog();
                     if (frmPlanoContaPesquisa.PlanoContaSelected != null)
                     {
@@ -203,7 +203,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPlanoContaComboBox.Focused))
                 {
-                    FrmPlanoConta frmPlanoConta = new FrmPlanoConta(context);
+                    FrmPlanoConta frmPlanoConta = new FrmPlanoConta(saceOptions);
                     frmPlanoConta.ShowDialog();
                     if (frmPlanoConta.PlanoContaSelected != null)
                     {
@@ -241,7 +241,7 @@ namespace Sace
         private void tb_contaBindingSource_CurrentChanged(object sender, EventArgs e)
         {
             if (codContaTextBox.Text != "")
-                movimentacaoContaBindingSource.DataSource = gerenciadorMovimentacaoConta.ObterPorConta(Convert.ToInt64(codContaTextBox.Text));
+                movimentacaoContaBindingSource.DataSource = service.GerenciadorMovimentacaoConta.ObterPorConta(Convert.ToInt64(codContaTextBox.Text));
         }
     }
 }

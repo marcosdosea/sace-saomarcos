@@ -18,7 +18,7 @@ namespace Sace
             produto = null;
             this.saceOptions = saceOptions;
             SaceContext context = new SaceContext(saceOptions);
-            SaceService service = new SaceService(context);
+            this.service = new SaceService(context);
         }
 
         public FrmProdutoEstatistica(Produto produto)

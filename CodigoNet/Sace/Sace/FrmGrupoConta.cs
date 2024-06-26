@@ -18,7 +18,7 @@ namespace Sace
             InitializeComponent();
             this.saceOptions = saceOptions;
             SaceContext context = new SaceContext(saceOptions);
-            SaceService service = new SaceService(context);
+            this.service = new SaceService(context);
         }
 
         private void FrmGrupoConta_Load(object sender, EventArgs e)

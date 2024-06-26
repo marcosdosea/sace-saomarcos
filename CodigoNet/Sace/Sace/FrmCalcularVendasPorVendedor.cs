@@ -15,7 +15,7 @@ namespace Sace
             dateTimeInicial.Value = DateTime.Now.AddMonths(-1);
             this.saceOptions = saceOptions;
             SaceContext context = new SaceContext();
-            SaceService service = new SaceService(context);
+            this.service = new SaceService(context);
         }
 
         private void FrmCalcularVendasPorVendedor_KeyDown(object sender, KeyEventArgs e)

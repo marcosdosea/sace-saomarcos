@@ -18,12 +18,12 @@ namespace Sace
             InitializeComponent();
             this.saceOptions = saceOptions;
             SaceContext context = new SaceContext(saceOptions);
-            SaceService service = new SaceService(context);
+            this.service = new SaceService(context);
         }
 
         private void FrmCfop_Load(object sender, EventArgs e)
         {
-            cfopBindingSource.DataSource = service.service.GerenciadorCfop.ObterTodos();
+            cfopBindingSource.DataSource = service.GerenciadorCfop.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -57,7 +57,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.service.GerenciadorCfop.Remover(Int32.Parse(cfopTextBox.Text));
+                service.GerenciadorCfop.Remover(Int32.Parse(cfopTextBox.Text));
                 cfopBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -82,11 +82,11 @@ namespace Sace
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    service.service.GerenciadorCfop.Inserir(cfop);
+                    service.GerenciadorCfop.Inserir(cfop);
                 }
                 else
                 {
-                    service.service.GerenciadorCfop.Atualizar(cfop);
+                    service.GerenciadorCfop.Atualizar(cfop);
                 }
                 cfopBindingSource.EndEdit();
             }

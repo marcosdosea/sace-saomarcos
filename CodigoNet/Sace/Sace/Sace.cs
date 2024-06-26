@@ -39,7 +39,7 @@ namespace Sace
                 lojaDeposito = service.GerenciadorLoja.Obter(2).FirstOrDefault();
                 fileSystemWatcherDeposito.Path = lojaDeposito.PastaNfeRetorno;
             }
-            AtualizarDadosAcompanhamentoVendas();
+            //AtualizarDadosAcompanhamentoVendas();
         }
 
         private void AtualizarDadosAcompanhamentoVendas()
@@ -367,7 +367,7 @@ namespace Sace
 
         private void pontaDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(new ProdutoPesquisa() { CodProduto = 1 }, context);
+            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(new ProdutoPesquisa() { CodProduto = 1 }, saceOptions);
             frmPontaEstoque.ShowDialog();
             frmPontaEstoque.Dispose();
         }
@@ -381,7 +381,7 @@ namespace Sace
 
         private void solicitaçõesDeCompraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmProdutoSolicitacoesCompra frmProdutoSolicitacoesCompra = new FrmProdutoSolicitacoesCompra(context);
+            FrmProdutoSolicitacoesCompra frmProdutoSolicitacoesCompra = new FrmProdutoSolicitacoesCompra( saceOptions);
             frmProdutoSolicitacoesCompra.ShowDialog();
             frmProdutoSolicitacoesCompra.Dispose();
         }

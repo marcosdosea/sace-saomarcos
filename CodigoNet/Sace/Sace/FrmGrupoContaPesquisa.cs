@@ -17,7 +17,7 @@ namespace Sace
             GrupoConta = null;
             this.saceOptions = saceOptions; 
             SaceContext context = new SaceContext(saceOptions);
-            SaceService service = new SaceService(context);
+            this.service = new SaceService(context);
         }
 
         private void FrmGrupoContaPesquisa_Load(object sender, EventArgs e)

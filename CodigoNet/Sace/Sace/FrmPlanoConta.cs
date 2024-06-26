@@ -166,7 +166,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoContaComboBox.Focused))
                 {
-                    FrmGrupoContaPesquisa frmGrupoContaPesquisa = new FrmGrupoContaPesquisa(context);
+                    FrmGrupoContaPesquisa frmGrupoContaPesquisa = new FrmGrupoContaPesquisa(saceOptions);
                     frmGrupoContaPesquisa.ShowDialog();
                     if (frmGrupoContaPesquisa.GrupoConta != null)
                     {
