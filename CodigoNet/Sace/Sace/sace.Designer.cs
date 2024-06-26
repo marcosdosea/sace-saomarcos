@@ -545,7 +545,7 @@
             // btnSair
             // 
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSair.Image = global::Properties.Resources._118;
+            this.btnSair.Image = global::Sace.Resources._118;
             this.btnSair.Location = new System.Drawing.Point(624, 26);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(105, 78);
@@ -558,7 +558,7 @@
             // btnEntradas
             // 
             this.btnEntradas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEntradas.Image = global::Properties.Resources._66;
+            this.btnEntradas.Image = global::Sace.Resources._66;
             this.btnEntradas.Location = new System.Drawing.Point(312, 26);
             this.btnEntradas.Name = "btnEntradas";
             this.btnEntradas.Size = new System.Drawing.Size(105, 78);
@@ -571,7 +571,7 @@
             // btnContas
             // 
             this.btnContas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContas.Image = global::Properties.Resources._86;
+            this.btnContas.Image = global::Sace.Resources._86;
             this.btnContas.Location = new System.Drawing.Point(416, 26);
             this.btnContas.Name = "btnContas";
             this.btnContas.Size = new System.Drawing.Size(105, 78);
@@ -584,7 +584,7 @@
             // btnCliente
             // 
             this.btnCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCliente.Image = global::Properties.Resources._54;
+            this.btnCliente.Image = global::Sace.Resources._54;
             this.btnCliente.Location = new System.Drawing.Point(208, 26);
             this.btnCliente.Name = "btnCliente";
             this.btnCliente.Size = new System.Drawing.Size(105, 78);
@@ -597,7 +597,7 @@
             // btnProdutos
             // 
             this.btnProdutos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProdutos.Image = global::Properties.Resources._68;
+            this.btnProdutos.Image = global::Sace.Resources._68;
             this.btnProdutos.Location = new System.Drawing.Point(104, 26);
             this.btnProdutos.Name = "btnProdutos";
             this.btnProdutos.Size = new System.Drawing.Size(105, 78);
@@ -610,7 +610,7 @@
             // btnVenda
             // 
             this.btnVenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVenda.Image = global::Properties.Resources._761;
+            this.btnVenda.Image = global::Sace.Resources._761;
             this.btnVenda.Location = new System.Drawing.Point(0, 26);
             this.btnVenda.Name = "btnVenda";
             this.btnVenda.Size = new System.Drawing.Size(105, 78);
@@ -623,7 +623,7 @@
             // btnReceber
             // 
             this.btnReceber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReceber.Image = global::Properties.Resources.carteira2;
+            this.btnReceber.Image = global::Sace.Resources.carteira2;
             this.btnReceber.Location = new System.Drawing.Point(520, 26);
             this.btnReceber.Name = "btnReceber";
             this.btnReceber.Size = new System.Drawing.Size(105, 78);
@@ -642,7 +642,7 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Image = global::Properties.Resources.dados;
+            this.pictureBox1.Image = global::Sace.Resources.dados;
             this.pictureBox1.Location = new System.Drawing.Point(559, 473);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(420, 121);
@@ -705,7 +705,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.BackgroundImage = global::Properties.Resources.fundo;
+            this.BackgroundImage = global::Sace.Resources.fundo;
             this.ClientSize = new System.Drawing.Size(982, 596);
             this.Controls.Add(this.lblAno);
             this.Controls.Add(this.lblTicketMedio);
@@ -726,7 +726,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SACE - Sistema de Apoio ao Controle de Estoque";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Principal_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Principal_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

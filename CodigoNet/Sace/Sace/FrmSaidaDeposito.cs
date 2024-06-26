@@ -1,25 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using Dados;
 using Dominio;
 using Negocio;
 using Util;
-using System.Windows.Forms;
 
 namespace Sace
 {
     public partial class FrmSaidaDeposito : Form
     {
         private Saida saida;
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorLoja gerenciadorLoja;
+        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
+        private SaceContext context;
 
-        public FrmSaidaDeposito(Saida saida)
+        public FrmSaidaDeposito(Saida saida, SaceContext context)
         {
             InitializeComponent();
             this.saida = saida;
+            this.context = context;
+            gerenciadorLoja = new GerenciadorLoja(context);
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
         }
 
         private void FrmSaidaDeposito_Load(object sender, EventArgs e)
@@ -58,7 +59,7 @@ namespace Sace
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
                     listaSaidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
                     
-                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, context);
                     frmSaidaNF.ShowDialog();
                     frmSaidaNF.Dispose();
                     this.Close();
@@ -74,7 +75,7 @@ namespace Sace
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
                     listaSaidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
                     
-                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, context);
                     frmSaidaNF.ShowDialog();
                     frmSaidaNF.Dispose();
                     this.Close();

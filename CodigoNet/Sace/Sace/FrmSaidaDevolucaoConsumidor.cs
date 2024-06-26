@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using Dados;
 using Dominio;
 using Negocio;
 using Util;
-using System.Windows.Forms;
 
 namespace Sace
 {
@@ -16,10 +9,18 @@ namespace Sace
     {
         private Saida saida;
 
-        public FrmSaidaDevolucaoConsumidor(Saida saida)
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorLoja gerenciadorLoja;
+        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
+        private SaceContext context;
+        public FrmSaidaDevolucaoConsumidor(Saida saida, SaceContext context)
         {
             InitializeComponent();
             this.saida = saida;
+            this.context = context;
+            gerenciadorLoja = new GerenciadorLoja(context);
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
         }
 
         private void FrmSaidaDevolucaoConsumidor_Load(object sender, EventArgs e)
@@ -50,7 +51,7 @@ namespace Sace
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
                     listaSaidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
                 
-                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, context);
                     frmSaidaNF.ShowDialog();
                     frmSaidaNF.Dispose();
                     this.Close();
@@ -87,7 +88,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa();
+            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa(context);
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.SaidaSelected != null)
             {

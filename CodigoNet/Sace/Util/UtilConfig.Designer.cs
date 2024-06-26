@@ -268,5 +268,41 @@ namespace Util {
                 return ((decimal)(this["DESCONTO_PADRAO"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
+        public string SERVIDOR_IMPRIMIR_NFE {
+            get {
+                return ((string)(this["SERVIDOR_IMPRIMIR_NFE"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int QUANTIDADE_DIAS_CREDIARIO {
+            get {
+                return ((int)(this["QUANTIDADE_DIAS_CREDIARIO"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1324")]
+        public int PESSOA_USO_INTERNO {
+            get {
+                return ((int)(this["PESSOA_USO_INTERNO"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2048")]
+        public int PESSOA_BAIXA_ESTOQUE {
+            get {
+                return ((int)(this["PESSOA_BAIXA_ESTOQUE"]));
+            }
+        }
     }
 }

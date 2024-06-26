@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using Dados;
 using Dominio;
 using Negocio;
 using Util;
-using System.Windows.Forms;
-using Dados;
 
 namespace Sace
 {
@@ -17,10 +9,17 @@ namespace Sace
     {
         private Saida saida;
 
-        public FrmSaidaRetornoFornecedor(Saida saida)
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly SaceContext context;
+
+        public FrmSaidaRetornoFornecedor(Saida saida, SaceContext context)
         {
             InitializeComponent();
             this.saida = saida;
+            this.context = context; 
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorSaida = new GerenciadorSaida(context);
         }
 
         private void FrmSaidaRetornoFornecedor_Load(object sender, EventArgs e)
@@ -127,7 +126,7 @@ namespace Sace
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false, gerenciadorPessoa);
             codSaidaTextBox_Leave(sender, e);
         }
 
@@ -151,7 +150,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa();
+            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa(context);
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.SaidaSelected != null)
             {

@@ -24,10 +24,12 @@ namespace Sace
         private readonly GerenciadorSolicitacaoDocumento gerenciadorSolicitacaoDocumento;
         private readonly GerenciadorMovimentacaoConta gerenciadorMovimentacaoConta;
         private readonly GerenciadorFormaPagamento gerenciadorFormaPagamento;
+        private SaceContext context;
 
         public FrmReceberPagamentoPessoa(SaceContext context)
         {
             InitializeComponent();
+            this.context = context;
             gerenciadorConta = new GerenciadorConta(context);
             gerenciadorPessoa = new GerenciadorPessoa(context);
             gerenciadorSaida = new GerenciadorSaida(context);
@@ -89,7 +91,7 @@ namespace Sace
             Saida saida = NovaSaidaTipoPreCredito(pessoa.CodPessoa, valorRecebido);
             saida.CodSaida = gerenciadorSaida.Inserir(saida);
 
-            FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null);
+            FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null, context);
             frmSaidaPagamento.ShowDialog();
             frmSaidaPagamento.Dispose();
 
@@ -122,7 +124,7 @@ namespace Sace
                         }
                     }
                     gerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaContaSaida.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
+                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaContaSaida.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE, context);
                     frmSaidaAutorizacao.ShowDialog();
                     frmSaidaAutorizacao.Dispose();
                 }
@@ -209,7 +211,7 @@ namespace Sace
             decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
             decimal desconto = Convert.ToDecimal(descontoTextBox.Text);
 
-            FrmSaidaDAV frmSaidaDAV = new FrmSaidaDAV(codSaidas, total, totalAVista, desconto, false);
+            FrmSaidaDAV frmSaidaDAV = new FrmSaidaDAV(codSaidas, total, totalAVista, desconto, false, context);
             frmSaidaDAV.ShowDialog();
             frmSaidaDAV.Dispose();
         }
@@ -242,7 +244,7 @@ namespace Sace
                 long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
                 Saida saida = gerenciadorSaida.Obter(codSaida);
                 AtualizarValoresDescontosContas();
-                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
+                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, context);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
             }
@@ -252,7 +254,7 @@ namespace Sace
                 {
                     AtualizarValoresDescontosContas();
                     gerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
+                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE, context);
                     frmSaidaAutorizacao.ShowDialog();
                     frmSaidaAutorizacao.Dispose();
                 }
@@ -557,7 +559,7 @@ namespace Sace
                 }
             }
 
-            FrmSaidaPagamentoBoleto frmSaidaPagamentoBoleto = new FrmSaidaPagamentoBoleto(cupomFiscal);
+            FrmSaidaPagamentoBoleto frmSaidaPagamentoBoleto = new FrmSaidaPagamentoBoleto(cupomFiscal, context);
             frmSaidaPagamentoBoleto.ShowDialog();
             frmSaidaPagamentoBoleto.Dispose();
         }

@@ -163,13 +163,13 @@
     <Compile Update="FrmSaidaRetornoFornecedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmSaidaVenda.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="FrmSubgrupo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmSubgrupoPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Relatorios\FrmFiltroRelatorioProduto.cs">

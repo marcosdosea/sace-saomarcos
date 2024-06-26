@@ -1,4 +1,4 @@
-﻿namespace Telas
+﻿namespace Sace
 {
     partial class FrmUsuario
     {
@@ -11,14 +11,14 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        //protected override void Dispose()
-        //{
-          //  if (disposing && (components != null))
-            //{
-              //  components.Dispose();
-            //}
-            //base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         #region Windows Form Designer generated code
 
@@ -72,7 +72,7 @@
             this.tb_usuarioBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.perfilBindingSource)).BeginInit();
-            //this.SuspendLayout();
+            this.SuspendLayout();
             // 
             // senhaLabel
             // 

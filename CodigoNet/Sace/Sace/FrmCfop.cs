@@ -10,7 +10,6 @@ namespace Sace
         private EstadoFormulario estado;
         private Cfop CfopSelected { get; set;}
         private GerenciadorCfop gerenciadorCfop;
-        private FrmCfopPesquisa frmCfopPesquisa;
         private SaceContext context;
        
         public FrmCfop(SaceContext context)

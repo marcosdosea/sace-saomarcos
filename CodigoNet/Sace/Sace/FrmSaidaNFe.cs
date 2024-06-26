@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Negocio;
+using System.Data;
 using Util;
-using Dados;
 
 namespace Sace
 {
@@ -21,17 +14,26 @@ namespace Sace
         private List<SaidaPedido> listaSaidaPedido;
         private List<SaidaPagamento> listaSaidaPagamento;
 
-
+        private SaceContext context;
         private readonly GerenciadorNFe gerenciadorNFe;
         private readonly GerenciadorSaida gerenciadorSaida;
         private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorEntrada gerenciadorEntrada;
+        private readonly GerenciadorConta gerenciadorConta;
+        private readonly GerenciadorFormaPagamento gerenciadorFormaPagamento;
+        private readonly GerenciadorSolicitacaoDocumento gerenciadorSolicitacaoDocumento;
         public FrmSaidaNFe(long codSaida, List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento, SaceContext context)
         {
             InitializeComponent();
             this.codSaida = codSaida;
+            this.context = context;
             gerenciadorNFe = new GerenciadorNFe(context);
             gerenciadorSaida = new GerenciadorSaida(context);
             gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorEntrada = new GerenciadorEntrada(context);
+            gerenciadorConta = new GerenciadorConta(context);
+            gerenciadorFormaPagamento = new GerenciadorFormaPagamento(context);
+            gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
             this.Saida = gerenciadorSaida.Obter(codSaida);
             this.listaSaidaPedido = listaSaidaPedido;
             this.listaSaidaPagamento = listaSaidaPagamento;
@@ -116,7 +118,7 @@ namespace Sace
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
-            gerenciadorNFe.imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE);
+            gerenciadorNFe.ImprimirDanfe(nfeControle);
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
@@ -134,7 +136,7 @@ namespace Sace
                         gerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
                     //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
                     //List<SaidaPagamento> listaSaidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(Saida.CodSaida);
-                    gerenciadorSolicitacaoDocumento.InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
+                    gerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
                 }
             }
 
@@ -189,7 +191,7 @@ namespace Sace
 
                     decimal valorTotalPagamento = listaContas.Sum(c => c.Valor) - listaContas.Sum(c => c.Desconto);
                     SaidaPagamento saidaPagamento = new SaidaPagamento();
-                    FormaPagamento dinheiro = GerenciadorFormaPagamento.GetInstance().Obter(FormaPagamento.DINHEIRO).ElementAt(0);
+                    FormaPagamento dinheiro = gerenciadorFormaPagamento.Obter(FormaPagamento.DINHEIRO).ElementAt(0);
                     saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
                     saidaPagamento.CodCartaoCredito = UtilConfig.Default.CARTAO_LOJA;
                     saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
@@ -205,8 +207,8 @@ namespace Sace
 
 
 
-				long codSolicitacao = gerenciadorSolicitacaoDocumento.InserirSolicitacaoDocumento(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
-                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(Saida.CodSaida, Saida.CodCliente, tipoSolicitacao);
+				long codSolicitacao = gerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
+                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(Saida.CodSaida, Saida.CodCliente, tipoSolicitacao, context);
                 frmSaidaAutorizacao.ShowDialog();
                 frmSaidaAutorizacao.Dispose();
             }
@@ -275,7 +277,7 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            Cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, EstadoFormulario.INSERIR, pessoaBindingSource, true, false);
+            Cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, EstadoFormulario.INSERIR, pessoaBindingSource, true, false, gerenciadorPessoa);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

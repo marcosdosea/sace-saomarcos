@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Negocio;
 
 namespace Sace
 {
     public partial class FrmSaidaPesquisa : Form
     {
         public SaidaPesquisa SaidaSelected { get; set; }
-        
-        public FrmSaidaPesquisa()
+        private readonly GerenciadorSaida gerenciadorSaida;
+        public FrmSaidaPesquisa(SaceContext context)
         {
             InitializeComponent();
             SaidaSelected = null;
+            gerenciadorSaida = new GerenciadorSaida(context);
         }
 
         private void FrmSaidaPesquisa_Load(object sender, EventArgs e)

@@ -76,7 +76,7 @@ namespace Sace
 		/// <param name="e"></param>
 		private void btnBuscar_Click(object sender, EventArgs e)
 		{
-			FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa();
+			FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa(context);
 			frmSaidaPesquisa.ShowDialog();
 			if (frmSaidaPesquisa.SaidaSelected != null)
 			{
@@ -641,44 +641,44 @@ namespace Sace
 
 				if (Saida.LISTA_TIPOS_REMESSA_DEPOSITO.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida);
+					FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida, context);
 					frmSaidaDeposito.ShowDialog();
 					frmSaidaDeposito.Dispose();
 				}
 				if (Saida.LISTA_TIPOS_RETORNO_DEPOSITO.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida);
+					FrmSaidaDeposito frmSaidaDeposito = new FrmSaidaDeposito(saida, context);
 					frmSaidaDeposito.ShowDialog();
 					frmSaidaDeposito.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida);
+					FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida, context);
 					frmSaidaDevolucao.ShowDialog();
 					frmSaidaDevolucao.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_RETORNO_FORNECEDOR.Contains(saida.TipoSaida))
 				{
-					FrmSaidaRetornoFornecedor frmSaidaRetornoFornecedor = new FrmSaidaRetornoFornecedor(saida);
+					FrmSaidaRetornoFornecedor frmSaidaRetornoFornecedor = new FrmSaidaRetornoFornecedor(saida, context);
 					frmSaidaRetornoFornecedor.ShowDialog();
 					frmSaidaRetornoFornecedor.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_REMESSA_CONSERTO.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida);
+					FrmSaidaDevolucao frmSaidaDevolucao = new FrmSaidaDevolucao(saida, context);
 					frmSaidaDevolucao.ShowDialog();
 					frmSaidaDevolucao.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR.Contains(saida.TipoSaida))
 				{
-					FrmSaidaDevolucaoConsumidor frmSaidaDevolucaoConsumidor = new FrmSaidaDevolucaoConsumidor(saida);
+					FrmSaidaDevolucaoConsumidor frmSaidaDevolucaoConsumidor = new FrmSaidaDevolucaoConsumidor(saida, context);
 					frmSaidaDevolucaoConsumidor.ShowDialog();
 					frmSaidaDevolucaoConsumidor.Dispose();
 				}
 				else if (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
 				{
 					List<SaidaProduto> listaSaidaProduto = (List<SaidaProduto>)saidaProdutoBindingSource.DataSource;
-					FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, listaSaidaProduto);
+					FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, listaSaidaProduto, context);
 					frmSaidaPagamento.ShowDialog();
 					frmSaidaPagamento.Dispose();
 				}
@@ -704,7 +704,7 @@ namespace Sace
 			long codSaida = Convert.ToInt64(codSaidaTextBox.Text);
 			bool ehOrcamento = ((Saida)saidaBindingSource.Current).TipoSaida == Saida.TIPO_ORCAMENTO;
 
-			FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV(new HashSet<long>() { codSaida }, total, totalAVista, desconto, ehOrcamento);
+			FrmSaidaDAV frmSaidaDav = new FrmSaidaDAV(new HashSet<long>() { codSaida }, total, totalAVista, desconto, ehOrcamento, context);
 			frmSaidaDav.ShowDialog();
 			frmSaidaDav.Dispose();
 		}
@@ -724,7 +724,7 @@ namespace Sace
 			listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
 			listaSaidaPagamento = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
 
-			FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
+			FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, context);
 			frmSaidaNF.ShowDialog();
 			frmSaidaNF.Dispose();
 

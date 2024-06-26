@@ -1,7 +1,7 @@
-﻿using Dominio;
+﻿using Dados;
+using Dominio;
 using Negocio;
 using Sace.Relatorios.Produtos;
-using Util;
 
 namespace Sace
 {
@@ -14,9 +14,13 @@ namespace Sace
         private decimal desconto;
         private bool ehOrcamento;
         
-        public FrmSaidaDAV(HashSet<Int64> listaCodSaida, decimal total, decimal totalAVista, decimal desconto, bool ehOrcamento)
+        private SaceContext context;
+        private readonly GerenciadorSaida gerenciadorSaida;
+        public FrmSaidaDAV(HashSet<Int64> listaCodSaida, decimal total, decimal totalAVista, decimal desconto, bool ehOrcamento, SaceContext context)
         {
             InitializeComponent();
+            this.context = context; 
+            gerenciadorSaida = new GerenciadorSaida(context);
             this.listaCodSaidas = listaCodSaida;
             this.total = total;
             this.totalAVista = totalAVista;
@@ -29,9 +33,9 @@ namespace Sace
             this.Close();
             Form frmDAV;
             if (ehOrcamento)          
-                frmDAV = new FrmDAVOrcamento(listaCodSaidas.ToList<long>(), total, totalAVista, desconto);
+                frmDAV = new FrmDAVOrcamento(listaCodSaidas.ToList<long>(), total, totalAVista, desconto, context);
             else
-                frmDAV = new FrmDAV(listaCodSaidas.ToList<long>(), total, totalAVista, desconto);
+                frmDAV = new FrmDAV(listaCodSaidas.ToList<long>(), total, totalAVista, desconto, context);
             frmDAV.ShowDialog();
             frmDAV.Dispose();
             
@@ -41,7 +45,7 @@ namespace Sace
         private void btnReduzido_Click(object sender, EventArgs e)
         {
             this.Close();
-            if (!gerenciadorSaida.SolicitaImprimirDAV(listaCodSaidas.ToList<long>(), total, totalAVista, desconto, Impressora.REDUZIDO1)) 
+            if (!gerenciadorSaida.SolicitaImprimirDAV(listaCodSaidas.ToList<long>(), total, totalAVista, desconto, Impressora.Tipo.REDUZIDO1)) 
             {
                 MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -50,7 +54,7 @@ namespace Sace
         private void btnReduzido2_Click(object sender, EventArgs e)
         {
             this.Close();
-            if (!gerenciadorSaida.SolicitaImprimirDAV(listaCodSaidas.ToList<long>(), total, totalAVista, desconto, Util.UtilConfig.Default.Impressora.REDUZIDO2))
+            if (!gerenciadorSaida.SolicitaImprimirDAV(listaCodSaidas.ToList<long>(), total, totalAVista, desconto, Impressora.Tipo.REDUZIDO2))
             {
                 MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }

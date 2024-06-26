@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Negocio;
 using Dominio;
 using Util;
+using Dados;
 
 namespace Sace
 {
@@ -19,16 +20,22 @@ namespace Sace
         public Subgrupo SubgrupoSelected { get; set; }
         public Grupo GrupoSelected { get; set; }
 
-        public FrmSubgrupo(Int32 codGrupo)
+        private readonly GerenciadorGrupo gerenciadorGrupo;
+        private readonly GerenciadorSubgrupo gerenciadorSubgrupo;
+        private SaceContext context;
+
+        public FrmSubgrupo(SaceContext context)
         {
             InitializeComponent();
             GrupoSelected = null;
             SubgrupoSelected = null;
+            this.context = context;
+            gerenciadorGrupo = new GerenciadorGrupo(context);
+            gerenciadorSubgrupo = new GerenciadorSubgrupo(context);
         }
 
         private void FrmSubgrupo_Load(object sender, EventArgs e)
         {
-            //GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.CONTAS_BANCO_CAIXA, Principal.Autenticacao.CodUsuario);
             grupoBindingSource.DataSource = gerenciadorGrupo.ObterTodos();
             subgrupoBindingSource.DataSource = gerenciadorSubgrupo.ObterTodos();
             habilitaBotoes(true);
@@ -36,7 +43,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmSubgrupoPesquisa frmSubgrupoPesquisa = new FrmSubgrupoPesquisa();
+            FrmSubgrupoPesquisa frmSubgrupoPesquisa = new FrmSubgrupoPesquisa(context);
             frmSubgrupoPesquisa.ShowDialog();
             if (frmSubgrupoPesquisa.SubgrupoSelected != null)
             {
@@ -52,7 +59,7 @@ namespace Sace
             habilitaBotoes(false);
             codGrupoComboBox.SelectedIndex = 0;
             Subgrupo subgrupo = (Subgrupo) subgrupoBindingSource.Current;
-            subgrupo.CodGrupo = ((Grupo) grupoBindingSource.Current).CodGrupo; // grupo padrão
+            subgrupo.CodGrupo = (int) ((Grupo) grupoBindingSource.Current).CodGrupo; // grupo padrão
             estado = EstadoFormulario.INSERIR;
         }
 
@@ -167,7 +174,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoComboBox.Focused))
                 {
-                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa();
+                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa(context);
                     frmGrupoPesquisa.ShowDialog();
                     if (frmGrupoPesquisa.SelectedGrupo != null)
                     {
@@ -177,7 +184,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoComboBox.Focused))
                 {
-                    FrmGrupo frmGrupo = new FrmGrupo();
+                    FrmGrupo frmGrupo = new FrmGrupo(context);
                     frmGrupo.ShowDialog();
                     if (frmGrupo.GrupoSelected != null)
                     {

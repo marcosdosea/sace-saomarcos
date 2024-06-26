@@ -1,4 +1,6 @@
-﻿using Dominio;
+﻿using Dados;
+using Dominio;
+using Negocio;
 using System.Data;
 
 namespace Sace
@@ -9,13 +11,18 @@ namespace Sace
         NfeControle nfeControle;
         private bool exibiuResultadoCartao = false;
         private bool exibiuResultadoNfe = false;
-        //static string SERVIDOR_IMPRIMIR_NFE = Properties.Settings.Default.ServidorNfe;
         DocumentoFiscal.TipoSolicitacao tipoNfe;
         int contConsultas;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorLoja gerenciadorLoja;
+        private readonly GerenciadorNFe gerenciadorNFe;
         
-        public FrmSaidaAutorizacao(long codSaida, long codCliente, DocumentoFiscal.TipoSolicitacao tipo)
+        public FrmSaidaAutorizacao(long codSaida, long codCliente, DocumentoFiscal.TipoSolicitacao tipo, SaceContext context)
         {
             InitializeComponent();
+            gerenciadorLoja = new GerenciadorLoja(context);
+            gerenciadorNFe  = new GerenciadorNFe(context);  
+            gerenciadorPessoa = new GerenciadorPessoa(context);
             this.codSaida = codSaida;
             nfeControle = null;
             lblCartao.ForeColor = Color.Black;
@@ -209,7 +216,7 @@ namespace Sace
             //nfeControle = gerenciadorNFe.ObterPorSolicitacao(codSolicitacao).FirstOrDefault();
             if (nfeControle != null)
             {
-                gerenciadorNFe.imprimirDANFE(nfeControle, SERVIDOR_IMPRIMIR_NFE);
+                gerenciadorNFe.ImprimirDanfe(nfeControle);
             }
             this.Close();
         }

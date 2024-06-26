@@ -264,7 +264,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codSubgrupoComboBox.Focused))
                 {
-                    FrmSubgrupoPesquisa frmSubGrupoPesquisa = new FrmSubgrupoPesquisa();
+                    FrmSubgrupoPesquisa frmSubGrupoPesquisa = new FrmSubgrupoPesquisa(context);
                     frmSubGrupoPesquisa.ShowDialog();
                     if (frmSubGrupoPesquisa.SubgrupoSelected != null)
                     {
@@ -275,7 +275,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codSubgrupoComboBox.Focused))
                 {
-                    FrmSubgrupo frmSubgrupo = new FrmSubgrupo( Convert.ToInt32(codGrupoComboBox.SelectedValue.ToString() ) );
+                    FrmSubgrupo frmSubgrupo = new FrmSubgrupo( context );
                     frmSubgrupo.ShowDialog();
                     if (frmSubgrupo.SubgrupoSelected != null)
                     {

@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using Dados;
+using Dominio;
 using Negocio;
 using Util;
 
@@ -8,18 +9,25 @@ namespace Sace
     {
         private EstadoFormulario estado;
 
-        public FrmUsuario()
+        private readonly GerenciadorUsuario gerenciadorUsuario;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private SaceContext context;
+
+        public FrmUsuario(SaceContext context)
         {
             InitializeComponent();
+            this.context = context;
+            gerenciadorPessoa = new GerenciadorPessoa(context);
+            gerenciadorUsuario = new GerenciadorUsuario(context);
         }
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
-            GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.USUARIOS, Principal.Autenticacao.CodUsuario);
+            //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.USUARIOS, Principal.Autenticacao.CodUsuario);
 
-            pessoaBindingSource.DataSource = GerenciadorPessoa.GetInstance().ObterTodos();
-            usuarioBindingSource.DataSource = GerenciadorUsuario.GetInstace().ObterTodos();
-            perfilBindingSource.DataSource = GerenciadorUsuario.GetInstace().ObterPerfis();
+            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+            usuarioBindingSource.DataSource = gerenciadorUsuario.ObterTodos();
+            perfilBindingSource.DataSource = gerenciadorUsuario.ObterPerfis();
             habilitaBotoes(true);
         }
 
@@ -60,12 +68,12 @@ namespace Sace
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                GerenciadorUsuario.GetInstace().Inserir(usuario);
+                gerenciadorUsuario.Inserir(usuario);
                 usuarioBindingSource.MoveLast();
             }
             else
             {
-                GerenciadorUsuario.GetInstace().Atualizar(usuario);
+                gerenciadorUsuario.Atualizar(usuario);
                 usuarioBindingSource.EndEdit();
             }
             habilitaBotoes(true);
@@ -89,7 +97,7 @@ namespace Sace
 
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                GerenciadorUsuario.GetInstace().remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
+                gerenciadorUsuario.Remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
             }
 
         }
@@ -174,7 +182,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
                 {
-                    Telas.FrmPessoaPesquisa frmPessoaPesquisa = new Telas.FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(Pessoa.PESSOA_JURIDICA);
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -184,7 +192,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    Telas.FrmPessoa frmPessoa = new Telas.FrmPessoa();
+                    FrmPessoa frmPessoa = new FrmPessoa(context);
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {

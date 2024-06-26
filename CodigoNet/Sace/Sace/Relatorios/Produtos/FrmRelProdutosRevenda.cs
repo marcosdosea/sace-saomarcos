@@ -27,8 +27,6 @@ namespace Sace.Relatorios.Produtos
 
         private void FrmRelProdutosRevenda_Load(object sender, EventArgs e)
         {
-            var context = new SaceContext(options);
-
             ProdutoBindingSource.DataSource = gerenciadorProduto.ObterPorCodigoFabricante(codPessoa);
             Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
             PessoaBindingSource.DataSource = gerenciadorPessoa.Obter(loja.CodPessoa);

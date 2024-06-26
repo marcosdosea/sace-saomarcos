@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using Dados;
+using Dominio;
 using Negocio;
 
 namespace Sace
@@ -8,11 +9,15 @@ namespace Sace
         public Subgrupo SubgrupoSelected { get; set; }
         public Grupo GrupoSelected { get; set; }
 
-        public FrmSubgrupoPesquisa()
+        private readonly GerenciadorSubgrupo gerenciadorSubgrupo;
+        private readonly GerenciadorGrupo gerenciadorGrupo;
+        public FrmSubgrupoPesquisa(SaceContext context)
         {
             InitializeComponent();
             SubgrupoSelected = null;
             GrupoSelected = null;
+            gerenciadorSubgrupo = new GerenciadorSubgrupo(context);
+            gerenciadorGrupo = new GerenciadorGrupo(context);
         }
 
         private void FrmSubgrupoPesquisa_Load(object sender, EventArgs e)

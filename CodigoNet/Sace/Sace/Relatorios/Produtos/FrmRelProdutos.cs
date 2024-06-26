@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using Dados;
 using Negocio;
 
 namespace Sace.Relatorios.Produtos
 {
     public partial class FrmRelProdutos : Form
     {
-        public FrmRelProdutos()
+        private readonly GerenciadorProduto gerenciadorProduto;
+
+        public FrmRelProdutos(SaceContext context)
         {
             InitializeComponent();
+            gerenciadorProduto = new GerenciadorProduto(context);
         }
 
         private void FrmRelProdutos_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = GerenciadorProduto.GetInstance().ObterTodosExibiveis();
+            produtoBindingSource.DataSource = gerenciadorProduto.ObterTodosExibiveis();
             this.reportViewer1.RefreshReport();
         }
     }

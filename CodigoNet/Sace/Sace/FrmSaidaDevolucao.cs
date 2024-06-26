@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using Dados;
 using Dominio;
 using Negocio;
 using Util;
-using System.Windows.Forms;
-using Dados;
 
 namespace Sace
 {
@@ -17,10 +9,16 @@ namespace Sace
     {
         private Saida saida;
 
-        public FrmSaidaDevolucao(Saida saida)
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorEntrada gerenciadorEntrada;
+        private readonly GerenciadorPessoa gerenciadorPessoa;   
+        public FrmSaidaDevolucao(Saida saida, SaceContext context)
         {
             InitializeComponent();
             this.saida = saida;
+            gerenciadorEntrada = new GerenciadorEntrada(context);
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorPessoa = new GerenciadorPessoa(context);
         }
 
         private void FrmSaidaDevolucao_Load(object sender, EventArgs e)
@@ -137,7 +135,7 @@ namespace Sace
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false, gerenciadorPessoa);
             codSaidaTextBox_Leave(sender, e);
         }
 

@@ -33,7 +33,7 @@ namespace Negocio
         public GerenciadorNFe(SaceContext saceContext)
         {
             context = saceContext;
-            nomeComputador = SystemInformation.ComputerName;
+            //nomeComputador = SystemInformation.ComputerName;
             gerenciadorCfop = new GerenciadorCfop(context);
             gerenciadorImposto = new GerenciadorImposto(context);
             gerenciadorPessoa = new GerenciadorPessoa(context);
@@ -2661,7 +2661,7 @@ namespace Negocio
             return texto;
         }
 
-        public void imprimirDANFE(NfeControle nfeControle, string servidorImprimirNFCe)
+        public void ImprimirDanfe(NfeControle nfeControle)
         {
             if (nfeControle != null)
             {
@@ -2688,9 +2688,11 @@ namespace Negocio
             }
             else
             {
-                var listaImprimirNfe = gerenciadorImprimirDocumento.ObterPorTipoDocumentoHost("NFE", nomeComputador).ToList();
+                var listaImprimirNfe = new List<ImprimirDocumento>();
+                if (nomeComputador.Equals(UtilConfig.Default.SERVIDOR_IMPRIMIR_NFE))
+                    listaImprimirNfe = gerenciadorImprimirDocumento.ObterPorTipoDocumentoHost("NFE", nomeComputador).ToList();
                 var listaImprimirNfce = new List<ImprimirDocumento>();
-                if (nomeComputador.Equals(servidorImprimirNFCe))
+                if (nomeComputador.Equals(UtilConfig.Default.SERVIDOR_IMPRIMIR_NFE))
                     listaImprimirNfce = gerenciadorImprimirDocumento.ObterPorTipoDocumento("NFCE").ToList();
                 var listaImprimir = listaImprimirNfce.Union(listaImprimirNfe);
                 if (listaImprimir != null && listaImprimir.Count() > 0)

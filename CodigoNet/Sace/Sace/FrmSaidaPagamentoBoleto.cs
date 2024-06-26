@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Negocio;
+﻿using Dados;
 using Dominio;
+using Negocio;
 using Util;
 
 namespace Sace
@@ -17,8 +10,15 @@ namespace Sace
         SaidaPesquisa saida;
         List<Conta> listaContaBoletos;
 
-        public FrmSaidaPagamentoBoleto(String cupomFiscal)
+        private readonly GerenciadorSaida gerenciadorSaida;
+        private readonly GerenciadorConta gerenciadorConta;
+        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
+        public FrmSaidaPagamentoBoleto(string cupomFiscal, SaceContext context)
         {
+            InitializeComponent();
+            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorConta = new GerenciadorConta(context);
+            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
             List<SaidaPesquisa> saidas = gerenciadorSaida.ObterPorCupomFiscal(cupomFiscal);
             if (saidas.Count > 0)
             {

@@ -25,7 +25,7 @@ namespace Sace
 
             ApplicationConfiguration.Initialize();
             Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
-            Application.Run(new FrmBanco(options));
+            Application.Run(new Principal(options));
         }
     }
 }

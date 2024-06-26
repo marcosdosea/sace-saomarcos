@@ -10,10 +10,9 @@ namespace Sace
         EstadoFormulario estado = EstadoFormulario.ESPERA;
         private readonly GerenciadorPessoa gerenciadorPessoa;
 
-        public FrmPessoaExcluir(DbContextOptions<SaceContext> options)
+        public FrmPessoaExcluir(SaceContext context)
         {
             InitializeComponent();
-            SaceContext context = new SaceContext(options);
             gerenciadorPessoa = new GerenciadorPessoa(context);
         }
 
