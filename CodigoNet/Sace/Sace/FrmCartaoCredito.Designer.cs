@@ -28,492 +28,508 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label codCartaoLabel;
-            System.Windows.Forms.Label nomeLabel;
-            System.Windows.Forms.Label codContaBancoLabel;
-            System.Windows.Forms.Label diaBaseLabel;
-            System.Windows.Forms.Label codPessoaLabel;
-            System.Windows.Forms.Label mapeamentoLabel;
-            System.Windows.Forms.Label descontoLabel;
-            System.Windows.Forms.Label mapeamentoCapptaLabel;
-            System.Windows.Forms.Label tipoCartaoLabel;
+            components = new System.ComponentModel.Container();
+            Label codCartaoLabel;
+            Label nomeLabel;
+            Label codContaBancoLabel;
+            Label diaBaseLabel;
+            Label codPessoaLabel;
+            Label mapeamentoLabel;
+            Label descontoLabel;
+            Label mapeamentoCapptaLabel;
+            Label tipoCartaoLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCartaoCredito));
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.tb_cartao_creditoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.cartaoCreditoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.codCartaoTextBox = new System.Windows.Forms.TextBox();
-            this.nomeTextBox = new System.Windows.Forms.TextBox();
-            this.diaBaseTextBox = new System.Windows.Forms.TextBox();
-            this.codContaBancoComboBox = new System.Windows.Forms.ComboBox();
-            this.contaBancoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
-            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mapeamentoTextBox = new System.Windows.Forms.TextBox();
-            this.descontoTextBox = new System.Windows.Forms.TextBox();
-            this.mapeamentoCapptaTextBox = new System.Windows.Forms.TextBox();
-            this.tipoCartaoComboBox = new System.Windows.Forms.ComboBox();
-            codCartaoLabel = new System.Windows.Forms.Label();
-            nomeLabel = new System.Windows.Forms.Label();
-            codContaBancoLabel = new System.Windows.Forms.Label();
-            diaBaseLabel = new System.Windows.Forms.Label();
-            codPessoaLabel = new System.Windows.Forms.Label();
-            mapeamentoLabel = new System.Windows.Forms.Label();
-            descontoLabel = new System.Windows.Forms.Label();
-            mapeamentoCapptaLabel = new System.Windows.Forms.Label();
-            tipoCartaoLabel = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_cartao_creditoBindingNavigator)).BeginInit();
-            this.tb_cartao_creditoBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cartaoCreditoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
-            this.SuspendLayout();
+            label1 = new Label();
+            panel1 = new Panel();
+            btnSalvar = new Button();
+            btnBuscar = new Button();
+            btnCancelar = new Button();
+            btnNovo = new Button();
+            btnExcluir = new Button();
+            btnEditar = new Button();
+            tb_cartao_creditoBindingNavigator = new BindingNavigator(components);
+            cartaoCreditoBindingSource = new BindingSource(components);
+            bindingNavigatorCountItem = new ToolStripLabel();
+            bindingNavigatorMoveFirstItem = new ToolStripButton();
+            bindingNavigatorMovePreviousItem = new ToolStripButton();
+            bindingNavigatorSeparator = new ToolStripSeparator();
+            bindingNavigatorPositionItem = new ToolStripTextBox();
+            bindingNavigatorSeparator1 = new ToolStripSeparator();
+            bindingNavigatorMoveNextItem = new ToolStripButton();
+            bindingNavigatorMoveLastItem = new ToolStripButton();
+            bindingNavigatorSeparator2 = new ToolStripSeparator();
+            codCartaoTextBox = new TextBox();
+            nomeTextBox = new TextBox();
+            diaBaseTextBox = new TextBox();
+            codContaBancoComboBox = new ComboBox();
+            contaBancoBindingSource = new BindingSource(components);
+            codPessoaComboBox = new ComboBox();
+            pessoaBindingSource = new BindingSource(components);
+            mapeamentoTextBox = new TextBox();
+            descontoTextBox = new TextBox();
+            mapeamentoCapptaTextBox = new TextBox();
+            tipoCartaoComboBox = new ComboBox();
+            codCartaoLabel = new Label();
+            nomeLabel = new Label();
+            codContaBancoLabel = new Label();
+            diaBaseLabel = new Label();
+            codPessoaLabel = new Label();
+            mapeamentoLabel = new Label();
+            descontoLabel = new Label();
+            mapeamentoCapptaLabel = new Label();
+            tipoCartaoLabel = new Label();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tb_cartao_creditoBindingNavigator).BeginInit();
+            tb_cartao_creditoBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)cartaoCreditoBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)contaBancoBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // codCartaoLabel
             // 
             codCartaoLabel.AutoSize = true;
-            codCartaoLabel.Location = new System.Drawing.Point(8, 54);
+            codCartaoLabel.Location = new Point(11, 83);
+            codCartaoLabel.Margin = new Padding(4, 0, 4, 0);
             codCartaoLabel.Name = "codCartaoLabel";
-            codCartaoLabel.Size = new System.Drawing.Size(63, 13);
+            codCartaoLabel.Size = new Size(87, 20);
             codCartaoLabel.TabIndex = 20;
             codCartaoLabel.Text = "Cód Cartão:";
             // 
             // nomeLabel
             // 
             nomeLabel.AutoSize = true;
-            nomeLabel.Location = new System.Drawing.Point(130, 54);
+            nomeLabel.Location = new Point(173, 83);
+            nomeLabel.Margin = new Padding(4, 0, 4, 0);
             nomeLabel.Name = "nomeLabel";
-            nomeLabel.Size = new System.Drawing.Size(38, 13);
+            nomeLabel.Size = new Size(53, 20);
             nomeLabel.TabIndex = 21;
             nomeLabel.Text = "Nome:";
             // 
             // codContaBancoLabel
             // 
             codContaBancoLabel.AutoSize = true;
-            codContaBancoLabel.Location = new System.Drawing.Point(8, 150);
+            codContaBancoLabel.Location = new Point(11, 231);
+            codContaBancoLabel.Margin = new Padding(4, 0, 4, 0);
             codContaBancoLabel.Name = "codContaBancoLabel";
-            codContaBancoLabel.Size = new System.Drawing.Size(72, 13);
+            codContaBancoLabel.Size = new Size(96, 20);
             codContaBancoLabel.TabIndex = 22;
             codContaBancoLabel.Text = "Conta Banco:";
             // 
             // diaBaseLabel
             // 
             diaBaseLabel.AutoSize = true;
-            diaBaseLabel.Location = new System.Drawing.Point(358, 153);
+            diaBaseLabel.Location = new Point(477, 235);
+            diaBaseLabel.Margin = new Padding(4, 0, 4, 0);
             diaBaseLabel.Name = "diaBaseLabel";
-            diaBaseLabel.Size = new System.Drawing.Size(107, 13);
+            diaBaseLabel.Size = new Size(143, 20);
             diaBaseLabel.TabIndex = 23;
             diaBaseLabel.Text = "Qtd Dias Para Pagar:";
             // 
             // codPessoaLabel
             // 
             codPessoaLabel.AutoSize = true;
-            codPessoaLabel.Location = new System.Drawing.Point(130, 105);
+            codPessoaLabel.Location = new Point(173, 162);
+            codPessoaLabel.Margin = new Padding(4, 0, 4, 0);
             codPessoaLabel.Name = "codPessoaLabel";
-            codPessoaLabel.Size = new System.Drawing.Size(116, 13);
+            codPessoaLabel.Size = new Size(155, 20);
             codPessoaLabel.TabIndex = 31;
             codPessoaLabel.Text = "Empresa Responsável:";
             // 
             // mapeamentoLabel
             // 
             mapeamentoLabel.AutoSize = true;
-            mapeamentoLabel.Location = new System.Drawing.Point(8, 194);
+            mapeamentoLabel.Location = new Point(11, 298);
+            mapeamentoLabel.Margin = new Padding(4, 0, 4, 0);
             mapeamentoLabel.Name = "mapeamentoLabel";
-            mapeamentoLabel.Size = new System.Drawing.Size(128, 13);
+            mapeamentoLabel.Size = new Size(176, 20);
             mapeamentoLabel.TabIndex = 33;
             mapeamentoLabel.Text = "Mapeamento Markssyste:";
             // 
             // descontoLabel
             // 
             descontoLabel.AutoSize = true;
-            descontoLabel.Location = new System.Drawing.Point(289, 151);
+            descontoLabel.Location = new Point(385, 232);
+            descontoLabel.Margin = new Padding(4, 0, 4, 0);
             descontoLabel.Name = "descontoLabel";
-            descontoLabel.Size = new System.Drawing.Size(56, 13);
+            descontoLabel.Size = new Size(75, 20);
             descontoLabel.TabIndex = 34;
             descontoLabel.Text = "Desconto:";
             // 
             // mapeamentoCapptaLabel
             // 
             mapeamentoCapptaLabel.AutoSize = true;
-            mapeamentoCapptaLabel.Location = new System.Drawing.Point(151, 194);
+            mapeamentoCapptaLabel.Location = new Point(201, 298);
+            mapeamentoCapptaLabel.Margin = new Padding(4, 0, 4, 0);
             mapeamentoCapptaLabel.Name = "mapeamentoCapptaLabel";
-            mapeamentoCapptaLabel.Size = new System.Drawing.Size(109, 13);
+            mapeamentoCapptaLabel.Size = new Size(153, 20);
             mapeamentoCapptaLabel.TabIndex = 34;
             mapeamentoCapptaLabel.Text = "Mapeamento Cappta:";
             // 
             // tipoCartaoLabel
             // 
             tipoCartaoLabel.AutoSize = true;
-            tipoCartaoLabel.Location = new System.Drawing.Point(8, 105);
+            tipoCartaoLabel.Location = new Point(11, 162);
+            tipoCartaoLabel.Margin = new Padding(4, 0, 4, 0);
             tipoCartaoLabel.Name = "tipoCartaoLabel";
-            tipoCartaoLabel.Size = new System.Drawing.Size(65, 13);
+            tipoCartaoLabel.Size = new Size(90, 20);
             tipoCartaoLabel.TabIndex = 35;
             tipoCartaoLabel.Text = "Tipo Cartao:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(240, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cadastro de Cartões de Crédito";
+            label1.AutoSize = true;
+            label1.Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ControlLightLight;
+            label1.Location = new Point(4, 14);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(307, 28);
+            label1.TabIndex = 0;
+            label1.Text = "Cadastro de Cartões de Crédito";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, -1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(475, 41);
-            this.panel1.TabIndex = 20;
+            panel1.BackColor = Color.SteelBlue;
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(0, -2);
+            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(633, 63);
+            panel1.TabIndex = 20;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(304, 247);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-            this.btnSalvar.TabIndex = 4;
-            this.btnSalvar.Text = "F6 - Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            btnSalvar.Location = new Point(405, 380);
+            btnSalvar.Margin = new Padding(4, 5, 4, 5);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(108, 35);
+            btnSalvar.TabIndex = 4;
+            btnSalvar.Text = "F6 - Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(4, 247);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 0;
-            this.btnBuscar.Text = "F2 - Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            btnBuscar.Location = new Point(5, 380);
+            btnBuscar.Margin = new Padding(4, 5, 4, 5);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(100, 35);
+            btnBuscar.TabIndex = 0;
+            btnBuscar.Text = "F2 - Buscar";
+            btnBuscar.TextAlign = ContentAlignment.MiddleLeft;
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(385, 247);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 5;
-            this.btnCancelar.Text = "Esc - Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            btnCancelar.Location = new Point(513, 380);
+            btnCancelar.Margin = new Padding(4, 5, 4, 5);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(112, 35);
+            btnCancelar.TabIndex = 5;
+            btnCancelar.Text = "Esc - Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(79, 247);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 23);
-            this.btnNovo.TabIndex = 1;
-            this.btnNovo.Text = "F3 - Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
+            btnNovo.Location = new Point(105, 380);
+            btnNovo.Margin = new Padding(4, 5, 4, 5);
+            btnNovo.Name = "btnNovo";
+            btnNovo.Size = new Size(100, 35);
+            btnNovo.TabIndex = 1;
+            btnNovo.Text = "F3 - Novo";
+            btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(229, 247);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
-            this.btnExcluir.TabIndex = 3;
-            this.btnExcluir.Text = "F5 - Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
-            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            btnExcluir.Location = new Point(305, 380);
+            btnExcluir.Margin = new Padding(4, 5, 4, 5);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(100, 35);
+            btnExcluir.TabIndex = 3;
+            btnExcluir.Text = "F5 - Excluir";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(154, 247);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 2;
-            this.btnEditar.Text = "F4 - Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            btnEditar.Location = new Point(205, 380);
+            btnEditar.Margin = new Padding(4, 5, 4, 5);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(100, 35);
+            btnEditar.TabIndex = 2;
+            btnEditar.Text = "F4 - Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // tb_cartao_creditoBindingNavigator
             // 
-            this.tb_cartao_creditoBindingNavigator.AddNewItem = null;
-            this.tb_cartao_creditoBindingNavigator.BindingSource = this.cartaoCreditoBindingSource;
-            this.tb_cartao_creditoBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.tb_cartao_creditoBindingNavigator.DeleteItem = null;
-            this.tb_cartao_creditoBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
-            this.tb_cartao_creditoBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2});
-            this.tb_cartao_creditoBindingNavigator.Location = new System.Drawing.Point(270, 40);
-            this.tb_cartao_creditoBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.tb_cartao_creditoBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.tb_cartao_creditoBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.tb_cartao_creditoBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.tb_cartao_creditoBindingNavigator.Name = "tb_cartao_creditoBindingNavigator";
-            this.tb_cartao_creditoBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_cartao_creditoBindingNavigator.Size = new System.Drawing.Size(209, 25);
-            this.tb_cartao_creditoBindingNavigator.TabIndex = 24;
-            this.tb_cartao_creditoBindingNavigator.Text = "bindingNavigator1";
+            tb_cartao_creditoBindingNavigator.AddNewItem = null;
+            tb_cartao_creditoBindingNavigator.BindingSource = cartaoCreditoBindingSource;
+            tb_cartao_creditoBindingNavigator.CountItem = bindingNavigatorCountItem;
+            tb_cartao_creditoBindingNavigator.DeleteItem = null;
+            tb_cartao_creditoBindingNavigator.Dock = DockStyle.None;
+            tb_cartao_creditoBindingNavigator.ImageScalingSize = new Size(20, 20);
+            tb_cartao_creditoBindingNavigator.Items.AddRange(new ToolStripItem[] { bindingNavigatorMoveFirstItem, bindingNavigatorMovePreviousItem, bindingNavigatorSeparator, bindingNavigatorPositionItem, bindingNavigatorCountItem, bindingNavigatorSeparator1, bindingNavigatorMoveNextItem, bindingNavigatorMoveLastItem, bindingNavigatorSeparator2 });
+            tb_cartao_creditoBindingNavigator.Location = new Point(360, 62);
+            tb_cartao_creditoBindingNavigator.MoveFirstItem = bindingNavigatorMoveFirstItem;
+            tb_cartao_creditoBindingNavigator.MoveLastItem = bindingNavigatorMoveLastItem;
+            tb_cartao_creditoBindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
+            tb_cartao_creditoBindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
+            tb_cartao_creditoBindingNavigator.Name = "tb_cartao_creditoBindingNavigator";
+            tb_cartao_creditoBindingNavigator.PositionItem = bindingNavigatorPositionItem;
+            tb_cartao_creditoBindingNavigator.Size = new Size(262, 27);
+            tb_cartao_creditoBindingNavigator.TabIndex = 24;
+            tb_cartao_creditoBindingNavigator.Text = "bindingNavigator1";
             // 
             // cartaoCreditoBindingSource
             // 
-            this.cartaoCreditoBindingSource.DataSource = typeof(Dominio.CartaoCredito);
+            cartaoCreditoBindingSource.DataSource = typeof(Dominio.CartaoCredito);
             // 
             // bindingNavigatorCountItem
             // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            bindingNavigatorCountItem.Size = new Size(48, 24);
+            bindingNavigatorCountItem.Text = "de {0}";
+            bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
             // 
-            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
+            bindingNavigatorMoveFirstItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveFirstItem.Image = (Image)resources.GetObject("bindingNavigatorMoveFirstItem.Image");
+            bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveFirstItem.Size = new Size(29, 24);
+            bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
             // 
-            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
+            bindingNavigatorMovePreviousItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMovePreviousItem.Image = (Image)resources.GetObject("bindingNavigatorMovePreviousItem.Image");
+            bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMovePreviousItem.Size = new Size(29, 24);
+            bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
-            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            bindingNavigatorSeparator.Size = new Size(6, 27);
             // 
             // bindingNavigatorPositionItem
             // 
-            this.bindingNavigatorPositionItem.AccessibleName = "Position";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+            bindingNavigatorPositionItem.AccessibleName = "Position";
+            bindingNavigatorPositionItem.AutoSize = false;
+            bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            bindingNavigatorPositionItem.Size = new Size(65, 27);
+            bindingNavigatorPositionItem.Text = "0";
+            bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // bindingNavigatorSeparator1
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            bindingNavigatorSeparator1.Size = new Size(6, 27);
             // 
             // bindingNavigatorMoveNextItem
             // 
-            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
+            bindingNavigatorMoveNextItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveNextItem.Image = (Image)resources.GetObject("bindingNavigatorMoveNextItem.Image");
+            bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveNextItem.Size = new Size(29, 24);
+            bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
             // 
-            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
+            bindingNavigatorMoveLastItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveLastItem.Image = (Image)resources.GetObject("bindingNavigatorMoveLastItem.Image");
+            bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveLastItem.Size = new Size(29, 24);
+            bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            bindingNavigatorSeparator2.Size = new Size(6, 27);
             // 
             // codCartaoTextBox
             // 
-            this.codCartaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "CodCartao", true));
-            this.codCartaoTextBox.Location = new System.Drawing.Point(11, 72);
-            this.codCartaoTextBox.Name = "codCartaoTextBox";
-            this.codCartaoTextBox.Size = new System.Drawing.Size(113, 20);
-            this.codCartaoTextBox.TabIndex = 25;
-            this.codCartaoTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
-            this.codCartaoTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
+            codCartaoTextBox.DataBindings.Add(new Binding("Text", cartaoCreditoBindingSource, "CodCartao", true));
+            codCartaoTextBox.Location = new Point(15, 111);
+            codCartaoTextBox.Margin = new Padding(4, 5, 4, 5);
+            codCartaoTextBox.Name = "codCartaoTextBox";
+            codCartaoTextBox.Size = new Size(149, 27);
+            codCartaoTextBox.TabIndex = 25;
+            codCartaoTextBox.Enter += codCartaoTextBox_Enter;
+            codCartaoTextBox.Leave += codCartaoTextBox_Leave;
             // 
             // nomeTextBox
             // 
-            this.nomeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.nomeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "Nome", true));
-            this.nomeTextBox.Location = new System.Drawing.Point(133, 72);
-            this.nomeTextBox.Name = "nomeTextBox";
-            this.nomeTextBox.Size = new System.Drawing.Size(336, 20);
-            this.nomeTextBox.TabIndex = 27;
-            this.nomeTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
-            this.nomeTextBox.Leave += new System.EventHandler(this.nomeTextBox_Leave);
+            nomeTextBox.CharacterCasing = CharacterCasing.Upper;
+            nomeTextBox.DataBindings.Add(new Binding("Text", cartaoCreditoBindingSource, "Nome", true));
+            nomeTextBox.Location = new Point(177, 111);
+            nomeTextBox.Margin = new Padding(4, 5, 4, 5);
+            nomeTextBox.Name = "nomeTextBox";
+            nomeTextBox.Size = new Size(447, 27);
+            nomeTextBox.TabIndex = 27;
+            nomeTextBox.Enter += codCartaoTextBox_Enter;
+            nomeTextBox.Leave += nomeTextBox_Leave;
             // 
             // diaBaseTextBox
             // 
-            this.diaBaseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "DiaBase", true));
-            this.diaBaseTextBox.Location = new System.Drawing.Point(361, 169);
-            this.diaBaseTextBox.Name = "diaBaseTextBox";
-            this.diaBaseTextBox.Size = new System.Drawing.Size(104, 20);
-            this.diaBaseTextBox.TabIndex = 33;
-            this.diaBaseTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
-            this.diaBaseTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
+            diaBaseTextBox.DataBindings.Add(new Binding("Text", cartaoCreditoBindingSource, "DiaBase", true));
+            diaBaseTextBox.Location = new Point(481, 260);
+            diaBaseTextBox.Margin = new Padding(4, 5, 4, 5);
+            diaBaseTextBox.Name = "diaBaseTextBox";
+            diaBaseTextBox.Size = new Size(137, 27);
+            diaBaseTextBox.TabIndex = 33;
+            diaBaseTextBox.Enter += codCartaoTextBox_Enter;
+            diaBaseTextBox.Leave += codCartaoTextBox_Leave;
             // 
             // codContaBancoComboBox
             // 
-            this.codContaBancoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codContaBancoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codContaBancoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.cartaoCreditoBindingSource, "CodContaBanco", true));
-            this.codContaBancoComboBox.DataSource = this.contaBancoBindingSource;
-            this.codContaBancoComboBox.DisplayMember = "Descricao";
-            this.codContaBancoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.codContaBancoComboBox.FormattingEnabled = true;
-            this.codContaBancoComboBox.Location = new System.Drawing.Point(11, 168);
-            this.codContaBancoComboBox.Name = "codContaBancoComboBox";
-            this.codContaBancoComboBox.Size = new System.Drawing.Size(275, 21);
-            this.codContaBancoComboBox.TabIndex = 31;
-            this.codContaBancoComboBox.ValueMember = "codContaBanco";
-            this.codContaBancoComboBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
-            this.codContaBancoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codContaBancoComboBox_KeyPress);
-            this.codContaBancoComboBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
+            codContaBancoComboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+            codContaBancoComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            codContaBancoComboBox.DataBindings.Add(new Binding("SelectedValue", cartaoCreditoBindingSource, "CodContaBanco", true));
+            codContaBancoComboBox.DataSource = contaBancoBindingSource;
+            codContaBancoComboBox.DisplayMember = "Descricao";
+            codContaBancoComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            codContaBancoComboBox.FormattingEnabled = true;
+            codContaBancoComboBox.Location = new Point(15, 258);
+            codContaBancoComboBox.Margin = new Padding(4, 5, 4, 5);
+            codContaBancoComboBox.Name = "codContaBancoComboBox";
+            codContaBancoComboBox.Size = new Size(365, 28);
+            codContaBancoComboBox.TabIndex = 31;
+            codContaBancoComboBox.ValueMember = "codContaBanco";
+            codContaBancoComboBox.Enter += codCartaoTextBox_Enter;
+            codContaBancoComboBox.KeyPress += codContaBancoComboBox_KeyPress;
+            codContaBancoComboBox.Leave += codCartaoTextBox_Leave;
             // 
             // contaBancoBindingSource
             // 
-            this.contaBancoBindingSource.DataSource = typeof(Dominio.ContaBanco);
+            contaBancoBindingSource.DataSource = typeof(Dominio.ContaBanco);
             // 
             // codPessoaComboBox
             // 
-            this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.cartaoCreditoBindingSource, "CodPessoa", true));
-            this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
-            this.codPessoaComboBox.DisplayMember = "NomeFantasia";
-            this.codPessoaComboBox.FormattingEnabled = true;
-            this.codPessoaComboBox.Location = new System.Drawing.Point(133, 121);
-            this.codPessoaComboBox.Name = "codPessoaComboBox";
-            this.codPessoaComboBox.Size = new System.Drawing.Size(336, 21);
-            this.codPessoaComboBox.TabIndex = 29;
-            this.codPessoaComboBox.ValueMember = "CodPessoa";
-            this.codPessoaComboBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
-            this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codContaBancoComboBox_KeyPress);
-            this.codPessoaComboBox.Leave += new System.EventHandler(this.codPessoaComboBox_Leave);
+            codPessoaComboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+            codPessoaComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            codPessoaComboBox.DataBindings.Add(new Binding("SelectedValue", cartaoCreditoBindingSource, "CodPessoa", true));
+            codPessoaComboBox.DataSource = pessoaBindingSource;
+            codPessoaComboBox.DisplayMember = "NomeFantasia";
+            codPessoaComboBox.FormattingEnabled = true;
+            codPessoaComboBox.Location = new Point(177, 186);
+            codPessoaComboBox.Margin = new Padding(4, 5, 4, 5);
+            codPessoaComboBox.Name = "codPessoaComboBox";
+            codPessoaComboBox.Size = new Size(447, 28);
+            codPessoaComboBox.TabIndex = 29;
+            codPessoaComboBox.ValueMember = "CodPessoa";
+            codPessoaComboBox.Enter += codCartaoTextBox_Enter;
+            codPessoaComboBox.KeyPress += codContaBancoComboBox_KeyPress;
+            codPessoaComboBox.Leave += codPessoaComboBox_Leave;
             // 
             // pessoaBindingSource
             // 
-            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // mapeamentoTextBox
             // 
-            this.mapeamentoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "Mapeamento", true));
-            this.mapeamentoTextBox.Location = new System.Drawing.Point(11, 212);
-            this.mapeamentoTextBox.Name = "mapeamentoTextBox";
-            this.mapeamentoTextBox.Size = new System.Drawing.Size(125, 20);
-            this.mapeamentoTextBox.TabIndex = 34;
-            this.mapeamentoTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
-            this.mapeamentoTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
+            mapeamentoTextBox.DataBindings.Add(new Binding("Text", cartaoCreditoBindingSource, "Mapeamento", true));
+            mapeamentoTextBox.Location = new Point(15, 326);
+            mapeamentoTextBox.Margin = new Padding(4, 5, 4, 5);
+            mapeamentoTextBox.Name = "mapeamentoTextBox";
+            mapeamentoTextBox.Size = new Size(165, 27);
+            mapeamentoTextBox.TabIndex = 34;
+            mapeamentoTextBox.Enter += codCartaoTextBox_Enter;
+            mapeamentoTextBox.Leave += codCartaoTextBox_Leave;
             // 
             // descontoTextBox
             // 
-            this.descontoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "Desconto", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
-            this.descontoTextBox.Location = new System.Drawing.Point(292, 169);
-            this.descontoTextBox.Name = "descontoTextBox";
-            this.descontoTextBox.Size = new System.Drawing.Size(63, 20);
-            this.descontoTextBox.TabIndex = 32;
-            this.descontoTextBox.Enter += new System.EventHandler(this.codCartaoTextBox_Enter);
-            this.descontoTextBox.Leave += new System.EventHandler(this.codCartaoTextBox_Leave);
+            descontoTextBox.DataBindings.Add(new Binding("Text", cartaoCreditoBindingSource, "Desconto", true, DataSourceUpdateMode.OnValidation, null, "N2"));
+            descontoTextBox.Location = new Point(389, 260);
+            descontoTextBox.Margin = new Padding(4, 5, 4, 5);
+            descontoTextBox.Name = "descontoTextBox";
+            descontoTextBox.Size = new Size(83, 27);
+            descontoTextBox.TabIndex = 32;
+            descontoTextBox.Enter += codCartaoTextBox_Enter;
+            descontoTextBox.Leave += codCartaoTextBox_Leave;
             // 
             // mapeamentoCapptaTextBox
             // 
-            this.mapeamentoCapptaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "MapeamentoCappta", true));
-            this.mapeamentoCapptaTextBox.Location = new System.Drawing.Point(154, 212);
-            this.mapeamentoCapptaTextBox.Name = "mapeamentoCapptaTextBox";
-            this.mapeamentoCapptaTextBox.Size = new System.Drawing.Size(315, 20);
-            this.mapeamentoCapptaTextBox.TabIndex = 35;
+            mapeamentoCapptaTextBox.DataBindings.Add(new Binding("Text", cartaoCreditoBindingSource, "MapeamentoCappta", true));
+            mapeamentoCapptaTextBox.Location = new Point(205, 326);
+            mapeamentoCapptaTextBox.Margin = new Padding(4, 5, 4, 5);
+            mapeamentoCapptaTextBox.Name = "mapeamentoCapptaTextBox";
+            mapeamentoCapptaTextBox.Size = new Size(419, 27);
+            mapeamentoCapptaTextBox.TabIndex = 35;
             // 
             // tipoCartaoComboBox
             // 
-            this.tipoCartaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cartaoCreditoBindingSource, "TipoCartao", true));
-            this.tipoCartaoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.cartaoCreditoBindingSource, "TipoCartao", true));
-            this.tipoCartaoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tipoCartaoComboBox.FormattingEnabled = true;
-            this.tipoCartaoComboBox.Items.AddRange(new object[] {
-            "CREDITO",
-            "DEBITO"});
-            this.tipoCartaoComboBox.Location = new System.Drawing.Point(11, 121);
-            this.tipoCartaoComboBox.Name = "tipoCartaoComboBox";
-            this.tipoCartaoComboBox.Size = new System.Drawing.Size(113, 21);
-            this.tipoCartaoComboBox.TabIndex = 28;
+            tipoCartaoComboBox.DataBindings.Add(new Binding("Text", cartaoCreditoBindingSource, "TipoCartao", true));
+            tipoCartaoComboBox.DataBindings.Add(new Binding("SelectedValue", cartaoCreditoBindingSource, "TipoCartao", true));
+            tipoCartaoComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            tipoCartaoComboBox.FormattingEnabled = true;
+            tipoCartaoComboBox.Items.AddRange(new object[] { "CREDITO", "DEBITO" });
+            tipoCartaoComboBox.Location = new Point(15, 186);
+            tipoCartaoComboBox.Margin = new Padding(4, 5, 4, 5);
+            tipoCartaoComboBox.Name = "tipoCartaoComboBox";
+            tipoCartaoComboBox.Size = new Size(149, 28);
+            tipoCartaoComboBox.TabIndex = 28;
             // 
             // FrmCartaoCredito
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 290);
-            this.Controls.Add(tipoCartaoLabel);
-            this.Controls.Add(this.tipoCartaoComboBox);
-            this.Controls.Add(mapeamentoCapptaLabel);
-            this.Controls.Add(this.mapeamentoCapptaTextBox);
-            this.Controls.Add(descontoLabel);
-            this.Controls.Add(this.descontoTextBox);
-            this.Controls.Add(mapeamentoLabel);
-            this.Controls.Add(this.mapeamentoTextBox);
-            this.Controls.Add(codPessoaLabel);
-            this.Controls.Add(this.codPessoaComboBox);
-            this.Controls.Add(this.codContaBancoComboBox);
-            this.Controls.Add(this.tb_cartao_creditoBindingNavigator);
-            this.Controls.Add(this.codCartaoTextBox);
-            this.Controls.Add(this.nomeTextBox);
-            this.Controls.Add(this.diaBaseTextBox);
-            this.Controls.Add(diaBaseLabel);
-            this.Controls.Add(codContaBancoLabel);
-            this.Controls.Add(nomeLabel);
-            this.Controls.Add(codCartaoLabel);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnNovo);
-            this.Controls.Add(this.btnExcluir);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.KeyPreview = true;
-            this.Name = "FrmCartaoCredito";
-            this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Cadastro de Cartões de Crédito";
-            this.Load += new System.EventHandler(this.FrmCartaoCredito_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCartaoCredito_KeyDown);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_cartao_creditoBindingNavigator)).EndInit();
-            this.tb_cartao_creditoBindingNavigator.ResumeLayout(false);
-            this.tb_cartao_creditoBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cartaoCreditoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contaBancoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(633, 446);
+            Controls.Add(tipoCartaoLabel);
+            Controls.Add(tipoCartaoComboBox);
+            Controls.Add(mapeamentoCapptaLabel);
+            Controls.Add(mapeamentoCapptaTextBox);
+            Controls.Add(descontoLabel);
+            Controls.Add(descontoTextBox);
+            Controls.Add(mapeamentoLabel);
+            Controls.Add(mapeamentoTextBox);
+            Controls.Add(codPessoaLabel);
+            Controls.Add(codPessoaComboBox);
+            Controls.Add(codContaBancoComboBox);
+            Controls.Add(tb_cartao_creditoBindingNavigator);
+            Controls.Add(codCartaoTextBox);
+            Controls.Add(nomeTextBox);
+            Controls.Add(diaBaseTextBox);
+            Controls.Add(diaBaseLabel);
+            Controls.Add(codContaBancoLabel);
+            Controls.Add(nomeLabel);
+            Controls.Add(codCartaoLabel);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnBuscar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnNovo);
+            Controls.Add(btnExcluir);
+            Controls.Add(btnEditar);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            KeyPreview = true;
+            Margin = new Padding(4, 5, 4, 5);
+            Name = "FrmCartaoCredito";
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Cadastro de Cartões de Crédito";
+            Load += FrmCartaoCredito_Load;
+            KeyDown += FrmCartaoCredito_KeyDown;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tb_cartao_creditoBindingNavigator).EndInit();
+            tb_cartao_creditoBindingNavigator.ResumeLayout(false);
+            tb_cartao_creditoBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)cartaoCreditoBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)contaBancoBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
