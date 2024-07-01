@@ -8,30 +8,26 @@ namespace Sace
     public partial class FrmCartaoCreditoPesquisa : Form
     {
         public CartaoCredito CartaoCreditoSelected { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-
-        public FrmCartaoCreditoPesquisa(DbContextOptions<SaceContext> saceOptions)
+        private readonly GerenciadorCartaoCredito gerenciadorCartaoCredito;
+        public FrmCartaoCreditoPesquisa()
         {
             InitializeComponent();
             CartaoCreditoSelected = null;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
+            gerenciadorCartaoCredito = new GerenciadorCartaoCredito();
         }
 
         private void FrmCartaoCreditoPesquisa_Load(object sender, EventArgs e)
         {
-            cartaoCreditoBindingSource.DataSource = service.GerenciadorCartaoCredito.ObterTodos();
+            cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                cartaoCreditoBindingSource.DataSource = service.GerenciadorCartaoCredito.Obter(int.Parse(txtTexto.Text));
+                cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.Obter(int.Parse(txtTexto.Text));
             else
-                cartaoCreditoBindingSource.DataSource = service.GerenciadorCartaoCredito.ObterPorNome(txtTexto.Text);
+                cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterPorNome(txtTexto.Text);
         }
 
         private void tb_cartao_creditoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

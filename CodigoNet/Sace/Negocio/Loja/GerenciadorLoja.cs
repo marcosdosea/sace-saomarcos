@@ -1,20 +1,11 @@
 ﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
-using System.Windows.Forms;
-using Util;
 
 namespace Negocio
 {
     public class GerenciadorLoja
     {
-        private readonly SaceContext context;
-
-        public GerenciadorLoja(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere um nova loja
         /// </summary>
@@ -26,9 +17,11 @@ namespace Negocio
             {
                 var _loja = new TbLoja();
                 Atribuir(loja, _loja);
-                context.Add(_loja);
-                context.SaveChanges();
-
+                using (var context = new SaceContext())
+                {
+                    context.Add(_loja);
+                    context.SaveChanges();
+                }
                 return _loja.CodLoja;
             }
             catch (Exception e)
@@ -45,18 +38,19 @@ namespace Negocio
         {
             try
             {
-                var _loja = new TbLoja();
-                _loja.CodLoja = loja.CodLoja;
-
-                _loja = context.TbLojas.Find(_loja);
-                if (_loja != null)
+                using (var context = new SaceContext())
                 {
-                    Atribuir(loja, _loja);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new NegocioException("A loja não foi encontrada para realização da atualização");
+                    var _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == loja.CodLoja);
+                    if (_loja != null)
+                    {
+                        Atribuir(loja, _loja);
+                        context.Update(_loja);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("A loja não foi encontrada para realização da atualização");
+                    }
                 }
             }
             catch (Exception e)
@@ -77,11 +71,19 @@ namespace Negocio
 
             try
             {
-                var _loja = new TbLoja();
-                _loja.CodLoja = codLoja;
-
-                context.Remove(_loja);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == codLoja);
+                    if (_loja != null)
+                    {
+                        context.Remove(_loja);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("A loja não foi encontrada.");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -95,30 +97,34 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Loja> GetQuery()
         {
-            var query = from loja in context.TbLojas
-                        select new Loja
-                        {
-                            CodLoja = loja.CodLoja,
-                            CodPessoa = loja.CodPessoa,
-                            Nome = loja.Nome,
-                            NomeServidorNfe = loja.NomeServidorNfe,
-                            PastaNfeAutorizados = loja.PastaNfeAutorizados,
-                            PastaNfeEnviado = loja.PastaNfeEnviado,
-                            PastaNfeEnvio = loja.PastaNfeEnvio,
-                            PastaNfeErro = loja.PastaNfeErro,
-                            PastaNfeEspelho = loja.PastaNfeEspelho,
-                            PastaNfeRetorno = loja.PastaNfeRetorno,
-                            PastaNfeValidado = loja.PastaNfeValidado,
-                            PastaNfeValidar = loja.PastaNfeValidar,
-                            Cnpj = loja.CodPessoaNavigation.CpfCnpj,
-                            CodMunicipioIBGE = loja.CodPessoaNavigation.CodMunicipiosIbge,
-                            Estado = loja.CodPessoaNavigation.Uf,
-                            Ie = loja.CodPessoaNavigation.Ie,
-                            NomePessoa = loja.CodPessoaNavigation.Nome,
-                            NumeroSequenciaNFeAtual = loja.NumeroSequenciaNfeAtual,
-                            NumeroSequenciaNFCeAtual = loja.NumeroSequencialNfceAtual
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from loja in context.TbLojas
+                            select new Loja
+                            {
+                                CodLoja = loja.CodLoja,
+                                CodPessoa = loja.CodPessoa,
+                                Nome = loja.Nome,
+                                NomeServidorNfe = loja.NomeServidorNfe,
+                                PastaNfeAutorizados = loja.PastaNfeAutorizados,
+                                PastaNfeEnviado = loja.PastaNfeEnviado,
+                                PastaNfeEnvio = loja.PastaNfeEnvio,
+                                PastaNfeErro = loja.PastaNfeErro,
+                                PastaNfeEspelho = loja.PastaNfeEspelho,
+                                PastaNfeRetorno = loja.PastaNfeRetorno,
+                                PastaNfeValidado = loja.PastaNfeValidado,
+                                PastaNfeValidar = loja.PastaNfeValidar,
+                                Cnpj = loja.CodPessoaNavigation.CpfCnpj,
+                                CodMunicipioIBGE = loja.CodPessoaNavigation.CodMunicipiosIbge,
+                                Estado = loja.CodPessoaNavigation.Uf,
+                                Ie = loja.CodPessoaNavigation.Ie,
+                                NomePessoa = loja.CodPessoaNavigation.Nome,
+                                NumeroSequenciaNFeAtual = loja.NumeroSequenciaNfeAtual,
+                                NumeroSequenciaNFCeAtual = loja.NumeroSequencialNfceAtual
+                            };
+                return query.AsNoTracking();
+            }
+
         }
 
         /// <summary>
@@ -161,68 +167,58 @@ namespace Negocio
         }
 
         /// <summary>
-        /// Obtém dados da loja associada a um computador com cartão de Nf-e instalado
-        /// </summary>
-        /// <param name="codPessoa"></param>
-        /// <returns></returns>
-        public List<Loja> ObterPorServidorNfe(string nomeComputador)
-        {
-            List<Loja> lojas = GetQuery().Where(loja => loja.NomeServidorNfe.Equals(nomeComputador)).ToList();
-            if ((lojas == null) || (lojas.Count == 0))
-            {
-                lojas = Obter(UtilConfig.Default.LOJA_PADRAO);
-            }
-            return lojas;
-        }
-
-        /// <summary>
         /// Atualiza apemas o número da nfe
         /// </summary>
         /// <param name="loja"></param>
         public int IncrementarNumeroNFe(int codLoja, string modelo)
         {
-            var transaction = context.Database.BeginTransaction();
-            try
+            using (var context = new SaceContext())
             {
-                DateTime ontem = DateTime.Now.AddDays(-1);
-                var query = from nfe in context.TbNves
-                            where (nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA) || nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA)) &&
-                                  (nfe.DataEmissao.Value <= ontem) && nfe.Modelo.Equals(modelo)
-                            select nfe;
-                List<TbNfe> nfes = query.ToList();
-                if (nfes.Count > 0)
+                var transaction = context.Database.BeginTransaction();
+                try
                 {
-                    var nfe = nfes.First();
-                    int codigo = nfe.NumeroSequenciaNfe;
-                    context.Remove(nfe);
-                    context.SaveChanges();
-                    return codigo;
+                    DateTime ontem = DateTime.Now.AddDays(-1);
+                    var query = from nfe in context.TbNves
+                                where (nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA) || nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA)) &&
+                                      (nfe.DataEmissao.Value <= ontem) && nfe.Modelo.Equals(modelo)
+                                select nfe;
+                    List<TbNfe> nfes = query.ToList();
+                    if (nfes.Count > 0)
+                    {
+                        var nfe = nfes.First();
+                        int codigo = nfe.NumeroSequenciaNfe;
+                        context.Remove(nfe);
+                        context.SaveChanges();
+                        return codigo;
+                    }
+                    if (modelo.Equals(NfeControle.MODELO_NFCE))
+                    {
+                        var _loja = new TbLoja();
+                        _loja.CodLoja = codLoja;
+                        _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == _loja.CodLoja);
+                        _loja.NumeroSequencialNfceAtual += 1;
+                        context.Update(_loja);
+                        context.SaveChanges();
+                        transaction.Commit();
+                        return _loja.NumeroSequencialNfceAtual;
+                    }
+                    else
+                    {
+                        var _loja = new TbLoja();
+                        _loja.CodLoja = codLoja;
+                        _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == _loja.CodLoja);
+                        _loja.NumeroSequenciaNfeAtual += 1;
+                        context.Update(_loja);
+                        context.SaveChanges();
+                        transaction.Commit();
+                        return _loja.NumeroSequenciaNfeAtual;
+                    }
                 }
-                if (modelo.Equals(NfeControle.MODELO_NFCE))
+                catch (Exception e)
                 {
-                    var _loja = new TbLoja();
-                    _loja.CodLoja = codLoja;
-                    _loja = context.TbLojas.Find(_loja);
-                    _loja.NumeroSequencialNfceAtual += 1;
-                    context.SaveChanges();
-                    transaction.Commit();
-                    return _loja.NumeroSequencialNfceAtual;
+                    transaction.Rollback();
+                    throw new DadosException("Loja", e.Message, e);
                 }
-                else
-                {
-                    var _loja = new TbLoja();
-                    _loja.CodLoja = codLoja;
-                    _loja = context.TbLojas.Find(_loja);
-                    _loja.NumeroSequenciaNfeAtual += 1;
-                    context.SaveChanges();
-                    transaction.Commit();
-                    return _loja.NumeroSequenciaNfeAtual;
-                }
-            }
-            catch (Exception e)
-            {
-                transaction.Rollback();
-                throw new DadosException("Loja", e.Message, e);
             }
         }
 

@@ -24,9 +24,9 @@ namespace Sace
         private void FrmSaidaRetornoFornecedor_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saida = service.GerenciadorSaida.Obter(saida.CodSaida);
-            saidaBindingSource.DataSource = service.GerenciadorSaida.Obter(saida.CodSaida);
-            IEnumerable<Pessoa> pessoas = service.GerenciadorPessoa.ObterTodos();
+            saida = gerenciadorSaida.Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
+            IEnumerable<Pessoa> pessoas = gerenciadorPessoa.ObterTodos();
             pessoaDestinoBindingSource.DataSource = pessoas;
             pessoaFreteBindingSource.DataSource = pessoas;
             pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.List.IndexOf(new Pessoa() { CodPessoa = saida.CodCliente });
@@ -63,10 +63,10 @@ namespace Sace
             {
                 if (MessageBox.Show("Confirma Retorno de mercadorias do fornecedor?", "Confirmar Dados do Retorno de Mercadorias", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    service.GerenciadorSaida.EncerrarRetornoFornecedor(saida);
+                    gerenciadorSaida.EncerrarRetornoFornecedor(saida);
                 }
             }
-            service.GerenciadorSaida.Atualizar(saida);
+            gerenciadorSaida.Atualizar(saida);
             
             this.Close();
         }
@@ -106,7 +106,7 @@ namespace Sace
                 saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
                 saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
 
-                totalNotaFiscalTextBox.Text = service.GerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
+                totalNotaFiscalTextBox.Text = gerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
             }
             codSaidaTextBox_Leave(sender, e);
         }
@@ -154,7 +154,7 @@ namespace Sace
             if (frmSaidaPesquisa.SaidaSelected != null)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                saidaCupomBindingSource.DataSource = service.GerenciadorSaida.Obter(frmSaidaPesquisa.SaidaSelected.CodSaida);
+                saidaCupomBindingSource.DataSource = gerenciadorSaida.Obter(frmSaidaPesquisa.SaidaSelected.CodSaida);
                 saidaCupomBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
                 Cursor.Current = Cursors.Default;
             }

@@ -41,10 +41,10 @@ namespace Sace.Relatorios.Produtos
             {
                 // Obtém os demais dados para preenchimento do relatório
                 long codCliente = listaSaidaProdutoRelatorio.ElementAtOrDefault(0).CodCliente;
-                PessoaBindingSource.DataSource = service.GerenciadorPessoa.Obter(codCliente);
+                PessoaBindingSource.DataSource = gerenciadorPessoa.Obter(codCliente);
                 
                 Loja loja = service.GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
-                PessoaLojaBindingSource.DataSource = service.GerenciadorPessoa.Obter(loja.CodPessoa);
+                PessoaLojaBindingSource.DataSource = gerenciadorPessoa.Obter(loja.CodPessoa);
 
                 ReportParameterCollection parameterCollection = new ReportParameterCollection();
                 parameterCollection.Add(new ReportParameter("TotalSaidas", total.ToString("N2")));

@@ -10,26 +10,23 @@ namespace Sace
     {
         private EstadoFormulario estado;
         private Cfop CfopSelected { get; set;}
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
+        private readonly GerenciadorCfop gerenciadorCfop;
 
-        public FrmCfop(DbContextOptions<SaceContext> saceOptions)
+        public FrmCfop()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            this.service = new SaceService(context);
+            gerenciadorCfop = new GerenciadorCfop();
         }
 
         private void FrmCfop_Load(object sender, EventArgs e)
         {
-            cfopBindingSource.DataSource = service.GerenciadorCfop.ObterTodos();
+            cfopBindingSource.DataSource = gerenciadorCfop.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmCfopPesquisa frmCfopPesquisa = new FrmCfopPesquisa(saceOptions);
+            FrmCfopPesquisa frmCfopPesquisa = new FrmCfopPesquisa();
             frmCfopPesquisa.ShowDialog();
             if (frmCfopPesquisa.CfopSelected != null)
             {
@@ -57,7 +54,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorCfop.Remover(Int32.Parse(cfopTextBox.Text));
+                gerenciadorCfop.Remover(Int32.Parse(cfopTextBox.Text));
                 cfopBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -82,11 +79,11 @@ namespace Sace
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    service.GerenciadorCfop.Inserir(cfop);
+                    gerenciadorCfop.Inserir(cfop);
                 }
                 else
                 {
-                    service.GerenciadorCfop.Atualizar(cfop);
+                    gerenciadorCfop.Atualizar(cfop);
                 }
                 cfopBindingSource.EndEdit();
             }

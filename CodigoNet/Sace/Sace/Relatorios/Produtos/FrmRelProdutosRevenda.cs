@@ -29,7 +29,7 @@ namespace Sace.Relatorios.Produtos
         {
             ProdutoBindingSource.DataSource = service.GerenciadorProduto.ObterPorCodigoFabricante(codPessoa);
             Loja loja = service.GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
-            PessoaBindingSource.DataSource = service.GerenciadorPessoa.Obter(loja.CodPessoa);
+            PessoaBindingSource.DataSource = gerenciadorPessoa.Obter(loja.CodPessoa);
 
             string parametroLucro = (1 + lucro / 100).ToString();
 

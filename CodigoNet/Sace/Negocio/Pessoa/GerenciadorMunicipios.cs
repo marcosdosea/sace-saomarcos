@@ -6,12 +6,6 @@ namespace Negocio
 {
     public class GerenciadorMunicipio
     {
-        private readonly SaceContext context;
-
-        public GerenciadorMunicipio(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
 
         /// <summary>
         /// Insere uma Municipio no banco de dados
@@ -24,10 +18,12 @@ namespace Negocio
             {
                 var _municipio = new TbMunicipiosIbge(); 
                 Atribuir(municipio, _municipio);
-
-                context.Add(_municipio);
-                context.SaveChanges();
-                return _municipio.Codigo;
+                using (var context = new SaceContext())
+                {
+                    context.Add(_municipio);
+                    context.SaveChanges();
+                    return _municipio.Codigo;
+                }
             }
             catch (Exception e)
             {
@@ -45,15 +41,19 @@ namespace Negocio
             {
                 var _municipio = new TbMunicipiosIbge();
                 _municipio.Codigo = municipio.Codigo;
-                _municipio = context.TbMunicipiosIbges.Find(_municipio);
-                if (_municipio != null)
+                using (var context = new SaceContext())
                 {
-                    Atribuir(municipio, _municipio);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new NegocioException("Município para atualização não encontrado.");
+                    _municipio = context.TbMunicipiosIbges.FirstOrDefault(m => m.Codigo == municipio.Codigo);
+                    if (_municipio != null)
+                    {
+                        Atribuir(municipio, _municipio);
+                        context.Update(_municipio);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Município para atualização não encontrado.");
+                    }
                 }
             }
             catch (Exception e)
@@ -72,9 +72,11 @@ namespace Negocio
             {
                 var municipio = new TbMunicipiosIbge();
                 municipio.Codigo = codMunicipio;
-
-                context.Remove(municipio);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    context.Remove(municipio);
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -84,14 +86,17 @@ namespace Negocio
 
         private IQueryable<MunicipiosIBGE> GetQuery()
         {
-            var query = from municipios in context.TbMunicipiosIbges
-                        select new MunicipiosIBGE
-                        {
-                            Codigo = municipios.Codigo,
-                            Municipio = municipios.Municipio,
-                            Uf = municipios.Uf
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from municipios in context.TbMunicipiosIbges
+                            select new MunicipiosIBGE
+                            {
+                                Codigo = municipios.Codigo,
+                                Municipio = municipios.Municipio,
+                                Uf = municipios.Uf
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>

@@ -7,15 +7,13 @@ namespace Sace
 {
     public partial class FrmCalculoParticipacao : Form
     {
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmCalculoParticipacao(DbContextOptions<SaceContext> saceOptions)
+        private readonly GerenciadorSaida gerenciadorSaida;
+
+        public FrmCalculoParticipacao()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context);
+            gerenciadorSaida = new GerenciadorSaida();
         }
 
         private void FrmCalculoParticipacao_KeyDown(object sender, KeyEventArgs e)
@@ -50,7 +48,7 @@ namespace Sace
             decimal metaVendas = 0;
             decimal.TryParse(textMetaVendas.Text, out metaVendas);
             
-            List<Saida> saidas = service.GerenciadorSaida.ObterVendasParticipacaoLucros(dataInicial, dataFinal, valorMinimoVenda);
+            List<Saida> saidas = gerenciadorSaida.ObterVendasParticipacaoLucros(dataInicial, dataFinal, valorMinimoVenda);
             decimal lucroBruto = saidas.Sum(s => s.TotalLucro);
 
             decimal descontoAvaliacaoClientes = avaliacaoClientes / 5;

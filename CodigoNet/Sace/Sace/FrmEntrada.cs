@@ -30,8 +30,8 @@ namespace Sace
             Cursor.Current = Cursors.WaitCursor;
 
             produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodos(); 
-            fornecedorBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
-            empresaFreteBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            fornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+            empresaFreteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             cfopBindingSource.DataSource = service.GerenciadorCfop.ObterTodos();
             cstBindingSource.DataSource = service.GerenciadorCst.ObterTodos();
             entradaBindingSource.DataSource = service.GerenciadorEntrada.ObterTodos();
@@ -313,8 +313,8 @@ namespace Sace
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     long codEntrada = service.GerenciadorEntrada.Importar(nfe);
-                    fornecedorBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
-                    empresaFreteBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+                    fornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+                    empresaFreteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
                     entradaBindingSource.DataSource = service.GerenciadorEntrada.ObterTodos();
                     entradaBindingSource.Position = entradaBindingSource.List.IndexOf(new Entrada() { CodEntrada = codEntrada });
                     Cursor.Current = Cursors.Default;
@@ -516,7 +516,7 @@ namespace Sace
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
-                        fornecedorBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+                        fornecedorBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
                         fornecedorBindingSource.Position = fornecedorBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();
@@ -537,7 +537,7 @@ namespace Sace
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
-                        empresaFreteBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+                        empresaFreteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
                         empresaFreteBindingSource.Position = empresaFreteBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();

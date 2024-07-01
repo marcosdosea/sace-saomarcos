@@ -46,7 +46,7 @@ namespace Sace
         {
             lblAno.Text = DateTime.Now.AddYears(-1).Year + " x " + DateTime.Now.Year;
 
-            NumerosPeriodo numeros = service.GerenciadorSaida.ObterVendasMensalComparandoAnoAnterior();
+            NumerosPeriodo numeros = gerenciadorSaida.ObterVendasMensalComparandoAnoAnterior();
 
             if (numeros.NumeroVendas > 0)
                 lblNumeroVendas.ForeColor = Color.Green;
@@ -166,14 +166,14 @@ namespace Sace
 
         private void bancosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmBanco frmBanco = new FrmBanco(saceOptions);
+            FrmBanco frmBanco = new FrmBanco();
             frmBanco.ShowDialog();
             frmBanco.Dispose();
         }
 
         private void contasBancáriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmContaBanco frmContaBanco = new FrmContaBanco(saceOptions);
+            FrmContaBanco frmContaBanco = new FrmContaBanco();
             frmContaBanco.ShowDialog();
             frmContaBanco.Dispose();
         }
@@ -230,7 +230,7 @@ namespace Sace
 
         private void contasAPagarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            FrmConta frmConta = new FrmConta(saceOptions);
+            FrmConta frmConta = new FrmConta();
             frmConta.ShowDialog();
             frmConta.Dispose();
         }
@@ -306,7 +306,7 @@ namespace Sace
 
         private void códigoFiscalDeOperaçãoCFOPToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmCfop frmCfop = new FrmCfop(saceOptions);
+            FrmCfop frmCfop = new FrmCfop();
             frmCfop.ShowDialog();
             frmCfop.Dispose();
         }
@@ -327,11 +327,11 @@ namespace Sace
             service.GerenciadorNFe.ImprimirDanfe(null);
             if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1.ToUpper()))
             {
-                service.GerenciadorSaida.ImprimirDAV(Impressora.Tipo.REDUZIDO1, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA1);
+                gerenciadorSaida.ImprimirDAV(Impressora.Tipo.REDUZIDO1, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA1);
             }
             if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO2.ToUpper()))
             {
-                service.GerenciadorSaida.ImprimirDAV(Impressora.Tipo.REDUZIDO2, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA2);
+                gerenciadorSaida.ImprimirDAV(Impressora.Tipo.REDUZIDO2, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA2);
             }
             if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_NFE.ToUpper()))
             {
@@ -458,7 +458,7 @@ namespace Sace
         }
         private void vendasPorProfissionaisToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmCalcularVendasPorVendedor frmCalcularVendasPorVendedor = new FrmCalcularVendasPorVendedor(saceOptions);
+            FrmCalcularVendasPorVendedor frmCalcularVendasPorVendedor = new FrmCalcularVendasPorVendedor();
             frmCalcularVendasPorVendedor.ShowDialog();
             frmCalcularVendasPorVendedor.Dispose();
         }

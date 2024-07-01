@@ -25,10 +25,10 @@ namespace Sace
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
             entradaBindingSource.DataSource = service.GerenciadorEntrada.ObterTodos();
-            saida = service.GerenciadorSaida.Obter(saida.CodSaida);
+            saida = gerenciadorSaida.Obter(saida.CodSaida);
             entradaBindingSource.Position = entradaBindingSource.IndexOf(new Entrada() { CodEntrada = saida.CodEntrada });
-            saidaBindingSource.DataSource = service.GerenciadorSaida.Obter(saida.CodSaida);
-            IEnumerable<Pessoa> pessoas = service.GerenciadorPessoa.ObterTodos();
+            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
+            IEnumerable<Pessoa> pessoas = gerenciadorPessoa.ObterTodos();
             pessoaDestinoBindingSource.DataSource = pessoas;
             pessoaFreteBindingSource.DataSource = pessoas;
             pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.List.IndexOf(new Pessoa() { CodPessoa = saida.CodCliente });
@@ -66,17 +66,17 @@ namespace Sace
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO)) {
                 if (MessageBox.Show("Confirma Remessa de Produtos para Conserto?", "Confirmar Remessa para Conserto", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    service.GerenciadorSaida.Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null, null);
+                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null, null);
                 }
             }
             else if (saida.TipoSaida == Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR)
             {
                 if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    service.GerenciadorSaida.Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null, null);
+                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null, null);
                 }
             }
-            service.GerenciadorSaida.Atualizar(saida);
+            gerenciadorSaida.Atualizar(saida);
             
             this.Close();
         }
@@ -116,7 +116,7 @@ namespace Sace
                 saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
                 saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
 
-                totalNotaFiscalTextBox.Text = service.GerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
+                totalNotaFiscalTextBox.Text = gerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
             }
             codSaidaTextBox_Leave(sender, e);
         }

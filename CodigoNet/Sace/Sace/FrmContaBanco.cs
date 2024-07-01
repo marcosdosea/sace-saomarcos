@@ -11,15 +11,10 @@ namespace Sace
         private EstadoFormulario estado;
 
         public ContaBanco ContaBancoSelected { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-
-        public FrmContaBanco(DbContextOptions<SaceContext> saceOptions)
+ 
+        public FrmContaBanco()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmContaBanco_Load(object sender, EventArgs e)

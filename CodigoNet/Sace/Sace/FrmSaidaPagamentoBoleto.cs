@@ -20,7 +20,7 @@ namespace Sace
             SaceContext context = new SaceContext(saceOptions);
             service = new SaceService(context);
 
-            List<SaidaPesquisa> saidas = service.GerenciadorSaida.ObterPorCupomFiscal(cupomFiscal);
+            List<SaidaPesquisa> saidas = gerenciadorSaida.ObterPorCupomFiscal(cupomFiscal);
             if (saidas.Count > 0)
             {
                 saida = saidas.FirstOrDefault();

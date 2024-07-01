@@ -19,26 +19,21 @@ namespace Sace
         private EstadoFormulario estado;
         public Pessoa PessoaSelected { get; set; }
         private Loja loja;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-
-        public FrmPessoa(DbContextOptions<SaceContext> saceOptions)
+        public FrmPessoa()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmPessoa_Load(object sender, EventArgs e)
         {
+            var gerenciadorPessoa = new GerenciadorPessoa();
             Cursor.Current = Cursors.WaitCursor;
-            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             municipiosIBGEBindingSource.DataSource = service.GerenciadorMunicipio.ObterTodos();
             loja = service.GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
             if (!codPessoaTextBox.Text.Trim().Equals(""))
-                contatosBindingSource.DataSource = service.GerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
+                contatosBindingSource.DataSource = gerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
             habilitaBotoes(true);
             Cursor.Current = Cursors.Default;
         }
@@ -85,7 +80,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorPessoa.Remover(Int32.Parse(codPessoaTextBox.Text));
+                gerenciadorPessoa.Remover(Int32.Parse(codPessoaTextBox.Text));
                 pessoaBindingSource.RemoveCurrent();
             }
         }
@@ -130,13 +125,13 @@ namespace Sace
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                service.GerenciadorPessoa.Inserir(_pessoa);
-                pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+                gerenciadorPessoa.Inserir(_pessoa);
+                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
                 pessoaBindingSource.MoveLast();
             }
             else
             {
-                service.GerenciadorPessoa.Atualizar(_pessoa);
+                gerenciadorPessoa.Atualizar(_pessoa);
                 pessoaBindingSource.EndEdit();
             }
             habilitaBotoes(true);
@@ -152,10 +147,10 @@ namespace Sace
                     ContatoPessoa cp = new ContatoPessoa();
                     cp.CodPessoaContato = long.Parse(tb_contato_empresaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
                     cp.CodPessoa = long.Parse(codPessoaTextBox.Text);
-                    service.GerenciadorPessoa.RemoverContato(cp);
+                    gerenciadorPessoa.RemoverContato(cp);
                 }
             }
-            contatosBindingSource.DataSource = service.GerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
+            contatosBindingSource.DataSource = gerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
         }
 
         private void pessoaBindingSource_PositionChanged(object sender, EventArgs e)
@@ -180,7 +175,7 @@ namespace Sace
         {
             if ((codPessoaTextBox.Text != null) && (codPessoaTextBox.Text != ""))
             {
-                contatosBindingSource.DataSource = service.GerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
+                contatosBindingSource.DataSource = gerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
                 
                 municipiosIBGEBindingSource.Position = municipiosIBGEBindingSource.List.IndexOf(new MunicipiosIBGE() { Codigo = ((Pessoa)pessoaBindingSource.Current).CodMunicipioIBGE });
             }
@@ -196,8 +191,8 @@ namespace Sace
                 contatoPessoa.CodPessoa = Int64.Parse(codPessoaTextBox.Text);
                 contatoPessoa.CodPessoaContato = frmPessoaPesquisa.PessoaSelected.CodPessoa;
 
-                service.GerenciadorPessoa.InserirContato(contatoPessoa);
-                contatosBindingSource.DataSource = service.GerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
+                gerenciadorPessoa.InserirContato(contatoPessoa);
+                contatosBindingSource.DataSource = gerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
             }
             frmPessoaPesquisa.Dispose();
         }

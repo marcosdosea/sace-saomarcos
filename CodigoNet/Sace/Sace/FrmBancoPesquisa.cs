@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 
 namespace Sace
@@ -8,30 +6,27 @@ namespace Sace
     public partial class FrmBancoPesquisa : Form
     {
         public Banco BancoSelected { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
+        private GerenciadorBanco gerenciadorBanco;
 
-        public FrmBancoPesquisa(DbContextOptions<SaceContext> saceOptions)
+        public FrmBancoPesquisa()
         {
             InitializeComponent();
             BancoSelected = null;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            this.service = new SaceService(context);
+            gerenciadorBanco = new GerenciadorBanco();
         }
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
         {
-            bancoBindingSource.DataSource = service.GerenciadorBanco.ObterTodos();
+            bancoBindingSource.DataSource = gerenciadorBanco.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                bancoBindingSource.DataSource = service.GerenciadorBanco.Obter(int.Parse(txtTexto.Text));
+                bancoBindingSource.DataSource = gerenciadorBanco.Obter(int.Parse(txtTexto.Text));
             else
-                bancoBindingSource.DataSource = service.GerenciadorBanco.ObterPorNome(txtTexto.Text);
+                bancoBindingSource.DataSource = gerenciadorBanco.ObterPorNome(txtTexto.Text);
 
         }
 

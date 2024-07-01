@@ -42,7 +42,7 @@ namespace Sace
             TotalPagamentoSaida totalPagamentoDinheiro = totaisPagamentos.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
             if (totalPagamentoDinheiro != null)
             {
-                decimal trocoPorPeriodo = service.GerenciadorSaida.ObterTrocoPagamentos(dataInicial, dataFinal);
+                decimal trocoPorPeriodo = gerenciadorSaida.ObterTrocoPagamentos(dataInicial, dataFinal);
                 totalPagamentoDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisPagamentosBindingSource.DataSource = totaisPagamentos;
@@ -53,7 +53,7 @@ namespace Sace
             TotalPagamentoSaida totalPagamentoSaidaDinheiro = totaisSaida.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
             if (totalPagamentoSaidaDinheiro != null)
             {
-                decimal trocoPorPeriodo = service.GerenciadorSaida.ObterTrocoSaidas(dataInicial, dataFinal);
+                decimal trocoPorPeriodo = gerenciadorSaida.ObterTrocoSaidas(dataInicial, dataFinal);
                 totalPagamentoSaidaDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisSaidaBindingSource.DataSource = totaisSaida;

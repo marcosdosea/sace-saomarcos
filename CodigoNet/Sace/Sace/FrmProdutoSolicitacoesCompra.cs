@@ -22,7 +22,7 @@ namespace Sace
         private void FrmProdutoEstatistica_Load(object sender, EventArgs e)
         {
             produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodos();
-            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
 
             if (MessageBox.Show("Deseja ANALISAR ESTOQUE para atualizar SOLICITAÇÕES DE COMPRA?", "Confirmar Análise Estoque", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {

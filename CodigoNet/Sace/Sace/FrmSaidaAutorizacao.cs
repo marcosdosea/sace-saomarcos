@@ -29,7 +29,7 @@ namespace Sace
             tipoNfe = tipo;
             if (codCliente != Util.UtilConfig.Default.CLIENTE_PADRAO)
             {
-                Pessoa cliente = service.GerenciadorPessoa.Obter(codCliente).FirstOrDefault();
+                Pessoa cliente = gerenciadorPessoa.Obter(codCliente).FirstOrDefault();
                 if ((cliente != null) && (cliente.ImprimirCF))
                     tipoNfe = DocumentoFiscal.TipoSolicitacao.NFE;
             }

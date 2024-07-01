@@ -126,8 +126,8 @@ namespace Negocio
 
         private long ObterInserirEmpresaFrete(TNFe nfe)
         {
-            var gerenciadorPessoa = new GerenciadorPessoa(context);
-            var gerenciadorMunicipio = new GerenciadorMunicipio(context);
+            var gerenciadorPessoa = new GerenciadorPessoa();
+            var gerenciadorMunicipio = new GerenciadorMunicipio();
 
             if (nfe.infNFe.transp != null && nfe.infNFe.transp.transporta != null && !string.IsNullOrEmpty(nfe.infNFe.transp.transporta.Item))
             {
@@ -166,7 +166,7 @@ namespace Negocio
 
         private long ObterInserirFornecedor(TNFe nfe)
         {
-            var gerenciadorPessoa = new GerenciadorPessoa(context);
+            var gerenciadorPessoa = new GerenciadorPessoa();
 
             if (nfe.infNFe.emit != null)
             {
@@ -352,7 +352,7 @@ namespace Negocio
         private void RegistrarPagamentosEntrada(List<TbEntradaFormaPagamento> pagamentos, Entrada entrada)
         {
             var gerenciadorConta = new GerenciadorConta(context);
-            var gerenciadorLoja = new GerenciadorLoja(context);
+            var gerenciadorLoja = new GerenciadorLoja();
             var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
             context.Database.BeginTransaction();
             foreach (TbEntradaFormaPagamento pagamento in pagamentos)
@@ -391,7 +391,7 @@ namespace Negocio
                 }
                 conta.DataVencimento = (DateTime) pagamento.Data;
 
-                conta.CodConta = gerenciadorConta.Inserir(conta);
+                conta.CodConta = gerenciadorConta.Inserir(conta, context);
 
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
                 {
@@ -404,7 +404,7 @@ namespace Negocio
                     movimentacao.DataHora = DateTime.Now;
                     movimentacao.Valor = (decimal) pagamento.Valor;
 
-                    gerenciadorMovimentacaoConta.Inserir(movimentacao);
+                    gerenciadorMovimentacaoConta.Inserir(movimentacao, context);
                 }
 
             }

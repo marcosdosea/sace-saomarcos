@@ -26,7 +26,7 @@ namespace Sace
 
             if (MessageBox.Show("Confirma exclusão da PESSOA DO SISTEMA?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorPessoa.SubstituirPessoa(codPessoaExcluir, codPessoaManter);
+                gerenciadorPessoa.SubstituirPessoa(codPessoaExcluir, codPessoaManter);
                 pessoaBindingSource.RemoveCurrent();
             }
             codPessoaComboBox.Focus();
@@ -34,7 +34,7 @@ namespace Sace
 
         private void FrmPessoaExcluir_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             pessoaBindingSource1.DataSource = pessoaBindingSource.DataSource;
         }
 

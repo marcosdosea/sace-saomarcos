@@ -18,7 +18,7 @@ namespace Negocio
         /// </summary>
         /// <param name="conta"></param>
         /// <returns></returns>
-        public long Inserir(Conta conta)
+        public long Inserir(Conta conta, SaceContext context)
         {
             try
             {
@@ -440,7 +440,7 @@ namespace Negocio
                     conta.Observacao = observacao;
                     conta.FormatoConta = Conta.FORMATO_CONTA_CARTAO;
                     conta.NumeroDocumento = contaSubstituida.CF;
-                    Inserir(conta);
+                    Inserir(conta, context);
                 }
             }
             catch (Exception e)
@@ -471,7 +471,7 @@ namespace Negocio
                 context.SaveChanges();
                 foreach (Conta boleto in listaContaBoletos)
                 {
-                    Inserir(boleto);
+                    Inserir(boleto, context);
                 }
                 transaction.Commit();
                 

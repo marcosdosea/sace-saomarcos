@@ -1,36 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Dados;
+﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorContaBanco 
+    public class GerenciadorContaBanco
     {
-        private readonly SaceContext context;
-
-        public GerenciadorContaBanco(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere os dados de uma conta bancária
         /// </summary>
         /// <param name="contaBanco"></param>
         /// <returns></returns>
-        public Int64 Inserir(ContaBanco contaBanco)
+        public long Inserir(ContaBanco contaBanco)
         {
             try
             {
                 var _contaBanco = new TbContaBanco();
                 Atribuir(contaBanco, _contaBanco);
+                using (var context = new SaceContext())
+                {
+                    context.Add(_contaBanco);
+                    context.SaveChanges();
+                }
 
-                context.Add(_contaBanco);
-                context.SaveChanges();
-                
                 return _contaBanco.CodContaBanco;
             }
             catch (Exception e)
@@ -47,16 +39,19 @@ namespace Negocio
         {
             try
             {
-                TbContaBanco? _contaBanco = context.TbContaBancos.Find(contaBanco.CodContaBanco);
-                if (_contaBanco != null)
+                using (var context = new SaceContext())
                 {
-                    Atribuir(contaBanco, _contaBanco);
-
-                    context.SaveChanges();
-                } 
-                else
-                {
-                    throw new NegocioException("Conta bancária não encontrada");
+                    var _contaBanco = context.TbContaBancos.FirstOrDefault(c => c.CodContaBanco == contaBanco.CodContaBanco);
+                    if (_contaBanco != null)
+                    {
+                        Atribuir(contaBanco, _contaBanco);
+                        context.Update(_contaBanco);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Conta bancária não encontrada");
+                    }
                 }
             }
             catch (Exception e)
@@ -69,16 +64,25 @@ namespace Negocio
         /// Remove os dados de uma conta bancária
         /// </summary>
         /// <param name="codcontaBanco"></param>
-        public void Remover(Int32 codcontaBanco)
+        public void Remover(int codContaBanco)
         {
-            if (codcontaBanco == 1)
+            if (codContaBanco == 1)
                 throw new NegocioException("A conta bancária/Caixa não pode ser excluída.");
             try
             {
-                var contaBanco = new TbContaBanco();
-                contaBanco.CodContaBanco = codcontaBanco;
-                context.Remove(contaBanco);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var _contaBanco = context.TbContaBancos.FirstOrDefault(c => c.CodContaBanco == codContaBanco);
+                    if (_contaBanco != null)
+                    {
+                        context.Remove(_contaBanco);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Conta bancária não encontrada");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -92,21 +96,24 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<ContaBanco> GetQuery()
         {
-            var query = from contaBanco in context.TbContaBancos
-                        select new ContaBanco
-                        {
-                            CodContaBanco = contaBanco.CodContaBanco,
-                            NumeroConta = contaBanco.Numeroconta,
-                            Agencia = contaBanco.Agencia,
-                            Descricao = contaBanco.Descricao,
-                            Saldo = (decimal)contaBanco.Saldo,
-                            CodBanco = (int)contaBanco.CodBanco,
-                            NomeBanco = contaBanco.CodBancoNavigation.Nome
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from contaBanco in context.TbContaBancos
+                            select new ContaBanco
+                            {
+                                CodContaBanco = contaBanco.CodContaBanco,
+                                NumeroConta = contaBanco.Numeroconta,
+                                Agencia = contaBanco.Agencia,
+                                Descricao = contaBanco.Descricao,
+                                Saldo = (decimal)contaBanco.Saldo,
+                                CodBanco = (int)contaBanco.CodBanco,
+                                NomeBanco = contaBanco.CodBancoNavigation.Nome
+                            };
+                return query.AsNoTracking();
+            }
         }
-        
-        
+
+
         /// <summary>
         /// Obtém todos as contas bancárias
         /// </summary>

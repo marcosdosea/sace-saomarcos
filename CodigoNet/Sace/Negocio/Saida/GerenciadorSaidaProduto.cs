@@ -71,28 +71,12 @@ namespace Negocio
         }
 
         /// <summary>
-        /// Atualiza cfop dos produtos
-        /// </summary>
-        /// <param name="saidaProduto"></param>
-        /// <param name="saida"></param>
-        public void AtualizarCFOP(long codSaidaProduto, int codCFOP)
-        {
-
-            var _saidaProduto = context.TbSaidaProdutos.Find(new TbSaidaProduto() { CodSaidaProduto = codSaidaProduto });
-            if (_saidaProduto != null)
-            {
-                _saidaProduto.Cfop = codCFOP;
-                context.SaveChanges();
-            }
-        }
-
-        /// <summary>
         /// Atualiza os preços dos produtos utilizandos os valores do dia.
         /// </summary>
         /// <param name="p"></param>
         public void AtualizarPrecosComValoresDia(Saida saida, bool podeBaixarPreco)
         {
-            var gerenciadorProduto = new GerenciadorProduto(context);
+            var gerenciadorProduto = new GerenciadorProduto();
 
             if (!saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO))
             {
@@ -551,20 +535,18 @@ namespace Negocio
         /// <returns></returns>
         public void AtualizarSituacaoEstoqueProdutos()
         {
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
             AtualizarSituacaoProdutosComprados(UtilConfig.Default.NUMERO_MESES_ANALISAR_ESTOQUE);
 
             List<ProdutoVendido> listaProdutosVendidos = ObterProdutosVendidosUltimosMeses(UtilConfig.Default.NUMERO_MESES_ANALISAR_ESTOQUE);
 
-            List<ProdutoLoja> listaProdutoLoja = gerenciadorProdutoLoja.ObterTodos();
-            
             var query = from produto in context.TbProdutos
                         where produto.CodSituacaoProduto != SituacaoProduto.NAO_COMPRAR
                         select produto; 
 
             foreach( TbProduto produto in query) {
                 ProdutoVendido produtoVendido = listaProdutosVendidos.Where(pv => pv.CodProduto == produto.CodProduto).FirstOrDefault();
-                decimal estoqueAtual = listaProdutoLoja.Where(pl => pl.CodProduto == produto.CodProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
+                decimal estoqueAtual = context.TbProdutoLojas.Where(pl => pl.CodProduto == produto.CodProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
 
                 // necessário deixar os itens como disponível antes da análise por conta das mudanças no estoque
                 if (produto.CodSituacaoProduto != SituacaoProduto.COMPRADO)
@@ -596,6 +578,7 @@ namespace Negocio
                         }
                     }
                 }
+                context.Update(produto);
             }
             context.SaveChanges();
         }
@@ -653,7 +636,7 @@ namespace Negocio
         /// <param name="saida"></param>
         private void RecalcularTotais(Saida saida)
         {
-            var gerenciadorSaida = new GerenciadorSaida(context);
+            var gerenciadorSaida = new GerenciadorSaida();
             var query = from saidaProduto in context.TbSaidaProdutos
                         where saidaProduto.CodSaida == saida.CodSaida
                         select saidaProduto;

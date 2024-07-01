@@ -31,7 +31,7 @@ namespace Sace
 
         private void FrmReceberPagamentoPessoa_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -79,7 +79,7 @@ namespace Sace
             bool podeImprimirCF = (valorRecebido == faltaReceber);
 
             Saida saida = NovaSaidaTipoPreCredito(pessoa.CodPessoa, valorRecebido);
-            saida.CodSaida = service.GerenciadorSaida.Inserir(saida);
+            saida.CodSaida = gerenciadorSaida.Inserir(saida);
 
             FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null, saceOptions);
             frmSaidaPagamento.ShowDialog();
@@ -92,11 +92,11 @@ namespace Sace
                 if (MessageBox.Show("Confirma pagamento?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     var listaMovimentacaoConta = (List<MovimentacaoConta>)movimentacaoContaBindingSource.DataSource;
-                    service.GerenciadorSaida.ReceberPagamentosContas(listaContaSaida, listaSaidaPagamentos, listaMovimentacaoConta, saida);
+                    gerenciadorSaida.ReceberPagamentosContas(listaContaSaida, listaSaidaPagamentos, listaMovimentacaoConta, saida);
                 }
                 else
                 {
-                    service.GerenciadorSaida.Remover(saida);
+                    gerenciadorSaida.Remover(saida);
                 }
             }
             listaSaidaPagamentos = new List<SaidaPagamento>();
@@ -120,7 +120,7 @@ namespace Sace
                 }
                 else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    service.GerenciadorSaida.ImprimirCreditoPagamento(saida, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA2);
+                    gerenciadorSaida.ImprimirCreditoPagamento(saida, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA2);
                 }
             }
             codClienteComboBox_Leave(sender, e);
@@ -232,7 +232,7 @@ namespace Sace
             if (!pedidoGerado.Trim().Equals("") || (pessoa.ImprimirCF))
             {
                 long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
-                Saida saida = service.GerenciadorSaida.Obter(codSaida);
+                Saida saida = gerenciadorSaida.Obter(codSaida);
                 AtualizarValoresDescontosContas();
                 FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, saceOptions);
                 frmSaidaNF.ShowDialog();

@@ -24,7 +24,7 @@ namespace Sace
         private void FrmSaidaDevolucaoConsumidor_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saidaBindingSource.DataSource = service.GerenciadorSaida.Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
             saida = (Saida) saidaBindingSource.Current;
             
             lojaBindingSourceOrigem.DataSource = service.GerenciadorLoja.ObterTodos();
@@ -43,7 +43,7 @@ namespace Sace
                 if (MessageBox.Show("Confirma DEVOLUÇÃO do CONSUMIDOR/Fornecedor?", "Confirmar Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     saida.Nfe = docFiscalReferenciado;
-                    service.GerenciadorSaida.EncerrarDevolucaoConsumidor(saida);
+                    gerenciadorSaida.EncerrarDevolucaoConsumidor(saida);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
@@ -91,7 +91,7 @@ namespace Sace
             if (frmSaidaPesquisa.SaidaSelected != null)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                saidaCupomBindingSource.DataSource = service.GerenciadorSaida.ObterSaidaConsumidor(frmSaidaPesquisa.SaidaSelected.CodSaida);
+                saidaCupomBindingSource.DataSource = gerenciadorSaida.ObterSaidaConsumidor(frmSaidaPesquisa.SaidaSelected.CodSaida);
                 saidaCupomBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
                 Cursor.Current = Cursors.Default;
             }

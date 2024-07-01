@@ -4,13 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorUsuario 
+    public class GerenciadorUsuario
     {
-        private readonly SaceContext context;
-        
-        public GerenciadorUsuario(SaceContext context) { 
-            this.context = context; 
-        }
 
         /// <summary>
         /// Insere dados do usuario
@@ -19,19 +14,19 @@ namespace Negocio
         /// <returns></returns>
         public long Inserir(Usuario usuario)
         {
-            TbUsuario _usuario = new TbUsuario();
             try
             {
-
-                _usuario.CodPerfil = usuario.CodPerfil;
-                _usuario.CodPessoa = usuario.CodPessoa;
-                _usuario.Login = usuario.Login;
-                _usuario.Senha = usuario.Senha;
-                
-                context.Add(_usuario);
-                context.SaveChanges();
-
-                return _usuario.CodPessoa;
+                using (var context = new SaceContext())
+                {
+                    var _usuario = new TbUsuario();
+                    _usuario.CodPerfil = usuario.CodPerfil;
+                    _usuario.CodPessoa = usuario.CodPessoa;
+                    _usuario.Login = usuario.Login;
+                    _usuario.Senha = usuario.Senha;
+                    context.Add(_usuario);
+                    context.SaveChanges();
+                    return _usuario.CodPessoa;
+                }
             }
             catch (Exception e)
             {
@@ -48,15 +43,18 @@ namespace Negocio
         {
             try
             {
-                var _usuario = context.TbUsuarios.Find(new TbUsuario() { CodPessoa = usuario.CodPessoa });
-                if (_usuario != null)
+                using (var context = new SaceContext())
                 {
-                    _usuario.CodPerfil = usuario.CodPerfil;
-                    _usuario.CodPessoa = usuario.CodPessoa;
-                    _usuario.Login = usuario.Login;
-                    _usuario.Senha = usuario.Senha;
+                    var _usuario = context.TbUsuarios.FirstOrDefault(u => u.CodPessoa == usuario.CodPessoa);
+                    if (_usuario != null)
+                    {
+                        _usuario.CodPerfil = usuario.CodPerfil;
+                        _usuario.CodPessoa = usuario.CodPessoa;
+                        _usuario.Login = usuario.Login;
+                        _usuario.Senha = usuario.Senha;
 
-                    context.SaveChanges();
+                        context.SaveChanges();
+                    }
                 }
             }
             catch (Exception e)
@@ -75,8 +73,19 @@ namespace Negocio
                 throw new NegocioException("O usuario não pode ser removido.");
             try
             {
-                context.Remove(new TbUsuario() { CodPessoa = codPessoa });
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var _usuario = context.TbUsuarios.FirstOrDefault(u => u.CodPessoa == codPessoa);
+                    if (_usuario != null)
+                    {
+                        context.Remove(new TbUsuario() { CodPessoa = codPessoa });
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Usuário não encontrado para exclusão.");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -90,17 +99,20 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Usuario> GetQuery()
         {
-            var query = from usuario in context.TbUsuarios
-                        select new Usuario
-                        {
-                            CodPessoa = usuario.CodPessoa,
-                            CodPerfil = (int) usuario.CodPerfil,
-                            Login = usuario.Login,
-                            NomePerfil = usuario.CodPerfilNavigation.Nome,
-                            NomePessoa = usuario.CodPessoaNavigation.Nome,
-                            Senha = usuario.Senha
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from usuario in context.TbUsuarios
+                            select new Usuario
+                            {
+                                CodPessoa = usuario.CodPessoa,
+                                CodPerfil = (int)usuario.CodPerfil,
+                                Login = usuario.Login,
+                                NomePerfil = usuario.CodPerfilNavigation.Nome,
+                                NomePessoa = usuario.CodPessoaNavigation.Nome,
+                                Senha = usuario.Senha
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
@@ -139,13 +151,16 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Perfil> ObterPerfis()
         {
-            var query = from perfil in context.TbPerfils
-                        select new Perfil
-                        {
-                            IdPerfil = perfil.CodPerfil,
-                            NomePerfil = perfil.Nome
-                        };
-            return query.AsNoTracking().ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from perfil in context.TbPerfils
+                            select new Perfil
+                            {
+                                IdPerfil = perfil.CodPerfil,
+                                NomePerfil = perfil.Nome
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
     }
 }

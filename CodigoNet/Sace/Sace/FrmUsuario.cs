@@ -10,24 +10,22 @@ namespace Sace
     {
         private EstadoFormulario estado;
 
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
+        private readonly GerenciadorUsuario gerenciadorUsuario;
 
-        public FrmUsuario(DbContextOptions<SaceContext> saceOptions)
+        public FrmUsuario()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
+            
         }
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.USUARIOS, Principal.Autenticacao.CodUsuario);
 
-            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
-            usuarioBindingSource.DataSource = service.GerenciadorUsuario.ObterTodos();
-            perfilBindingSource.DataSource = service.GerenciadorUsuario.ObterPerfis();
+            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+            usuarioBindingSource.DataSource = gerenciadorUsuario.ObterTodos();
+            perfilBindingSource.DataSource = gerenciadorUsuario.ObterPerfis();
             habilitaBotoes(true);
         }
 
@@ -68,12 +66,12 @@ namespace Sace
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                service.GerenciadorUsuario.Inserir(usuario);
+                gerenciadorUsuario.Inserir(usuario);
                 usuarioBindingSource.MoveLast();
             }
             else
             {
-                service.GerenciadorUsuario.Atualizar(usuario);
+                gerenciadorUsuario.Atualizar(usuario);
                 usuarioBindingSource.EndEdit();
             }
             habilitaBotoes(true);
@@ -97,7 +95,7 @@ namespace Sace
 
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorUsuario.Remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
+                gerenciadorUsuario.Remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
             }
 
         }

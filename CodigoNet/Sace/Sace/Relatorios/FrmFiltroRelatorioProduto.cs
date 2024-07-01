@@ -20,7 +20,7 @@ namespace Sace.Relatorios
 
         private void FrmFiltroRelatorioProduto_Load(object sender, EventArgs e)
         {
-            codPessoaComboBox.DataSource = service.GerenciadorPessoa.ObterTodos();
+            codPessoaComboBox.DataSource = gerenciadorPessoa.ObterTodos();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

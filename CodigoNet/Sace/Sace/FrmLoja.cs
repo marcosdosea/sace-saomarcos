@@ -22,7 +22,7 @@ namespace Sace
 
         private void FrmLoja_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
+            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
             lojaBindingSource.DataSource = service.GerenciadorLoja.ObterTodos();
             habilitaBotoes(true);
         }

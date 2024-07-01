@@ -6,13 +6,6 @@ namespace Negocio
 {
     public class GerenciadorCartaoCredito
     {
-        private readonly SaceContext context;
-
-        public GerenciadorCartaoCredito(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere os dados de um cartão de crédito
         /// </summary>
@@ -24,9 +17,11 @@ namespace Negocio
             {
                 var _cartaoCredito = new TbCartaoCredito();
                 Atribuir(cartaoCredito, _cartaoCredito);
-
-                context.Add(_cartaoCredito);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    context.Add(_cartaoCredito);
+                    context.SaveChanges();
+                }
 
                 return _cartaoCredito.CodCartao;
             }
@@ -46,8 +41,11 @@ namespace Negocio
             {
                 var _cartaoCredito = new TbCartaoCredito();
                 Atribuir(cartaoCredito, _cartaoCredito);
-                context.Update(_cartaoCredito);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    context.Update(_cartaoCredito);
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -69,8 +67,12 @@ namespace Negocio
                 }
                 var cartaoCredito = new TbCartaoCredito();
                 cartaoCredito.CodCartao = codCartaoCredito;
-                context.Remove(cartaoCredito);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+
+                    context.Remove(cartaoCredito);
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -85,23 +87,26 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<CartaoCredito> GetQuery()
         {
-            var query = from cartao in context.TbCartaoCreditos
-                        select new CartaoCredito
-                        {
-                            CodCartao = cartao.CodCartao,
-                            CodContaBanco = cartao.CodContaBanco,
-                            CodPessoa = (int)cartao.CodPessoa,
-                            DiaBase = (int)cartao.DiaBase,
-                            Mapeamento = cartao.Mapeamento,
-                            Nome = cartao.Nome,
-                            DescricaoContaBanco = cartao.CodContaBancoNavigation.Descricao,
-                            NomePessoa = cartao.CodPessoaNavigation.NomeFantasia,
-                            Desconto = cartao.Desconto,
-                            MapeamentoCappta = cartao.MapeamentoCappta,
-                            TipoCartao = cartao.TipoCartao
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
 
+                var query = from cartao in context.TbCartaoCreditos
+                            select new CartaoCredito
+                            {
+                                CodCartao = cartao.CodCartao,
+                                CodContaBanco = cartao.CodContaBanco,
+                                CodPessoa = (int)cartao.CodPessoa,
+                                DiaBase = (int)cartao.DiaBase,
+                                Mapeamento = cartao.Mapeamento,
+                                Nome = cartao.Nome,
+                                DescricaoContaBanco = cartao.CodContaBancoNavigation.Descricao,
+                                NomePessoa = cartao.CodPessoaNavigation.NomeFantasia,
+                                Desconto = cartao.Desconto,
+                                MapeamentoCappta = cartao.MapeamentoCappta,
+                                TipoCartao = cartao.TipoCartao
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>

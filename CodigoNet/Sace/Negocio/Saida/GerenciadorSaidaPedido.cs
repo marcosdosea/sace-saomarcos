@@ -13,7 +13,7 @@ namespace Negocio
         public GerenciadorSaidaPedido(SaceContext saceContext)
         {
             context = saceContext;
-            gerenciadorSaida = new GerenciadorSaida(context);
+            gerenciadorSaida = new GerenciadorSaida();
             gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
         }
 

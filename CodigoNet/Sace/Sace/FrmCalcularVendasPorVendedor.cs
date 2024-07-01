@@ -1,21 +1,16 @@
-﻿using Dados;
-using Microsoft.EntityFrameworkCore;
-using Negocio;
+﻿using Negocio;
 
 namespace Sace
 {
     public partial class FrmCalcularVendasPorVendedor : Form
     {
 
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-        public FrmCalcularVendasPorVendedor(DbContextOptions<SaceContext> saceOptions)
+        private readonly GerenciadorSaida gerenciadorSaida;
+        public FrmCalcularVendasPorVendedor()
         {
             InitializeComponent();
             dateTimeInicial.Value = DateTime.Now.AddMonths(-1);
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext();
-            this.service = new SaceService(context);
+            gerenciadorSaida = new GerenciadorSaida();
         }
 
         private void FrmCalcularVendasPorVendedor_KeyDown(object sender, KeyEventArgs e)
@@ -41,7 +36,7 @@ namespace Sace
             Cursor.Current = Cursors.WaitCursor; 
             DateTime dataInicial = dateTimeInicial.Value;
             DateTime dataFinal = dateTimeFinal.Value;
-            vendasVendedorBindingSource.DataSource = service.GerenciadorSaida.ObterVendasPorVendedor(dataInicial, dataFinal);
+            vendasVendedorBindingSource.DataSource = gerenciadorSaida.ObterVendasPorVendedor(dataInicial, dataFinal);
             Cursor.Current = Cursors.Default; 
         }
 

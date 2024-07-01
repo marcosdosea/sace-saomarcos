@@ -18,15 +18,15 @@ namespace Sace
         /// <param name="pessoaBindingSource"></param>
         /// <param name="retornaNomeFantasia"></param>
         public static Pessoa PessoaComboBox_Leave(object sender, EventArgs e, ComboBox pessoaComboBox, EstadoFormulario estado, 
-            BindingSource pessoaBindingSource, bool retornaNomeFantasia, bool precisaEscolherPessoa, SaceService service)
+            BindingSource pessoaBindingSource, bool retornaNomeFantasia, bool precisaEscolherPessoa, GerenciadorPessoa gerenciadorPessoa)
         {
             if (estado.Equals(EstadoFormulario.INSERIR) || estado.Equals(EstadoFormulario.ATUALIZAR))
             {
                 List<Pessoa> pessoas;
                 if (retornaNomeFantasia)
-                    pessoas = (List<Pessoa>) service.GerenciadorPessoa.ObterPorNomeFantasia(pessoaComboBox.Text);
+                    pessoas = (List<Pessoa>) gerenciadorPessoa.ObterPorNomeFantasia(pessoaComboBox.Text);
                 else
-                    pessoas = (List<Pessoa>) service.GerenciadorPessoa.ObterPorNome(pessoaComboBox.Text);
+                    pessoas = (List<Pessoa>) gerenciadorPessoa.ObterPorNome(pessoaComboBox.Text);
 
                 Pessoa pessoaNomeIgual = null;
                 foreach (Pessoa pessoa in pessoas)
@@ -90,7 +90,7 @@ namespace Sace
         /// <returns></returns>
         public static ProdutoPesquisa ProdutoComboBox_Leave(object sender, EventArgs e, 
             ComboBox produtoComboBox, EstadoFormulario estado, BindingSource produtoBindingSource, 
-            bool exibirTodos, SaceService service, DbContextOptions<SaceContext> saceOptions)
+            bool exibirTodos, GerenciadorProduto gerenciadorProduto)
         {
             ProdutoPesquisa _produtoPesquisa = null;
             if (produtoComboBox.DataSource != null)
@@ -108,12 +108,12 @@ namespace Sace
                         // Busca pelo código do produto
                         if (produtoComboBox.Text.Length < 7)
                         {
-                            _listaProdutos = service.GerenciadorProduto.Obter(Convert.ToInt32(result)).ToList();
+                            _listaProdutos = gerenciadorProduto.Obter(Convert.ToInt32(result)).ToList();
                         }
                         // Busca pelo código de barra
                         else
                         {
-                            _listaProdutos = service.GerenciadorProduto.ObterPorCodigoBarraExato(produtoComboBox.Text).ToList();
+                            _listaProdutos = gerenciadorProduto.ObterPorCodigoBarraExato(produtoComboBox.Text).ToList();
                         }
                         if (_listaProdutos.Count > 0)
                         {
@@ -126,7 +126,7 @@ namespace Sace
                         if (!produtoComboBox.Text.Trim().Equals(""))
                         {
                             // Busca produto pelo nome
-                            _listaProdutos = service.GerenciadorProduto.ObterPorNome(produtoComboBox.Text).ToList();
+                            _listaProdutos = gerenciadorProduto.ObterPorNome(produtoComboBox.Text).ToList();
                             if (_listaProdutos.Count > 0)
                             {
                                 if ((_listaProdutos.Count == 1) || (_listaProdutos[0].Nome.Equals(produtoComboBox.Text)))
@@ -135,7 +135,7 @@ namespace Sace
                         }
                         if ((_listaProdutos.Count == 0) || ((_listaProdutos.Count >= 1) && (produtoNomeIgual == null)))
                         {
-                            FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new FrmProdutoPesquisaPreco(exibirTodos, produtoComboBox.Text, saceOptions);
+                            FrmProdutoPesquisaPreco frmProdutoPesquisaPreco = new FrmProdutoPesquisaPreco(exibirTodos, produtoComboBox.Text);
                             frmProdutoPesquisaPreco.ShowDialog();
                             if (frmProdutoPesquisaPreco.ProdutoPesquisa != null)
                             {

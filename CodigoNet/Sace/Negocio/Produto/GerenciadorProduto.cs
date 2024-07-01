@@ -9,13 +9,6 @@ namespace Negocio
     public class GerenciadorProduto
     {
 
-        private readonly SaceContext context;
-
-        public GerenciadorProduto(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere um novo produto na base de dados
         /// </summary>
@@ -39,23 +32,25 @@ namespace Negocio
 
                 var _produto = new TbProduto();
                 Atribuir(produto, _produto);
+                using (var context = new SaceContext())
+                {
+                    var transaction = context.Database.BeginTransaction();
+                    context.Add(_produto);
+                    context.SaveChanges();
 
-                var transaction = context.Database.BeginTransaction();
-                context.Add(_produto);
-                context.SaveChanges();
+                    var produtoLoja = new TbProdutoLoja();
+                    produtoLoja.CodProduto = _produto.CodProduto;
+                    produtoLoja.CodLoja = UtilConfig.Default.LOJA_PADRAO;
+                    produtoLoja.QtdEstoque = 0;
+                    produtoLoja.QtdEstoqueAux = 0;
 
-                var produtoLoja = new TbProdutoLoja();
-                produtoLoja.CodProduto = _produto.CodProduto;
-                produtoLoja.CodLoja = UtilConfig.Default.LOJA_PADRAO;
-                produtoLoja.QtdEstoque = 0;
-                produtoLoja.QtdEstoqueAux = 0;
+                    context.Add(produtoLoja);
+                    context.SaveChanges();
 
-                context.Add(produtoLoja);
-                context.SaveChanges();
+                    transaction.Commit();
 
-                transaction.Commit();
-
-                return _produto.CodProduto;
+                    return _produto.CodProduto;
+                }
             }
             catch (Exception e)
             {
@@ -126,11 +121,10 @@ namespace Negocio
 
             try
             {
-                var query = from produtoSet in context.TbProdutos
-                            where produtoSet.CodProduto == produto.CodProduto
-                            select produtoSet;
-                foreach (TbProduto _produto in query)
+                using (var context = new SaceContext())
                 {
+                    var _produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == produto.CodProduto);
+
                     // Atualiza data da ultima atualizacao
                     if ((produto.PrecoVendaVarejo != _produto.PrecoVendaVarejo) || (produto.PrecoVendaAtacado != _produto.PrecoVendaAtacado)
                         || (produto.PrecoRevenda != _produto.PrecoRevenda))
@@ -164,11 +158,9 @@ namespace Negocio
         {
             try
             {
-                var query = from produtoSet in context.TbProdutos
-                            where produtoSet.CodProduto == _produtoPesquisa.CodProduto
-                            select produtoSet;
-                foreach (TbProduto _produto in query)
+                using (var context = new SaceContext())
                 {
+                    var _produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == _produtoPesquisa.CodProduto);
                     _produto.CodigoBarra = ultimoCodigoBarraLido;
                     context.Update(_produto);
                     context.SaveChanges();
@@ -189,47 +181,49 @@ namespace Negocio
         {
             try
             {
-                var transaction = context.Database.BeginTransaction();
-                // substitui todas as saídas
-                var querySaidas = from saidaProduto in context.TbSaidaProdutos
-                                  where saidaProduto.CodProduto == codProdutoExcluir
-                                  select saidaProduto;
-                foreach (TbSaidaProduto _saidaProduto in querySaidas)
+                using (var context = new SaceContext())
                 {
-                    _saidaProduto.CodProduto = codProdutoManter;
-                    context.Update(_saidaProduto);
+                    var transaction = context.Database.BeginTransaction();
+                    // substitui todas as saídas
+                    var querySaidas = from saidaProduto in context.TbSaidaProdutos
+                                      where saidaProduto.CodProduto == codProdutoExcluir
+                                      select saidaProduto;
+                    foreach (TbSaidaProduto _saidaProduto in querySaidas)
+                    {
+                        _saidaProduto.CodProduto = codProdutoManter;
+                        context.Update(_saidaProduto);
+                    }
                     context.SaveChanges();
-                }
 
-                // Substituti todas as entradas
-                var queryEntrada = from entradaProduto in context.TbEntradaProdutos
-                                   where entradaProduto.CodProduto == codProdutoExcluir
-                                   select entradaProduto;
-                foreach (TbEntradaProduto _entradaProduto in queryEntrada)
-                {
-                    _entradaProduto.CodProduto = codProdutoManter;
-                    context.Update(_entradaProduto);
+                    // Substituti todas as entradas
+                    var queryEntrada = from entradaProduto in context.TbEntradaProdutos
+                                       where entradaProduto.CodProduto == codProdutoExcluir
+                                       select entradaProduto;
+                    foreach (TbEntradaProduto _entradaProduto in queryEntrada)
+                    {
+                        _entradaProduto.CodProduto = codProdutoManter;
+                        context.Update(_entradaProduto);
+                    }
                     context.SaveChanges();
-                }
 
-
-                // Substituti todas as pontas de estoque
-                var queryPontaEstoque = from pontaEstoque in context.TbPontaEstoques
-                                        where pontaEstoque.CodProduto == codProdutoExcluir
-                                        select pontaEstoque;
-                foreach (TbPontaEstoque _pontaEstoque in queryPontaEstoque)
-                {
-                    _pontaEstoque.CodProduto = codProdutoManter;
-                    context.Update(_pontaEstoque);
+                    // Substituti todas as pontas de estoque
+                    var queryPontaEstoque = from pontaEstoque in context.TbPontaEstoques
+                                            where pontaEstoque.CodProduto == codProdutoExcluir
+                                            select pontaEstoque;
+                    foreach (TbPontaEstoque _pontaEstoque in queryPontaEstoque)
+                    {
+                        _pontaEstoque.CodProduto = codProdutoManter;
+                        context.Update(_pontaEstoque);
+                    }
                     context.SaveChanges();
+
+                    var _produto = new TbProduto();
+                    _produto.CodProduto = codProdutoExcluir;
+
+                    context.Remove(_produto);
+                    context.SaveChanges();
+                    transaction.Commit();
                 }
-
-                var _produto = new TbProduto();
-                _produto.CodProduto = codProdutoExcluir;
-
-                context.Remove(_produto);
-                context.SaveChanges();
-                transaction.Commit();
             }
             catch (Exception e)
             {
@@ -243,37 +237,42 @@ namespace Negocio
         /// <param name="novaSituacao"></param>
         public void AtualizarSituacaoProduto(SolicitacoesCompra solicitacaoCompra, string nomeServidor)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var query = from produtoSet in context.TbProdutos
-                            where produtoSet.CodProduto == solicitacaoCompra.CodProduto
-                            select produtoSet;
-                DirectoryInfo pastaProdutosAtualizados = new DirectoryInfo(UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS);
-                foreach (TbProduto _produto in query)
+                try
                 {
-                    _produto.CodSituacaoProduto = solicitacaoCompra.CodSituacaoProduto;
-                    _produto.DataSolicitacaoCompra = solicitacaoCompra.DataSolicitacaoCompra;
-                    _produto.DataPedidoCompra = solicitacaoCompra.DataPedidoCompra;
-                    var nomeComputador = SystemInformation.ComputerName.ToUpper();
-                    if (pastaProdutosAtualizados.Exists && !nomeComputador.Equals(nomeServidor.ToUpper()))
+                    var query = from produtoSet in context.TbProdutos
+                                where produtoSet.CodProduto == solicitacaoCompra.CodProduto
+                                select produtoSet;
+                    DirectoryInfo pastaProdutosAtualizados = new DirectoryInfo(UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS);
+                    var transaction = context.Database.BeginTransaction();
+                    foreach (TbProduto _produto in query)
                     {
-                        string nomeArquivo = UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS + solicitacaoCompra.CodProduto + ".txt";
-                        StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
-                        arquivo.WriteLine("[CodProduto]" + solicitacaoCompra.CodProduto);
-                        arquivo.WriteLine("[CodSituacaoProduto]" + solicitacaoCompra.CodSituacaoProduto);
-                        arquivo.WriteLine("[DataSolicitacaoCompra]" + solicitacaoCompra.DataSolicitacaoCompra);
-                        arquivo.WriteLine("[DataPedidoCompra]" + solicitacaoCompra.DataPedidoCompra);
-                        arquivo.Close();
+                        _produto.CodSituacaoProduto = solicitacaoCompra.CodSituacaoProduto;
+                        _produto.DataSolicitacaoCompra = solicitacaoCompra.DataSolicitacaoCompra;
+                        _produto.DataPedidoCompra = solicitacaoCompra.DataPedidoCompra;
+                        var nomeComputador = SystemInformation.ComputerName.ToUpper();
+                        if (pastaProdutosAtualizados.Exists && !nomeComputador.Equals(nomeServidor.ToUpper()))
+                        {
+                            string nomeArquivo = UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS + solicitacaoCompra.CodProduto + ".txt";
+                            StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
+                            arquivo.WriteLine("[CodProduto]" + solicitacaoCompra.CodProduto);
+                            arquivo.WriteLine("[CodSituacaoProduto]" + solicitacaoCompra.CodSituacaoProduto);
+                            arquivo.WriteLine("[DataSolicitacaoCompra]" + solicitacaoCompra.DataSolicitacaoCompra);
+                            arquivo.WriteLine("[DataPedidoCompra]" + solicitacaoCompra.DataPedidoCompra);
+                            arquivo.Close();
+                        }
+                        context.Update(_produto);
+                        context.SaveChanges();
                     }
-                    context.Update(_produto);
-                    context.SaveChanges();
+                    context.Database.CommitTransaction();
+                }
+                catch (Exception e)
+                {
+                    context.Database.RollbackTransaction();
+                    throw new DadosException("Produto", e.Message, e);
                 }
             }
-            catch (Exception e)
-            {
-                throw new DadosException("Produto", e.Message, e);
-            }
-
         }
 
         /// <summary>
@@ -327,23 +326,29 @@ namespace Negocio
         /// <param name="ultimoCodigoBarraLido"></param>
         public void AtualizarNcmshQtdAtacado(long codProduto, string nomeProduto, string ncsmsh, string codigoEAN)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var query = from produtoSet in context.TbProdutos
-                            where produtoSet.CodProduto == codProduto
-                            select produtoSet;
-                foreach (TbProduto _produto in query)
+                var transaction = context.Database.BeginTransaction();
+                try
                 {
-                    _produto.Ncmsh = ncsmsh;
-                    _produto.Nome = nomeProduto;
-                    _produto.CodigoBarra = codigoEAN;
-                    context.Update(_produto);
+                    var query = from produtoSet in context.TbProdutos
+                                where produtoSet.CodProduto == codProduto
+                                select produtoSet;
+                    foreach (TbProduto _produto in query)
+                    {
+                        _produto.Ncmsh = ncsmsh;
+                        _produto.Nome = nomeProduto;
+                        _produto.CodigoBarra = codigoEAN;
+                        context.Update(_produto);
+                    }
                     context.SaveChanges();
+                    context.Database.CommitTransaction();
                 }
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Produto", e.Message, e);
+                catch (Exception e)
+                {
+                    context.Database.RollbackTransaction();
+                    throw new DadosException("Produto", e.Message, e);
+                }
             }
         }
 
@@ -356,29 +361,32 @@ namespace Negocio
         /// <param name="precoAtacado"></param>
         public void AtualizarPrecoVarejoAtacado(long codProduto, string nomeProduto, decimal precoVarejo, decimal precoAtacado, decimal precoRevenda)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var query = from produtoSet in context.TbProdutos
-                            where produtoSet.CodProduto == codProduto
-                            select produtoSet;
-                foreach (TbProduto _produto in query)
+                try
                 {
-                    _produto.Nome = nomeProduto;
-                    if (_produto.PrecoVendaVarejo != precoVarejo || _produto.PrecoVendaAtacado != precoAtacado)
+                    var query = from produtoSet in context.TbProdutos
+                                where produtoSet.CodProduto == codProduto
+                                select produtoSet;
+                    foreach (TbProduto _produto in query)
                     {
-                        _produto.PrecoVendaVarejo = precoVarejo;
-                        _produto.PrecoVendaAtacado = precoAtacado;
-                        _produto.PrecoRevenda = precoRevenda;
-                        _produto.DataUltimaMudancaPreco = DateTime.Now;
-                        _produto.UltimaDataAtualizacao = DateTime.Now;
+                        _produto.Nome = nomeProduto;
+                        if (_produto.PrecoVendaVarejo != precoVarejo || _produto.PrecoVendaAtacado != precoAtacado)
+                        {
+                            _produto.PrecoVendaVarejo = precoVarejo;
+                            _produto.PrecoVendaAtacado = precoAtacado;
+                            _produto.PrecoRevenda = precoRevenda;
+                            _produto.DataUltimaMudancaPreco = DateTime.Now;
+                            _produto.UltimaDataAtualizacao = DateTime.Now;
+                        }
+                        context.Update(_produto);
+                        context.SaveChanges();
                     }
-                    context.Update(_produto);
-                    context.SaveChanges();
                 }
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Produto", e.Message, e);
+                catch (Exception e)
+                {
+                    throw new DadosException("Produto", e.Message, e);
+                }
             }
         }
 
@@ -386,18 +394,26 @@ namespace Negocio
         /// <summary>
         /// Remove produto da base de dados
         /// </summary>
-        /// <param name="codproduto"></param>
-        public void Remover(long codproduto)
+        /// <param name="codProduto"></param>
+        public void Remover(long codProduto)
         {
-            if (codproduto == 1)
+            if (codProduto == 1)
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
             try
             {
-                var produto = new TbProduto();
-                produto.CodProduto = codproduto;
-
-                context.Remove(produto);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == codProduto);
+                    if (produto != null)
+                    {
+                        context.Remove(produto);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Produto não encontrado.");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -411,47 +427,50 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Produto> GetQuery()
         {
-            var query = from produto in context.TbProdutos
-                        orderby produto.Nome
-                        select new Produto
-                        {
-                            CodCST = produto.CodCst,
-                            CodFabricante = produto.CodFabricante,
-                            NomeFabricante = produto.CodFabricanteNavigation.NomeFantasia,
-                            CodGrupo = produto.CodGrupo,
-                            CodigoBarra = produto.CodigoBarra,
-                            CodProduto = produto.CodProduto,
-                            CodSituacaoProduto = produto.CodSituacaoProduto,
-                            CodSubgrupo = produto.CodSubgrupo,
-                            DataUltimoPedido = produto.DataUltimoPedido,
-                            Desconto = (decimal) produto.Desconto,
-                            ExibeNaListagem = (bool) produto.ExibeNaListagem,
-                            Frete = (decimal)produto.Frete,
-                            Icms = (decimal)produto.Icms,
-                            IcmsSubstituto = (decimal)produto.IcmsSubstituto,
-                            Ipi = (decimal)produto.Ipi,
-                            LucroPrecoVendaAtacado = (decimal)produto.LucroPrecoVendaAtacado,
-                            LucroPrecoVendaVarejo =  (decimal)produto.LucroPrecoVendaVarejo,
-                            LucroPrecoRevenda = (decimal)produto.LucroPrecoRevenda,
-                            Ncmsh = produto.Ncmsh,
-                            Nome = produto.Nome,
-                            NomeProdutoFabricante = produto.NomeProdutoFabricante,
-                            PrecoVendaAtacado = (decimal)produto.PrecoVendaAtacado,
-                            PrecoVendaVarejo = (decimal)produto.PrecoVendaVarejo,
-                            PrecoRevenda = (decimal)produto.PrecoRevenda,
-                            QtdProdutoAtacado = (decimal)produto.QtdProdutoAtacado,
-                            QuantidadeEmbalagem = (decimal)produto.QuantidadeEmbalagem,
-                            ReferenciaFabricante = produto.ReferenciaFabricante,
-                            Simples = (decimal)produto.Simples,
-                            TemVencimento = produto.TemVencimento,
-                            EmPromocao = produto.EmPromocao,
-                            Unidade = produto.Unidade,
-                            UnidadeCompra = produto.UnidadeCompra,
-                            UltimoPrecoCompra = (decimal)produto.UltimoPrecoCompra,
-                            UltimaDataAtualizacao = produto.UltimaDataAtualizacao,
-                            DataUltimaMudancaPreco = produto.DataUltimaMudancaPreco
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from produto in context.TbProdutos
+                            orderby produto.Nome
+                            select new Produto
+                            {
+                                CodCST = produto.CodCst,
+                                CodFabricante = produto.CodFabricante,
+                                NomeFabricante = produto.CodFabricanteNavigation.NomeFantasia,
+                                CodGrupo = produto.CodGrupo,
+                                CodigoBarra = produto.CodigoBarra,
+                                CodProduto = produto.CodProduto,
+                                CodSituacaoProduto = produto.CodSituacaoProduto,
+                                CodSubgrupo = produto.CodSubgrupo,
+                                DataUltimoPedido = produto.DataUltimoPedido,
+                                Desconto = (decimal)produto.Desconto,
+                                ExibeNaListagem = (bool)produto.ExibeNaListagem,
+                                Frete = (decimal)produto.Frete,
+                                Icms = (decimal)produto.Icms,
+                                IcmsSubstituto = (decimal)produto.IcmsSubstituto,
+                                Ipi = (decimal)produto.Ipi,
+                                LucroPrecoVendaAtacado = (decimal)produto.LucroPrecoVendaAtacado,
+                                LucroPrecoVendaVarejo = (decimal)produto.LucroPrecoVendaVarejo,
+                                LucroPrecoRevenda = (decimal)produto.LucroPrecoRevenda,
+                                Ncmsh = produto.Ncmsh,
+                                Nome = produto.Nome,
+                                NomeProdutoFabricante = produto.NomeProdutoFabricante,
+                                PrecoVendaAtacado = (decimal)produto.PrecoVendaAtacado,
+                                PrecoVendaVarejo = (decimal)produto.PrecoVendaVarejo,
+                                PrecoRevenda = (decimal)produto.PrecoRevenda,
+                                QtdProdutoAtacado = (decimal)produto.QtdProdutoAtacado,
+                                QuantidadeEmbalagem = (decimal)produto.QuantidadeEmbalagem,
+                                ReferenciaFabricante = produto.ReferenciaFabricante,
+                                Simples = (decimal)produto.Simples,
+                                TemVencimento = produto.TemVencimento,
+                                EmPromocao = produto.EmPromocao,
+                                Unidade = produto.Unidade,
+                                UnidadeCompra = produto.UnidadeCompra,
+                                UltimoPrecoCompra = (decimal)produto.UltimoPrecoCompra,
+                                UltimaDataAtualizacao = produto.UltimaDataAtualizacao,
+                                DataUltimaMudancaPreco = produto.DataUltimaMudancaPreco
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
@@ -460,43 +479,46 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<ProdutoPesquisa> GetQuerySimples()
         {
-            var query = from produto in context.TbProdutos
-                        orderby produto.Nome
-                        select new ProdutoPesquisa
-                        {
-                            CodCST = produto.CodCst,
-                            CodigoBarra = produto.CodigoBarra,
-                            CodProduto = produto.CodProduto,
-                            Desconto = (decimal)produto.Desconto,
-                            ExibeNaListagem = (bool)produto.ExibeNaListagem,
-                            Frete = (decimal)produto.Frete,
-                            Icms = (decimal)produto.Icms,
-                            IcmsSubstituto = (decimal)produto.IcmsSubstituto,
-                            Ipi = (decimal)produto.Ipi,
-                            LucroPrecoVendaAtacado = (decimal)produto.LucroPrecoVendaAtacado,
-                            LucroPrecoVendaVarejo = (decimal)produto.LucroPrecoVendaVarejo,
-                            LucroPrecoRevenda = (decimal)produto.LucroPrecoRevenda,
-                            Ncmsh = produto.Ncmsh,
-                            Nome = produto.Nome,
-                            CodFabricante = produto.CodFabricante,
-                            NomeProdutoFabricante = produto.NomeProdutoFabricante,
-                            PrecoVendaAtacado = (decimal)produto.PrecoVendaAtacado,
-                            PrecoVendaVarejo = (decimal)produto.PrecoVendaVarejo,
-                            PrecoRevenda = (decimal)produto.PrecoRevenda,
-                            QtdProdutoAtacado = (decimal)produto.QtdProdutoAtacado,
-                            QuantidadeEmbalagem = (decimal)produto.QuantidadeEmbalagem,
-                            ReferenciaFabricante = produto.ReferenciaFabricante,
-                            Simples = (decimal)produto.Simples,
-                            UltimaDataAtualizacao = produto.UltimaDataAtualizacao,
-                            Unidade = produto.Unidade,
-                            TemVencimento = produto.TemVencimento,
-                            EmPromocao = produto.EmPromocao,
-                            UltimoPrecoCompra = (decimal)produto.UltimoPrecoCompra,
-                            UnidadeCompra = produto.UnidadeCompra,
-                            CodSituacaoProduto = produto.CodSituacaoProduto,
-                            DataUltimaMudancaPreco = produto.DataUltimaMudancaPreco
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from produto in context.TbProdutos
+                            orderby produto.Nome
+                            select new ProdutoPesquisa
+                            {
+                                CodCST = produto.CodCst,
+                                CodigoBarra = produto.CodigoBarra,
+                                CodProduto = produto.CodProduto,
+                                Desconto = (decimal)produto.Desconto,
+                                ExibeNaListagem = (bool)produto.ExibeNaListagem,
+                                Frete = (decimal)produto.Frete,
+                                Icms = (decimal)produto.Icms,
+                                IcmsSubstituto = (decimal)produto.IcmsSubstituto,
+                                Ipi = (decimal)produto.Ipi,
+                                LucroPrecoVendaAtacado = (decimal)produto.LucroPrecoVendaAtacado,
+                                LucroPrecoVendaVarejo = (decimal)produto.LucroPrecoVendaVarejo,
+                                LucroPrecoRevenda = (decimal)produto.LucroPrecoRevenda,
+                                Ncmsh = produto.Ncmsh,
+                                Nome = produto.Nome,
+                                CodFabricante = produto.CodFabricante,
+                                NomeProdutoFabricante = produto.NomeProdutoFabricante,
+                                PrecoVendaAtacado = (decimal)produto.PrecoVendaAtacado,
+                                PrecoVendaVarejo = (decimal)produto.PrecoVendaVarejo,
+                                PrecoRevenda = (decimal)produto.PrecoRevenda,
+                                QtdProdutoAtacado = (decimal)produto.QtdProdutoAtacado,
+                                QuantidadeEmbalagem = (decimal)produto.QuantidadeEmbalagem,
+                                ReferenciaFabricante = produto.ReferenciaFabricante,
+                                Simples = (decimal)produto.Simples,
+                                UltimaDataAtualizacao = produto.UltimaDataAtualizacao,
+                                Unidade = produto.Unidade,
+                                TemVencimento = produto.TemVencimento,
+                                EmPromocao = produto.EmPromocao,
+                                UltimoPrecoCompra = (decimal)produto.UltimoPrecoCompra,
+                                UnidadeCompra = produto.UnidadeCompra,
+                                CodSituacaoProduto = produto.CodSituacaoProduto,
+                                DataUltimaMudancaPreco = produto.DataUltimaMudancaPreco
+                            };
+                return query.AsNoTracking();
+            }
         }
 
 
@@ -522,15 +544,18 @@ namespace Negocio
 
         public IEnumerable<ProdutoNome> ObterTodosNomesExibiveis()
         {
-            var query = from produto in context.TbProdutos
-                        where produto.ExibeNaListagem == true
-                        orderby produto.Nome
-                        select new ProdutoNome
-                        {
-                            CodProduto = produto.CodProduto,
-                            Nome = produto.Nome
-                        };
-            return query.AsNoTracking().ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from produto in context.TbProdutos
+                            where produto.ExibeNaListagem == true
+                            orderby produto.Nome
+                            select new ProdutoNome
+                            {
+                                CodProduto = produto.CodProduto,
+                                Nome = produto.Nome
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
 
         /// <summary>
@@ -539,14 +564,17 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<ProdutoNome> ObterTodosNomes()
         {
-            var query = from produto in context.TbProdutos
-                        orderby produto.Nome
-                        select new ProdutoNome
-                        {
-                            CodProduto = produto.CodProduto,
-                            Nome = produto.Nome
-                        };
-            return query.AsNoTracking().ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from produto in context.TbProdutos
+                            orderby produto.Nome
+                            select new ProdutoNome
+                            {
+                                CodProduto = produto.CodProduto,
+                                Nome = produto.Nome
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
 
         /// <summary>
@@ -671,43 +699,46 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<SolicitacoesCompra> ObterSolicitacoesCompra(List<int> listaCodSituacoes, long codFornecedor)
         {
-            if (codFornecedor == 1)
+            using (var context = new SaceContext())
             {
-                var query = from produto in context.TbProdutos
-                            orderby produto.Nome
-                            where listaCodSituacoes.Contains(produto.CodSituacaoProduto)
-                            select new SolicitacoesCompra
-                            {
-                                CodProduto = produto.CodProduto,
-                                Nome = produto.Nome,
-                                ReferenciaFabricante = produto.ReferenciaFabricante,
-                                Unidade = produto.Unidade,
-                                CodSituacaoProduto = produto.CodSituacaoProduto,
-                                DataSolicitacaoCompra = produto.DataSolicitacaoCompra,
-                                DataPedidoCompra = produto.DataPedidoCompra
-                            };
-                return query.AsNoTracking().ToList();
-            }
-            else
-            {
-                var queryProdutosFornecedor = context.TbEntradaProdutos.Where(e => e.CodEntradaNavigation.CodFornecedor == codFornecedor);
-                List<long> listaCodigoProdutosFornecedor = queryProdutosFornecedor.Select(p => p.CodProduto).Distinct().ToList();
+                if (codFornecedor == 1)
+                {
+                    var query = from produto in context.TbProdutos
+                                orderby produto.Nome
+                                where listaCodSituacoes.Contains(produto.CodSituacaoProduto)
+                                select new SolicitacoesCompra
+                                {
+                                    CodProduto = produto.CodProduto,
+                                    Nome = produto.Nome,
+                                    ReferenciaFabricante = produto.ReferenciaFabricante,
+                                    Unidade = produto.Unidade,
+                                    CodSituacaoProduto = produto.CodSituacaoProduto,
+                                    DataSolicitacaoCompra = produto.DataSolicitacaoCompra,
+                                    DataPedidoCompra = produto.DataPedidoCompra
+                                };
+                    return query.AsNoTracking().ToList();
+                }
+                else
+                {
+                    var queryProdutosFornecedor = context.TbEntradaProdutos.Where(e => e.CodEntradaNavigation.CodFornecedor == codFornecedor);
+                    List<long> listaCodigoProdutosFornecedor = queryProdutosFornecedor.Select(p => p.CodProduto).Distinct().ToList();
 
-                var query = from produto in context.TbProdutos
-                            orderby produto.Nome
-                            where listaCodSituacoes.Contains(produto.CodSituacaoProduto) &&
-                                (listaCodigoProdutosFornecedor.Contains(produto.CodProduto) || produto.CodFabricante.Equals(codFornecedor))
-                            select new SolicitacoesCompra
-                            {
-                                CodProduto = produto.CodProduto,
-                                Nome = produto.Nome,
-                                ReferenciaFabricante = produto.ReferenciaFabricante,
-                                Unidade = produto.Unidade,
-                                CodSituacaoProduto = produto.CodSituacaoProduto,
-                                DataSolicitacaoCompra = produto.DataSolicitacaoCompra,
-                                DataPedidoCompra = produto.DataPedidoCompra
-                            };
-                return query.ToList();
+                    var query = from produto in context.TbProdutos
+                                orderby produto.Nome
+                                where listaCodSituacoes.Contains(produto.CodSituacaoProduto) &&
+                                    (listaCodigoProdutosFornecedor.Contains(produto.CodProduto) || produto.CodFabricante.Equals(codFornecedor))
+                                select new SolicitacoesCompra
+                                {
+                                    CodProduto = produto.CodProduto,
+                                    Nome = produto.Nome,
+                                    ReferenciaFabricante = produto.ReferenciaFabricante,
+                                    Unidade = produto.Unidade,
+                                    CodSituacaoProduto = produto.CodSituacaoProduto,
+                                    DataSolicitacaoCompra = produto.DataSolicitacaoCompra,
+                                    DataPedidoCompra = produto.DataPedidoCompra
+                                };
+                    return query.ToList();
+                }
             }
         }
 
@@ -735,13 +766,16 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<SituacaoProduto> ObterSituacoesProduto()
         {
-            var query = from situacaoProduto in context.TbSituacaoProdutos
-                        select new SituacaoProduto
-                        {
-                            CodSituacaoProduto = situacaoProduto.CodSituacaoProduto,
-                            DescricaoSituacao = situacaoProduto.DescricaoSituacao
-                        };
-            return query.ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from situacaoProduto in context.TbSituacaoProdutos
+                            select new SituacaoProduto
+                            {
+                                CodSituacaoProduto = situacaoProduto.CodSituacaoProduto,
+                                DescricaoSituacao = situacaoProduto.DescricaoSituacao
+                            };
+                return query.ToList();
+            }
         }
 
         /// <summary>

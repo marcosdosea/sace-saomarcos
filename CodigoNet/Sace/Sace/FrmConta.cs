@@ -8,20 +8,17 @@ namespace Sace
     public partial class FrmConta : Form
     {
         private EstadoFormulario estado;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
+        private readonly GerenciadorPessoa gerenciadorPessoa;
 
-        public FrmConta(DbContextOptions<SaceContext> saceOptions)
+        public FrmConta()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
+            gerenciadorPessoa = new GerenciadorPessoa();
         }
 
         private void FrmContas_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             planoContaBindingSource.DataSource = service.GerenciadorPlanoConta.ObterTodos();
             contaBindingSource.DataSource = service.GerenciadorConta.ObterTodos();
             situacaoContaBindingSource.DataSource = service.GerenciadorConta.ObterSituacoesConta();

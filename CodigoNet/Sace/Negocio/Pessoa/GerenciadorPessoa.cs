@@ -7,13 +7,6 @@ namespace Negocio
 {
     public class GerenciadorPessoa
     {
-        private readonly SaceContext context;
-
-        public GerenciadorPessoa(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere uma pessoa no banco de dados
         /// </summary>
@@ -37,10 +30,12 @@ namespace Negocio
 
                 var _pessoa = new TbPessoa();
                 Atribuir(pessoa, _pessoa);
-
-                context.Add(_pessoa);
-                context.SaveChanges();
-                return _pessoa.CodPessoa;
+                using (var context = new SaceContext())
+                {
+                    context.Add(_pessoa);
+                    context.SaveChanges();
+                    return _pessoa.CodPessoa;
+                }
             }
             catch (Exception e)
             {
@@ -76,28 +71,29 @@ namespace Negocio
                 throw new NegocioException("O nome e o nome fantasia da pessoa não podem ficar em branco.");
             try
             {
-                var _pessoa = new TbPessoa();
-                _pessoa.CodPessoa = pessoa.CodPessoa;
-                _pessoa = context.TbPessoas.Find(_pessoa);
-
-                if (_pessoa != null)
+                using (var context = new SaceContext())
                 {
-                    if (!pessoa.CpfCnpj.Trim().Equals(""))
+                    var _pessoa = context.TbPessoas.FirstOrDefault(p => p.CodPessoa == pessoa.CodPessoa);
+                    if (_pessoa != null)
                     {
-                        IEnumerable<Pessoa> listaPessoas = ObterPorCpfCnpjEquals(pessoa.CpfCnpj);
-                        foreach (Pessoa p in listaPessoas)
+                        if (!pessoa.CpfCnpj.Trim().Equals(""))
                         {
-                            if (p.CodPessoa != pessoa.CodPessoa)
-                                throw new NegocioException("O CPF/CNPJ já está cadastrado na base de dados.");
+                            IEnumerable<Pessoa> listaPessoas = ObterPorCpfCnpjEquals(pessoa.CpfCnpj);
+                            foreach (Pessoa p in listaPessoas)
+                            {
+                                if (p.CodPessoa != pessoa.CodPessoa)
+                                    throw new NegocioException("O CPF/CNPJ já está cadastrado na base de dados.");
+                            }
                         }
-                    }
 
-                    Atribuir(pessoa, _pessoa);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new NegocioException("Não foi possível encontrar a pessoa para atualização dos dados.");
+                        Atribuir(pessoa, _pessoa);
+                        context.Update(_pessoa);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Não foi possível encontrar a pessoa para atualização dos dados.");
+                    }
                 }
             }
             catch (Exception e)
@@ -110,17 +106,22 @@ namespace Negocio
         /// Remove os dados de uma pessoa
         /// </summary>
         /// <param name="codpessoa"></param>
-        public void Remover(long codpessoa)
+        public void Remover(long codPessoa)
         {
-            if (codpessoa == UtilConfig.Default.CLIENTE_PADRAO)
+            if (codPessoa == UtilConfig.Default.CLIENTE_PADRAO)
                 throw new NegocioException("Essa pessoa não pode ser removida.");
 
             try
             {
-                var pessoa = new TbPessoa();
-                pessoa.CodPessoa = codpessoa;
-                context.Remove(pessoa);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var _pessoa = context.TbPessoas.FirstOrDefault(p => p.CodPessoa == codPessoa);
+                    if (_pessoa != null)
+                    {
+                        context.Remove(_pessoa);
+                        context.SaveChanges();
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -137,21 +138,22 @@ namespace Negocio
         {
             try
             {
-                var pessoa = new TbPessoa();
-                pessoa.CodPessoa = contatoPessoa.CodPessoa;
-
-                pessoa = context.TbPessoas.Find(pessoa);
-                if (pessoa != null)
+                using (var context = new SaceContext())
                 {
-                    var contato = new TbPessoa();
-                    contato.CodPessoa = contatoPessoa.CodPessoaContato;
-                    contato = context.TbPessoas.Find(contato);
+                    var pessoa = context.TbPessoas.FirstOrDefault(p => p.CodPessoa == contatoPessoa.CodPessoa);
 
-                    if (contato != null)
+                    if (pessoa != null)
                     {
-                        pessoa.CodPessoas.Add(contato);
-                        context.Attach(contato);
-                        context.SaveChanges();
+                        var contato = new TbPessoa();
+                        contato.CodPessoa = contatoPessoa.CodPessoaContato;
+                        contato = context.TbPessoas.Find(contato);
+
+                        if (contato != null)
+                        {
+                            pessoa.CodPessoas.Add(contato);
+                            context.Attach(contato);
+                            context.SaveChanges();
+                        }
                     }
                 }
             }
@@ -169,20 +171,18 @@ namespace Negocio
         {
             try
             {
-                var pessoa = new TbPessoa();
-                pessoa.CodPessoa = contatoPessoa.CodPessoa;
-                pessoa = context.TbPessoas.Find(pessoa);
-
-                if (pessoa != null)
+                using (var context = new SaceContext())
                 {
-                    var contato = new TbPessoa();
-                    contato.CodPessoa = contatoPessoa.CodPessoaContato;
-                    contato = context.TbPessoas.Find(contato);
+                    var pessoa = context.TbPessoas.FirstOrDefault(p => p.CodPessoa == contatoPessoa.CodPessoa);
 
-                    if (contato != null)
+                    if (pessoa != null)
                     {
-                        pessoa.CodPessoas.Remove(contato);
-                        context.SaveChanges();
+                        var contato = context.TbPessoas.FirstOrDefault(c => c.CodPessoa == contatoPessoa.CodPessoaContato);
+                        if (contato != null)
+                        {
+                            pessoa.CodPessoas.Remove(contato);
+                            context.SaveChanges();
+                        }
                     }
                 }
             }
@@ -194,38 +194,41 @@ namespace Negocio
 
         private IQueryable<Pessoa> GetQuery()
         {
-            var query = from pessoa in context.TbPessoas
-                        select new Pessoa
-                        {
-                            Bairro = pessoa.Bairro,
-                            Cep = pessoa.Cep,
-                            Cidade = pessoa.Cidade,
-                            CodPessoa = pessoa.CodPessoa,
-                            Complemento = pessoa.Complemento,
-                            CpfCnpj = pessoa.CpfCnpj,
-                            EhFabricante = pessoa.EhFabricante,
-                            Email = pessoa.Email,
-                            Endereco = pessoa.Endereco,
-                            Fone1 = pessoa.Fone1,
-                            Fone2 = pessoa.Fone2,
-                            Fone3 = pessoa.Fone3,
-                            Ie = pessoa.Ie,
-                            IeSubstituto = pessoa.IeSubstituto,
-                            ImprimirCF = pessoa.ImprimirCf,
-                            ImprimirDAV = (bool)pessoa.ImprimirDav,
-                            LimiteCompra = (decimal)pessoa.LimiteCompra,
-                            Nome = pessoa.Nome,
-                            NomeFantasia = pessoa.NomeFantasia,
-                            Numero = pessoa.Numero,
-                            Observacao = pessoa.Observacao,
-                            Tipo = pessoa.Tipo,
-                            Uf = pessoa.Uf,
-                            ValorComissao = (decimal)pessoa.ValorComissao,
-                            CodMunicipioIBGE = pessoa.CodMunicipiosIbge,
-                            NomeMunicipioIBGE = pessoa.CodMunicipiosIbgeNavigation.Municipio,
-                            BloquearCrediario = pessoa.BloquearCrediario
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from pessoa in context.TbPessoas
+                            select new Pessoa
+                            {
+                                Bairro = pessoa.Bairro,
+                                Cep = pessoa.Cep,
+                                Cidade = pessoa.Cidade,
+                                CodPessoa = pessoa.CodPessoa,
+                                Complemento = pessoa.Complemento,
+                                CpfCnpj = pessoa.CpfCnpj,
+                                EhFabricante = pessoa.EhFabricante,
+                                Email = pessoa.Email,
+                                Endereco = pessoa.Endereco,
+                                Fone1 = pessoa.Fone1,
+                                Fone2 = pessoa.Fone2,
+                                Fone3 = pessoa.Fone3,
+                                Ie = pessoa.Ie,
+                                IeSubstituto = pessoa.IeSubstituto,
+                                ImprimirCF = pessoa.ImprimirCf,
+                                ImprimirDAV = (bool)pessoa.ImprimirDav,
+                                LimiteCompra = (decimal)pessoa.LimiteCompra,
+                                Nome = pessoa.Nome,
+                                NomeFantasia = pessoa.NomeFantasia,
+                                Numero = pessoa.Numero,
+                                Observacao = pessoa.Observacao,
+                                Tipo = pessoa.Tipo,
+                                Uf = pessoa.Uf,
+                                ValorComissao = (decimal)pessoa.ValorComissao,
+                                CodMunicipioIBGE = pessoa.CodMunicipiosIbge,
+                                NomeMunicipioIBGE = pessoa.CodMunicipiosIbgeNavigation.Municipio,
+                                BloquearCrediario = pessoa.BloquearCrediario
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
@@ -326,13 +329,16 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Pessoa> ObterPorNomeFantasiaComContas60DiasAtraso(string nomeFantasia)
         {
-            DateTime dataHojeMenos30 = DateTime.Now.AddDays(-30);
-            var query = from contas in context.TbConta
-                        where contas.DataVencimento <= dataHojeMenos30 && contas.CodSituacao == SituacaoConta.SITUACAO_ABERTA
-                        select contas.CodPessoa;
-            List<long> pessoasEmAtraso = query.Distinct().ToList();
+            using (var context = new SaceContext())
+            {
+                DateTime dataHojeMenos30 = DateTime.Now.AddDays(-30);
+                var query = from contas in context.TbConta
+                            where contas.DataVencimento <= dataHojeMenos30 && contas.CodSituacao == SituacaoConta.SITUACAO_ABERTA
+                            select contas.CodPessoa;
+                List<long> pessoasEmAtraso = query.Distinct().ToList();
 
-            return GetQuery().Where(pessoa => pessoasEmAtraso.Contains(pessoa.CodPessoa) && pessoa.NomeFantasia.StartsWith(nomeFantasia)).OrderBy(p => p.NomeFantasia).ToList();
+                return GetQuery().Where(pessoa => pessoasEmAtraso.Contains(pessoa.CodPessoa) && pessoa.NomeFantasia.StartsWith(nomeFantasia)).OrderBy(p => p.NomeFantasia).ToList();
+            }
         }
 
         /// <summary>
@@ -342,46 +348,48 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<Pessoa> ObterContatos(long codPessoa)
         {
-            var _pessoa = new TbPessoa();
-            _pessoa.CodPessoa = codPessoa;
-            _pessoa = context.TbPessoas.Find(_pessoa);
-
-            if (_pessoa == null)
+            using (var context = new SaceContext())
             {
-                return new List<Pessoa>();
-            }
-            var query = from pessoa in _pessoa.CodPessoas
-                        orderby pessoa.NomeFantasia
-                        select new Pessoa
-                        {
-                            Bairro = pessoa.Bairro,
-                            Cep = pessoa.Cep,
-                            Cidade = pessoa.Cidade,
-                            CodPessoa = pessoa.CodPessoa,
-                            Complemento = pessoa.Complemento,
-                            CpfCnpj = pessoa.CpfCnpj,
-                            EhFabricante = pessoa.EhFabricante,
-                            Email = pessoa.Email,
-                            Endereco = pessoa.Endereco,
-                            Fone1 = pessoa.Fone1,
-                            Fone2 = pessoa.Fone2,
-                            Fone3 = pessoa.Fone3,
-                            Ie = pessoa.Ie,
-                            IeSubstituto = pessoa.IeSubstituto,
-                            ImprimirCF = pessoa.ImprimirCf,
-                            ImprimirDAV = (bool)pessoa.ImprimirDav,
-                            LimiteCompra = (decimal)pessoa.LimiteCompra,
-                            Nome = pessoa.Nome,
-                            NomeFantasia = pessoa.NomeFantasia,
-                            Numero = pessoa.Numero,
-                            Observacao = pessoa.Observacao,
-                            Tipo = pessoa.Tipo,
-                            Uf = pessoa.Uf,
-                            CodMunicipioIBGE = pessoa.CodMunicipiosIbge,
-                            ValorComissao = (decimal)pessoa.ValorComissao
-                        };
-            return query;
+                var _pessoa = new TbPessoa();
+                _pessoa.CodPessoa = codPessoa;
+                _pessoa = context.TbPessoas.Find(_pessoa);
 
+                if (_pessoa == null)
+                {
+                    return new List<Pessoa>();
+                }
+                var query = from pessoa in _pessoa.CodPessoas
+                            orderby pessoa.NomeFantasia
+                            select new Pessoa
+                            {
+                                Bairro = pessoa.Bairro,
+                                Cep = pessoa.Cep,
+                                Cidade = pessoa.Cidade,
+                                CodPessoa = pessoa.CodPessoa,
+                                Complemento = pessoa.Complemento,
+                                CpfCnpj = pessoa.CpfCnpj,
+                                EhFabricante = pessoa.EhFabricante,
+                                Email = pessoa.Email,
+                                Endereco = pessoa.Endereco,
+                                Fone1 = pessoa.Fone1,
+                                Fone2 = pessoa.Fone2,
+                                Fone3 = pessoa.Fone3,
+                                Ie = pessoa.Ie,
+                                IeSubstituto = pessoa.IeSubstituto,
+                                ImprimirCF = pessoa.ImprimirCf,
+                                ImprimirDAV = (bool)pessoa.ImprimirDav,
+                                LimiteCompra = (decimal)pessoa.LimiteCompra,
+                                Nome = pessoa.Nome,
+                                NomeFantasia = pessoa.NomeFantasia,
+                                Numero = pessoa.Numero,
+                                Observacao = pessoa.Observacao,
+                                Tipo = pessoa.Tipo,
+                                Uf = pessoa.Uf,
+                                CodMunicipioIBGE = pessoa.CodMunicipiosIbge,
+                                ValorComissao = (decimal)pessoa.ValorComissao
+                            };
+                return query;
+            }
         }
 
         /// <summary>
@@ -392,14 +400,17 @@ namespace Negocio
         /// <returns></returns>
         public decimal ObterLimiteCompraDisponivel(Pessoa cliente)
         {
-            IEnumerable<TbContum> listaContasAberto = context.TbConta.Where(conta => conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA) && conta.CodPessoa == cliente.CodPessoa).ToList();
-            List<long> listaCodContas = listaContasAberto.Select(p => p.CodConta).ToList();
-            if (listaCodContas != null)
+            using (var context = new SaceContext())
             {
-                IEnumerable<MovimentacaoConta> listaPagamentos = (IEnumerable<MovimentacaoConta>)context.TbMovimentacaoConta.Where(m => listaCodContas.Contains((long)m.CodConta)).ToList();
-                decimal totalValorPagar = listaContasAberto.Sum(c => c.Valor);
-                decimal totalValorPago = listaPagamentos.Sum(m => m.Valor);
-                return cliente.LimiteCompra - totalValorPagar + totalValorPago;
+                IEnumerable<TbContum> listaContasAberto = context.TbConta.Where(conta => conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA) && conta.CodPessoa == cliente.CodPessoa).ToList();
+                List<long> listaCodContas = listaContasAberto.Select(p => p.CodConta).ToList();
+                if (listaCodContas != null)
+                {
+                    IEnumerable<MovimentacaoConta> listaPagamentos = (IEnumerable<MovimentacaoConta>)context.TbMovimentacaoConta.Where(m => listaCodContas.Contains((long)m.CodConta)).ToList();
+                    decimal totalValorPagar = listaContasAberto.Sum(c => c.Valor);
+                    decimal totalValorPago = listaPagamentos.Sum(m => m.Valor);
+                    return cliente.LimiteCompra - totalValorPagar + totalValorPago;
+                }
             }
             return 0;
         }
@@ -442,82 +453,85 @@ namespace Negocio
 
         public void SubstituirPessoa(long codPessoaExcluir, long codPessoaManter)
         {
-            var transaction = context.Database.BeginTransaction();
-            try
+            using (var context = new SaceContext())
             {
-                // substitui todas as saídas
-                var queryProduto = from produto in context.TbProdutos
-                                   where (produto.CodFabricante == codPessoaExcluir)
-                                   select produto;
-                foreach (TbProduto _produto in queryProduto)
+                var transaction = context.Database.BeginTransaction();
+                try
                 {
-                    _produto.CodFabricante = codPessoaManter;
-                    context.Update(_produto);
+                    // substitui todas as saídas
+                    var queryProduto = from produto in context.TbProdutos
+                                       where (produto.CodFabricante == codPessoaExcluir)
+                                       select produto;
+                    foreach (TbProduto _produto in queryProduto)
+                    {
+                        _produto.CodFabricante = codPessoaManter;
+                        context.Update(_produto);
+                    }
+
+                    context.SaveChanges();
+
+
+                    // substitui todas as saídas
+                    var querySaidas = from saida in context.TbSaida
+                                      where (saida.CodCliente == codPessoaExcluir ||
+                                            saida.CodEmpresaFrete == codPessoaExcluir || saida.CodProfissional == codPessoaExcluir)
+                                      select saida;
+                    foreach (TbSaidum _saida in querySaidas)
+                    {
+                        _saida.CodCliente = codPessoaManter;
+                        _saida.CodEmpresaFrete = codPessoaManter;
+                        _saida.CodProfissional = codPessoaManter;
+                        context.Update(_saida);
+                    }
+                    context.SaveChanges();
+
+                    // Substituti todas as entradas
+                    var queryEntrada = from entrada in context.TbEntrada
+                                       where entrada.CodEmpresaFrete == codPessoaExcluir ||
+                                            entrada.CodFornecedor == codPessoaExcluir
+                                       select entrada;
+                    foreach (TbEntradum _entrada in queryEntrada)
+                    {
+                        _entrada.CodEmpresaFrete = codPessoaManter;
+                        _entrada.CodFornecedor = codPessoaManter;
+                        context.Update(_entrada);
+                    }
+                    context.SaveChanges();
+
+                    // Substituti todas as contas dessa pessoa
+                    var queryConta = from conta in context.TbConta
+                                     where conta.CodPessoa == codPessoaExcluir
+                                     select conta;
+                    foreach (TbContum _conta in queryConta)
+                    {
+                        _conta.CodPessoa = codPessoaManter;
+                        context.Update(_conta);
+                    }
+                    context.SaveChanges();
+
+                    // Substituti todas as contas dessa pessoa
+                    var queryMovimentacaoConta = from movimentacaoConta in context.TbMovimentacaoConta
+                                                 where movimentacaoConta.CodResponsavel == codPessoaExcluir
+                                                 select movimentacaoConta;
+                    foreach (TbMovimentacaoContum _movimentacaoConta in queryMovimentacaoConta)
+                    {
+                        _movimentacaoConta.CodResponsavel = codPessoaManter;
+                        context.Update(_movimentacaoConta);
+                    }
+
+                    context.SaveChanges();
+
+                    // Exclui Pessoa
+                    Remover(codPessoaExcluir);
+
+                    transaction.Commit();
+
                 }
-
-                context.SaveChanges();
-
-
-                // substitui todas as saídas
-                var querySaidas = from saida in context.TbSaida
-                                  where (saida.CodCliente == codPessoaExcluir ||
-                                        saida.CodEmpresaFrete == codPessoaExcluir || saida.CodProfissional == codPessoaExcluir)
-                                  select saida;
-                foreach (TbSaidum _saida in querySaidas)
+                catch (Exception e)
                 {
-                    _saida.CodCliente = codPessoaManter;
-                    _saida.CodEmpresaFrete = codPessoaManter;
-                    _saida.CodProfissional = codPessoaManter;
-                    context.Update(_saida);
+                    transaction.Rollback();
+                    throw new DadosException("Pessoa", e.Message, e);
                 }
-                context.SaveChanges();
-
-                // Substituti todas as entradas
-                var queryEntrada = from entrada in context.TbEntrada
-                                   where entrada.CodEmpresaFrete == codPessoaExcluir ||
-                                        entrada.CodFornecedor == codPessoaExcluir
-                                   select entrada;
-                foreach (TbEntradum _entrada in queryEntrada)
-                {
-                    _entrada.CodEmpresaFrete = codPessoaManter;
-                    _entrada.CodFornecedor = codPessoaManter;
-                    context.Update(_entrada);
-                }
-                context.SaveChanges();
-
-                // Substituti todas as contas dessa pessoa
-                var queryConta = from conta in context.TbConta
-                                 where conta.CodPessoa == codPessoaExcluir
-                                 select conta;
-                foreach (TbContum _conta in queryConta)
-                {
-                    _conta.CodPessoa = codPessoaManter;
-                    context.Update(_conta);
-                }
-                context.SaveChanges();
-
-                // Substituti todas as contas dessa pessoa
-                var queryMovimentacaoConta = from movimentacaoConta in context.TbMovimentacaoConta
-                                             where movimentacaoConta.CodResponsavel == codPessoaExcluir
-                                             select movimentacaoConta;
-                foreach (TbMovimentacaoContum _movimentacaoConta in queryMovimentacaoConta)
-                {
-                    _movimentacaoConta.CodResponsavel = codPessoaManter;
-                    context.Update(_movimentacaoConta);
-                }
-
-                context.SaveChanges();
-
-                // Exclui Pessoa
-                Remover(codPessoaExcluir);
-
-                transaction.Commit();
-
-            }
-            catch (Exception e)
-            {
-                transaction.Rollback();
-                throw new DadosException("Pessoa", e.Message, e);
             }
         }
     }

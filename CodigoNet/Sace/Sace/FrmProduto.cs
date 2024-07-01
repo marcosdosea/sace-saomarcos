@@ -41,7 +41,7 @@ namespace Sace
             Cursor.Current = Cursors.WaitCursor;
             
             cstBindingSource.DataSource = service.GerenciadorCst.ObterTodos();
-            fabricanteBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+            fabricanteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             grupoBindingSource.DataSource = service.GerenciadorGrupo.ObterTodos();
             subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.ObterPorGrupo((Grupo)grupoBindingSource.Current);
             situacaoprodutoBindingSource.DataSource = service.GerenciadorProduto.ObterSituacoesProduto();
@@ -291,7 +291,7 @@ namespace Sace
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
-                        fabricanteBindingSource.DataSource = service.GerenciadorPessoa.ObterTodos();
+                        fabricanteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
                         fabricanteBindingSource.Position = fabricanteBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                     }
                     frmPessoa.Dispose();

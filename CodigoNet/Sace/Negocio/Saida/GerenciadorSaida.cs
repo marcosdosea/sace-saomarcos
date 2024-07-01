@@ -10,13 +10,6 @@ namespace Negocio
 {
     public class GerenciadorSaida
     {
-        private readonly SaceContext context;
-
-        public GerenciadorSaida(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere dados de uma saída (orçamento/pré-venda/venda/saída depósito)
         /// </summary>
@@ -28,10 +21,11 @@ namespace Negocio
             {
                 var _saida = new TbSaidum();
                 Atribuir(saida, _saida);
-
-                context.Add(_saida);
-                context.SaveChanges();
-
+                using (var context = new SaceContext())
+                {
+                    context.Add(_saida);
+                    context.SaveChanges();
+                }
                 return _saida.CodSaida;
             }
             catch (Exception e)
@@ -49,12 +43,42 @@ namespace Negocio
         {
             try
             {
-                var _saida = new TbSaidum() { CodSaida = saida.CodSaida };
-                _saida = context.TbSaida.Find(_saida);
+                using (var context = new SaceContext())
+                {
+                    var _saida = context.TbSaida.FirstOrDefault(s => s.CodSaida == saida.CodSaida);
+
+                    if (_saida != null)
+                    {
+                        Atribuir(saida, _saida);
+                        context.Update(saida);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Não foi possível atualizar a saída");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Saída", e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Atualiza dados de uma saída (orçamento/pré-venda/venda/saída depósito)
+        /// </summary>
+        /// <param name="saida"></param>
+        public void Atualizar(Saida saida, SaceContext context)
+        {
+            try
+            {
+                var _saida = context.TbSaida.FirstOrDefault(s => s.CodSaida == saida.CodSaida);
 
                 if (_saida != null)
                 {
                     Atribuir(saida, _saida);
+                    context.Update(saida);
                     context.SaveChanges();
                 }
                 else
@@ -62,7 +86,6 @@ namespace Negocio
                     throw new NegocioException("Não foi possível atualizar a saída");
                 }
 
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -79,16 +102,20 @@ namespace Negocio
         {
             try
             {
-                var query = from saidaE in context.TbSaida
-                            where saidaE.CodSaida == codSaida
-                            select saidaE;
-
-                foreach (TbSaidum _saida in query)
+                using (var context = new SaceContext())
                 {
-                    _saida.CodSituacaoPagamentos = codSituacaoPagamentos;
-                }
+                    var query = from saidaE in context.TbSaida
+                                where saidaE.CodSaida == codSaida
+                                select saidaE;
 
-                context.SaveChanges();
+                    foreach (TbSaidum _saida in query)
+                    {
+                        _saida.CodSituacaoPagamentos = codSituacaoPagamentos;
+                        context.Update(_saida);
+                    }
+
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -105,16 +132,20 @@ namespace Negocio
         {
             try
             {
-                var query = from saidaE in context.TbSaida
-                            where saidaE.PedidoGerado.Equals(pedidoGerado)
-                            select saidaE;
-                foreach (TbSaidum _saida in query)
+                using (var context = new SaceContext())
                 {
-                    _saida.Nfe = nfe;
-                    _saida.Observacao = observacao;
-                    _saida.CodCliente = codCliente;
+                    var query = from saidaE in context.TbSaida
+                                where saidaE.PedidoGerado.Equals(pedidoGerado)
+                                select saidaE;
+                    foreach (TbSaidum _saida in query)
+                    {
+                        _saida.Nfe = nfe;
+                        _saida.Observacao = observacao;
+                        _saida.CodCliente = codCliente;
+                        context.Update(_saida);
+                    }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -131,14 +162,18 @@ namespace Negocio
         {
             try
             {
-                var query = from saidaE in context.TbSaida
-                            where saidaE.CodSaida.Equals(codSaida)
-                            select saidaE;
-                foreach (TbSaidum _saida in query)
+                using (var context = new SaceContext())
                 {
-                    _saida.TipoDocumentoFiscal = tipoDocumento;
+                    var query = from saidaE in context.TbSaida
+                                where saidaE.CodSaida.Equals(codSaida)
+                                select saidaE;
+                    foreach (TbSaidum _saida in query)
+                    {
+                        _saida.TipoDocumentoFiscal = tipoDocumento;
+                        context.Update(_saida);
+                    }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -155,46 +190,49 @@ namespace Negocio
         {
             try
             {
-                var query = from nfe in context.TbNves
-                            where nfe.CodNfe == nfeControle.CodNfe
-                            select nfe;
-                List<TbNfe> listaNfes = query.ToList();
-
-                if (listaNfes.Count() > 0)
+                using (var context = new SaceContext())
                 {
-                    TbNfe nfe = listaNfes.FirstOrDefault();
-                    List<TbSaidum> saidas = nfe.CodSaida.ToList();
-                    foreach (TbSaidum saida in saidas)
+                    var query = from nfe in context.TbNves
+                                where nfe.CodNfe == nfeControle.CodNfe
+                                select nfe;
+                    List<TbNfe> listaNfes = query.ToList();
+
+                    if (listaNfes.Count() > 0)
                     {
-                        if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
+                        TbNfe nfe = listaNfes.FirstOrDefault();
+                        List<TbSaidum> saidas = nfe.CodSaida.ToList();
+                        foreach (TbSaidum saida in saidas)
                         {
-                            if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                            if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA))
                             {
-                                saida.Nfe = "NFCe";
-                                saida.PedidoGerado = "C" + nfe.NumeroSequenciaNfe;
-                                if (saida.CodTipoSaida.Equals(Saida.TIPO_PRE_VENDA))
-                                    saida.CodTipoSaida = Saida.TIPO_VENDA;
+                                if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
+                                {
+                                    saida.Nfe = "NFCe";
+                                    saida.PedidoGerado = "C" + nfe.NumeroSequenciaNfe;
+                                    if (saida.CodTipoSaida.Equals(Saida.TIPO_PRE_VENDA))
+                                        saida.CodTipoSaida = Saida.TIPO_VENDA;
+                                }
+                                else
+                                {
+                                    saida.Nfe = "NFe";
+                                    saida.PedidoGerado = "N" + nfe.NumeroSequenciaNfe;
+                                    if (saida.CodTipoSaida.Equals(Saida.TIPO_PRE_VENDA))
+                                        saida.CodTipoSaida = Saida.TIPO_VENDA;
+                                }
                             }
                             else
                             {
-                                saida.Nfe = "NFe";
-                                saida.PedidoGerado = "N" + nfe.NumeroSequenciaNfe;
-                                if (saida.CodTipoSaida.Equals(Saida.TIPO_PRE_VENDA))
-                                    saida.CodTipoSaida = Saida.TIPO_VENDA;
+                                if (!saida.CodTipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR) && !saida.CodTipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                                    saida.Nfe = "";
+                                saida.PedidoGerado = "";
+                                if (saida.CodTipoSaida.Equals(Saida.TIPO_VENDA))
+                                    saida.CodTipoSaida = Saida.TIPO_PRE_VENDA;
                             }
+                            context.Update(saida);
                         }
-                        else
-                        {
-                            if (!saida.CodTipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR) && !saida.CodTipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
-                                saida.Nfe = "";
-                            saida.PedidoGerado = "";
-                            if (saida.CodTipoSaida.Equals(Saida.TIPO_VENDA))
-                                saida.CodTipoSaida = Saida.TIPO_PRE_VENDA;
-                        }
-
                     }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -212,15 +250,19 @@ namespace Negocio
         {
             try
             {
-                var query = from saidaE in context.TbSaida
-                            where saidaE.CodSaida == codSaida
-                            select saidaE;
-                foreach (TbSaidum _saida in query)
+                using (var context = new SaceContext())
                 {
-                    _saida.Nfe = nfe;
-                    _saida.Observacao = observacao;
+                    var query = from saidaE in context.TbSaida
+                                where saidaE.CodSaida == codSaida
+                                select saidaE;
+                    foreach (TbSaidum _saida in query)
+                    {
+                        _saida.Nfe = nfe;
+                        _saida.Observacao = observacao;
+                        context.Update(_saida);
+                    }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -235,87 +277,90 @@ namespace Negocio
         /// <param name="saida"></param>
         public void Remover(Saida saida)
         {
-            var gerenciadorNFe = new GerenciadorNFe(context);
-            var gerenciadorConta = new GerenciadorConta(context);
-            var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
-            var gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            try
+            using (var context = new SaceContext())
             {
-                context.Database.BeginTransaction();
-
-                List<NfeControle> listaNfeControle = gerenciadorNFe.ObterPorSaida(saida.CodSaida).ToList();
-                if (listaNfeControle.Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0)
-                    throw new NegocioException("Não é possível remover saídas / devoluções com NF-e AUTORIZADAS pelo sistema");
-
-                if ((listaNfeControle.Count() > 0) && (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO)))
-                    throw new NegocioException("Não é possível remover pedidos com NF-e associadas");
-
-
-                gerenciadorSaidaPagamento.RemoverPorSaida(saida);
-
-                if (saida.TipoSaida.Equals(Saida.TIPO_CREDITO))
+                var gerenciadorNFe = new GerenciadorNFe(context);
+                var gerenciadorConta = new GerenciadorConta(context);
+                var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
+                var gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
+                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+                try
                 {
-                    List<Conta> listaContas = gerenciadorConta.ObterPorSaida(saida.CodSaida).ToList();
-                    gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
-                    foreach (Conta conta in listaContas)
+                    context.Database.BeginTransaction();
+
+                    List<NfeControle> listaNfeControle = gerenciadorNFe.ObterPorSaida(saida.CodSaida).ToList();
+                    if (listaNfeControle.Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0)
+                        throw new NegocioException("Não é possível remover saídas / devoluções com NF-e AUTORIZADAS pelo sistema");
+
+                    if ((listaNfeControle.Count() > 0) && (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO)))
+                        throw new NegocioException("Não é possível remover pedidos com NF-e associadas");
+
+
+                    gerenciadorSaidaPagamento.RemoverPorSaida(saida);
+
+                    if (saida.TipoSaida.Equals(Saida.TIPO_CREDITO))
                     {
-                        gerenciadorConta.Remover(conta.CodConta);
+                        List<Conta> listaContas = gerenciadorConta.ObterPorSaida(saida.CodSaida).ToList();
+                        gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
+                        foreach (Conta conta in listaContas)
+                        {
+                            gerenciadorConta.Remover(conta.CodConta);
+                        }
                     }
-                }
 
-                if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
-                {
-                    var query = from saidaE in context.TbSaida
-                                where saidaE.CodSaida == saida.CodSaida
-                                select saidaE;
-                    TbSaidum _saida = query.FirstOrDefault();
-                    if (_saida != null)
-                        context.Remove(_saida);
-                    context.SaveChanges();
-                }
-                else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
-                    || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
-                {
-                    RegistrarEstornoEstoque(saida, null);
-                    var query = from saidaE in context.TbSaida
-                                where saidaE.CodSaida == saida.CodSaida
-                                select saidaE;
-                    var _saida = query.FirstOrDefault();
-                    if (_saida != null)
-                        context.Remove(_saida);
-                    context.SaveChanges();
-                }
-                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
-                {
-                    List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                    RegistrarBaixaEstoque(saidaProdutos);
-                    var query = from saidaE in context.TbSaida
-                                where saidaE.CodSaida == saida.CodSaida
-                                select saidaE;
-                    var _saida = query.FirstOrDefault();
-                    if (_saida != null)
+                    if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR) ||
+                        saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR) || saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_DEPOSITO) ||
+                        saida.TipoSaida.Equals(Saida.TIPO_PRE_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                     {
-                        context.Remove(_saida);
+                        var query = from saidaE in context.TbSaida
+                                    where saidaE.CodSaida == saida.CodSaida
+                                    select saidaE;
+                        TbSaidum _saida = query.FirstOrDefault();
+                        if (_saida != null)
+                            context.Remove(_saida);
+                        context.SaveChanges();
                     }
-                    context.SaveChanges();
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR)
+                        || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
+                    {
+                        RegistrarEstornoEstoque(saida, null, context);
+                        var query = from saidaE in context.TbSaida
+                                    where saidaE.CodSaida == saida.CodSaida
+                                    select saidaE;
+                        var _saida = query.FirstOrDefault();
+                        if (_saida != null)
+                            context.Remove(_saida);
+                        context.SaveChanges();
+                    }
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                    {
+                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        RegistrarBaixaEstoque(saidaProdutos, context);
+                        var query = from saidaE in context.TbSaida
+                                    where saidaE.CodSaida == saida.CodSaida
+                                    select saidaE;
+                        var _saida = query.FirstOrDefault();
+                        if (_saida != null)
+                        {
+                            context.Remove(_saida);
+                        }
+                        context.SaveChanges();
+                    }
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
+                    {
+                        gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
+                        RegistrarEstornoEstoque(saida, null, context);
+                        saida.TipoSaida = Saida.TIPO_ORCAMENTO;
+                        saida.CupomFiscal = "";
+                        Atualizar(saida);
+                    }
+                    context.Database.CommitTransaction();
                 }
-                else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
+                catch (Exception e)
                 {
-                    gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
-                    RegistrarEstornoEstoque(saida, null);
-                    saida.TipoSaida = Saida.TIPO_ORCAMENTO;
-                    saida.CupomFiscal = "";
-                    Atualizar(saida);
+                    context.Database.RollbackTransaction();
+                    throw new DadosException("Saída", e.Message, e);
                 }
-                context.Database.CommitTransaction();
-            }
-            catch (Exception e)
-            {
-                context.Database.RollbackTransaction();
-                throw new DadosException("Saída", e.Message, e);
             }
         }
 
@@ -327,87 +372,93 @@ namespace Negocio
         /// <param name="saida"></param>
         public void PrepararEdicaoSaida(Saida saida)
         {
-            var gerenciadorNFe = new GerenciadorNFe(context);
-            var gerenciadorConta = new GerenciadorConta(context);
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
-            var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
-            var gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
-            try
+            using (var context = new SaceContext())
             {
-                if (saida.TipoSaida == Saida.TIPO_CREDITO)
-                    throw new NegocioException("Não é possível editar créditos. Se necessário, exclua o crédito e lançe um novo.");
-
-                if (saida.TipoSaida == Saida.TIPO_VENDA)
-                    throw new NegocioException("Não é possível editar uma saída cujo Comprovante Fiscal já foi emitido.");
-
-
-                bool possuiNfeAutorizada = gerenciadorNFe.ObterPorSaida(saida.CodSaida).Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0;
-                if ((saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE_PERDA) && (possuiNfeAutorizada))
-                    throw new NegocioException("Não é possível editar Baixa de Estoque cuja Nota Fiscal já foi emitida e autorizada.");
-                if ((saida.TipoSaida == Saida.TIPO_USO_INTERNO) && (possuiNfeAutorizada))
-                    throw new NegocioException("Não é possível editar Uso Interno cuja Nota Fiscal já foi emitida e autorizada.");
-                if ((saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) && (possuiNfeAutorizada))
-                    throw new NegocioException("Não é possível editar Transferência para Depósito cuja Nota Fiscal já foi emitida e autorizada.");
-                if ((saida.TipoSaida == Saida.TIPO_RETORNO_DEPOSITO) && (possuiNfeAutorizada))
-                    throw new NegocioException("Não é possível editar um retorno de Depósito cuja Nota Fiscal já foi emitida e autorizada.");
-                else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (possuiNfeAutorizada))
-                    throw new NegocioException("Não é possível editar uma Devolução para Fornecedor cuja Nota Fiscal já foi emitida e autorizada.");
-                else if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) && (saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO))
+                context.Database.BeginTransaction();
+                var gerenciadorNFe = new GerenciadorNFe(context);
+                var gerenciadorConta = new GerenciadorConta(context);
+                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+                var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
+                var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
+                var gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
+                try
                 {
-                    IEnumerable<SaidaPagamento> pagamentos = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
-                    // houve pagamento não realizado em dinheiro
-                    if (pagamentos.Where(p => p.CodFormaPagamento.Equals(FormaPagamento.DINHEIRO)).Count() != pagamentos.Count())
+                    if (saida.TipoSaida == Saida.TIPO_CREDITO)
+                        throw new NegocioException("Não é possível editar créditos. Se necessário, exclua o crédito e lançe um novo.");
+
+                    if (saida.TipoSaida == Saida.TIPO_VENDA)
+                        throw new NegocioException("Não é possível editar uma saída cujo Comprovante Fiscal já foi emitido.");
+
+
+                    bool possuiNfeAutorizada = gerenciadorNFe.ObterPorSaida(saida.CodSaida).Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0;
+                    if ((saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE_PERDA) && (possuiNfeAutorizada))
+                        throw new NegocioException("Não é possível editar Baixa de Estoque cuja Nota Fiscal já foi emitida e autorizada.");
+                    if ((saida.TipoSaida == Saida.TIPO_USO_INTERNO) && (possuiNfeAutorizada))
+                        throw new NegocioException("Não é possível editar Uso Interno cuja Nota Fiscal já foi emitida e autorizada.");
+                    if ((saida.TipoSaida == Saida.TIPO_REMESSA_DEPOSITO) && (possuiNfeAutorizada))
+                        throw new NegocioException("Não é possível editar Transferência para Depósito cuja Nota Fiscal já foi emitida e autorizada.");
+                    if ((saida.TipoSaida == Saida.TIPO_RETORNO_DEPOSITO) && (possuiNfeAutorizada))
+                        throw new NegocioException("Não é possível editar um retorno de Depósito cuja Nota Fiscal já foi emitida e autorizada.");
+                    else if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) && (possuiNfeAutorizada))
+                        throw new NegocioException("Não é possível editar uma Devolução para Fornecedor cuja Nota Fiscal já foi emitida e autorizada.");
+                    else if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) && (saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO))
                     {
-                        IEnumerable<Conta> contas = gerenciadorConta.ObterPorSaida(saida.CodSaida);
-                        foreach (Conta conta in contas)
+                        IEnumerable<SaidaPagamento> pagamentos = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+                        // houve pagamento não realizado em dinheiro
+                        if (pagamentos.Where(p => p.CodFormaPagamento.Equals(FormaPagamento.DINHEIRO)).Count() != pagamentos.Count())
                         {
-                            bool possuiMovimentacaoFinanceira = gerenciadorMovimentacaoConta.ObterPorConta(conta.CodConta).Count() > 0;
-                            if (possuiMovimentacaoFinanceira)
-                                throw new NegocioException("Não é possível editar pedidos que já possuem PAGAMENTOS REALIZADOS.");
+                            IEnumerable<Conta> contas = gerenciadorConta.ObterPorSaida(saida.CodSaida);
+                            foreach (Conta conta in contas)
+                            {
+                                bool possuiMovimentacaoFinanceira = gerenciadorMovimentacaoConta.ObterPorConta(conta.CodConta).Count() > 0;
+                                if (possuiMovimentacaoFinanceira)
+                                    throw new NegocioException("Não é possível editar pedidos que já possuem PAGAMENTOS REALIZADOS.");
+                            }
                         }
                     }
-                }
-                // Se houver documento fiscal aguardando impressão
-                if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
-                {
-                    gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
-                }
+                    // Se houver documento fiscal aguardando impressão
+                    if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
+                    {
+                        gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
+                    }
 
-                gerenciadorSaidaPagamento.RemoverPorSaida(saida);
-                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
-                {
-                    RegistrarEstornoEstoque(saida, null);
+                    gerenciadorSaidaPagamento.RemoverPorSaida(saida);
+                    if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
+                        saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) ||
+                        saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO) ||
+                        saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
+                    {
+                        RegistrarEstornoEstoque(saida, null, context);
+                    }
+                    if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                    {
+                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        RegistrarBaixaEstoque(saidaProdutos, context);
+                    }
+                    if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA) ||
+                        saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO))
+                        saida.TipoSaida = Saida.TIPO_ORCAMENTO;
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO))
+                        saida.TipoSaida = Saida.TIPO_PRE_REMESSA_DEPOSITO;
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                        saida.TipoSaida = Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR;
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                        saida.TipoSaida = Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR;
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO))
+                        saida.TipoSaida = Saida.TIPO_PRE_RETORNO_DEPOSITO;
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
+                        saida.TipoSaida = Saida.TIPO_PRE_RETORNO_FORNECEDOR;
+                    saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
+                    saida.CupomFiscal = "";
+                    saida.TotalPago = 0;
+                    Atualizar(saida);
+                    context.Database.CommitTransaction();
                 }
-                if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                catch (Exception e)
                 {
-                    List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                    RegistrarBaixaEstoque(saidaProdutos);
+                    context.Database.RollbackTransaction();
+                    throw new DadosException("Saída", e.Message, e);
                 }
-                if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA) ||
-                    saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO))
-                    saida.TipoSaida = Saida.TIPO_ORCAMENTO;
-                else if (saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO))
-                    saida.TipoSaida = Saida.TIPO_PRE_REMESSA_DEPOSITO;
-                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
-                    saida.TipoSaida = Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR;
-                else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
-                    saida.TipoSaida = Saida.TIPO_PRE_DEVOLUCAO_CONSUMIDOR;
-                else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO))
-                    saida.TipoSaida = Saida.TIPO_PRE_RETORNO_DEPOSITO;
-                else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
-                    saida.TipoSaida = Saida.TIPO_PRE_RETORNO_FORNECEDOR;
-                saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
-                saida.CupomFiscal = "";
-                saida.TotalPago = 0;
-                Atualizar(saida);
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Saída", e.Message, e);
             }
         }
 
@@ -417,53 +468,56 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Saida> GetQuery()
         {
-            var query = from saida in context.TbSaida
-                        select new Saida
-                        {
-                            BaseCalculoICMS = (decimal)saida.BaseCalculoIcms,
-                            BaseCalculoICMSSubst = (decimal)saida.BaseCalculoIcmssubst,
-                            CodCliente = saida.CodCliente,
-                            CodEmpresaFrete = saida.CodEmpresaFrete,
-                            CodProfissional = (long)saida.CodProfissional,
-                            CodEntrada = saida.CodEntrada,
-                            CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
-                            CodSaida = saida.CodSaida,
-                            CpfCnpj = saida.CpfCnpj,
-                            DataSaida = saida.DataSaida,
-                            Desconto = (decimal)saida.Desconto,
-                            DescricaoSituacaoPagamentos = saida.CodSituacaoPagamentosNavigation.DescricaoSituacaoPagamentos,
-                            DescricaoTipoSaida = saida.CodTipoSaidaNavigation.DescricaoTipoSaida,
-                            EntregaRealizada = (bool)saida.EntregaRealizada,
-                            EspecieVolumes = saida.EspecieVolumes,
-                            Marca = saida.Marca,
-                            Nfe = saida.Nfe == null ? "" : saida.Nfe,
-                            NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
-                            LoginVendedor = saida.CodProfissionalNavigation.TbUsuario.Login,
-                            Numero = (decimal)saida.Numero,
-                            NumeroCartaoVenda = (int)saida.NumeroCartaoVenda,
-                            OutrasDespesas = (decimal)saida.OutrasDespesas,
-                            Observacao = saida.Observacao,
-                            CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
-                            DataEmissaoCupomFiscal = saida.DataEmissaoDocFiscal == null ? saida.DataSaida : (DateTime)saida.DataEmissaoDocFiscal,
-                            PesoBruto = (decimal)saida.PesoBruto,
-                            PesoLiquido = (decimal)saida.PesoLiquido,
-                            QuantidadeVolumes = (decimal)saida.QuantidadeVolumes,
-                            TipoSaida = saida.CodTipoSaida,
-                            Total = (decimal)saida.Total,
-                            TotalAVista = (decimal)saida.TotalAvista,
-                            TotalLucro = (decimal)saida.TotalLucro,
-                            TotalNotaFiscal = (decimal)saida.TotalNotaFiscal,
-                            TotalPago = (decimal)saida.TotalPago,
-                            Troco = (decimal)saida.Troco,
-                            ValorFrete = (decimal)saida.ValorFrete,
-                            ValorICMS = (decimal)saida.ValorIcms,
-                            ValorICMSSubst = (decimal)saida.ValorIcmssubst,
-                            ValorIPI = (decimal)saida.ValorIpi,
-                            ValorSeguro = (decimal)saida.ValorSeguro,
-                            CodLojaOrigem = saida.CodLojaOrigem,
-                            TipoDocumentoFiscal = saida.TipoDocumentoFiscal
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from saida in context.TbSaida
+                            select new Saida
+                            {
+                                BaseCalculoICMS = (decimal)saida.BaseCalculoIcms,
+                                BaseCalculoICMSSubst = (decimal)saida.BaseCalculoIcmssubst,
+                                CodCliente = saida.CodCliente,
+                                CodEmpresaFrete = saida.CodEmpresaFrete,
+                                CodProfissional = (long)saida.CodProfissional,
+                                CodEntrada = saida.CodEntrada,
+                                CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
+                                CodSaida = saida.CodSaida,
+                                CpfCnpj = saida.CpfCnpj,
+                                DataSaida = saida.DataSaida,
+                                Desconto = (decimal)saida.Desconto,
+                                DescricaoSituacaoPagamentos = saida.CodSituacaoPagamentosNavigation.DescricaoSituacaoPagamentos,
+                                DescricaoTipoSaida = saida.CodTipoSaidaNavigation.DescricaoTipoSaida,
+                                EntregaRealizada = (bool)saida.EntregaRealizada,
+                                EspecieVolumes = saida.EspecieVolumes,
+                                Marca = saida.Marca,
+                                Nfe = saida.Nfe == null ? "" : saida.Nfe,
+                                NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
+                                LoginVendedor = saida.CodProfissionalNavigation.TbUsuario.Login,
+                                Numero = (decimal)saida.Numero,
+                                NumeroCartaoVenda = (int)saida.NumeroCartaoVenda,
+                                OutrasDespesas = (decimal)saida.OutrasDespesas,
+                                Observacao = saida.Observacao,
+                                CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
+                                DataEmissaoCupomFiscal = saida.DataEmissaoDocFiscal == null ? saida.DataSaida : (DateTime)saida.DataEmissaoDocFiscal,
+                                PesoBruto = (decimal)saida.PesoBruto,
+                                PesoLiquido = (decimal)saida.PesoLiquido,
+                                QuantidadeVolumes = (decimal)saida.QuantidadeVolumes,
+                                TipoSaida = saida.CodTipoSaida,
+                                Total = (decimal)saida.Total,
+                                TotalAVista = (decimal)saida.TotalAvista,
+                                TotalLucro = (decimal)saida.TotalLucro,
+                                TotalNotaFiscal = (decimal)saida.TotalNotaFiscal,
+                                TotalPago = (decimal)saida.TotalPago,
+                                Troco = (decimal)saida.Troco,
+                                ValorFrete = (decimal)saida.ValorFrete,
+                                ValorICMS = (decimal)saida.ValorIcms,
+                                ValorICMSSubst = (decimal)saida.ValorIcmssubst,
+                                ValorIPI = (decimal)saida.ValorIpi,
+                                ValorSeguro = (decimal)saida.ValorSeguro,
+                                CodLojaOrigem = saida.CodLojaOrigem,
+                                TipoDocumentoFiscal = saida.TipoDocumentoFiscal
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
@@ -472,19 +526,22 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<SaidaPesquisa> GetQueryPesquisa()
         {
-            var query = from saida in context.TbSaida
-                        select new SaidaPesquisa
-                        {
-                            CodSaida = saida.CodSaida,
-                            DataSaida = saida.DataSaida,
-                            CodCliente = saida.CodCliente,
-                            NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
-                            CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
-                            TotalAVista = (decimal)saida.TotalAvista,
-                            CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
-                            TipoSaida = saida.CodTipoSaida
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from saida in context.TbSaida
+                            select new SaidaPesquisa
+                            {
+                                CodSaida = saida.CodSaida,
+                                DataSaida = saida.DataSaida,
+                                CodCliente = saida.CodCliente,
+                                NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
+                                CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
+                                TotalAVista = (decimal)saida.TotalAvista,
+                                CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
+                                TipoSaida = saida.CodTipoSaida
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
@@ -539,40 +596,45 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaPesquisa> ObterPorCupomFiscal(String cupomFiscal)
         {
-            var query = from saida in context.TbSaida
-                        where saida.PedidoGerado.Equals(cupomFiscal)
-                        select new SaidaPesquisa
-                        {
-                            CodSaida = saida.CodSaida,
-                            DataSaida = saida.DataSaida,
-                            CodCliente = saida.CodCliente,
-                            NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
-                            CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
-                            TotalAVista = (decimal)saida.TotalAvista,
-                            CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
-                            TipoSaida = saida.CodTipoSaida
-                        };
-            return query.AsNoTracking().ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from saida in context.TbSaida
+                            where saida.PedidoGerado.Equals(cupomFiscal)
+                            select new SaidaPesquisa
+                            {
+                                CodSaida = saida.CodSaida,
+                                DataSaida = saida.DataSaida,
+                                CodCliente = saida.CodCliente,
+                                NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
+                                CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
+                                TotalAVista = (decimal)saida.TotalAvista,
+                                CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
+                                TipoSaida = saida.CodTipoSaida
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
 
         public List<SaidaPesquisa> ObterSaidaPorNfe(int codNfe)
         {
+            using (var context = new SaceContext())
+            {
+                var query = from saida in context.TbSaida
+                            where saida.CodNves.Select(nfe => nfe.CodNfe).Contains(codNfe)
+                            select new SaidaPesquisa
+                            {
 
-            var query = from saida in context.TbSaida
-                        where saida.CodNves.Select(nfe => nfe.CodNfe).Contains(codNfe)
-                        select new SaidaPesquisa
-                        {
-
-                            CodSaida = saida.CodSaida,
-                            DataSaida = saida.DataSaida,
-                            CodCliente = saida.CodCliente,
-                            NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
-                            CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
-                            TotalAVista = (decimal)saida.TotalAvista,
-                            CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
-                            TipoSaida = saida.CodTipoSaida
-                        };
-            return query.AsNoTracking().ToList();
+                                CodSaida = saida.CodSaida,
+                                DataSaida = saida.DataSaida,
+                                CodCliente = saida.CodCliente,
+                                NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
+                                CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
+                                TotalAVista = (decimal)saida.TotalAvista,
+                                CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
+                                TipoSaida = saida.CodTipoSaida
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
 
         /// <summary>
@@ -586,14 +648,16 @@ namespace Negocio
             listaCodSaidasExibir.AddRange(Saida.LISTA_TIPOS_VENDA);
             listaCodSaidasExibir.Add(Saida.TIPO_BAIXA_ESTOQUE_PERDA);
             listaCodSaidasExibir.Add(Saida.TIPO_USO_INTERNO);
+            using (var context = new SaceContext())
+            {
+                var query = (from saida in context.TbSaida
+                             where (listaCodSaidasExibir.Contains(saida.CodTipoSaida) && (saida.CodSaida >= codSaidaInicial))
+                             orderby saida.CodSaida descending
+                             select saida.CodSaida).Take(20);
+                List<long> listaSaidas = query.ToList();
 
-            var query = (from saida in context.TbSaida
-                         where (listaCodSaidasExibir.Contains(saida.CodTipoSaida) && (saida.CodSaida >= codSaidaInicial))
-                         orderby saida.CodSaida descending
-                         select saida.CodSaida).Take(20);
-            List<long> listaSaidas = query.ToList();
-
-            return GetQuery().Where(saida => listaCodSaidasExibir.Contains(saida.TipoSaida) && (saida.CodSaida >= listaSaidas.Min() || saida.CodSaida == codSaidaInicial)).OrderBy(s => s.CodSaida).ToList();
+                return GetQuery().Where(saida => listaCodSaidasExibir.Contains(saida.TipoSaida) && (saida.CodSaida >= listaSaidas.Min() || saida.CodSaida == codSaidaInicial)).OrderBy(s => s.CodSaida).ToList();
+            }
         }
 
 
@@ -614,15 +678,18 @@ namespace Negocio
         /// <returns></returns>
         public decimal ObterTrocoPagamentos(DateTime dataInicial, DateTime dataFinal)
         {
-            var query = (from saida in context.TbSaida
-                         where (saida.CodTipoSaida == Saida.TIPO_PRE_VENDA
-                         || saida.CodTipoSaida == Saida.TIPO_VENDA
-                         || saida.CodTipoSaida == Saida.TIPO_CREDITO)
-                               && saida.DataSaida >= dataInicial
-                               && saida.DataSaida <= dataFinal
-                         select saida.Troco);
+            using (var context = new SaceContext())
+            {
+                var query = (from saida in context.TbSaida
+                             where (saida.CodTipoSaida == Saida.TIPO_PRE_VENDA
+                             || saida.CodTipoSaida == Saida.TIPO_VENDA
+                             || saida.CodTipoSaida == Saida.TIPO_CREDITO)
+                                   && saida.DataSaida >= dataInicial
+                                   && saida.DataSaida <= dataFinal
+                             select saida.Troco);
 
-            return query.Count() > 0 ? (decimal)query.Sum() : 0;
+                return query.Count() > 0 ? (decimal)query.Sum() : 0;
+            }
         }
 
         /// <summary>
@@ -632,13 +699,16 @@ namespace Negocio
         /// <returns></returns>
         public decimal ObterTrocoSaidas(DateTime dataInicial, DateTime dataFinal)
         {
-            var query = (from saida in context.TbSaida
-                         where (saida.CodTipoSaida == Saida.TIPO_PRE_VENDA || saida.CodTipoSaida == Saida.TIPO_VENDA)
-                               && saida.DataSaida >= dataInicial
-                               && saida.DataSaida <= dataFinal
-                         select saida.Troco);
+            using (var context = new SaceContext())
+            {
+                var query = (from saida in context.TbSaida
+                             where (saida.CodTipoSaida == Saida.TIPO_PRE_VENDA || saida.CodTipoSaida == Saida.TIPO_VENDA)
+                                   && saida.DataSaida >= dataInicial
+                                   && saida.DataSaida <= dataFinal
+                             select saida.Troco);
 
-            return query.Count() > 0 ? (decimal)query.Sum() : 0;
+                return query.Count() > 0 ? (decimal)query.Sum() : 0;
+            }
         }
 
         /// <summary>
@@ -648,21 +718,24 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaPesquisa> ObterPorPedido(string pedidoGerado)
         {
-            var query = from saida in context.TbSaida
-                        where saida.PedidoGerado.StartsWith(pedidoGerado)
-                        orderby saida.CodSaida
-                        select new SaidaPesquisa
-                        {
-                            CodSaida = saida.CodSaida,
-                            DataSaida = saida.DataSaida,
-                            CodCliente = saida.CodCliente,
-                            NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
-                            CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
-                            TotalAVista = (decimal)saida.TotalAvista,
-                            CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
-                            TipoSaida = saida.CodTipoSaida
-                        };
-            return query.AsNoTracking().ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from saida in context.TbSaida
+                            where saida.PedidoGerado.StartsWith(pedidoGerado)
+                            orderby saida.CodSaida
+                            select new SaidaPesquisa
+                            {
+                                CodSaida = saida.CodSaida,
+                                DataSaida = saida.DataSaida,
+                                CodCliente = saida.CodCliente,
+                                NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
+                                CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
+                                TotalAVista = (decimal)saida.TotalAvista,
+                                CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
+                                TipoSaida = saida.CodTipoSaida
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
 
         /// <summary>
@@ -672,21 +745,24 @@ namespace Negocio
         /// <returns></returns>
         public List<SaidaPesquisa> ObterPorCodSaidas(List<long> listaCodSaidas)
         {
-            var query = from saida in context.TbSaida
-                        where listaCodSaidas.Contains(saida.CodSaida)
-                        orderby saida.CodSaida
-                        select new SaidaPesquisa
-                        {
-                            CodSaida = saida.CodSaida,
-                            DataSaida = saida.DataSaida,
-                            CodCliente = saida.CodCliente,
-                            NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
-                            CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
-                            TotalAVista = (decimal)saida.TotalAvista,
-                            CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
-                            TipoSaida = saida.CodTipoSaida
-                        };
-            return query.AsNoTracking().ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from saida in context.TbSaida
+                            where listaCodSaidas.Contains(saida.CodSaida)
+                            orderby saida.CodSaida
+                            select new SaidaPesquisa
+                            {
+                                CodSaida = saida.CodSaida,
+                                DataSaida = saida.DataSaida,
+                                CodCliente = saida.CodCliente,
+                                NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
+                                CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
+                                TotalAVista = (decimal)saida.TotalAvista,
+                                CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
+                                TipoSaida = saida.CodTipoSaida
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
 
 
@@ -698,21 +774,24 @@ namespace Negocio
         public List<SaidaPesquisa> ObterPorSolicitacaoSaida(List<SolicitacaoSaida> listaSolicitacaoSaida)
         {
             List<long> listaCodSaida = listaSolicitacaoSaida.Select(s => s.CodSaida).ToList();
-            var query = from saida in context.TbSaida
-                        where listaCodSaida.Contains(saida.CodSaida)
-                        orderby saida.CodSaida
-                        select new SaidaPesquisa
-                        {
-                            CodSaida = saida.CodSaida,
-                            DataSaida = saida.DataSaida,
-                            CodCliente = saida.CodCliente,
-                            NomeCliente = saida.CodClienteNavigation.NomeFantasia,
-                            CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
-                            TotalAVista = (decimal)saida.TotalAvista,
-                            CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
-                            TipoSaida = saida.CodTipoSaida
-                        };
-            return query.AsNoTracking().ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from saida in context.TbSaida
+                            where listaCodSaida.Contains(saida.CodSaida)
+                            orderby saida.CodSaida
+                            select new SaidaPesquisa
+                            {
+                                CodSaida = saida.CodSaida,
+                                DataSaida = saida.DataSaida,
+                                CodCliente = saida.CodCliente,
+                                NomeCliente = saida.CodClienteNavigation.NomeFantasia,
+                                CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
+                                TotalAVista = (decimal)saida.TotalAvista,
+                                CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
+                                TipoSaida = saida.CodTipoSaida
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
 
 
@@ -755,49 +834,51 @@ namespace Negocio
         public NumerosPeriodo ObterVendasMensalComparandoAnoAnterior()
         {
             DateTime dataAtual = DateTime.Now.AddDays(-1);
-
-            var query = from saida in context.TbSaida
-                        where saida.DataSaida.Year == dataAtual.Year
-                        && saida.DataSaida.Month == dataAtual.Month
-                        && saida.DataSaida.Day <= dataAtual.Day
-                        && (saida.CodTipoSaida == 2 || saida.CodTipoSaida == 3)
-                        group saida by new
-                        {
-                            PeriodoAno = saida.DataSaida.Year,
-
-                        } into saidaPeriodoAno
-                        select new NumerosPeriodo
-                        {
-                            NumeroVendas = saidaPeriodoAno.Count(),
-                            TotalVendas = (decimal)saidaPeriodoAno.Sum(s => s.TotalAvista)
-                        };
-            NumerosPeriodo numerosPeriodo = query.FirstOrDefault();
-
-
-            var query2 = from saida in context.TbSaida
-                         where saida.DataSaida.Year == (dataAtual.Year - 1)
-                         && saida.DataSaida.Month == dataAtual.Month
-                         && saida.DataSaida.Day <= dataAtual.Day
-                         && (saida.CodTipoSaida == 2 || saida.CodTipoSaida == 3)
-                         group saida by new
-                         {
-                             PeriodoAno = saida.DataSaida.Year,
-
-                         } into saidaPeriodoAno
-                         select new NumerosPeriodo
-                         {
-                             NumeroVendas = saidaPeriodoAno.Count(),
-                             TotalVendas = (decimal)saidaPeriodoAno.Sum(s => s.TotalAvista)
-                         };
-            NumerosPeriodo numerosPeriodoAnoAnterior = query2.FirstOrDefault();
-
-            NumerosPeriodo resultado = new NumerosPeriodo();
-            if (numerosPeriodo != null && numerosPeriodoAnoAnterior != null)
+            using (var context = new SaceContext())
             {
-                resultado.NumeroVendas = (numerosPeriodo.NumeroVendas / numerosPeriodoAnoAnterior.NumeroVendas - 1) * 100;
-                resultado.TotalVendas = (numerosPeriodo.TotalVendas / numerosPeriodoAnoAnterior.TotalVendas - 1) * 100;
+                var query = from saida in context.TbSaida
+                            where saida.DataSaida.Year == dataAtual.Year
+                            && saida.DataSaida.Month == dataAtual.Month
+                            && saida.DataSaida.Day <= dataAtual.Day
+                            && (saida.CodTipoSaida == 2 || saida.CodTipoSaida == 3)
+                            group saida by new
+                            {
+                                PeriodoAno = saida.DataSaida.Year,
+
+                            } into saidaPeriodoAno
+                            select new NumerosPeriodo
+                            {
+                                NumeroVendas = saidaPeriodoAno.Count(),
+                                TotalVendas = (decimal)saidaPeriodoAno.Sum(s => s.TotalAvista)
+                            };
+                NumerosPeriodo numerosPeriodo = query.FirstOrDefault();
+
+
+                var query2 = from saida in context.TbSaida
+                             where saida.DataSaida.Year == (dataAtual.Year - 1)
+                             && saida.DataSaida.Month == dataAtual.Month
+                             && saida.DataSaida.Day <= dataAtual.Day
+                             && (saida.CodTipoSaida == 2 || saida.CodTipoSaida == 3)
+                             group saida by new
+                             {
+                                 PeriodoAno = saida.DataSaida.Year,
+
+                             } into saidaPeriodoAno
+                             select new NumerosPeriodo
+                             {
+                                 NumeroVendas = saidaPeriodoAno.Count(),
+                                 TotalVendas = (decimal)saidaPeriodoAno.Sum(s => s.TotalAvista)
+                             };
+                NumerosPeriodo numerosPeriodoAnoAnterior = query2.FirstOrDefault();
+
+                NumerosPeriodo resultado = new NumerosPeriodo();
+                if (numerosPeriodo != null && numerosPeriodoAnoAnterior != null)
+                {
+                    resultado.NumeroVendas = (numerosPeriodo.NumeroVendas / numerosPeriodoAnoAnterior.NumeroVendas - 1) * 100;
+                    resultado.TotalVendas = (numerosPeriodo.TotalVendas / numerosPeriodoAnoAnterior.TotalVendas - 1) * 100;
+                }
+                return resultado;
             }
-            return resultado;
         }
 
 
@@ -809,10 +890,13 @@ namespace Negocio
         /// <returns></returns>
         public int ObterCfopTipoSaida(int codTipoSaida)
         {
-            var query = from tipoSaida in context.TbTipoSaida
-                        where tipoSaida.CodTipoSaida == codTipoSaida
-                        select tipoSaida.Cfop;
-            return query.ToList().FirstOrDefault();
+            using (var context = new SaceContext())
+            {
+                var query = from tipoSaida in context.TbTipoSaida
+                            where tipoSaida.CodTipoSaida == codTipoSaida
+                            select tipoSaida.Cfop;
+                return query.ToList().FirstOrDefault();
+            }
         }
 
         /// <summary>
@@ -824,54 +908,59 @@ namespace Negocio
         /// <returns></returns>
         public List<VendasGrupoProduto> ObterVendasPorGrupo(int codGrupo, DateTime dataInicial, DateTime dataFinal)
         {
-            var query = from saidaProduto in context.TbSaidaProdutos
-                        where saidaProduto.CodProdutoNavigation.CodGrupo == codGrupo &&
-                        saidaProduto.CodSaidaNavigation.DataSaida >= dataInicial &&
-                        saidaProduto.CodSaidaNavigation.DataSaida <= dataFinal &&
-                        (saidaProduto.CodSaidaNavigation.CodTipoSaida == 2 ||
-                        saidaProduto.CodSaidaNavigation.CodTipoSaida == 3)
-                        group saidaProduto by new
-                        {
-                            Ano = saidaProduto.CodSaidaNavigation.DataSaida.Year,
-                            Mes = saidaProduto.CodSaidaNavigation.DataSaida.Month,
+            using (var context = new SaceContext())
+            {
+                var query = from saidaProduto in context.TbSaidaProdutos
+                            where saidaProduto.CodProdutoNavigation.CodGrupo == codGrupo &&
+                            saidaProduto.CodSaidaNavigation.DataSaida >= dataInicial &&
+                            saidaProduto.CodSaidaNavigation.DataSaida <= dataFinal &&
+                            (saidaProduto.CodSaidaNavigation.CodTipoSaida == 2 ||
+                            saidaProduto.CodSaidaNavigation.CodTipoSaida == 3)
+                            group saidaProduto by new
+                            {
+                                Ano = saidaProduto.CodSaidaNavigation.DataSaida.Year,
+                                Mes = saidaProduto.CodSaidaNavigation.DataSaida.Month,
 
-                        } into groupSaidaProduto
-                        orderby groupSaidaProduto.Key.Ano, groupSaidaProduto.Key.Mes
-                        select new VendasGrupoProduto
-                        {
-                            CodGrupo = codGrupo,
-                            MesAno = groupSaidaProduto.Key.Mes + "/" + groupSaidaProduto.Key.Ano,
-                            TotalVendas = groupSaidaProduto.Sum(p => p.SubtotalAvista)
-                        };
-            return query.ToList();
+                            } into groupSaidaProduto
+                            orderby groupSaidaProduto.Key.Ano, groupSaidaProduto.Key.Mes
+                            select new VendasGrupoProduto
+                            {
+                                CodGrupo = codGrupo,
+                                MesAno = groupSaidaProduto.Key.Mes + "/" + groupSaidaProduto.Key.Ano,
+                                TotalVendas = groupSaidaProduto.Sum(p => p.SubtotalAvista)
+                            };
+                return query.ToList();
+            }
         }
 
         public List<VendasVendedor> ObterVendasPorVendedor(DateTime dataInicial, DateTime dataFinal)
         {
             dataInicial = dataInicial.Date;
             dataFinal = dataFinal.Date.AddDays(1);
-
-            var query = from saida in context.TbSaida
-                        where saida.DataSaida >= dataInicial &&
-                            saida.DataSaida <= dataFinal &&
-                            (saida.CodTipoSaida == 2 || saida.CodTipoSaida == 3)
-                        group saida by saida.CodProfissional into groupSaidaProduto
-                        select new VendasVendedor
-                        {
-                            CodProfissional = groupSaidaProduto.Key.Value,
-                            TotalVendas = groupSaidaProduto.Sum(s => s.TotalAvista),
-                            TotalLucro = groupSaidaProduto.Sum(s => s.TotalLucro)
-                        };
-            var listaInicial = query.ToList();
-            decimal? somaTotalAVista = listaInicial.Sum(s => s.TotalVendas);
-            decimal? somaLucro = listaInicial.Sum(s => s.TotalLucro);
-            foreach (var item in listaInicial)
+            using (var context = new SaceContext())
             {
-                item.PercentualVendas = item.TotalVendas / somaTotalAVista * 100;
-                item.PercentualLucro = item.TotalLucro / somaLucro * 100;
-                item.Login = context.TbUsuarios.Find(new TbUsuario() { CodPessoa = item.CodProfissional }).Login;
+                var query = from saida in context.TbSaida
+                            where saida.DataSaida >= dataInicial &&
+                                saida.DataSaida <= dataFinal &&
+                                (saida.CodTipoSaida == 2 || saida.CodTipoSaida == 3)
+                            group saida by saida.CodProfissional into groupSaidaProduto
+                            select new VendasVendedor
+                            {
+                                CodProfissional = groupSaidaProduto.Key.Value,
+                                TotalVendas = groupSaidaProduto.Sum(s => s.TotalAvista),
+                                TotalLucro = groupSaidaProduto.Sum(s => s.TotalLucro)
+                            };
+                var listaInicial = query.ToList();
+                decimal? somaTotalAVista = listaInicial.Sum(s => s.TotalVendas);
+                decimal? somaLucro = listaInicial.Sum(s => s.TotalLucro);
+                foreach (var item in listaInicial)
+                {
+                    item.PercentualVendas = item.TotalVendas / somaTotalAVista * 100;
+                    item.PercentualLucro = item.TotalLucro / somaLucro * 100;
+                    item.Login = context.TbUsuarios.Find(new TbUsuario() { CodPessoa = item.CodProfissional }).Login;
+                }
+                return listaInicial.OrderBy(v => v.Login).ToList();
             }
-            return listaInicial.OrderBy(v => v.Login).ToList();
         }
 
 
@@ -884,11 +973,11 @@ namespace Negocio
         /// <param name="tipo_encerramento"></param>
         public void Encerrar(Saida saida, int tipo_encerramento, List<SaidaPagamento> saidaPagamentos, Pessoa cliente)
         {
-            var gerenciadorLoja = new GerenciadorLoja(context);
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-
-            using (TransactionScope transaction = new TransactionScope())
+            using (var context = new SaceContext())
             {
+                var gerenciadorLoja = new GerenciadorLoja();
+                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+                context.Database.BeginTransaction();
                 try
                 {
                     if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_ORCAMENTO))
@@ -910,12 +999,12 @@ namespace Negocio
                         saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
                         List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                        Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos);
+                        Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos, context);
 
                         saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
                         Atualizar(saida);
 
-                        RegistrarPagamentosSaida(saidaPagamentos, saida);
+                        RegistrarPagamentosSaida(saidaPagamentos, saida, context);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || tipo_encerramento.Equals(Saida.TIPO_USO_INTERNO))
                     {
@@ -923,7 +1012,7 @@ namespace Negocio
                         saida.CodSituacaoPagamentos = SituacaoPagamentos.QUITADA;
 
                         List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                        Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos);
+                        Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos, context);
                         saida.TotalLucro = 0;
                         saida.TotalLucro -= somaPrecosCusto;
                         Atualizar(saida);
@@ -940,7 +1029,7 @@ namespace Negocio
 
                         List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         Atualizar(saida);
-                        RegistrarTransferenciaEstoque(saidaProdutos, UtilConfig.Default.LOJA_PADRAO, lojaDestino.CodLoja);
+                        RegistrarTransferenciaEstoque(saidaProdutos, UtilConfig.Default.LOJA_PADRAO, lojaDestino.CodLoja, context);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_RETORNO_DEPOSITO))
                     {
@@ -951,36 +1040,39 @@ namespace Negocio
                         }
                         Atualizar(saida);
                         List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                        RegistrarTransferenciaEstoque(saidaProdutos, saida.CodLojaOrigem, UtilConfig.Default.LOJA_PADRAO);
+                        RegistrarTransferenciaEstoque(saidaProdutos, saida.CodLojaOrigem, UtilConfig.Default.LOJA_PADRAO, context);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                     {
                         saida.TipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
                         Atualizar(saida);
                         List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                        RegistrarBaixaEstoque(saidaProdutos);
-                        AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
+                        RegistrarBaixaEstoque(saidaProdutos, context);
+                        AtualizarCfopProdutosDevolucao(saidaProdutos, saida, context);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_CONSERTO))
                     {
                         saida.TipoSaida = Saida.TIPO_REMESSA_CONSERTO;
                         Atualizar(saida);
                         List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                        RegistrarBaixaEstoque(saidaProdutos);
+                        RegistrarBaixaEstoque(saidaProdutos, context);
                         //AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
                     }
-                    transaction.Complete();
+                    context.Database.CommitTransaction();
                 }
                 catch (NegocioException ne)
                 {
+                    context.Database.RollbackTransaction();
                     throw ne;
                 }
                 catch (DadosException de)
                 {
+                    context.Database.RollbackTransaction();
                     throw de;
                 }
                 catch (Exception e)
                 {
+                    context.Database.RollbackTransaction();
                     throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
                 }
 
@@ -994,29 +1086,33 @@ namespace Negocio
         /// <param name="consumidor"></param>
         public void EncerrarDevolucaoConsumidor(Saida saida)
         {
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            using (TransactionScope transaction = new TransactionScope())
+            using (var context = new SaceContext())
             {
+                context.Database.BeginTransaction();
+                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
                 try
                 {
                     saida.TipoSaida = Saida.TIPO_DEVOLUCAO_CONSUMIDOR;
                     //saida.CodCliente = consumidor.CodPessoa;
                     Atualizar(saida);
                     List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                    RegistrarEstornoEstoque(saida, saidaProdutos);
-                    AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
-                    transaction.Complete();
+                    RegistrarEstornoEstoque(saida, saidaProdutos, context);
+                    AtualizarCfopProdutosDevolucao(saidaProdutos, saida, context);
+                    context.Database.CommitTransaction();
                 }
                 catch (NegocioException ne)
                 {
+                    context.Database.RollbackTransaction();
                     throw ne;
                 }
                 catch (DadosException de)
                 {
+                    context.Database.RollbackTransaction();
                     throw de;
                 }
                 catch (Exception e)
                 {
+                    context.Database.RollbackTransaction();
                     throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
                 }
 
@@ -1030,34 +1126,36 @@ namespace Negocio
         /// <param name="consumidor"></param>
         public void EncerrarRetornoFornecedor(Saida saida)
         {
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+            using (var context = new SaceContext())
+            {
+                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
 
-            try
-            {
-                context.Database.BeginTransaction();
-                saida.TipoSaida = Saida.TIPO_RETORNO_FORNECEDOR;
-                Atualizar(saida);
-                List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                RegistrarEstornoEstoque(saida, saidaProdutos);
-                AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
-                context.Database.CommitTransaction();
+                try
+                {
+                    context.Database.BeginTransaction();
+                    saida.TipoSaida = Saida.TIPO_RETORNO_FORNECEDOR;
+                    Atualizar(saida);
+                    List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                    RegistrarEstornoEstoque(saida, saidaProdutos, context);
+                    AtualizarCfopProdutosDevolucao(saidaProdutos, saida, context);
+                    context.Database.CommitTransaction();
+                }
+                catch (NegocioException ne)
+                {
+                    context.Database.RollbackTransaction();
+                    throw ne;
+                }
+                catch (DadosException de)
+                {
+                    context.Database.RollbackTransaction();
+                    throw de;
+                }
+                catch (Exception e)
+                {
+                    context.Database.RollbackTransaction();
+                    throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
+                }
             }
-            catch (NegocioException ne)
-            {
-                context.Database.RollbackTransaction();
-                throw ne;
-            }
-            catch (DadosException de)
-            {
-                context.Database.RollbackTransaction();
-                throw de;
-            }
-            catch (Exception e)
-            {
-                context.Database.RollbackTransaction();
-                throw new DadosException("Problemas no encerramento da saída. Favor contactar o administrador.", e);
-            }
-
 
         }
 
@@ -1066,10 +1164,10 @@ namespace Negocio
         /// </summary>
         /// <param name="saidaProdutos"></param>
         /// <param name="_saida"></param>
-        private void AtualizarCfopProdutosDevolucao(List<SaidaProduto> saidaProdutos, Saida saida)
+        private void AtualizarCfopProdutosDevolucao(List<SaidaProduto> saidaProdutos, Saida saida, SaceContext context)
         {
-            var gerenciadorPessoa = new GerenciadorPessoa(context);
-            var gerenciadorLoja = new GerenciadorLoja(context);
+            var gerenciadorPessoa = new GerenciadorPessoa();
+            var gerenciadorLoja = new GerenciadorLoja();
             var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
 
             Pessoa fornecedor = gerenciadorPessoa.Obter(saida.CodCliente).ElementAtOrDefault(0);
@@ -1105,7 +1203,12 @@ namespace Negocio
                         saidaProduto.CodCfop = (ehMesmoUF) ? Cfop.DEVOUCAO_ST_ESTADO : Cfop.DEVOUCAO_ST_FORA_ESTADO;
                     }
                 }
-                gerenciadorSaidaProduto.AtualizarCFOP(saidaProduto.CodSaidaProduto, saidaProduto.CodCfop);
+                var _saidaProduto = context.TbSaidaProdutos.FirstOrDefault(sp => sp.CodSaidaProduto == saidaProduto.CodSaidaProduto);
+                if (_saidaProduto != null)
+                {
+                    _saidaProduto.Cfop = saidaProduto.CodCfop;
+                    context.SaveChanges();
+                }
             }
         }
         /// <summary>
@@ -1129,13 +1232,17 @@ namespace Negocio
         /// <returns></returns>
         public Boolean DataVencimentoProdutoAceitavel(ProdutoPesquisa produto, DateTime dataVencimento)
         {
-            var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
-            if ((bool)produto.TemVencimento)
+            using (var context = new SaceContext())
             {
-                DateTime dataMaisAntigo = gerenciadorEntradaProduto.GetDataProdutoMaisAntigoEstoque(produto);
-                return (dataMaisAntigo >= dataVencimento);
+                var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
+                if ((bool)produto.TemVencimento)
+                {
+                    DateTime dataMaisAntigo = gerenciadorEntradaProduto.GetDataProdutoMaisAntigoEstoque(produto);
+                    return (dataMaisAntigo >= dataVencimento);
+                }
+                return true;
+
             }
-            return true;
         }
 
         /// <summary>
@@ -1143,10 +1250,10 @@ namespace Negocio
         /// </summary>
         /// <param name="pagamentos"></param>
         /// <param name="saida"></param>
-        public void RegistrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida)
+        public void RegistrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida, SaceContext context)
         {
             var gerenciadorConta = new GerenciadorConta(context);
-            var gerenciadorCartaoCredito = new GerenciadorCartaoCredito(context);
+            var gerenciadorCartaoCredito = new GerenciadorCartaoCredito();
             var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
             decimal totalRegistrado = 0;
 
@@ -1169,7 +1276,7 @@ namespace Negocio
 
                 conta.DataVencimento = saida.DataSaida;
                 conta.Desconto = 0;
-                conta.CodConta = gerenciadorConta.Inserir(conta);
+                conta.CodConta = gerenciadorConta.Inserir(conta, context);
             }
 
 
@@ -1251,7 +1358,7 @@ namespace Negocio
                         conta.DataVencimento = pagamento.Data;
                     }
 
-                    conta.CodConta = gerenciadorConta.Inserir(conta);
+                    conta.CodConta = gerenciadorConta.Inserir(conta, context);
                 }
 
                 totalRegistrado += pagamento.Valor;
@@ -1277,7 +1384,7 @@ namespace Negocio
 
                     movimentacao.CodTipoMovimentacao = (movimentacao.Valor > 0) ? MovimentacaoConta.RECEBIMENTO_CLIENTE : MovimentacaoConta.DEVOLUCAO_CLIENTE;
 
-                    gerenciadorMovimentacaoConta.Inserir(movimentacao);
+                    gerenciadorMovimentacaoConta.Inserir(movimentacao, context);
                 }
             }
         }
@@ -1287,26 +1394,26 @@ namespace Negocio
         /// No caso de devolução do consumidor o estoque é incrementado.
         /// </summary>
         /// <param name="saidaProdutos"></param>
-        public void RegistrarEstornoEstoque(Saida saida, List<SaidaProduto> saidaProdutos)
+        public void RegistrarEstornoEstoque(Saida saida, List<SaidaProduto> saidaProdutos, SaceContext context)
         {
             var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
             var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
+
             if (saidaProdutos == null)
                 saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
                 if (saidaProduto.CodCST != Cst.ST_OUTRAS)
                 {
-                    gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade, 0, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto);
+                    gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade, 0, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
                 }
                 else
                 {
-                    gerenciadorProdutoLoja.AdicionaQuantidade(0, saidaProduto.Quantidade, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto);
+                    gerenciadorProdutoLoja.AdicionaQuantidade(0, saidaProduto.Quantidade, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
                 }
                 saidaProduto.Quantidade *= (-1); // inverte sinal da quantidade para fazer o retorno
-                gerenciadorEntradaProduto.BaixarItensVendidosEstoque(saidaProduto);
+                gerenciadorEntradaProduto.BaixarItensVendidosEstoque(saidaProduto, context);
             }
             context.SaveChanges();
         }
@@ -1317,28 +1424,28 @@ namespace Negocio
         /// </summary>
         /// <param name="saidaProdutos"></param>
         /// <returns> A soma dos preços de custo dos produtos baixados para determinar o lucro</returns>
-        private decimal RegistrarBaixaEstoque(List<SaidaProduto> saidaProdutos)
+        private decimal RegistrarBaixaEstoque(List<SaidaProduto> saidaProdutos, SaceContext context)
         {
-            var gerenciadorProduto = new GerenciadorProduto(context);
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            var gerenciadorProduto = new GerenciadorProduto();
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
             var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
             decimal somaPrecosCusto = 0;
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                Produto produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
+                var produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
 
                 // Baixa sempre o estoque da loja matriz
                 if (saidaProduto.CodCST != Cst.ST_OUTRAS)
                 {
-                    gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto);
+                    gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
                 }
                 else
                 {
-                    gerenciadorProdutoLoja.AdicionaQuantidade(0, saidaProduto.Quantidade * (-1), UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto);
+                    gerenciadorProdutoLoja.AdicionaQuantidade(0, saidaProduto.Quantidade * (-1), UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
                 }
 
                 decimal custoAtual = produto.PrecoCusto * saidaProduto.Quantidade;
-                decimal custoEstoque = gerenciadorEntradaProduto.BaixarItensVendidosEstoque(saidaProduto);
+                decimal custoEstoque = gerenciadorEntradaProduto.BaixarItensVendidosEstoque(saidaProduto, context);
                 // Se não houver preço de custo do produto
                 if (custoAtual <= 0)
                 {
@@ -1376,17 +1483,13 @@ namespace Negocio
         /// <param name="saidaProdutos"></param>
         /// <param name="lojaOrigem"></param>
         /// <param name="lojaDestino"></param>
-        private void RegistrarTransferenciaEstoque(List<SaidaProduto> saidaProdutos, int lojaOrigem, int lojaDestino)
+        private void RegistrarTransferenciaEstoque(List<SaidaProduto> saidaProdutos, int lojaOrigem, int lojaDestino, SaceContext context)
         {
-            var gerenciadorProduto = new GerenciadorProduto(context);
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                ProdutoPesquisa produto = gerenciadorProduto.Obter(saidaProduto.CodProduto).ElementAt(0);
-
-                gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, lojaOrigem, saidaProduto.CodProduto);
-
-                gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade, 0, lojaDestino, saidaProduto.CodProduto);
+                gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, lojaOrigem, saidaProduto.CodProduto, context);
+                gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade, 0, lojaDestino, saidaProduto.CodProduto, context);
             }
         }
 
@@ -1395,47 +1498,50 @@ namespace Negocio
         /// </summary>
         public void ReceberPagamentosContas(List<ContaSaida> listaContaSaida, List<SaidaPagamento> pagamentos, List<MovimentacaoConta> listaMovimentacaoConta, Saida saida)
         {
-            try
+            using (var context = new SaceContext())
             {
-                context.Database.BeginTransaction();
-
-                RegistrarPagamentosSaida(pagamentos, saida);
-
-                saida.TipoSaida = Saida.TIPO_CREDITO;
-                saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
-
-                Atualizar(saida);
-
-                var listaCodContas = listaContaSaida.Select(conta => conta.CodConta);
-                var queryContas = from conta in context.TbConta
-                                  where listaCodContas.Contains(conta.CodConta)
-                                  orderby conta.DataVencimento
-                                  select conta;
-                IEnumerable<TbContum> listaContas = queryContas.ToList();
-
-                // adiciona os créditos de devolução ao valor da movimentação
-                decimal totalPagamentos = listaMovimentacaoConta.Sum(m => m.Valor);
-                totalPagamentos += Math.Abs(listaContas.Where(c => c.Valor < 0 && c.CodSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.Valor - c.Desconto)));
-
-
-                decimal totalDebitos = listaContas.Where(c => c.Valor >= 0 && c.CodSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.Valor - c.Desconto));
-
-                if (totalPagamentos == totalDebitos)
+                try
                 {
-                    foreach (TbContum _conta in listaContas)
-                    {
-                        _conta.CodSituacao = SituacaoConta.SITUACAO_QUITADA;
-                        _conta.Observacao = "SAIDA" + saida.CodSaida;
-                    }
-                    context.SaveChanges();
-                }
+                    context.Database.BeginTransaction();
 
-                context.Database.CommitTransaction();
-            }
-            catch (Exception e)
-            {
-                context.Database.RollbackTransaction();
-                throw new DadosException("Saída", e.Message, e);
+                    RegistrarPagamentosSaida(pagamentos, saida, context);
+
+                    saida.TipoSaida = Saida.TIPO_CREDITO;
+                    saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+
+                    Atualizar(saida);
+
+                    var listaCodContas = listaContaSaida.Select(conta => conta.CodConta);
+                    var queryContas = from conta in context.TbConta
+                                      where listaCodContas.Contains(conta.CodConta)
+                                      orderby conta.DataVencimento
+                                      select conta;
+                    IEnumerable<TbContum> listaContas = queryContas.ToList();
+
+                    // adiciona os créditos de devolução ao valor da movimentação
+                    decimal totalPagamentos = listaMovimentacaoConta.Sum(m => m.Valor);
+                    totalPagamentos += Math.Abs(listaContas.Where(c => c.Valor < 0 && c.CodSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.Valor - c.Desconto)));
+
+
+                    decimal totalDebitos = listaContas.Where(c => c.Valor >= 0 && c.CodSituacao != SituacaoConta.SITUACAO_QUITADA).Sum(c => (c.Valor - c.Desconto));
+
+                    if (totalPagamentos == totalDebitos)
+                    {
+                        foreach (TbContum _conta in listaContas)
+                        {
+                            _conta.CodSituacao = SituacaoConta.SITUACAO_QUITADA;
+                            _conta.Observacao = "SAIDA" + saida.CodSaida;
+                        }
+                        context.SaveChanges();
+                    }
+
+                    context.Database.CommitTransaction();
+                }
+                catch (Exception e)
+                {
+                    context.Database.RollbackTransaction();
+                    throw new DadosException("Saída", e.Message, e);
+                }
             }
         }
 
@@ -1499,277 +1605,288 @@ namespace Negocio
 
         public bool SolicitaImprimirDAV(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Impressora.Tipo impressora)
         {
-            var gerenciadorImprimirDocumento = new GerenciadorImprimirDocumento(context);
-
-            string tipoDocumento = impressora.Equals(Impressora.Tipo.REDUZIDO1) ? Impressora.REDUZIDO1 : Impressora.REDUZIDO2;
-                       
-            if (gerenciadorImprimirDocumento.ObterPorTipoDocumentoCodDocumento(tipoDocumento, listaCodSaidas.Min()).Count() > 0)
-                throw new NegocioException("Documento já foi solicitado para impressão. Verifique se impressora ligada.");
-
-
-            var documento = new TbImprimirDocumento();
-            documento.Desconto = desconto;
-            documento.HostSolicitante = SystemInformation.ComputerName;
-            documento.TipoDocumento = tipoDocumento;
-            documento.Total = total;
-            documento.TotalAvista = totalAVista;
-            documento.CodDocumento = listaCodSaidas.Min();
-            context.Add(documento);
-            context.SaveChanges();
-
-            var query = from saida in context.TbSaida
-                        where listaCodSaidas.Contains(saida.CodSaida)
-                        select saida;
-
-            List<TbSaidum> saidas = query.ToList();
-            foreach (TbSaidum saida in saidas)
+            using (var context = new SaceContext())
             {
-                documento.CodSaida.Add(saida);
+                var gerenciadorImprimirDocumento = new GerenciadorImprimirDocumento(context);
+
+                string tipoDocumento = impressora.Equals(Impressora.Tipo.REDUZIDO1) ? Impressora.REDUZIDO1 : Impressora.REDUZIDO2;
+
+                if (gerenciadorImprimirDocumento.ObterPorTipoDocumentoCodDocumento(tipoDocumento, listaCodSaidas.Min()).Count() > 0)
+                    throw new NegocioException("Documento já foi solicitado para impressão. Verifique se impressora ligada.");
+
+
+                var documento = new TbImprimirDocumento();
+                documento.Desconto = desconto;
+                documento.HostSolicitante = SystemInformation.ComputerName;
+                documento.TipoDocumento = tipoDocumento;
+                documento.Total = total;
+                documento.TotalAvista = totalAVista;
+                documento.CodDocumento = listaCodSaidas.Min();
+                context.Add(documento);
+                context.SaveChanges();
+
+                var query = from saida in context.TbSaida
+                            where listaCodSaidas.Contains(saida.CodSaida)
+                            select saida;
+
+                List<TbSaidum> saidas = query.ToList();
+                foreach (TbSaidum saida in saidas)
+                {
+                    documento.CodSaida.Add(saida);
+                }
+                context.SaveChanges();
+                return true;
             }
-            context.SaveChanges();
-            return true;
         }
 
 
         public bool ImprimirDAV(Impressora.Tipo impressora, string portaImpressora)
         {
-            string tipoDocumento = impressora.Equals(Impressora.Tipo.REDUZIDO1) ? Impressora.REDUZIDO1 : Impressora.REDUZIDO2;
-
-            var query = from documento in context.TbImprimirDocumentos
-                        where tipoDocumento.Equals(documento.TipoDocumento)
-                        select documento;
-
-            List<TbImprimirDocumento> documentos = query.ToList();
-            foreach (TbImprimirDocumento documento in documentos)
+            using (var context = new SaceContext())
             {
-                List<long> listaCodSaidas = documento.CodSaida.Select(s => s.CodSaida).ToList();
-                context.Remove(documento);
-                context.SaveChanges();
-                List<SaidaPesquisa> saidas = ObterPorCodSaidas(listaCodSaidas).ToList();
-                if (impressora.Equals(Impressora.Tipo.REDUZIDO1))
-                    return ImprimirDAVComprimido(saidas, (decimal)documento.Total, (decimal)documento.TotalAvista, (decimal)documento.Desconto, portaImpressora);
-                else
-                    ImprimirDAVComprimidoVip(saidas, (decimal)documento.Total, (decimal)documento.TotalAvista, (decimal)documento.Desconto, portaImpressora);
+                string tipoDocumento = impressora.Equals(Impressora.Tipo.REDUZIDO1) ? Impressora.REDUZIDO1 : Impressora.REDUZIDO2;
+
+                var query = from documento in context.TbImprimirDocumentos
+                            where tipoDocumento.Equals(documento.TipoDocumento)
+                            select documento;
+
+                List<TbImprimirDocumento> documentos = query.ToList();
+                foreach (TbImprimirDocumento documento in documentos)
+                {
+                    List<long> listaCodSaidas = documento.CodSaida.Select(s => s.CodSaida).ToList();
+                    context.Remove(documento);
+                    context.SaveChanges();
+                    List<SaidaPesquisa> saidas = ObterPorCodSaidas(listaCodSaidas).ToList();
+                    if (impressora.Equals(Impressora.Tipo.REDUZIDO1))
+                        return ImprimirDAVComprimido(saidas, (decimal)documento.Total, (decimal)documento.TotalAvista, (decimal)documento.Desconto, portaImpressora);
+                    else
+                        ImprimirDAVComprimidoVip(saidas, (decimal)documento.Total, (decimal)documento.TotalAvista, (decimal)documento.Desconto, portaImpressora);
+                }
+                return true;
             }
-            return true;
         }
 
         private bool ImprimirDAVComprimido(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string portaImpressora)
         {
-            var gerenciadorPessoa = new GerenciadorPessoa(context);
-            var gerenciadorLoja = new GerenciadorLoja(context);
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            try
+            using (var context = new SaceContext())
             {
-                ImprimeTexto imp = new ImprimeTexto();
-                if (!imp.Inicio(portaImpressora))
+                var gerenciadorPessoa = new GerenciadorPessoa();
+                var gerenciadorLoja = new GerenciadorLoja();
+                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+                try
+                {
+                    ImprimeTexto imp = new ImprimeTexto();
+                    if (!imp.Inicio(portaImpressora))
+                    {
+                        return false;
+                    }
+
+
+                    Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
+                    Pessoa pessoaLoja = (Pessoa)gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+
+                    imp.Imp(imp.Comprimido);
+                    imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
+                    if (saidas[0].TipoSaida == Saida.TIPO_ORCAMENTO)
+                    {
+                        imp.ImpColLFCentralizado(0, 59, "DOCUMENTO AUXILIAR DE VENDA - ORCAMENTO");
+                    }
+                    else
+                    {
+                        imp.ImpColLFCentralizado(0, 59, "DOCUMENTO AUXILIAR DE VENDA - PEDIDO");
+                    }
+                    imp.Pula(1);
+                    imp.ImpColLFCentralizado(0, 59, "NAO E DOCUMENTO FISCAL - NAO E VALIDO COMO RECIBO ");
+                    imp.ImpColLFCentralizado(0, 59, "E COMO GARANTIA DE MERCADORIA - NAO COMPROVA PAGAMENTO");
+                    imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
+                    imp.ImpColLFCentralizado(0, 59, imp.NegritoOn + pessoaLoja.Nome + imp.NegritoOff);
+                    imp.ImpColLFCentralizado(0, 59, pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1);
+                    imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
+
+                    Pessoa cliente = (Pessoa)gerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
+                    imp.ImpLF("Cliente: " + cliente.NomeFantasia);
+                    //imp.ImpColLF(39, "CPF/CNPJ: " + cliente.CpfCnpj);
+                    if (saidas.Count == 1)
+                    {
+                        imp.Imp("No do Documento: " + saidas[0].CodSaida);
+                        imp.ImpColLF(30, "No do Documento Fiscal: " + saidas[0].CupomFiscal);
+                        imp.ImpLF("Data: " + saidas[0].DataSaida.ToShortDateString());
+                    }
+                    imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
+                    imp.ImpLF("Cod  Produto                                   Qtdade    UN ");
+                    imp.ImpLF("                                      Preco(R$) Subtotal(R$)");
+                    foreach (SaidaPesquisa saida in saidas)
+                    {
+                        if (saidas.Count > 1)
+                        {
+                            imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.CupomFiscal);
+                        }
+
+                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        foreach (SaidaProduto produto in saidaProdutos)
+                        {
+                            imp.ImpColDireita(0, 4, produto.CodProduto.ToString());
+
+                            if (produto.Nome.Length > 39)
+                            {
+                                imp.ImpCol(6, produto.Nome.Substring(1, 39));
+                            }
+                            else
+                            {
+                                imp.ImpCol(6, produto.Nome);
+                            }
+
+                            imp.ImpColDireita(46, 54, produto.Quantidade.ToString());
+                            imp.ImpColLFDireita(57, 58, produto.Unidade);
+                            imp.ImpColDireita(38, 46, produto.ValorVenda.ToString("N2"));
+                            imp.ImpColLFDireita(48, 59, produto.Subtotal.ToString("N2"));
+                        }
+                    }
+
+                    imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
+                    imp.ImpLF("Total Venda: " + total + "     Desconto: " + desconto.ToString("N2") + "%");
+                    imp.ImpColLFDireita(0, 32, imp.Expandido + imp.NegritoOn + "Total Pagar:" + totalAVista.ToString("N2") + imp.Comprimido + imp.NegritoOff);
+                    imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
+                    imp.ImpColLFCentralizado(0, 59, "E vedada a autenticacao deste documento");
+                    if (!saidas[0].CupomFiscal.Equals(""))
+                    {
+                        imp.ImpColLFCentralizado(0, 59, "Documento Válido por 3 (tres) dias");
+                    }
+                    imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
+                    if (!saidas[0].CodCliente.Equals(UtilConfig.Default.CLIENTE_PADRAO))
+                    {
+                        imp.Pula(1);
+                        imp.ImpColLF(0, "Recebido por:");
+                        imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
+                    }
+
+
+
+                    imp.Pula(8);
+                    imp.Imp(imp.Normal);
+                    imp.Fim();
+                    return true;
+                }
+                catch (Exception e)
                 {
                     return false;
                 }
-
-
-                Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-                Pessoa pessoaLoja = (Pessoa) gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
-
-                imp.Imp(imp.Comprimido);
-                imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
-                if (saidas[0].TipoSaida == Saida.TIPO_ORCAMENTO)
-                {
-                    imp.ImpColLFCentralizado(0, 59, "DOCUMENTO AUXILIAR DE VENDA - ORCAMENTO");
-                }
-                else
-                {
-                    imp.ImpColLFCentralizado(0, 59, "DOCUMENTO AUXILIAR DE VENDA - PEDIDO");
-                }
-                imp.Pula(1);
-                imp.ImpColLFCentralizado(0, 59, "NAO E DOCUMENTO FISCAL - NAO E VALIDO COMO RECIBO ");
-                imp.ImpColLFCentralizado(0, 59, "E COMO GARANTIA DE MERCADORIA - NAO COMPROVA PAGAMENTO");
-                imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
-                imp.ImpColLFCentralizado(0, 59, imp.NegritoOn + pessoaLoja.Nome + imp.NegritoOff);
-                imp.ImpColLFCentralizado(0, 59, pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1);
-                imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
-
-                Pessoa cliente = (Pessoa)gerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
-                imp.ImpLF("Cliente: " + cliente.NomeFantasia);
-                //imp.ImpColLF(39, "CPF/CNPJ: " + cliente.CpfCnpj);
-                if (saidas.Count == 1)
-                {
-                    imp.Imp("No do Documento: " + saidas[0].CodSaida);
-                    imp.ImpColLF(30, "No do Documento Fiscal: " + saidas[0].CupomFiscal);
-                    imp.ImpLF("Data: " + saidas[0].DataSaida.ToShortDateString());
-                }
-                imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
-                imp.ImpLF("Cod  Produto                                   Qtdade    UN ");
-                imp.ImpLF("                                      Preco(R$) Subtotal(R$)");
-                foreach (SaidaPesquisa saida in saidas)
-                {
-                    if (saidas.Count > 1)
-                    {
-                        imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.CupomFiscal);
-                    }
-
-                    List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                    foreach (SaidaProduto produto in saidaProdutos)
-                    {
-                        imp.ImpColDireita(0, 4, produto.CodProduto.ToString());
-
-                        if (produto.Nome.Length > 39)
-                        {
-                            imp.ImpCol(6, produto.Nome.Substring(1, 39));
-                        }
-                        else
-                        {
-                            imp.ImpCol(6, produto.Nome);
-                        }
-
-                        imp.ImpColDireita(46, 54, produto.Quantidade.ToString());
-                        imp.ImpColLFDireita(57, 58, produto.Unidade);
-                        imp.ImpColDireita(38, 46, produto.ValorVenda.ToString("N2"));
-                        imp.ImpColLFDireita(48, 59, produto.Subtotal.ToString("N2"));
-                    }
-                }
-
-                imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
-                imp.ImpLF("Total Venda: " + total + "     Desconto: " + desconto.ToString("N2") + "%");
-                imp.ImpColLFDireita(0, 32, imp.Expandido + imp.NegritoOn + "Total Pagar:" + totalAVista.ToString("N2") + imp.Comprimido + imp.NegritoOff);
-                imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
-                imp.ImpColLFCentralizado(0, 59, "E vedada a autenticacao deste documento");
-                if (!saidas[0].CupomFiscal.Equals(""))
-                {
-                    imp.ImpColLFCentralizado(0, 59, "Documento Válido por 3 (tres) dias");
-                }
-                imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
-                if (!saidas[0].CodCliente.Equals(UtilConfig.Default.CLIENTE_PADRAO))
-                {
-                    imp.Pula(1);
-                    imp.ImpColLF(0, "Recebido por:");
-                    imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
-                }
-
-
-
-                imp.Pula(8);
-                imp.Imp(imp.Normal);
-                imp.Fim();
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
             }
         }
 
 
         private void ImprimirDAVComprimidoVip(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string porta)
         {
-            var gerenciadorLoja = new GerenciadorLoja(context);
-            var gerenciadorPessoa = new GerenciadorPessoa(context);
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            var printer = new Printer(porta, PrinterType.Bematech);
-
-            Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-            Pessoa pessoaLoja = (Pessoa) gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
-
-            //chamando a função para impressão do texto
-            printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-            if (saidas[0].TipoSaida == Saida.TIPO_ORCAMENTO)
-                printer.WriteLine(StringUtil.PadBoth("DOCUMENTO AUXILIAR DE VENDA - ORCAMENTO", 42));
-            else
-                printer.WriteLine(StringUtil.PadBoth("DOCUMENTO AUXILIAR DE VENDA - PEDIDO", 42));
-            printer.WriteLine(StringUtil.PadBoth("NAO E DOCUMENTO FISCAL - NAO E VALIDO COMO", 42));
-            printer.WriteLine(StringUtil.PadBoth("RECIBO E COMO GARANTIA DE MERCADORIA", 42));
-            printer.WriteLine(StringUtil.PadBoth("NAO COMPROVA PAGAMENTO", 42));
-            printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-
-            printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Nome, 42));
-            printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1, 42));
-            printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-
-
-            Pessoa cliente = (Pessoa)gerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
-
-            if (cliente.NomeFantasia.Length > 32)
-                printer.WriteLine("Cliente: " + cliente.NomeFantasia.Substring(1, 32));
-            else
-                printer.WriteLine("Cliente: " + cliente.NomeFantasia);
-
-            if (saidas.Count == 1)
+            using (var context = new SaceContext())
             {
-                printer.WriteLine("Pedido: " + saidas[0].CodSaida + "      Data: " + saidas[0].DataSaida.ToShortDateString());
-                if (!string.IsNullOrEmpty(saidas[0].CupomFiscal))
-                    printer.WriteLine("NFe: " + saidas[0].CupomFiscal);
-            }
-            printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-            printer.WriteLine("Cod    Produto");
-            printer.WriteLine("       Qtdade   UN  Preco(R$) Subtotal(R$)");
-            printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-            foreach (SaidaPesquisa saida in saidas)
-            {
-                if (saidas.Count > 1)
+                var gerenciadorLoja = new GerenciadorLoja();
+                var gerenciadorPessoa = new GerenciadorPessoa();
+                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
+                var printer = new Printer(porta, PrinterType.Bematech);
+
+                Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
+                Pessoa pessoaLoja = (Pessoa)gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+
+                //chamando a função para impressão do texto
+                printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
+                if (saidas[0].TipoSaida == Saida.TIPO_ORCAMENTO)
+                    printer.WriteLine(StringUtil.PadBoth("DOCUMENTO AUXILIAR DE VENDA - ORCAMENTO", 42));
+                else
+                    printer.WriteLine(StringUtil.PadBoth("DOCUMENTO AUXILIAR DE VENDA - PEDIDO", 42));
+                printer.WriteLine(StringUtil.PadBoth("NAO E DOCUMENTO FISCAL - NAO E VALIDO COMO", 42));
+                printer.WriteLine(StringUtil.PadBoth("RECIBO E COMO GARANTIA DE MERCADORIA", 42));
+                printer.WriteLine(StringUtil.PadBoth("NAO COMPROVA PAGAMENTO", 42));
+                printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
+
+                printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Nome, 42));
+                printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1, 42));
+                printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
+
+
+                Pessoa cliente = (Pessoa)gerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
+
+                if (cliente.NomeFantasia.Length > 32)
+                    printer.WriteLine("Cliente: " + cliente.NomeFantasia.Substring(1, 32));
+                else
+                    printer.WriteLine("Cliente: " + cliente.NomeFantasia);
+
+                if (saidas.Count == 1)
                 {
-                    printer.WriteLine("=> Documento: " + saida.CodSaida + " Data: " + saida.DataSaida.ToShortDateString() + " CF:" + saida.CupomFiscal + "\n");
+                    printer.WriteLine("Pedido: " + saidas[0].CodSaida + "      Data: " + saidas[0].DataSaida.ToShortDateString());
+                    if (!string.IsNullOrEmpty(saidas[0].CupomFiscal))
+                        printer.WriteLine("NFe: " + saidas[0].CupomFiscal);
+                }
+                printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
+                printer.WriteLine("Cod    Produto");
+                printer.WriteLine("       Qtdade   UN  Preco(R$) Subtotal(R$)");
+                printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
+                foreach (SaidaPesquisa saida in saidas)
+                {
+                    if (saidas.Count > 1)
+                    {
+                        printer.WriteLine("=> Documento: " + saida.CodSaida + " Data: " + saida.DataSaida.ToShortDateString() + " CF:" + saida.CupomFiscal + "\n");
+                    }
+
+                    List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                    foreach (SaidaProduto produto in saidaProdutos)
+                    {
+                        printer.Write(produto.CodProduto.ToString().PadLeft(6));
+                        printer.Write(" ");
+                        if (produto.Nome.Length > 33)
+                            printer.WriteLine(produto.Nome.Substring(1, 33));
+                        else
+                            printer.WriteLine(produto.Nome.PadRight(33));
+                        printer.Write("      ");
+                        printer.Write(produto.Quantidade.ToString().PadLeft(9));
+                        printer.Write(" ");
+                        printer.Write(produto.Unidade);
+                        printer.Write(produto.ValorVenda.ToString("N2").PadLeft(12));
+                        printer.Write(" ");
+                        printer.WriteLine(produto.Subtotal.ToString("N2").PadLeft(11));
+                    }
                 }
 
-                List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                foreach (SaidaProduto produto in saidaProdutos)
+                printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
+                printer.WriteLine("Total Venda: " + total + " Desconto: " + desconto.ToString("N2") + "%");
+                printer.WriteLine("Total Pagar: " + totalAVista.ToString("N2"));
+                printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
+                printer.WriteLine(" E vedada a autenticacao deste documento");
+                if (!saidas[0].CupomFiscal.Equals(""))
                 {
-                    printer.Write(produto.CodProduto.ToString().PadLeft(6));
-                    printer.Write(" ");
-                    if (produto.Nome.Length > 33)
-                        printer.WriteLine(produto.Nome.Substring(1, 33));
-                    else
-                        printer.WriteLine(produto.Nome.PadRight(33));
-                    printer.Write("      ");
-                    printer.Write(produto.Quantidade.ToString().PadLeft(9));
-                    printer.Write(" ");
-                    printer.Write(produto.Unidade);
-                    printer.Write(produto.ValorVenda.ToString("N2").PadLeft(12));
-                    printer.Write(" ");
-                    printer.WriteLine(produto.Subtotal.ToString("N2").PadLeft(11));
+                    printer.WriteLine("  Documento Válido por 3 (tres) dias");
+                }
+                printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
+                if (!saidas[0].CodCliente.Equals(UtilConfig.Default.CLIENTE_PADRAO))
+                {
+                    printer.WriteLine(" ");
+                    printer.WriteLine("Recebido por:");
+                    //printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
+                }
+
+                try
+                {
+                    // 2 cópias
+                    printer.WriteLine(" ");
+                    printer.WriteLine(" ");
+                    printer.WriteLine(" ");
+                    printer.WriteLine(" ");
+                    printer.WriteLine(" ");
+                    printer.PartialPaperCut();
+                    printer.PrintDocument(2);
+
+                }
+                catch (Exception e)
+                {
+                    throw new NegocioException("Impressora indisponível. Verificar se ela está ligada e conectada.", e);
                 }
             }
-
-            printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-            printer.WriteLine("Total Venda: " + total + " Desconto: " + desconto.ToString("N2") + "%");
-            printer.WriteLine("Total Pagar: " + totalAVista.ToString("N2"));
-            printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-            printer.WriteLine(" E vedada a autenticacao deste documento");
-            if (!saidas[0].CupomFiscal.Equals(""))
-            {
-                printer.WriteLine("  Documento Válido por 3 (tres) dias");
-            }
-            printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-            if (!saidas[0].CodCliente.Equals(UtilConfig.Default.CLIENTE_PADRAO))
-            {
-                printer.WriteLine(" ");
-                printer.WriteLine("Recebido por:");
-                //printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-            }
-
-            try
-            {
-                // 2 cópias
-                printer.WriteLine(" ");
-                printer.WriteLine(" ");
-                printer.WriteLine(" ");
-                printer.WriteLine(" ");
-                printer.WriteLine(" ");
-                printer.PartialPaperCut();
-                printer.PrintDocument(2);
-
-            }
-            catch (Exception e)
-            {
-                throw new NegocioException("Impressora indisponível. Verificar se ela está ligada e conectada.", e);
-            }
-
         }
 
 
         public void ImprimirCreditoPagamento(Saida saidaCredito, string portaImpressora)
         {
-            var gerenciadorLoja = new GerenciadorLoja(context);
-            var gerenciadorPessoa = new GerenciadorPessoa(context);
+            var gerenciadorLoja = new GerenciadorLoja();
+            var gerenciadorPessoa = new GerenciadorPessoa();
             var printer = new Printer(portaImpressora, PrinterType.Bematech);
             Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
             Pessoa pessoaLoja = (Pessoa)gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);

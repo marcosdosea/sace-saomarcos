@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 
 namespace Sace
@@ -8,31 +6,27 @@ namespace Sace
     public partial class FrmContaBancoPesquisa : Form
     {
         public ContaBanco ContaBancoSelected { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmContaBancoPesquisa(DbContextOptions<SaceContext> saceOptions)
+        public FrmContaBancoPesquisa()
         {
             InitializeComponent();
             ContaBancoSelected = null;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
         {
-            contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterTodos();
+            var gerenciadorContaBanco = new GerenciadorContaBanco();
+            contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
             cmbBusca.SelectedIndex = 1;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
+            var gerenciadorContaBanco = new GerenciadorContaBanco();
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterPorNumero(txtTexto.Text);
+                contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterPorNumero(txtTexto.Text);
             else
-                contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterPorDescricao(txtTexto.Text);
-
+                contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

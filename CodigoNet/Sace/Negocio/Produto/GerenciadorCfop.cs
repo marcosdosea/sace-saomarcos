@@ -6,12 +6,6 @@ namespace Negocio
 {
     public class GerenciadorCfop 
     {
-        private readonly SaceContext context;
-
-        public GerenciadorCfop(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
 
         /// <summary>
         /// Insere um novo cfop na base de dados
@@ -26,9 +20,12 @@ namespace Negocio
                 _cfop.Cfop = cfop.CodCfop;
                 _cfop.Descricao = cfop.Descricao;
                 _cfop.Icms = cfop.Icms;
+                using (var context = new SaceContext())
+                {
 
-                context.Add(_cfop);
-                context.SaveChanges();
+                    context.Add(_cfop);
+                    context.SaveChanges();
+                }
 
                 return _cfop.Cfop;
             }
@@ -47,17 +44,22 @@ namespace Negocio
         {
             try
             {
-                var _cfop = context.TbCfops.Find(cfop.CodCfop);
-                if (_cfop != null)
+                using (var context = new SaceContext())
                 {
-                    _cfop.Descricao = cfop.Descricao;
-                    _cfop.Icms = cfop.Icms;
 
-                    context.SaveChanges();
-                } 
-                else
-                {
-                    throw new NegocioException("CFOP não encontrado para atualização.");
+                    var _cfop = context.TbCfops.Find(cfop.CodCfop);
+
+                    if (_cfop != null)
+                    {
+                        _cfop.Descricao = cfop.Descricao;
+                        _cfop.Icms = cfop.Icms;
+
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("CFOP não encontrado para atualização.");
+                    }
                 }
             }
             catch (Exception e)
@@ -76,9 +78,12 @@ namespace Negocio
             {
                 var cfop = new TbCfop();
                 cfop.Cfop = codCfop;
+                using (var context = new SaceContext())
+                {
 
-                context.Remove(cfop);
-                context.SaveChanges();
+                    context.Remove(cfop);
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -92,14 +97,18 @@ namespace Negocio
         /// <returns></returns>
         private IQueryable<Cfop> GetQuery()
         {
-            var query = from cfop in context.TbCfops
-                        select new Cfop
-                        {
-                            CodCfop = cfop.Cfop,
-                            Descricao = cfop.Descricao,
-                            Icms = cfop.Icms
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+
+                var query = from cfop in context.TbCfops
+                            select new Cfop
+                            {
+                                CodCfop = cfop.Cfop,
+                                Descricao = cfop.Descricao,
+                                Icms = cfop.Icms
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>

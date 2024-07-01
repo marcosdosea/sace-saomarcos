@@ -21,12 +21,10 @@ namespace Negocio
         /// <param name="movimentacaoConta">movimentacao da conta</param>
         /// <param name="conta">conta associada</param>
         /// <returns></returns>
-        public long Inserir(MovimentacaoConta movimentacaoConta)
+        public long Inserir(MovimentacaoConta movimentacaoConta, SaceContext context)
         {
-            var transaction = context.Database.BeginTransaction();
             try
             {
-
                 var _movimentacaoConta = new TbMovimentacaoContum();
                 Atribuir(movimentacaoConta, _movimentacaoConta);
 
@@ -44,15 +42,12 @@ namespace Negocio
                     AtualizaSituacaoPagamentosEntrada(_conta);
                     AtualizaSituacaoPagamentosSaida(_conta, _movimentacaoConta, false);
                 }
-                transaction.Commit();
                 return _movimentacaoConta.CodMovimentacao;
             }
             catch (Exception e)
             {
-                transaction.Rollback();
                 throw new DadosException("Movimentação de Conta", e.Message, e);
             }
-
         }
 
         /// <summary>
@@ -70,7 +65,7 @@ namespace Negocio
                 var _movimentacaoConta = queryMovimentacao.FirstOrDefault();
                 if (_movimentacaoConta != null)
                 {
-                    long codConta = (long) _movimentacaoConta.CodConta;
+                    long codConta = (long)_movimentacaoConta.CodConta;
                     // Atualiza status da conta, entrada e saída 
                     var query = from conta in context.TbConta
                                 where conta.CodConta == _movimentacaoConta.CodConta
@@ -112,8 +107,8 @@ namespace Negocio
                 {
                     // Atualiza status da conta, entrada e saída 
                     var query2 = from conta in context.TbConta
-                                where conta.CodConta == _movimentacaoConta.CodConta
-                                select conta;
+                                 where conta.CodConta == _movimentacaoConta.CodConta
+                                 select conta;
                     var _conta = query2.FirstOrDefault();
 
                     context.Remove(_movimentacaoConta);
@@ -144,7 +139,7 @@ namespace Negocio
             var query = from movimentacao in context.TbMovimentacaoConta
                         select new MovimentacaoConta
                         {
-                            CodConta = (long) movimentacao.CodConta,
+                            CodConta = (long)movimentacao.CodConta,
                             CodContaBanco = movimentacao.CodContaBanco,
                             CodMovimentacao = movimentacao.CodMovimentacao,
                             CodResponsavel = movimentacao.CodResponsavel,
@@ -220,7 +215,7 @@ namespace Negocio
                         where movimentacaoConta.DataHora >= dataBuscaInicio && movimentacaoConta.DataHora <= dataBuscaFim
                         select new MovimentacaoPeriodo
                         {
-                            CodSaida = (long) movimentacaoConta.CodContaNavigation.CodSaida,
+                            CodSaida = (long)movimentacaoConta.CodContaNavigation.CodSaida,
                             DataSaida = movimentacaoConta.CodContaNavigation.CodSaidaNavigation.DataSaida,
                             DescricaoTipoMovimentacao = movimentacaoConta.CodTipoMovimentacaoNavigation.Descricao,
                             NomeCliente = movimentacaoConta.CodContaNavigation.CodSaidaNavigation.CodClienteNavigation.NomeFantasia,

@@ -59,7 +59,7 @@ namespace Sace
                 Cursor.Current = Cursors.WaitCursor;
                 int codGrupo = (int)codGrupoComboBox.SelectedValue;
 
-                var vendasPorGrupo = service.GerenciadorSaida.ObterVendasPorGrupo(codGrupo, dataInicial, dataFinal);
+                var vendasPorGrupo = gerenciadorSaida.ObterVendasPorGrupo(codGrupo, dataInicial, dataFinal);
 
                 //saceDataSetConsultas.VendasPorGrupoDataTable vendasgrupoDataTable = new saceDataSetConsultas.VendasPorGrupoDataTable();
                 //Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter vendasGrupoTA = new Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter();

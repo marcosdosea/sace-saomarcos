@@ -19,8 +19,8 @@ namespace Negocio
         /// Insere uma novo produto na entrada
         public long Inserir(EntradaProduto entradaProduto, int codTipoEntrada)
         {
-            var gerenciadorProduto = new GerenciadorProduto(context);
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            var gerenciadorProduto = new GerenciadorProduto();
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
 
             if (entradaProduto.Quantidade == 0)
                 throw new NegocioException("A quantidade do produto não pode ser igual a zero.");
@@ -53,14 +53,14 @@ namespace Negocio
             {
                 var _entradaProduto = new TbEntradaProduto();
                 Atribuir(entradaProduto, _entradaProduto);
-
+                context.Database.BeginTransaction();
                 context.Add(_entradaProduto);
                 context.SaveChanges();
 
                 if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
                 {
                     // Incrementa o estoque na loja principal
-                    gerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto);
+                    gerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto, context);
 
                     Atribuir(entradaProduto, produto);
                     produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
@@ -70,6 +70,7 @@ namespace Negocio
                     if (entradaProduto.CodEntrada != UtilConfig.Default.ENTRADA_PADRAO) 
                         gerenciadorProduto.Atualizar(produto);
                 }
+                context.Database.CommitTransaction();
                 return _entradaProduto.CodEntrada;
             }
             catch (Exception e)
@@ -113,7 +114,7 @@ namespace Negocio
         /// <param name="codEntradaProduto"></param>
         public void Remover(EntradaProduto entradaProduto, int codTipoEntrada)
         {
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja(context);
+            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
             var transaction = context.Database.BeginTransaction();
             try
             {
@@ -124,7 +125,7 @@ namespace Negocio
                 context.SaveChanges();
 
                 // Decrementa o estoque na loja principal
-                gerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto);
+                gerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto, context);
                 transaction.Commit();
             }
             catch (Exception e)
@@ -142,7 +143,7 @@ namespace Negocio
         public List<EntradaProduto> Importar(TNfeProc nfe)
         {
             var gerenciadorEntrada = new GerenciadorEntrada(context);
-            var gerenciadorProduto = new GerenciadorProduto(context);
+            var gerenciadorProduto = new GerenciadorProduto();
             const string VERSAO3 = "3.10";
             const string VERSAO4 = "4.00";
 
@@ -563,11 +564,11 @@ namespace Negocio
         /// <param name="produto"></param>
         /// <param name="dataValidade"></param>
         /// <param name="quantidadeDevolvida"></param>
-        private void EstornarItensVendidosEstoque(SaidaProduto saidaProduto)
+        private void EstornarItensVendidosEstoque(SaidaProduto saidaProduto, SaceContext context)
         {
             decimal quantidadeDevolvida = Math.Abs(saidaProduto.Quantidade);
             List<EntradaProduto> entradaProdutos = ObterVendidosOrdenadoPorEntrada(saidaProduto.CodProduto);
-            Decimal quantidadeRetornada = 0;
+            decimal quantidadeRetornada = 0;
 
             if (entradaProdutos != null)
             {
@@ -626,7 +627,7 @@ namespace Negocio
         /// <param name="dataValidade"></param>
         /// <param name="quantidadeVendida"></param>
         /// <returns></returns>
-        public Decimal BaixarItensVendidosEstoque(SaidaProduto saidaProduto) {
+        public decimal BaixarItensVendidosEstoque(SaidaProduto saidaProduto, SaceContext context) {
             List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)ObterDisponiveisPorEntrada(saidaProduto.CodProduto);
 
             decimal somaPrecosCusto = 0;
@@ -634,7 +635,7 @@ namespace Negocio
 
             if (saidaProduto.Quantidade < 0)
             {
-                EstornarItensVendidosEstoque(saidaProduto);
+                EstornarItensVendidosEstoque(saidaProduto, context);
             } 
             else if (entradaProdutos.Count > 0)
             {
@@ -692,7 +693,7 @@ namespace Negocio
         /// <param name="quantidade"></param>
         /// <returns></returns>
         private decimal BaixarItensVendidosEstoqueEntradaPadrao(SaidaProduto saidaProduto, decimal quantidade) {
-            var gerenciadorProduto = new GerenciadorProduto(context);
+            var gerenciadorProduto = new GerenciadorProduto();
             List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)Obter(UtilConfig.Default.ENTRADA_PADRAO, saidaProduto.CodProduto);
             Produto produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
             EntradaProduto entradaProduto = null;

@@ -1,5 +1,7 @@
 using Dados;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Windows.Forms;
 using Util;
 
 namespace Sace
@@ -14,7 +16,7 @@ namespace Sace
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            
+
             // configuração da string de conexão
             var builder = new DbContextOptionsBuilder<SaceContext>();
             
