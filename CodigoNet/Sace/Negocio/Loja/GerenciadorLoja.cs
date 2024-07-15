@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorLoja
+    public static class GerenciadorLoja
     {
         /// <summary>
         /// Insere um nova loja
         /// </summary>
         /// <param name="loja"></param>
         /// <returns></returns>
-        public int Inserir(Loja loja)
+        public static int Inserir(Loja loja)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Negocio
         /// Atualiza os dados de uma loja
         /// </summary>
         /// <param name="loja"></param>
-        public void Atualizar(Loja loja)
+        public static void Atualizar(Loja loja)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Negocio
         /// Remove os dados de uma loja
         /// </summary>
         /// <param name="codloja"></param>
-        public void Remover(int codLoja)
+        public static void Remover(int codLoja)
         {
             if (codLoja == 1)
                 throw new NegocioException("A loja matriz não pode ser excluída.");
@@ -95,7 +95,7 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Loja> GetQuery()
+        private static IQueryable<Loja> GetQuery()
         {
             using (var context = new SaceContext())
             {
@@ -131,7 +131,7 @@ namespace Negocio
         /// Obtém todos os lojas cadastrados
         /// </summary>
         /// <returns></returns>
-        public List<Loja> ObterTodos()
+        public static List<Loja> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -141,7 +141,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public List<Loja> Obter(int codLoja)
+        public static List<Loja> Obter(int codLoja)
         {
             return GetQuery().Where(loja => loja.CodLoja == codLoja).ToList();
         }
@@ -151,7 +151,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public List<Loja> ObterPorNome(string nome)
+        public static List<Loja> ObterPorNome(string nome)
         {
             return GetQuery().Where(loja => loja.Nome.StartsWith(nome)).ToList();
         }
@@ -161,7 +161,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public List<Loja> ObterPorPessoa(long codPessoa)
+        public static List<Loja> ObterPorPessoa(long codPessoa)
         {
             return GetQuery().Where(loja => loja.CodPessoa == codPessoa).ToList();
         }
@@ -170,7 +170,7 @@ namespace Negocio
         /// Atualiza apemas o número da nfe
         /// </summary>
         /// <param name="loja"></param>
-        public int IncrementarNumeroNFe(int codLoja, string modelo)
+        public static int IncrementarNumeroNFe(int codLoja, string modelo)
         {
             using (var context = new SaceContext())
             {

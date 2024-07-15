@@ -24,7 +24,7 @@ namespace Sace
         private void FrmSaidaPagamentoRecebido_Load(object sender, EventArgs e)
         {
 
-            movimentacaoPeriodoBindingSource.DataSource = service.GerenciadorMovimentacaoConta.ObterMovimentacaoContaPeriodo(dataInicioDateTimePicker.Value, dataFinalDateTimePicker.Value);
+            movimentacaoPeriodoBindingSource.DataSource = GerenciadorMovimentacaoConta.ObterMovimentacaoContaPeriodo(dataInicioDateTimePicker.Value, dataFinalDateTimePicker.Value);
            
         }
 

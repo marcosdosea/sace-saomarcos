@@ -23,7 +23,7 @@ namespace Sace
         private void FrmLoja_Load(object sender, EventArgs e)
         {
             pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
-            lojaBindingSource.DataSource = service.GerenciadorLoja.ObterTodos();
+            lojaBindingSource.DataSource = GerenciadorLoja.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -60,7 +60,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorLoja.Remover(int.Parse(codLojaTextBox.Text));
+                GerenciadorLoja.Remover(int.Parse(codLojaTextBox.Text));
                 lojaBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -82,12 +82,12 @@ namespace Sace
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codLoja = service.GerenciadorLoja.Inserir(loja);
+                    long codLoja = GerenciadorLoja.Inserir(loja);
                     codLojaTextBox.Text = codLoja.ToString();
                 }
                 else
                 {
-                    service.GerenciadorLoja.Atualizar(loja);
+                    GerenciadorLoja.Atualizar(loja);
                 }
                 lojaBindingSource.EndEdit();
             }

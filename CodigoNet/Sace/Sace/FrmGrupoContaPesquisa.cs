@@ -8,30 +8,26 @@ namespace Sace
     public partial class FrmGrupoContaPesquisa : Form
     {
         public GrupoConta GrupoConta { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmGrupoContaPesquisa(DbContextOptions<SaceContext> saceOptions)
+
+        public FrmGrupoContaPesquisa()
         {
             InitializeComponent();
             GrupoConta = null;
-            this.saceOptions = saceOptions; 
-            SaceContext context = new SaceContext(saceOptions);
-            this.service = new SaceService(context);
         }
 
         private void FrmGrupoContaPesquisa_Load(object sender, EventArgs e)
         {
-            grupoContaBindingSource.DataSource = service.GerenciadorGrupoConta.ObterTodos();
+            grupoContaBindingSource.DataSource = GerenciadorGrupoConta.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-               grupoContaBindingSource.DataSource = service.GerenciadorGrupoConta.Obter(Convert.ToInt32(txtTexto.Text));
+               grupoContaBindingSource.DataSource = GerenciadorGrupoConta.Obter(Convert.ToInt32(txtTexto.Text));
             else
-              grupoContaBindingSource.DataSource = service.GerenciadorGrupoConta.ObterPorDescricao(txtTexto.Text);
+              grupoContaBindingSource.DataSource = GerenciadorGrupoConta.ObterPorDescricao(txtTexto.Text);
          }
 
         private void tb_grupo_contaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

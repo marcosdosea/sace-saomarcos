@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorBanco
+    public static class GerenciadorBanco
     {
         /// <summary>
         /// Insere dados do banco
         /// </summary>
         /// <param name="banco"></param>
         /// <returns></returns>
-        public long Inserir(Banco banco)
+        public static long Inserir(Banco banco)
         {
 
             TbBanco _banco = new TbBanco();
@@ -36,7 +36,7 @@ namespace Negocio
         /// Atualiza dados do banco
         /// </summary>
         /// <param name="banco"></param>
-        public void Atualizar(Banco banco)
+        public static void Atualizar(Banco banco)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Negocio
         /// Remove dados do banco
         /// </summary>
         /// <param name="codBanco"></param>
-        public void Remover(int codBanco)
+        public static void Remover(int codBanco)
         {
             if (codBanco == 1)
                 throw new NegocioException("O banco não pode ser removido.");
@@ -89,7 +89,7 @@ namespace Negocio
         /// Obtém todos os banco cadastrados
         /// </summary>
         /// <returns></returns>
-        public List<Banco> ObterTodos()
+        public static List<Banco> ObterTodos()
         {
             using (var context = new SaceContext())
             {
@@ -108,7 +108,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Banco> Obter(int codBanco)
+        public static IEnumerable<Banco> Obter(int codBanco)
         {
             try
             {
@@ -136,7 +136,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Banco> ObterPorNome(string nome)
+        public static IEnumerable<Banco> ObterPorNome(string nome)
         {
             try
             {

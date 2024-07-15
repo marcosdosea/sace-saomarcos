@@ -85,7 +85,7 @@ namespace Sace
             frmSaidaPagamento.ShowDialog();
             frmSaidaPagamento.Dispose();
 
-            var listaSaidaPagamentos = service.GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+            var listaSaidaPagamentos = GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
 
             if (listaSaidaPagamentos.Sum(sp => sp.Valor) == valorRecebido)
             {
@@ -110,10 +110,10 @@ namespace Sace
                         if (contaSaida.Valor > 0)
                         {
                             listaSaidaPedido.Add(new SaidaPedido() { CodSaida = contaSaida.CodSaida, TotalAVista = contaSaida.Valor });
-                            listaSaidaPagamentos.AddRange(service.GerenciadorSaidaPagamento.ObterPorSaida(contaSaida.CodSaida));
+                            listaSaidaPagamentos.AddRange(GerenciadorSaidaPagamento.ObterPorSaida(contaSaida.CodSaida));
                         }
                     }
-                    service.GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                    GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                     FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaContaSaida.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE, saceOptions);
                     frmSaidaAutorizacao.ShowDialog();
                     frmSaidaAutorizacao.Dispose();
@@ -179,10 +179,10 @@ namespace Sace
                 {
                     decimal valorDescontoConta = (decimal)contasPessoaDataGridView.SelectedRows[i].Cells[8].Value;
                     long codConta = (long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value;
-                    Conta conta = service.GerenciadorConta.Obter(codConta).ElementAt(0);
+                    Conta conta = GerenciadorConta.Obter(codConta).ElementAt(0);
                     if (conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA))
                     {
-                        service.GerenciadorConta.Atualizar(conta.CodSituacao, valorDescontoConta, conta.CodConta);
+                        GerenciadorConta.Atualizar(conta.CodSituacao, valorDescontoConta, conta.CodConta);
                     }
                 }
             }
@@ -221,7 +221,7 @@ namespace Sace
 
             
             SaidaPagamento saidaPagamento = new SaidaPagamento();
-            FormaPagamento dinheiro = service.GerenciadorFormaPagamento.Obter(FormaPagamento.DINHEIRO).ElementAt(0);
+            FormaPagamento dinheiro = GerenciadorFormaPagamento.Obter(FormaPagamento.DINHEIRO).ElementAt(0);
             saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
             saidaPagamento.CodCartaoCredito = UtilConfig.Default.CARTAO_LOJA;
             saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
@@ -243,7 +243,7 @@ namespace Sace
                 if (MessageBox.Show("Confirma emisssão da NFce das Contas Selecionadas?", "Confirmar Impressão NFe/NFCe", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     AtualizarValoresDescontosContas();
-                    service.GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                    GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                     FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE, saceOptions);
                     frmSaidaAutorizacao.ShowDialog();
                     frmSaidaAutorizacao.Dispose();
@@ -309,7 +309,7 @@ namespace Sace
                 if (tb_movimentacao_contaDataGridView.Rows.Count > 0)
                 {
                     long codMovimentacaoConta = long.Parse(tb_movimentacao_contaDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    service.GerenciadorMovimentacaoConta.Remover(codMovimentacaoConta);
+                    GerenciadorMovimentacaoConta.Remover(codMovimentacaoConta);
                 }
                 ObterTodasContasAbertas(pessoa);
             }
@@ -350,7 +350,7 @@ namespace Sace
 
         private void ObterTodasContasAbertas(Pessoa pessoa)
         {
-            contasPessoaDataGridView.DataSource = service.GerenciadorConta.ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
+            contasPessoaDataGridView.DataSource = GerenciadorConta.ObterPorSituacaoPessoa(SituacaoConta.SITUACAO_ABERTA.ToString(), pessoa.CodPessoa);
             if (contasPessoaDataGridView.RowCount > 0)
             {
                 //Obter maior e menor data de vencimento para preencher corrretamente
@@ -394,11 +394,11 @@ namespace Sace
             quitadaChecked = quitadaCheckBox.Checked;
             if (situacoes.Count == 2)
             {
-                contasPessoaDataGridView.DataSource = service.GerenciadorConta.ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[1], pessoa.CodPessoa, dataInicio, dataFim);
+                contasPessoaDataGridView.DataSource = GerenciadorConta.ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[1], pessoa.CodPessoa, dataInicio, dataFim);
             }
             else if (situacoes.Count == 1)
             {
-                contasPessoaDataGridView.DataSource = service.GerenciadorConta.ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[0], pessoa.CodPessoa, dataInicio, dataFim);
+                contasPessoaDataGridView.DataSource = GerenciadorConta.ObterPorSituacaoPessoaPeriodo(situacoes[0], situacoes[0], pessoa.CodPessoa, dataInicio, dataFim);
             }
             else
             {
@@ -446,7 +446,7 @@ namespace Sace
             {
                 contasExibidas.Add((long)contasPessoaDataGridView.SelectedRows[i].Cells[0].Value);
             }
-            movimentacaoContaBindingSource.DataSource = service.GerenciadorMovimentacaoConta.ObterPorContas(contasExibidas);
+            movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.ObterPorContas(contasExibidas);
         }
 
 

@@ -8,28 +8,26 @@ namespace Sace
     public partial class FrmCfopPesquisa : Form
     {
         public Cfop CfopSelected { get; set; }
-        private GerenciadorCfop gerenciadorCfop;
 
         public FrmCfopPesquisa()
         {
             InitializeComponent();
             CfopSelected = null;
-            gerenciadorCfop = new GerenciadorCfop();
         }
 
         private void FrmCfopPesquisa_Load(object sender, EventArgs e)
         {
             
-            cfopBindingSource.DataSource = gerenciadorCfop.ObterTodos();
+            cfopBindingSource.DataSource = GerenciadorCfop.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                cfopBindingSource.DataSource = gerenciadorCfop.Obter(Convert.ToInt32(txtTexto.Text));
+                cfopBindingSource.DataSource = GerenciadorCfop.Obter(Convert.ToInt32(txtTexto.Text));
             else
-                cfopBindingSource.DataSource = gerenciadorCfop.ObterPorDescricao(txtTexto.Text);
+                cfopBindingSource.DataSource = GerenciadorCfop.ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_cfopDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

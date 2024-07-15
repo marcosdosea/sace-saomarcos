@@ -10,21 +10,17 @@ namespace Sace
     public partial class FrmCartaoCredito : Form
     {
         private EstadoFormulario estado;
-        private readonly GerenciadorCartaoCredito gerenciadorCartaoCredito;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
         public FrmCartaoCredito()
         {
             InitializeComponent();
-            gerenciadorCartaoCredito = new GerenciadorCartaoCredito();
-            gerenciadorPessoa = new GerenciadorPessoa();
         }
 
         private void FrmCartaoCredito_Load(object sender, EventArgs e)
         {
             var gerenciadorContaBanco = new GerenciadorContaBanco();
-            cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterTodos();
+            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.ObterTodos();
             contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
+            pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
             
             habilitaBotoes(true);
         }
@@ -65,7 +61,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorCartaoCredito.Remover(int.Parse(codCartaoTextBox.Text));
+                GerenciadorCartaoCredito.Remover(int.Parse(codCartaoTextBox.Text));
                 cartaoCreditoBindingSource.RemoveCurrent();
             }
         }
@@ -87,12 +83,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codCartao = gerenciadorCartaoCredito.Inserir(_cartaoCredito);
+                    long codCartao = GerenciadorCartaoCredito.Inserir(_cartaoCredito);
                     codCartaoTextBox.Text = codCartao.ToString();
                 }
                 else
                 {
-                    gerenciadorCartaoCredito.Atualizar(_cartaoCredito);
+                    GerenciadorCartaoCredito.Atualizar(_cartaoCredito);
                 }
                 cartaoCreditoBindingSource.EndEdit();
             }
@@ -234,7 +230,7 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true, gerenciadorPessoa);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true);
         }
 
         private void codCartaoTextBox_Enter(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using Dados;
 using Dominio;
+using Dominio.NFE2;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Globalization;
@@ -10,69 +11,65 @@ using Util;
 
 namespace Negocio
 {
-    public class GerenciadorNFe
+    public static class GerenciadorNFe
     {
-        private string nomeComputador;
+        private static string nomeComputador = SystemInformation.ComputerName;
         const string FORMATO_DATA_HORA = "yyyy-MM-ddTHH:mm:sszzz";
 
-        private readonly SaceContext context;
-        private string chaveNfeGerada = "";
+        private static string chaveNfeGerada = "";
 
-        public GerenciadorNFe(SaceContext saceContext)
-        {
-            nomeComputador = SystemInformation.ComputerName;
-            this.context = saceContext;
-            
-        }
         /// <summary>
         /// Insere os dados de uma conta bancária
         /// </summary>
         /// <param name="contaBanco"></param>
         /// <returns></returns>
-        public int Inserir(NfeControle nfe, Saida saida, bool ehNfeComplementar, List<SolicitacaoSaida> listaSolicitacaoSaida)
+        public static int Inserir(NfeControle nfe, Saida saida, bool ehNfeComplementar, List<SolicitacaoSaida> listaSolicitacaoSaida)
         {
-            try
+            using (var context = new SaceContext())
             {
-
-                var _nfe = new TbNfe();
-                Atribuir(nfe, _nfe);
-
-                context.Database.BeginTransaction();
-
-                context.Add(_nfe);
-                context.SaveChanges();
-
-                // Associa saídas as nova nfe
-                if (listaSolicitacaoSaida.Count == 1)
+                try
                 {
-                    var query = from tbSaida in context.TbSaida
-                                where tbSaida.CodSaida == saida.CodSaida
-                                select tbSaida;
-                    foreach (TbSaidum _saida in query)
-                    {
-                        _nfe.CodSaida.Add(_saida);
-                    }
-                }
-                else
-                {
-                    List<long> listaCodSaidas = listaSolicitacaoSaida.Select(l => l.CodSaida).ToList();
-                    var query = from TbSaida in context.TbSaida
-                                where listaCodSaidas.Contains(TbSaida.CodSaida)
-                                select TbSaida;
-                    foreach (TbSaidum _saida in query)
-                    {
-                        _nfe.CodSaida.Add(_saida);
-                    }
-                }
 
-                context.SaveChanges();
-                context.Database.CommitTransaction();
-                return _nfe.CodNfe;
-            }
-            catch (Exception e)
-            {
-                context.Database.RollbackTransaction();
-                throw new DadosException("Nota Fiscal Eletrônica", e.Message, e);
+                    var _nfe = new TbNfe();
+                    Atribuir(nfe, _nfe);
+
+                    context.Database.BeginTransaction();
+
+                    context.Add(_nfe);
+                    context.SaveChanges();
+
+                    // Associa saídas as nova nfe
+                    if (listaSolicitacaoSaida.Count == 1)
+                    {
+                        var query = from tbSaida in context.TbSaida
+                                    where tbSaida.CodSaida == saida.CodSaida
+                                    select tbSaida;
+                        foreach (TbSaidum _saida in query)
+                        {
+                            _nfe.CodSaida.Add(_saida);
+                        }
+                    }
+                    else
+                    {
+                        List<long> listaCodSaidas = listaSolicitacaoSaida.Select(l => l.CodSaida).ToList();
+                        var query = from TbSaida in context.TbSaida
+                                    where listaCodSaidas.Contains(TbSaida.CodSaida)
+                                    select TbSaida;
+                        foreach (TbSaidum _saida in query)
+                        {
+                            _nfe.CodSaida.Add(_saida);
+                        }
+                    }
+
+                    context.SaveChanges();
+                    context.Database.CommitTransaction();
+                    return _nfe.CodNfe;
+                }
+                catch (Exception e)
+                {
+                    context.Database.RollbackTransaction();
+                    throw new DadosException("Nota Fiscal Eletrônica", e.Message, e);
+                }
             }
         }
 
@@ -80,25 +77,29 @@ namespace Negocio
         /// Atualiza os dados de uma Nfe
         /// </summary>
         /// <param name="contaBanco"></param>
-        public void Atualizar(NfeControle nfe)
+        public static void Atualizar(NfeControle nfe)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var _nfe = context.TbNves.Find(nfe.CodNfe);
+                try
+                {
+                    var _nfe = context.TbNves.FirstOrDefault(n => n.CodNfe == nfe.CodNfe);
 
-                if (_nfe != null)
-                {
-                    Atribuir(nfe, _nfe);
+                    if (_nfe != null)
+                    {
+                        Atribuir(nfe, _nfe);
+                        context.Update(_nfe);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Nota fiscal eletrônica não encontrada para atualização");
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    throw new NegocioException("Nota fiscal eletrônica não encontrada para atualização");
+                    throw new DadosException("Nota Fiscal Eletrônica", e.Message, e);
                 }
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Nota Fiscal Eletrônica", e.Message, e);
             }
         }
 
@@ -106,19 +107,28 @@ namespace Negocio
         /// Remove os dados de uma conta bancária
         /// </summary>
         /// <param name="codcontaBanco"></param>
-        public void Remover(int codNfe)
+        public static void Remover(int codNfe)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var _nfe = new TbNfe();
-                _nfe.CodNfe = codNfe;
-                context.Remove(_nfe);
+                try
+                {
+                    var _nfe = context.TbNves.FirstOrDefault(n => n.CodNfe == codNfe);
 
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Nota Fiscal Eletrônica", e.Message, e);
+                    if (_nfe != null)
+                    {
+                        context.Remove(_nfe);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Nfe não encontrada para exclusão.");
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("Nota Fiscal Eletrônica", e.Message, e);
+                }
             }
         }
 
@@ -126,39 +136,42 @@ namespace Negocio
         /// Query Geral para obter dados das nfes
         /// </summary>
         /// <returns></returns>
-        private IQueryable<NfeControle> GetQuery()
+        private static IQueryable<NfeControle> GetQuery()
         {
-            var query = from nfe in context.TbNves
-                        select new NfeControle
-                        {
-                            Chave = nfe.Chave,
-                            CodNfe = nfe.CodNfe,
-                            JustificativaCancelamento = nfe.JustificativaCancelamento,
-                            MensagemSituacaoReciboEnvio = nfe.MensagemSituacaoReciboEnvio,
-                            MensagemSitucaoProtocoloCancelamento = nfe.MensagemSituacaoProtocoloCancelamento,
-                            MensagemSitucaoProtocoloUso = nfe.MensagemSituacaoProtocoloUso,
-                            NumeroLoteEnvio = nfe.NumeroLoteEnvio,
-                            NumeroProtocoloCancelamento = nfe.NumeroProtocoloCancelamento,
-                            NumeroProtocoloUso = nfe.NumeroProtocoloUso,
-                            NumeroRecibo = nfe.NumeroRecibo,
-                            SituacaoNfe = nfe.SituacaoNfe,
-                            SituacaoProtocoloCancelamento = nfe.SituacaoProtocoloCancelamento,
-                            SituacaoProtocoloUso = nfe.SituacaoProtocoloUso,
-                            SituacaoReciboEnvio = nfe.SituacaoReciboEnvio,
-                            DataEmissao = nfe.DataEmissao,
-                            DataCancelamento = nfe.DataCancelamento,
-                            Correcao = nfe.Correcao,
-                            DataCartaCorrecao = nfe.DataCartaCorrecao,
-                            MensagemSitucaoCartaCorrecao = nfe.MensagemSitucaoCartaCorrecao,
-                            NumeroProtocoloCartaCorrecao = nfe.NumeroProtocoloCartaCorrecao,
-                            SeqCartaCorrecao = nfe.SeqCartaCorrecao,
-                            SituacaoProtocoloCartaCorrecao = nfe.SituacaoProtocoloCartaCorrecao,
-                            NumeroSequenciaNfe = nfe.NumeroSequenciaNfe,
-                            Modelo = nfe.Modelo,
-                            CodLoja = nfe.CodLoja,
-                            CodSolicitacao = nfe.CodSolicitacao
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from nfe in context.TbNves
+                            select new NfeControle
+                            {
+                                Chave = nfe.Chave,
+                                CodNfe = nfe.CodNfe,
+                                JustificativaCancelamento = nfe.JustificativaCancelamento,
+                                MensagemSituacaoReciboEnvio = nfe.MensagemSituacaoReciboEnvio,
+                                MensagemSitucaoProtocoloCancelamento = nfe.MensagemSituacaoProtocoloCancelamento,
+                                MensagemSitucaoProtocoloUso = nfe.MensagemSituacaoProtocoloUso,
+                                NumeroLoteEnvio = nfe.NumeroLoteEnvio,
+                                NumeroProtocoloCancelamento = nfe.NumeroProtocoloCancelamento,
+                                NumeroProtocoloUso = nfe.NumeroProtocoloUso,
+                                NumeroRecibo = nfe.NumeroRecibo,
+                                SituacaoNfe = nfe.SituacaoNfe,
+                                SituacaoProtocoloCancelamento = nfe.SituacaoProtocoloCancelamento,
+                                SituacaoProtocoloUso = nfe.SituacaoProtocoloUso,
+                                SituacaoReciboEnvio = nfe.SituacaoReciboEnvio,
+                                DataEmissao = nfe.DataEmissao,
+                                DataCancelamento = nfe.DataCancelamento,
+                                Correcao = nfe.Correcao,
+                                DataCartaCorrecao = nfe.DataCartaCorrecao,
+                                MensagemSitucaoCartaCorrecao = nfe.MensagemSitucaoCartaCorrecao,
+                                NumeroProtocoloCartaCorrecao = nfe.NumeroProtocoloCartaCorrecao,
+                                SeqCartaCorrecao = nfe.SeqCartaCorrecao,
+                                SituacaoProtocoloCartaCorrecao = nfe.SituacaoProtocoloCartaCorrecao,
+                                NumeroSequenciaNfe = nfe.NumeroSequenciaNfe,
+                                Modelo = nfe.Modelo,
+                                CodLoja = nfe.CodLoja,
+                                CodSolicitacao = nfe.CodSolicitacao
+                            };
+                return query.AsNoTracking();
+            }
         }
 
 
@@ -166,7 +179,7 @@ namespace Negocio
         /// Obtém todos as nfe
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NfeControle> ObterTodos()
+        public static IEnumerable<NfeControle> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -175,7 +188,7 @@ namespace Negocio
         /// Obter Nfes por Chave
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NfeControle> ObterPorChave(string chave)
+        public static IEnumerable<NfeControle> ObterPorChave(string chave)
         {
             return GetQuery().Where(nc => nc.Chave.Equals(chave)).ToList();
         }
@@ -184,7 +197,7 @@ namespace Negocio
         /// Obter Nfes por Lote
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NfeControle> ObterPorLote(string numeroLote)
+        public static IEnumerable<NfeControle> ObterPorLote(string numeroLote)
         {
             return GetQuery().Where(nc => nc.NumeroLoteEnvio.Equals(numeroLote)).ToList();
         }
@@ -193,7 +206,7 @@ namespace Negocio
         /// Obter Nfes por recibo
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NfeControle> ObterPorRecibo(string numeroRecibo)
+        public static IEnumerable<NfeControle> ObterPorRecibo(string numeroRecibo)
         {
             return GetQuery().Where(nc => nc.NumeroRecibo.Equals(numeroRecibo)).ToList();
         }
@@ -202,7 +215,7 @@ namespace Negocio
         /// Obter Nfes por recibo
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NfeControle> ObterPorSolicitacao(long codSolicitacao)
+        public static IEnumerable<NfeControle> ObterPorSolicitacao(long codSolicitacao)
         {
             return GetQuery().Where(nc => nc.CodSolicitacao == codSolicitacao).ToList();
         }
@@ -212,7 +225,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<NfeControle> Obter(int codNfe)
+        public static IEnumerable<NfeControle> Obter(int codNfe)
         {
             return GetQuery().Where(nfe => nfe.CodNfe == codNfe).ToList();
         }
@@ -222,7 +235,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<NfeControle> ObterPorSituacao(string situacao)
+        public static IEnumerable<NfeControle> ObterPorSituacao(string situacao)
         {
             return GetQuery().Where(nfe => nfe.SituacaoNfe.Equals(situacao)).ToList();
         }
@@ -233,7 +246,7 @@ namespace Negocio
         /// <param name="numeroSequenciaNfe">Número sequencial da nfe</param>
         /// <param name="codLoja">Código da loja</param>
         /// <returns></returns>
-        public IEnumerable<NfeControle> ObterPorNumeroNfeLojaModelo(int numeroSequenciaNfe, int codLoja, string modelo)
+        public static IEnumerable<NfeControle> ObterPorNumeroNfeLojaModelo(int numeroSequenciaNfe, int codLoja, string modelo)
         {
             return GetQuery().Where(nfe => nfe.NumeroSequenciaNfe == numeroSequenciaNfe && nfe.CodLoja == codLoja && nfe.Modelo.Equals(modelo)).ToList();
         }
@@ -243,7 +256,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codLoja">Códiog da loja</param>
         /// <returns></returns>
-        public object ObterPorLoja(int codLoja)
+        public static object ObterPorLoja(int codLoja)
         {
             return GetQuery().Where(nfe => nfe.CodLoja == codLoja).ToList();
         }
@@ -252,48 +265,48 @@ namespace Negocio
         /// Obtém todos as nfe relacioanadas a uma saída
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NfeControle> ObterPorSaida(long codSaida)
+        public static IEnumerable<NfeControle> ObterPorSaida(long codSaida)
         {
-            var query = from nfe in context.TbNves
-                        where nfe.CodSaida.Select(s => s.CodSaida).Contains(codSaida)
-                        select new NfeControle
-                        {
-                            Chave = nfe.Chave,
-                            CodNfe = nfe.CodNfe,
-                            CodSaida = codSaida,
-                            JustificativaCancelamento = nfe.JustificativaCancelamento,
-                            MensagemSituacaoReciboEnvio = nfe.MensagemSituacaoReciboEnvio,
-                            MensagemSitucaoProtocoloCancelamento = nfe.MensagemSituacaoProtocoloCancelamento,
-                            MensagemSitucaoProtocoloUso = nfe.MensagemSituacaoProtocoloUso,
-                            NumeroLoteEnvio = nfe.NumeroLoteEnvio,
-                            NumeroProtocoloCancelamento = nfe.NumeroProtocoloCancelamento,
-                            NumeroProtocoloUso = nfe.NumeroProtocoloUso,
-                            NumeroRecibo = nfe.NumeroRecibo,
-                            SituacaoNfe = nfe.SituacaoNfe,
-                            SituacaoProtocoloCancelamento = nfe.SituacaoProtocoloCancelamento,
-                            SituacaoProtocoloUso = nfe.SituacaoProtocoloUso,
-                            SituacaoReciboEnvio = nfe.SituacaoReciboEnvio,
-                            DataEmissao = nfe.DataEmissao,
-                            DataCancelamento = nfe.DataCancelamento,
-                            Correcao = nfe.Correcao,
-                            DataCartaCorrecao = nfe.DataCartaCorrecao,
-                            MensagemSitucaoCartaCorrecao = nfe.MensagemSitucaoCartaCorrecao,
-                            NumeroProtocoloCartaCorrecao = nfe.NumeroProtocoloCartaCorrecao,
-                            SeqCartaCorrecao = nfe.SeqCartaCorrecao,
-                            SituacaoProtocoloCartaCorrecao = nfe.SituacaoProtocoloCartaCorrecao,
-                            NumeroSequenciaNfe = nfe.NumeroSequenciaNfe,
-                            Modelo = nfe.Modelo,
-                            CodLoja = nfe.CodLoja,
-                            CodSolicitacao = nfe.CodSolicitacao
-                        };
-            return query.AsNoTracking().ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from nfe in context.TbNves
+                            where nfe.CodSaida.Select(s => s.CodSaida).Contains(codSaida)
+                            select new NfeControle
+                            {
+                                Chave = nfe.Chave,
+                                CodNfe = nfe.CodNfe,
+                                CodSaida = codSaida,
+                                JustificativaCancelamento = nfe.JustificativaCancelamento,
+                                MensagemSituacaoReciboEnvio = nfe.MensagemSituacaoReciboEnvio,
+                                MensagemSitucaoProtocoloCancelamento = nfe.MensagemSituacaoProtocoloCancelamento,
+                                MensagemSitucaoProtocoloUso = nfe.MensagemSituacaoProtocoloUso,
+                                NumeroLoteEnvio = nfe.NumeroLoteEnvio,
+                                NumeroProtocoloCancelamento = nfe.NumeroProtocoloCancelamento,
+                                NumeroProtocoloUso = nfe.NumeroProtocoloUso,
+                                NumeroRecibo = nfe.NumeroRecibo,
+                                SituacaoNfe = nfe.SituacaoNfe,
+                                SituacaoProtocoloCancelamento = nfe.SituacaoProtocoloCancelamento,
+                                SituacaoProtocoloUso = nfe.SituacaoProtocoloUso,
+                                SituacaoReciboEnvio = nfe.SituacaoReciboEnvio,
+                                DataEmissao = nfe.DataEmissao,
+                                DataCancelamento = nfe.DataCancelamento,
+                                Correcao = nfe.Correcao,
+                                DataCartaCorrecao = nfe.DataCartaCorrecao,
+                                MensagemSitucaoCartaCorrecao = nfe.MensagemSitucaoCartaCorrecao,
+                                NumeroProtocoloCartaCorrecao = nfe.NumeroProtocoloCartaCorrecao,
+                                SeqCartaCorrecao = nfe.SeqCartaCorrecao,
+                                SituacaoProtocoloCartaCorrecao = nfe.SituacaoProtocoloCartaCorrecao,
+                                NumeroSequenciaNfe = nfe.NumeroSequenciaNfe,
+                                Modelo = nfe.Modelo,
+                                CodLoja = nfe.CodLoja,
+                                CodSolicitacao = nfe.CodSolicitacao
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
 
-        private NfeControle GerarChaveNFE(Saida saida, SolicitacaoDocumento solicitacao, string modelo, List<SolicitacaoSaida> listaSolicitacaoSaida)
+        private static NfeControle GerarChaveNFE(Saida saida, SolicitacaoDocumento solicitacao, string modelo, List<SolicitacaoSaida> listaSolicitacaoSaida)
         {
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorPessoa = new GerenciadorPessoa();
-
             if (saida.CodCliente.Equals(UtilConfig.Default.CLIENTE_PADRAO) && modelo.Equals(NfeControle.MODELO_NFE))
             {
                 throw new NegocioException("Não existe cliente associado a esse pedido. É necessário associar um CLIENTE que esteja com todos os dados cadastrados.");
@@ -324,7 +337,7 @@ namespace Negocio
                     || nfeC.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA));
 
 
-                Loja lojaOrigem = gerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                Loja lojaOrigem = GerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
 
                 // Verifica se houve já alguma tentativa de gerar a chave
                 if (nfeControlesTentativasFalhas.Count() > 0)
@@ -372,7 +385,7 @@ namespace Negocio
                     xmlnNF.InnerText = nfeControle.NumeroSequenciaNfe.ToString().PadLeft(8, '0');
                     xmlserie.InnerText = "1";
                     xmlAAMM.InnerText = DateTime.Now.Year.ToString().Substring(2, 2) + DateTime.Now.Month.ToString().PadLeft(2, '0');
-                    xmlcnpj.InnerText = gerenciadorPessoa.Obter(lojaOrigem.CodPessoa).ElementAt(0).CpfCnpj;
+                    xmlcnpj.InnerText = GerenciadorPessoa.Obter(lojaOrigem.CodPessoa).ElementAt(0).CpfCnpj;
                     xmlMod.InnerText = modelo; //55-NF-e 65-NFC-e
 
                     //inclui os novos elementos no elemento poemas
@@ -404,14 +417,13 @@ namespace Negocio
         /// <param name="codLoja">Identificação da loja</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public int ObterProximoNumeroSequenciaNfeLoja(Loja loja, string modelo)
+        public static int ObterProximoNumeroSequenciaNfeLoja(Loja loja, string modelo)
         {
-            var gerenciadorLoja = new GerenciadorLoja();
             try
             {
                 if (modelo.Equals(NfeControle.MODELO_NFE))
-                    return gerenciadorLoja.IncrementarNumeroNFe(loja.CodLoja, NfeControle.MODELO_NFE);
-                return gerenciadorLoja.IncrementarNumeroNFe(loja.CodLoja, NfeControle.MODELO_NFCE);
+                    return GerenciadorLoja.IncrementarNumeroNFe(loja.CodLoja, NfeControle.MODELO_NFE);
+                return GerenciadorLoja.IncrementarNumeroNFe(loja.CodLoja, NfeControle.MODELO_NFCE);
             }
             catch (Exception e)
             {
@@ -420,7 +432,7 @@ namespace Negocio
 
         }
 
-        private void RecuperarChave(FileInfo[] files)
+        private static void RecuperarChave(FileInfo[] files)
         {
             IEnumerable<FileInfo> filesChave = files.Where(f => f.FullName.Contains("-ret-gerar-chave.xml"));
             if (filesChave.Count() > 0)
@@ -439,7 +451,7 @@ namespace Negocio
         /// <param name="saida"></param>
         /// <param name="numeroTentativasGerarChave"></param>
         /// <returns></returns>
-        private void RecuperarChaveGerada(NfeControle nfeControle, Loja lojaOrigem, int numeroTentativasGerarChave)
+        private static void RecuperarChaveGerada(NfeControle nfeControle, Loja lojaOrigem, int numeroTentativasGerarChave)
         {
             chaveNfeGerada = "";
             int tentativas = 0;
@@ -465,9 +477,8 @@ namespace Negocio
         /// </summary>
         /// <param name="nfeControle"></param>
         /// <returns></returns>
-        public string RecuperarLoteEnvio(Loja loja)
+        public static string RecuperarLoteEnvio(Loja loja)
         {
-            var gerenciadorSaida = new GerenciadorSaida();
             DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeRetorno);
             string numeroLote = "";
             if (Dir.Exists)
@@ -512,7 +523,7 @@ namespace Negocio
                             }
                             Atualizar(nfeControle);
                             if (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA))
-                                gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
+                                GerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
                         }
                     }
                 }
@@ -525,9 +536,8 @@ namespace Negocio
         /// </summary>
         /// <param name="nfeControle"></param>
         /// <returns></returns>
-        public string RecuperarReciboEnvioNfe(string pastaNfeRetorno)
+        public static string RecuperarReciboEnvioNfe(string pastaNfeRetorno)
         {
-            var gerenciadorLoja = new GerenciadorLoja();
             DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroRecibo = "";
             if (Dir.Exists)
@@ -543,7 +553,7 @@ namespace Negocio
                         string numeroLote = files[i].Name.Substring(0, 15);
                         NfeControle nfeControle = ObterPorLote(numeroLote).LastOrDefault();
 
-                        Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).FirstOrDefault();
+                        Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).FirstOrDefault();
                         if (loja != null)
                             files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
                         files[i].Delete();
@@ -593,7 +603,7 @@ namespace Negocio
             return numeroRecibo;
         }
 
-        private void EmitirNfeContigencia(NfeControle nfeControle, Loja loja)
+        private static void EmitirNfeContigencia(NfeControle nfeControle, Loja loja)
         {
             XmlDocument xmldocRetorno = new XmlDocument();
             xmldocRetorno.Load(loja.PastaNfeEnviado + nfeControle.Chave + "-nfe.xml");
@@ -617,7 +627,7 @@ namespace Negocio
 
         }
 
-        private static bool alterouConfiguracaoSucesso(Loja loja)
+        private static bool AlterouConfiguracaoSucesso(Loja loja)
         {
             bool alterouConfiguracaoComSucesso = false;
             DirectoryInfo pastaRetorno = new DirectoryInfo(loja.PastaNfeRetorno);
@@ -646,10 +656,8 @@ namespace Negocio
             return alterouConfiguracaoComSucesso;
         }
 
-        public string RecuperarResultadoProcessamentoNfe(string pastaNfeRetorno)
+        public static string RecuperarResultadoProcessamentoNfe(string pastaNfeRetorno)
         {
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorSaida = new GerenciadorSaida();   
             DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroProtocolo = "";
             if (Dir.Exists)
@@ -663,7 +671,7 @@ namespace Negocio
                 {
                     if (files[i].Name.Contains("-pro-rec.err"))
                     {
-                        Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).FirstOrDefault();
+                        Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).FirstOrDefault();
                         if (loja != null)
                             files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
                         files[i].Delete();
@@ -754,14 +762,14 @@ namespace Negocio
 
                         }
                         if (nfeControle != null)
-                            gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
+                            GerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
                     }
                 }
             }
             return numeroProtocolo;
         }
 
-        public TNfeProc LerNFE(string arquivo)
+        public static TNfeProc LerNFE(string arquivo)
         {
             XmlDocument xmldocRetorno = new XmlDocument();
             StreamReader reader = new StreamReader(arquivo);
@@ -775,26 +783,18 @@ namespace Negocio
             return nfe;
         }
 
-        public void EnviarNFE(List<SolicitacaoSaida> listaSolicitacaoSaida, List<SolicitacaoPagamento> listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao modelo, SolicitacaoDocumento solicitacao)
+        public static void EnviarNFE(List<SolicitacaoSaida> listaSolicitacaoSaida, List<SolicitacaoPagamento> listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao modelo, SolicitacaoDocumento solicitacao)
         {
-            var gerenciadorSaida = new GerenciadorSaida();
-            var gerenciadorPessoa = new GerenciadorPessoa();
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorCfop = new GerenciadorCfop();
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            var gerenciadorSaidaPedido = new GerenciadorSaidaPedido(context);
-            var gerenciadorProduto = new GerenciadorProduto();
-
-            Saida saida = gerenciadorSaida.Obter(listaSolicitacaoSaida.FirstOrDefault().CodSaida);
+            Saida saida = GerenciadorSaida.Obter(listaSolicitacaoSaida.FirstOrDefault().CodSaida);
 
             // Clientes que não pode ser impresso CFe
-            Loja loja = gerenciadorLoja.Obter(saida.CodLojaOrigem).FirstOrDefault();
-            Pessoa pessoaloja = gerenciadorPessoa.Obter(loja.CodPessoa).FirstOrDefault();
+            Loja loja = GerenciadorLoja.Obter(saida.CodLojaOrigem).FirstOrDefault();
+            Pessoa pessoaloja = GerenciadorPessoa.Obter(loja.CodPessoa).FirstOrDefault();
             Pessoa destinatario;
             if (saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO))
                 destinatario = pessoaloja;
             else
-                destinatario = gerenciadorPessoa.Obter(saida.CodCliente).FirstOrDefault();
+                destinatario = GerenciadorPessoa.Obter(saida.CodCliente).FirstOrDefault();
 
             if ((destinatario.ImprimirCF) || (destinatario.CodMunicipioIBGE != pessoaloja.CodMunicipioIBGE))
                 modelo = DocumentoFiscal.TipoSolicitacao.NFE;
@@ -822,7 +822,7 @@ namespace Negocio
 
 
                 // utilizado como padrão quando não especificado pelos produtos
-                string cfopPadrao = gerenciadorSaida.ObterCfopTipoSaida(saida.TipoSaida).ToString();
+                string cfopPadrao = GerenciadorSaida.ObterCfopTipoSaida(saida.TipoSaida).ToString();
 
 
                 TNFe nfe = new TNFe();
@@ -855,7 +855,7 @@ namespace Negocio
                     infNFeIde.finNFe = TFinNFe.Item4;
                 else
                     infNFeIde.finNFe = TFinNFe.Item1;
-                infNFeIde.natOp = gerenciadorCfop.Obter(Convert.ToInt32(cfopPadrao)).ElementAtOrDefault(0).Descricao;
+                infNFeIde.natOp = GerenciadorCfop.Obter(Convert.ToInt32(cfopPadrao)).ElementAtOrDefault(0).Descricao;
                 infNFeIde.nNF = nfeControle.NumeroSequenciaNfe.ToString(); // número do Documento Fiscal
                 infNFeIde.procEmi = TProcEmi.Item0; //0 - Emissão do aplicativo do contribuinte
                 infNFeIde.serie = "1";
@@ -1021,25 +1021,25 @@ namespace Negocio
                     if (saida.TipoSaida == Saida.TIPO_VENDA)
                     {
                         if (nfeControleAutorizada != null)
-                            saidaProdutos = gerenciadorSaidaProduto.ObterPorNfeControle(nfeControleAutorizada.CodNfe);
+                            saidaProdutos = GerenciadorSaidaProduto.ObterPorNfeControle(nfeControleAutorizada.CodNfe);
                         else
-                            saidaProdutos = gerenciadorSaidaProduto.ObterPorPedido(saida.CupomFiscal);
+                            saidaProdutos = GerenciadorSaidaProduto.ObterPorPedido(saida.CupomFiscal);
                     }
                     else if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
                     {
-                        saidaProdutos = gerenciadorSaidaProduto.ObterPorSolicitacaoSaidas(listaSolicitacaoSaida);
+                        saidaProdutos = GerenciadorSaidaProduto.ObterPorSolicitacaoSaidas(listaSolicitacaoSaida);
                     }
                     else
                     {
-                        saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                     }
-                    saidaProdutos = gerenciadorSaida.ExcluirProdutosDevolvidosMesmoPreco(saidaProdutos);
+                    saidaProdutos = GerenciadorSaida.ExcluirProdutosDevolvidosMesmoPreco(saidaProdutos);
 
                     if (saidaProdutos.Count == 0)
                     {
                         List<long> listaCodSaidas = (List<long>)listaSolicitacaoSaida.Select(s => s.CodSaida).ToList();
                         foreach (long codSaida in listaCodSaidas)
-                            gerenciadorSaidaPedido.Atualizar(new SaidaPedido() { CodSaida = codSaida, CodPedido = codSaida, TotalAVista = totalSaidas });
+                            GerenciadorSaidaPedido.Atualizar(new SaidaPedido() { CodSaida = codSaida, CodPedido = codSaida, TotalAVista = totalSaidas });
                         return;
                     }
 
@@ -1048,14 +1048,14 @@ namespace Negocio
                     if (saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                     {
                         //totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
-                        listaSaidas = gerenciadorSaida.ObterPorCupomFiscal(saida.CupomFiscal);
+                        listaSaidas = GerenciadorSaida.ObterPorCupomFiscal(saida.CupomFiscal);
 
                         totalSaidas = listaSaidas.Where(s => s.TipoSaida == Saida.TIPO_VENDA).Sum(s => s.TotalAVista);
                     }
                     else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA))
                     {
                         //totalProdutos = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.Subtotal);
-                        listaSaidas = gerenciadorSaida.ObterPorSolicitacaoSaida(listaSolicitacaoSaida);
+                        listaSaidas = GerenciadorSaida.ObterPorSolicitacaoSaida(listaSolicitacaoSaida);
 
                         totalSaidas = listaSaidas.Where(s => s.TipoSaida == Saida.TIPO_PRE_VENDA).Sum(s => s.TotalAVista);
                     }
@@ -1097,7 +1097,7 @@ namespace Negocio
                         {
                             TNFeInfNFeDetProd prod = new TNFeInfNFeDetProd();
                             prod.cProd = saidaProduto.CodProduto.ToString();
-                            ProdutoPesquisa produto = gerenciadorProduto.Obter(saidaProduto.CodProduto).ElementAtOrDefault(0);
+                            ProdutoPesquisa produto = GerenciadorProduto.Obter(saidaProduto.CodProduto).ElementAtOrDefault(0);
 
 
                             if (Validacoes.ValidarEAN13(produto.CodigoBarra))
@@ -1386,7 +1386,7 @@ namespace Negocio
                 {
                     transp.modFrete = TNFeInfNFeTranspModFrete.Item1; // 1-Por conta do destinatário
                     transp.transporta = new TNFeInfNFeTranspTransporta();
-                    Pessoa transportadora = gerenciadorPessoa.Obter(saida.CodEmpresaFrete).FirstOrDefault();
+                    Pessoa transportadora = GerenciadorPessoa.Obter(saida.CodEmpresaFrete).FirstOrDefault();
                     transporta.IE = transportadora.Ie;
                     transporta.UF = (TUf)Enum.Parse(typeof(TUf), transportadora.Uf);
                     transporta.UFSpecified = true;
@@ -1544,9 +1544,8 @@ namespace Negocio
             }
         }
 
-        private void PreencherProdutoNFEComplementar(Saida saida, NfeControle nfeControleAutorizadaComp, List<TNFeInfNFeDet> listaNFeDet)
+        private static void PreencherProdutoNFEComplementar(Saida saida, NfeControle nfeControleAutorizadaComp, List<TNFeInfNFeDet> listaNFeDet)
         {
-            var gerenciadorSaida = new GerenciadorSaida();
             TNFeInfNFeDetProd prod = new TNFeInfNFeDetProd();
             prod.cProd = "CFOP9999";
             prod.xProd = "Nota Fiscal Complementar da NF-e " + nfeControleAutorizadaComp.NumeroSequenciaNfe + " de " + nfeControleAutorizadaComp.DataEmissao;
@@ -1612,10 +1611,8 @@ namespace Negocio
             listaNFeDet.Add(nfeDet);
         }
 
-        private NfeControle AdicionarReferenciaNFCupomAutorizado(Saida saida, Pessoa destinatario, TNFeInfNFeIde infNFeIde)
+        private static NfeControle AdicionarReferenciaNFCupomAutorizado(Saida saida, Pessoa destinatario, TNFeInfNFeIde infNFeIde)
         {
-            var gerenciadorSaida = new GerenciadorSaida();
-            var gerenciadorEntrada = new GerenciadorEntrada(context);
             NfeControle nfeControleAutorizada = ObterPorSaida(saida.CodSaida).Where(nfeC => nfeC.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA).ElementAtOrDefault(0);
 
             if (saida.TipoSaida.Equals(Saida.TIPO_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) ||
@@ -1624,7 +1621,7 @@ namespace Negocio
                 TNFeInfNFeIdeNFref nfeRefNfe = null;
                 if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                 {
-                    SaidaPesquisa saidaVendaCupom = gerenciadorSaida.ObterPorCupomFiscal(saida.Nfe).ElementAtOrDefault(0);
+                    SaidaPesquisa saidaVendaCupom = GerenciadorSaida.ObterPorCupomFiscal(saida.Nfe).ElementAtOrDefault(0);
                     nfeControleAutorizada = ObterPorSaida(saidaVendaCupom.CodSaida).Where(nfeC => nfeC.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA).ElementAtOrDefault(0);
                 }
                 if (nfeControleAutorizada != null)
@@ -1640,10 +1637,10 @@ namespace Negocio
             else if (saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
             {
                 TNFeInfNFeIdeNFref nfeRefNfe = null;
-                SaidaPesquisa saidaDevolucao = gerenciadorSaida.ObterPorCupomFiscal(saida.Marca).ElementAtOrDefault(0);
+                SaidaPesquisa saidaDevolucao = GerenciadorSaida.ObterPorCupomFiscal(saida.Marca).ElementAtOrDefault(0);
                 nfeControleAutorizada = ObterPorSaida(saidaDevolucao.CodSaida).Where(nfeC => nfeC.SituacaoNfe == NfeControle.SITUACAO_AUTORIZADA).ElementAtOrDefault(0);
                 saida.Marca = "DIVERSAS";
-                gerenciadorSaida.Atualizar(saida);
+                GerenciadorSaida.Atualizar(saida);
                 if (nfeControleAutorizada != null)
                 {
                     nfeRefNfe = new TNFeInfNFeIdeNFref();
@@ -1656,7 +1653,7 @@ namespace Negocio
             }
             else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
             {
-                Entrada entrada = gerenciadorEntrada.Obter(saida.CodEntrada).ElementAtOrDefault(0);
+                Entrada entrada = GerenciadorEntrada.Obter(saida.CodEntrada).ElementAtOrDefault(0);
 
                 if (String.IsNullOrEmpty(entrada.Chave))
                 {
@@ -1685,7 +1682,7 @@ namespace Negocio
             return nfeControleAutorizada;
         }
 
-        public List<SaidaProduto> DistribuirDescontoProdutos(List<SaidaProduto> saidaProdutos, decimal totalSaidas)
+        private static List<SaidaProduto> DistribuirDescontoProdutos(List<SaidaProduto> saidaProdutos, decimal totalSaidas)
         {
             saidaProdutos = AgruparSaidaProdutos(saidaProdutos);
             foreach (SaidaProduto saidaProduto in saidaProdutos)
@@ -1853,9 +1850,8 @@ namespace Negocio
         /// Envia solicitação de cancelamanto usando Eventos.
         /// </summary>
         /// <param name="nfeControle"></param>
-        public void EnviarSolicitacaoCancelamento(NfeControle nfeControle)
+        public static void EnviarSolicitacaoCancelamento(NfeControle nfeControle)
         {
-            var gerenciadorSolicitacaoEvento = new GerenciadorSolicitacaoEvento(context);
             try
             {
                 if (nfeControle != null)
@@ -1868,7 +1864,7 @@ namespace Negocio
                     var solicitaEvento = new SolicitacaoEventoNfe();
                     solicitaEvento.CodNfe = nfeControle.CodNfe;
                     solicitaEvento.TipoSolicitacao = EventoNfe.TIPO_CANCELAMENTO;
-                    gerenciadorSolicitacaoEvento.Inserir(solicitaEvento);
+                    GerenciadorSolicitacaoEvento.Inserir(solicitaEvento);
                 }
             }
             catch (NegocioException ne)
@@ -1886,19 +1882,16 @@ namespace Negocio
         /// Envia solicitação de cancelamanto usando Eventos.
         /// </summary>
         /// <param name="nfeControle"></param>
-        public void ProcessarSolicitacoesCancelamento()
+        public static void ProcessarSolicitacoesCancelamento()
         {
-            var gerenciadorSolicitacaoEvento = new GerenciadorSolicitacaoEvento(context);
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorPessoa = new GerenciadorPessoa();
             try
             {
-                var listaSolicitacaoEvento = gerenciadorSolicitacaoEvento.ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CANCELAMENTO).ToList();
+                var listaSolicitacaoEvento = GerenciadorSolicitacaoEvento.ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CANCELAMENTO).ToList();
 
                 foreach (SolicitacaoEventoNfe eventoNfe in listaSolicitacaoEvento)
                 {
                     NfeControle nfeControle = Obter(eventoNfe.CodNfe).FirstOrDefault();
-                    gerenciadorSolicitacaoEvento.Remover(eventoNfe.IdSolicitacaoEvento);
+                    GerenciadorSolicitacaoEvento.Remover(eventoNfe.IdSolicitacaoEvento);
                     if (nfeControle == null)
                         return;
                     Dominio.NFE2.TEnvEvento envEvento = new Dominio.NFE2.TEnvEvento();
@@ -1913,8 +1906,8 @@ namespace Negocio
                     infEvento.cOrgao = (Dominio.NFE2.TCOrgaoIBGE)Enum.Parse(typeof(Dominio.NFE2.TCOrgaoIBGE), "Item" + UtilConfig.Default.C_ORGAO_IBGE_SERGIPE);
                     infEvento.tpAmb = (Dominio.NFE2.TAmb)Enum.Parse(typeof(Dominio.NFE2.TAmb), "Item" + UtilConfig.Default.AMBIENTE_NFE); // 1-produção / 2-homologação
                     //Saida saida = gerenciadorSaida.Obter(nfeControle.CodSaida);
-                    Loja loja = gerenciadorLoja.Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
-                    Pessoa pessoa = gerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
+                    Loja loja = GerenciadorLoja.Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
+                    Pessoa pessoa = GerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
 
                     if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
                         infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CPF;
@@ -1988,10 +1981,8 @@ namespace Negocio
         /// REtorna o resultado do pedido de cancelamento da NF-e
         /// </summary>
         /// <returns></returns>
-        public string RecuperarResultadoCancelamentoNfe(string pastaNfeRetorno)
+        public static string RecuperarResultadoCancelamentoNfe(string pastaNfeRetorno)
         {
-            var gerenciadorSaida = new GerenciadorSaida();
-           
             DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroProtocolo = "";
             if (Dir.Exists)
@@ -2041,7 +2032,7 @@ namespace Negocio
                                 Atualizar(nfeControle);
                                 files[i].Delete();
                             }
-                            gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
+                            GerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
                         }
                     }
                 }
@@ -2053,11 +2044,8 @@ namespace Negocio
         /// Envia solicitação de inutilização de numeração de nf-e
         /// </summary>
         /// <param name="nfeControle"></param>
-        public void EnviarSolicitacaoInutilizacao(NfeControle nfeControle)
+        public static void EnviarSolicitacaoInutilizacao(NfeControle nfeControle)
         {
-            var gerenciadorSaida = new GerenciadorSaida();
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorPessoa = new GerenciadorPessoa();
             try
             {
                 if (string.IsNullOrEmpty(nfeControle.JustificativaCancelamento) || (nfeControle.JustificativaCancelamento.Length < 15))
@@ -2067,9 +2055,9 @@ namespace Negocio
 
                 TInutNFe inutilizacaoNfe = new TInutNFe();
                 inutilizacaoNfe.versao = "2.00";
-                Saida saida = gerenciadorSaida.Obter(nfeControle.CodSaida);
-                Loja loja = gerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                Pessoa pessoa = gerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
+                Saida saida = GerenciadorSaida.Obter(nfeControle.CodSaida);
+                Loja loja = GerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                Pessoa pessoa = GerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
 
                 TInutNFeInfInut infInutilizacaoNfe = new TInutNFeInfInut();
                 infInutilizacaoNfe.ano = DateTime.Now.Year.ToString();
@@ -2117,10 +2105,9 @@ namespace Negocio
         /// REtorna o resultado do pedido de cancelamento da NF-e
         /// </summary>
         /// <returns></returns>
-        public string RecuperarResultadoInutilizacaoNfe(string pastaNfeRetorno)
+        public static string RecuperarResultadoInutilizacaoNfe(string pastaNfeRetorno)
         {
-            var gerenciadorSaida = new GerenciadorSaida();
-            
+
             DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroProtocolo = "";
             if (Dir.Exists)
@@ -2170,7 +2157,7 @@ namespace Negocio
                                 Atualizar(nfeControle);
                                 files[i].Delete();
                             }
-                            gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
+                            GerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
                         }
                     }
                 }
@@ -2182,9 +2169,8 @@ namespace Negocio
         /// Envia solicitação de consulta a uma nf-e
         /// </summary>
         /// <param name="nfeControle"></param>
-        public void EnviarConsultaNfe(NfeControle nfeControle)
+        public static void EnviarConsultaNfe(NfeControle nfeControle)
         {
-            var gerenciadorSolicitacaoEvento = new GerenciadorSolicitacaoEvento(context);
             try
             {
                 if (nfeControle != null)
@@ -2192,7 +2178,7 @@ namespace Negocio
                     var solicitaEvento = new SolicitacaoEventoNfe();
                     solicitaEvento.CodNfe = nfeControle.CodNfe;
                     solicitaEvento.TipoSolicitacao = EventoNfe.TIPO_CONSULTA;
-                    gerenciadorSolicitacaoEvento.Inserir(solicitaEvento);
+                    GerenciadorSolicitacaoEvento.Inserir(solicitaEvento);
                 }
             }
             catch (NegocioException ne)
@@ -2207,19 +2193,17 @@ namespace Negocio
 
 
 
-        public void ProcessaSolicitacaoConsultaNfe()
+        public static void ProcessaSolicitacaoConsultaNfe()
         {
-            var gerenciadorSolicitacaoEvento = new GerenciadorSolicitacaoEvento(context);
-            var gerenciadorLoja = new GerenciadorLoja();
             try
             {
 
-                var listaSolicitacaoEvento = gerenciadorSolicitacaoEvento.ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CONSULTA);
+                var listaSolicitacaoEvento = GerenciadorSolicitacaoEvento.ObterPorTiposolicitacaoEvento(EventoNfe.TIPO_CONSULTA);
 
                 foreach (SolicitacaoEventoNfe eventoNfe in listaSolicitacaoEvento)
                 {
                     NfeControle nfeControle = Obter(eventoNfe.CodNfe).FirstOrDefault();
-                    gerenciadorSolicitacaoEvento.Remover(eventoNfe.IdSolicitacaoEvento);
+                    GerenciadorSolicitacaoEvento.Remover(eventoNfe.IdSolicitacaoEvento);
                     if (nfeControle == null)
                         return;
 
@@ -2241,7 +2225,7 @@ namespace Negocio
                     memStream.Position = 0;
                     xmlDoc.Load(memStream);
 
-                    Loja loja = gerenciadorLoja.Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
+                    Loja loja = GerenciadorLoja.Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
                     xmlDoc.Save(loja.PastaNfeEnvio + nfeControle.Chave + "-ped-sit.xml");
                     xmlDoc.Save(loja.PastaNfeEnviado + nfeControle.Chave + "-ped-sit.xml");
                 }
@@ -2261,10 +2245,8 @@ namespace Negocio
         /// REtorna o resultado do pedido de cancelamento da NF-e
         /// </summary>
         /// <returns></returns>
-        public void RecuperarResultadoConsultaNfe(string pastaNfeRetorno)
+        public static void RecuperarResultadoConsultaNfe(string pastaNfeRetorno)
         {
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorSaida = new GerenciadorSaida();
             DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             if (Dir.Exists)
             {
@@ -2280,7 +2262,7 @@ namespace Negocio
                     }
                     else if (files[i].Name.Contains("-sit.err"))
                     {
-                        Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).FirstOrDefault();
+                        Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).FirstOrDefault();
                         if (loja != null)
                             files[i].CopyTo(loja.PastaNfeErro + files[i].Name, true);
                         files[i].Delete();
@@ -2332,7 +2314,7 @@ namespace Negocio
                                 }
                             }
                             Atualizar(nfeControle);
-                            gerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
+                            GerenciadorSaida.AtualizarSaidasPorNfeSituacao(nfeControle);
                             files[0].Delete();
 
                         }
@@ -2345,11 +2327,8 @@ namespace Negocio
         /// Envia solicitação de correção de uma nf-e
         /// </summary>
         /// <param name="nfeControle"></param>
-        public void EnviarCartaCorrecaoNfe(NfeControle nfeControle)
+        public static void EnviarCartaCorrecaoNfe(NfeControle nfeControle)
         {
-            var gerenciadorSaida = new GerenciadorSaida();
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorPessoa = new GerenciadorPessoa();
             try
             {
                 NfeControle nfeControleSeq = Obter(nfeControle.CodNfe).FirstOrDefault();
@@ -2378,9 +2357,9 @@ namespace Negocio
                 infEvento.cOrgao = (Dominio.NFE2.TCOrgaoIBGE)Enum.Parse(typeof(Dominio.NFE2.TCOrgaoIBGE), "Item" + UtilConfig.Default.C_ORGAO_IBGE_SERGIPE);
                 infEvento.tpAmb = (Dominio.NFE2.TAmb)Enum.Parse(typeof(Dominio.NFE2.TAmb), "Item" + UtilConfig.Default.AMBIENTE_NFE); // 1-produção / 2-homologação
 
-                Saida saida = gerenciadorSaida.Obter(nfeControle.CodSaida);
-                Loja loja = gerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                Pessoa pessoa = gerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
+                Saida saida = GerenciadorSaida.Obter(nfeControle.CodSaida);
+                Loja loja = GerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                Pessoa pessoa = GerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
 
                 if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
                     infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CPF;
@@ -2454,10 +2433,8 @@ namespace Negocio
         /// REtorna o resultado do pedido de cancelamento da NF-e
         /// </summary>
         /// <returns></returns>
-        public string RecuperarResultadoCartaCorrecaoNfe(string pastaNfeRetorno)
+        public static string RecuperarResultadoCartaCorrecaoNfe(string pastaNfeRetorno)
         {
-            var gerenciadorLoja = new GerenciadorLoja();
-
             DirectoryInfo Dir = new DirectoryInfo(pastaNfeRetorno);
             string numeroProtocolo = "";
             if (Dir.Exists)
@@ -2505,7 +2482,7 @@ namespace Negocio
 
 
                                     DateTime dataEmissao = (DateTime)nfeControle.DataEmissao;
-                                    Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
+                                    Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
                                     string pastaNfe = loja.PastaNfeAutorizados + dataEmissao.Year
                                         + dataEmissao.Month.ToString("00")
                                         + dataEmissao.Day.ToString("00") + "\\";
@@ -2535,7 +2512,7 @@ namespace Negocio
         /// Recupera os vários retornos do processamento de Nfes
         /// </summary>
 
-        public void RecuperarRetornosNfe(Loja loja)
+        public static void RecuperarRetornosNfe(Loja loja)
         {
             try
             {
@@ -2565,7 +2542,7 @@ namespace Negocio
             }
         }
 
-        private string formataValorNFe(decimal? valor)
+        private static string formataValorNFe(decimal? valor)
         {
             try
             {
@@ -2581,7 +2558,7 @@ namespace Negocio
             }
         }
 
-        private string formataValorNFe(decimal? valor, int quantidadeDecimais)
+        private static string formataValorNFe(decimal? valor, int quantidadeDecimais)
         {
             try
             {
@@ -2602,7 +2579,7 @@ namespace Negocio
         }
 
 
-        private string formataQtdNFe(decimal? quantidade)
+        private static string formataQtdNFe(decimal? quantidade)
         {
             try
             {
@@ -2617,7 +2594,7 @@ namespace Negocio
                 throw ex;
             }
         }
-        private string formataPesoNFe(decimal? quantidade)
+        private static string formataPesoNFe(decimal? quantidade)
         {
             try
             {
@@ -2638,7 +2615,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="_nfe"></param>
-        private void Atribuir(NfeControle nfe, TbNfe _nfe)
+        private static void Atribuir(NfeControle nfe, TbNfe _nfe)
         {
             _nfe.Chave = string.IsNullOrEmpty(nfe.Chave) ? "" : nfe.Chave;
             _nfe.CodNfe = nfe.CodNfe;
@@ -2670,19 +2647,15 @@ namespace Negocio
 
         }
 
-        private string truncate(string texto, int tamanho)
+        private static string truncate(string texto, int tamanho)
         {
             if (texto.Length > tamanho)
                 return texto.Substring(0, tamanho);
             return texto;
         }
 
-        public void ImprimirDanfe(NfeControle nfeControle)
+        public static void ImprimirDanfe(NfeControle nfeControle)
         {
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorSaida = new GerenciadorSaida();
-            
-            var gerenciadorImprimirDocumento = new GerenciadorImprimirDocumento(context);
             if (nfeControle != null)
             {
                 ImprimirDocumento imprimir = new ImprimirDocumento();
@@ -2698,28 +2671,28 @@ namespace Negocio
                 if (imprimir.TipoDocumento.Equals("NFE") && fileUnidanfeInfo.Exists)
                 {
                     //TODO: melhorar pesquisa
-                    SaidaPesquisa saidaPesquisa = gerenciadorSaida.ObterSaidaPorNfe(nfeControle.CodNfe).FirstOrDefault();
-                    Saida saida = gerenciadorSaida.Obter(saidaPesquisa.CodSaida);
-                    Loja loja = gerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                    SaidaPesquisa saidaPesquisa = GerenciadorSaida.ObterSaidaPorNfe(nfeControle.CodNfe).FirstOrDefault();
+                    Saida saida = GerenciadorSaida.Obter(saidaPesquisa.CodSaida);
+                    Loja loja = GerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                     sucessoImprimirLocal = ImprimirUnidanfe(nfeControle, loja);
                 }
                 if (!sucessoImprimirLocal)
-                    gerenciadorImprimirDocumento.Inserir(imprimir);
+                    GerenciadorImprimirDocumento.Inserir(imprimir);
             }
             else
             {
                 var listaImprimirNfe = new List<ImprimirDocumento>();
                 if (nomeComputador.Equals(UtilConfig.Default.SERVIDOR_IMPRIMIR_NFE))
-                    listaImprimirNfe = gerenciadorImprimirDocumento.ObterPorTipoDocumentoHost("NFE", nomeComputador).ToList();
+                    listaImprimirNfe = GerenciadorImprimirDocumento.ObterPorTipoDocumentoHost("NFE", nomeComputador).ToList();
                 var listaImprimirNfce = new List<ImprimirDocumento>();
                 if (nomeComputador.Equals(UtilConfig.Default.SERVIDOR_IMPRIMIR_NFE))
-                    listaImprimirNfce = gerenciadorImprimirDocumento.ObterPorTipoDocumento("NFCE").ToList();
+                    listaImprimirNfce = GerenciadorImprimirDocumento.ObterPorTipoDocumento("NFCE").ToList();
                 var listaImprimir = listaImprimirNfce.Union(listaImprimirNfe);
                 if (listaImprimir != null && listaImprimir.Count() > 0)
                 {
                     foreach (ImprimirDocumento documento in listaImprimir)
                     {
-                        gerenciadorImprimirDocumento.Remover(documento.CodImprimir);
+                        GerenciadorImprimirDocumento.Remover(documento.CodImprimir);
                         nfeControle = Obter((int)documento.CodDocumento).FirstOrDefault();
 
                         if ((nfeControle != null) && (nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA) || nfeControle.SituacaoNfe.Equals(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE)))
@@ -2727,12 +2700,12 @@ namespace Negocio
                             //Saida saida = gerenciadorSaida.Obter(nfeControle.CodSaida);
                             Loja loja;
                             if (nfeControle.Modelo.Equals(NfeControle.MODELO_NFCE))
-                                loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
+                                loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
                             else
                             {
-                                SaidaPesquisa saidaPesquisa = gerenciadorSaida.ObterSaidaPorNfe(nfeControle.CodNfe).FirstOrDefault();
-                                Saida saida = gerenciadorSaida.Obter(saidaPesquisa.CodSaida);
-                                loja = gerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
+                                SaidaPesquisa saidaPesquisa = GerenciadorSaida.ObterSaidaPorNfe(nfeControle.CodNfe).FirstOrDefault();
+                                Saida saida = GerenciadorSaida.Obter(saidaPesquisa.CodSaida);
+                                loja = GerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
                             }
                             if (!ImprimirUnidanfe(nfeControle, loja))
                             {
@@ -2749,10 +2722,9 @@ namespace Negocio
         /// </summary>
         /// <param name="listaSaidaProdutos"></param>
         /// <returns></returns>
-        private List<SaidaProduto> CalcularValorImpostoProdutos(List<SaidaProduto> listaSaidaProdutos)
+        private static List<SaidaProduto> CalcularValorImpostoProdutos(List<SaidaProduto> listaSaidaProdutos)
         {
-            var gerenciadorImposto = new GerenciadorImposto(context);
-            IEnumerable<Imposto> listaImpostos = gerenciadorImposto.ObterTodos(); ;
+            IEnumerable<Imposto> listaImpostos = GerenciadorImposto.ObterTodos(); ;
             foreach (SaidaProduto saidaProduto in listaSaidaProdutos)
             {
                 Imposto imposto = listaImpostos.Where(imp => imp.Ncmsh.Equals(saidaProduto.Ncmsh)).ElementAtOrDefault(0);
@@ -2821,11 +2793,9 @@ namespace Negocio
         }
 
 
-        public void EnviarNFEsOffLine()
+        public static void EnviarNFEsOffLine()
         {
-            var gerenciadorLoja = new GerenciadorLoja();
-
-            Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).FirstOrDefault();
+            Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).FirstOrDefault();
             if (loja != null)
             {
                 List<NfeControle> listaNfe = ObterPorSituacao(NfeControle.SITUACAO_CONTINGENCIA_OFFLINE).ToList();
@@ -2842,7 +2812,7 @@ namespace Negocio
             }
         }
 
-        public void CalcularTotaisNFCe(String pasta)
+        public static void CalcularTotaisNFCe(String pasta)
         {
             DirectoryInfo Dir = new DirectoryInfo(pasta);
             if (Dir.Exists)
@@ -2853,7 +2823,7 @@ namespace Negocio
                 string arquivosCancelado = "*procEventoNFe.xml";
                 FileInfo[] filesCancelado = Dir.GetFiles(arquivosCancelado, SearchOption.TopDirectoryOnly);
 
-            
+
                 Dictionary<string, decimal> mapValores = new Dictionary<string, decimal>();
                 Dictionary<string, decimal> mapDesconto = new Dictionary<string, decimal>();
 

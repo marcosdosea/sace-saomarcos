@@ -33,7 +33,7 @@ namespace Sace
             if (MessageBox.Show("Confirma Exclusão e Utilização dessa Ponta de Estoque?", "Confirmar Seleção Ponta Estoque", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 PontaEstoqueSelected = (PontaEstoque)pontaEstoqueBindingSource.Current;
-                service.GerenciadorPontaEstoque.Remover(PontaEstoqueSelected.CodPontaEstoque);
+                GerenciadorPontaEstoque.Remover(PontaEstoqueSelected.CodPontaEstoque);
             }
             else
             {

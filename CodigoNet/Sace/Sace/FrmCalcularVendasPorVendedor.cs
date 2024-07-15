@@ -5,12 +5,10 @@ namespace Sace
     public partial class FrmCalcularVendasPorVendedor : Form
     {
 
-        private readonly GerenciadorSaida gerenciadorSaida;
         public FrmCalcularVendasPorVendedor()
         {
             InitializeComponent();
             dateTimeInicial.Value = DateTime.Now.AddMonths(-1);
-            gerenciadorSaida = new GerenciadorSaida();
         }
 
         private void FrmCalcularVendasPorVendedor_KeyDown(object sender, KeyEventArgs e)
@@ -33,11 +31,11 @@ namespace Sace
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor; 
+            Cursor.Current = Cursors.WaitCursor;
             DateTime dataInicial = dateTimeInicial.Value;
             DateTime dataFinal = dateTimeFinal.Value;
-            vendasVendedorBindingSource.DataSource = gerenciadorSaida.ObterVendasPorVendedor(dataInicial, dataFinal);
-            Cursor.Current = Cursors.Default; 
+            vendasVendedorBindingSource.DataSource = GerenciadorSaida.ObterVendasPorVendedor(dataInicial, dataFinal);
+            Cursor.Current = Cursors.Default;
         }
 
     }

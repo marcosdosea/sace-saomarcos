@@ -6,21 +6,16 @@ namespace Sace
 {
     public partial class FrmGrupoEstatistica : Form
     {
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmGrupoEstatistica(DbContextOptions<SaceContext> saceOptions)
+        public FrmGrupoEstatistica()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            this.service = new SaceService(context); 
         }
 
 
         private void FrmGrupoEstatistica_Load(object sender, EventArgs e)
         {
-            grupoBindingSource.DataSource = service.GerenciadorGrupo.ObterTodos();
+            grupoBindingSource.DataSource = GerenciadorGrupo.ObterTodos();
 
             dataInicioTimePicker.Value = DateTime.Now.AddMonths(-12);
             dataFimTimePicker.Value = DateTime.Now;
@@ -59,7 +54,7 @@ namespace Sace
                 Cursor.Current = Cursors.WaitCursor;
                 int codGrupo = (int)codGrupoComboBox.SelectedValue;
 
-                var vendasPorGrupo = gerenciadorSaida.ObterVendasPorGrupo(codGrupo, dataInicial, dataFinal);
+                var vendasPorGrupo = GerenciadorSaida.ObterVendasPorGrupo(codGrupo, dataInicial, dataFinal);
 
                 //saceDataSetConsultas.VendasPorGrupoDataTable vendasgrupoDataTable = new saceDataSetConsultas.VendasPorGrupoDataTable();
                 //Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter vendasGrupoTA = new Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter();

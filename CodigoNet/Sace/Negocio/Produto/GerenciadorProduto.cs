@@ -6,7 +6,7 @@ using Util;
 
 namespace Negocio
 {
-    public class GerenciadorProduto
+    public static class GerenciadorProduto
     {
 
         /// <summary>
@@ -14,7 +14,7 @@ namespace Negocio
         /// </summary>
         /// <param name="produto"></param>
         /// <returns></returns>
-        public long Inserir(Produto produto)
+        public static long Inserir(Produto produto)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Negocio
         /// </summary>
         /// <param name="entradaProduto"></param>
         /// <returns></returns>
-        public long Inserir(EntradaProduto entradaProduto)
+        public static long Inserir(EntradaProduto entradaProduto)
         {
             Produto produto = new Produto();
             produto.CodCST = entradaProduto.CodCST;
@@ -102,7 +102,7 @@ namespace Negocio
         /// Atualiza os dados do produto
         /// </summary>
         /// <param name="produto"></param>
-        public void Atualizar(Produto produto)
+        public static void Atualizar(Produto produto)
         {
             if (produto.CodProduto == 1)
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
@@ -140,6 +140,7 @@ namespace Negocio
                     }
 
                     Atribuir(produto, _produto);
+                    context.Update(produto);
                     context.SaveChanges();
                 }
             }
@@ -154,7 +155,7 @@ namespace Negocio
         /// </summary>
         /// <param name="_produtoPesquisa"></param>
         /// <param name="ultimoCodigoBarraLido"></param>
-        public void AtualizarCodigoBarra(ProdutoPesquisa _produtoPesquisa, string ultimoCodigoBarraLido)
+        public static void AtualizarCodigoBarra(ProdutoPesquisa _produtoPesquisa, string ultimoCodigoBarraLido)
         {
             try
             {
@@ -177,7 +178,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProdutoExcluir"></param>
         /// <param name="codProdutoManter"></param>
-        public void SubstituirProduto(long codProdutoExcluir, long codProdutoManter)
+        public static void SubstituirProduto(long codProdutoExcluir, long codProdutoManter)
         {
             try
             {
@@ -235,7 +236,7 @@ namespace Negocio
         /// Atualizar situação do produto em relação ao estoque
         /// </summary>
         /// <param name="novaSituacao"></param>
-        public void AtualizarSituacaoProduto(SolicitacoesCompra solicitacaoCompra, string nomeServidor)
+        public static void AtualizarSituacaoProduto(SolicitacoesCompra solicitacaoCompra, string nomeServidor)
         {
             using (var context = new SaceContext())
             {
@@ -279,7 +280,7 @@ namespace Negocio
         /// Solicita atualização da situação de produtos no servidor
         /// </summary>
         /// <param name="nomeServidor"></param>
-        public void AtualizarSituacaoProdutoServidor(string nomeServidor)
+        public static void AtualizarSituacaoProdutoServidor(string nomeServidor)
         {
             DirectoryInfo Dir = new DirectoryInfo(UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS);
             if (Dir.Exists)
@@ -324,7 +325,7 @@ namespace Negocio
         /// </summary>
         /// <param name="_produtoPesquisa"></param>
         /// <param name="ultimoCodigoBarraLido"></param>
-        public void AtualizarNcmshQtdAtacado(long codProduto, string nomeProduto, string ncsmsh, string codigoEAN)
+        public static void AtualizarNcmshQtdAtacado(long codProduto, string nomeProduto, string ncsmsh, string codigoEAN)
         {
             using (var context = new SaceContext())
             {
@@ -359,7 +360,7 @@ namespace Negocio
         /// <param name="nomeProduto"></param>
         /// <param name="precoVarejo"></param>
         /// <param name="precoAtacado"></param>
-        public void AtualizarPrecoVarejoAtacado(long codProduto, string nomeProduto, decimal precoVarejo, decimal precoAtacado, decimal precoRevenda)
+        public static void AtualizarPrecoVarejoAtacado(long codProduto, string nomeProduto, decimal precoVarejo, decimal precoAtacado, decimal precoRevenda)
         {
             using (var context = new SaceContext())
             {
@@ -395,7 +396,7 @@ namespace Negocio
         /// Remove produto da base de dados
         /// </summary>
         /// <param name="codProduto"></param>
-        public void Remover(long codProduto)
+        public static void Remover(long codProduto)
         {
             if (codProduto == 1)
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
@@ -425,7 +426,7 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Produto> GetQuery()
+        private static IQueryable<Produto> GetQuery()
         {
             using (var context = new SaceContext())
             {
@@ -477,7 +478,7 @@ namespace Negocio
         /// Consulta simples para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<ProdutoPesquisa> GetQuerySimples()
+        private static IQueryable<ProdutoPesquisa> GetQuerySimples()
         {
             using (var context = new SaceContext())
             {
@@ -526,7 +527,7 @@ namespace Negocio
         /// Obter todos os produtos
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Produto> ObterTodos()
+        public static IEnumerable<Produto> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -536,13 +537,13 @@ namespace Negocio
         /// </summary>
         /// <param name="codBarra"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterTodosExibiveis()
+        public static IEnumerable<ProdutoPesquisa> ObterTodosExibiveis()
         {
 
             return GetQuerySimples().Where(p => p.ExibeNaListagem == true).ToList();
         }
 
-        public IEnumerable<ProdutoNome> ObterTodosNomesExibiveis()
+        public static IEnumerable<ProdutoNome> ObterTodosNomesExibiveis()
         {
             using (var context = new SaceContext())
             {
@@ -562,7 +563,7 @@ namespace Negocio
         /// Obter todos os produtos ordenados pelo nome
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProdutoNome> ObterTodosNomes()
+        public static IEnumerable<ProdutoNome> ObterTodosNomes()
         {
             using (var context = new SaceContext())
             {
@@ -582,7 +583,7 @@ namespace Negocio
         /// </summary>
         /// <param name="produtoPesquisa"></param>
         /// <returns></returns>
-        public Produto Obter(ProdutoPesquisa produtoPesquisa)
+        public static Produto Obter(ProdutoPesquisa produtoPesquisa)
         {
             return GetQuery().Where(p => p.CodProduto == produtoPesquisa.CodProduto).First();
         }
@@ -592,7 +593,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> Obter(long codProduto)
+        public static IEnumerable<ProdutoPesquisa> Obter(long codProduto)
         {
             return GetQuerySimples().Where(p => p.CodProduto == codProduto).ToList();
         }
@@ -602,7 +603,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorReferenciaFabricante(string referenciaFabricante)
+        public static IEnumerable<ProdutoPesquisa> ObterPorReferenciaFabricante(string referenciaFabricante)
         {
             return GetQuerySimples().Where(p => p.ReferenciaFabricante.StartsWith(referenciaFabricante)).ToList();
         }
@@ -613,7 +614,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorCodigoBarra(string codigoBarra)
+        public static IEnumerable<ProdutoPesquisa> ObterPorCodigoBarra(string codigoBarra)
         {
             return GetQuerySimples().Where(p => p.CodigoBarra.StartsWith(codigoBarra)).ToList();
         }
@@ -623,7 +624,7 @@ namespace Negocio
         /// </summary>
         /// <param name="Ncmsh"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorNcmsh(string ncmsh)
+        public static IEnumerable<ProdutoPesquisa> ObterPorNcmsh(string ncmsh)
         {
             return GetQuerySimples().Where(p => p.Ncmsh.StartsWith(ncmsh)).ToList();
         }
@@ -633,7 +634,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBarra"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorCodigoBarraExato(String codBarra)
+        public static IEnumerable<ProdutoPesquisa> ObterPorCodigoBarraExato(String codBarra)
         {
             return GetQuerySimples().Where(p => p.CodigoBarra.Equals(codBarra)).ToList();
         }
@@ -643,7 +644,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBarra"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorNomeProdutoFabricante(String nomeProdutoFabricante)
+        public static IEnumerable<ProdutoPesquisa> ObterPorNomeProdutoFabricante(String nomeProdutoFabricante)
         {
             return GetQuerySimples().Where(p => p.NomeProdutoFabricante.StartsWith(nomeProdutoFabricante)).ToList();
         }
@@ -653,7 +654,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorCodigoFabricante(long codPessoa)
+        public static IEnumerable<ProdutoPesquisa> ObterPorCodigoFabricante(long codPessoa)
         {
             return GetQuerySimples().Where(p => p.CodFabricante.Equals(codPessoa)).ToList();
         }
@@ -663,12 +664,12 @@ namespace Negocio
         /// </summary>
         /// <param name="codBarra"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorDataAtualizacaoMaiorIgual(DateTime dataAtualizacao)
+        public static IEnumerable<ProdutoPesquisa> ObterPorDataAtualizacaoMaiorIgual(DateTime dataAtualizacao)
         {
             return GetQuerySimples().Where(p => p.UltimaDataAtualizacao >= dataAtualizacao).ToList();
         }
 
-        public IEnumerable<ProdutoPesquisa> ObterPorDataMudancaPrecoMaiorIgual(DateTime dataMudancaPreco)
+        public static IEnumerable<ProdutoPesquisa> ObterPorDataMudancaPrecoMaiorIgual(DateTime dataMudancaPreco)
         {
             return GetQuerySimples().Where(p => p.DataUltimaMudancaPreco >= dataMudancaPreco).ToList();
         }
@@ -678,7 +679,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBarra"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorNome(string nome)
+        public static IEnumerable<ProdutoPesquisa> ObterPorNome(string nome)
         {
             var query = GetQuerySimples();
             if ((nome.Length > 0) && (nome[0] == '%'))
@@ -697,7 +698,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBarra"></param>
         /// <returns></returns>
-        public IEnumerable<SolicitacoesCompra> ObterSolicitacoesCompra(List<int> listaCodSituacoes, long codFornecedor)
+        public static IEnumerable<SolicitacoesCompra> ObterSolicitacoesCompra(List<int> listaCodSituacoes, long codFornecedor)
         {
             using (var context = new SaceContext())
             {
@@ -748,7 +749,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBarra"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorNomeExibiveis(string nome)
+        public static IEnumerable<ProdutoPesquisa> ObterPorNomeExibiveis(string nome)
         {
             if ((nome.Length > 0) && (nome[0] == '%'))
             {
@@ -764,7 +765,7 @@ namespace Negocio
         /// Obter todas as situações de produtos cadastradas
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SituacaoProduto> ObterSituacoesProduto()
+        public static IEnumerable<SituacaoProduto> ObterSituacoesProduto()
         {
             using (var context = new SaceContext())
             {
@@ -782,7 +783,7 @@ namespace Negocio
         /// Obtém lista de produtos com códigos de barra inválidos
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProdutoPesquisa> ObterPorCodigosBarraInvalidos()
+        public static IEnumerable<ProdutoPesquisa> ObterPorCodigosBarraInvalidos()
         {
             var listaProdutos = GetQuerySimples().ToList();
             var listaProdutosEANInvalidos = new List<ProdutoPesquisa>();
@@ -799,7 +800,7 @@ namespace Negocio
         /// Obter lista de produtos com códigos de barra nulo ou branco
         /// </summary>
         /// <returns></returns>
-        public object ObterPorCodigosBarraEmBranco()
+        public static object ObterPorCodigosBarraEmBranco()
         {
             var listaProdutos = GetQuerySimples().ToList();
             var listaProdutosEANEmBranco = new List<ProdutoPesquisa>();

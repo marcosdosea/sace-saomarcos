@@ -8,26 +8,24 @@ namespace Sace
     public partial class FrmCartaoCreditoPesquisa : Form
     {
         public CartaoCredito CartaoCreditoSelected { get; set; }
-        private readonly GerenciadorCartaoCredito gerenciadorCartaoCredito;
         public FrmCartaoCreditoPesquisa()
         {
             InitializeComponent();
             CartaoCreditoSelected = null;
-            gerenciadorCartaoCredito = new GerenciadorCartaoCredito();
         }
 
         private void FrmCartaoCreditoPesquisa_Load(object sender, EventArgs e)
         {
-            cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterTodos();
+            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.Obter(int.Parse(txtTexto.Text));
+                cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.Obter(int.Parse(txtTexto.Text));
             else
-                cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterPorNome(txtTexto.Text);
+                cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.ObterPorNome(txtTexto.Text);
         }
 
         private void tb_cartao_creditoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

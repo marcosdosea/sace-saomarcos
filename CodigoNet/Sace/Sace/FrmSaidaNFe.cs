@@ -27,7 +27,7 @@ namespace Sace
             this.listaSaidaPedido = listaSaidaPedido;
             this.listaSaidaPagamento = listaSaidaPagamento;
             IEnumerable<Pessoa> listaPessoas = gerenciadorPessoa.Obter(Saida.CodCliente);
-            nfeControleBindingSource.DataSource = service.GerenciadorNFe.ObterPorSaida(codSaida);
+            nfeControleBindingSource.DataSource = GerenciadorNFe.ObterPorSaida(codSaida);
 			Cliente = listaPessoas.FirstOrDefault();
 			if (Saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO)
             {
@@ -53,7 +53,7 @@ namespace Sace
                 }
                 else if (Saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR)
                 {
-                    Entrada entrada = service.GerenciadorEntrada.Obter(Saida.CodEntrada).ElementAtOrDefault(0);
+                    Entrada entrada = GerenciadorEntrada.Obter(Saida.CodEntrada).ElementAtOrDefault(0);
                     Saida.Observacao += " Devolução de Mercadorias relativo a nota fiscal número " + entrada.NumeroNotaFiscal +
                         " de " + entrada.DataEmissao.ToShortDateString() + " por estar em desacordo com o pedido. Valor da operação = R$ " +
                         Saida.TotalNotaFiscal.ToString("N2") + ". Base de Cálculo do ICMS = R$ " + Saida.BaseCalculoICMS.ToString("N2") +
@@ -96,18 +96,18 @@ namespace Sace
             {
 
                 NfeControle _nfeCurrent = (NfeControle)nfeControleBindingSource.Current;
-                NfeControle _nfeControle = service.GerenciadorNFe.Obter(_nfeCurrent.CodNfe).ElementAtOrDefault(0);
+                NfeControle _nfeControle = GerenciadorNFe.Obter(_nfeCurrent.CodNfe).ElementAtOrDefault(0);
                 _nfeControle.JustificativaCancelamento = _nfeCurrent.JustificativaCancelamento;
                 _nfeControle.CodSaida = _nfeCurrent.CodSaida;
-                service.GerenciadorNFe.Atualizar(_nfeControle);
-                service.GerenciadorNFe.EnviarSolicitacaoCancelamento(_nfeControle);
+                GerenciadorNFe.Atualizar(_nfeControle);
+                GerenciadorNFe.EnviarSolicitacaoCancelamento(_nfeControle);
             }
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
-            service.GerenciadorNFe.ImprimirDanfe(nfeControle);
+            GerenciadorNFe.ImprimirDanfe(nfeControle);
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
@@ -124,8 +124,8 @@ namespace Sace
                     if (Saida.CupomFiscal.Trim().Equals(""))
                         gerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
                     //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
-                    //List<SaidaPagamento> listaSaidaPagamento = service.GerenciadorSaidaPagamento.ObterPorSaida(Saida.CodSaida);
-                    service.GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
+                    //List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.ObterPorSaida(Saida.CodSaida);
+                    GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
                 }
             }
 
@@ -154,7 +154,7 @@ namespace Sace
                 }
                 NfeControle nfe = (NfeControle)nfeControleBindingSource.Current;
                 if (nfe != null)
-                    service.GerenciadorNFe.Atualizar(nfe);
+                    GerenciadorNFe.Atualizar(nfe);
 
                 // envia nota fiscal
                 //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
@@ -176,11 +176,11 @@ namespace Sace
                     listaSaidaPedido = new List<SaidaPedido>();
                     foreach (SaidaPesquisa s in listaSaidas)
                         listaSaidaPedido.Add(new SaidaPedido() { CodSaida = s.CodSaida, TotalAVista = s.TotalAVista });
-                    List<Conta> listaContas = service.GerenciadorConta.ObterPorNfe(Saida.CupomFiscal).ToList();
+                    List<Conta> listaContas = GerenciadorConta.ObterPorNfe(Saida.CupomFiscal).ToList();
 
                     decimal valorTotalPagamento = listaContas.Sum(c => c.Valor) - listaContas.Sum(c => c.Desconto);
                     SaidaPagamento saidaPagamento = new SaidaPagamento();
-                    FormaPagamento dinheiro = service.GerenciadorFormaPagamento.Obter(FormaPagamento.DINHEIRO).ElementAt(0);
+                    FormaPagamento dinheiro = GerenciadorFormaPagamento.Obter(FormaPagamento.DINHEIRO).ElementAt(0);
                     saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
                     saidaPagamento.CodCartaoCredito = UtilConfig.Default.CARTAO_LOJA;
                     saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
@@ -196,7 +196,7 @@ namespace Sace
 
 
 
-				long codSolicitacao = service.GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
+				long codSolicitacao = GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
                 FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(Saida.CodSaida, Saida.CodCliente, tipoSolicitacao, saceOptions);
                 frmSaidaAutorizacao.ShowDialog();
                 frmSaidaAutorizacao.Dispose();
@@ -246,7 +246,7 @@ namespace Sace
             if (MessageBox.Show("Confirma envio de solicitação de Consulta a NF-e?", "Consulta na Base da SEFAZ da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
-                service.GerenciadorNFe.EnviarConsultaNfe(nfeControle);
+                GerenciadorNFe.EnviarConsultaNfe(nfeControle);
             }
         }
 
@@ -255,7 +255,7 @@ namespace Sace
             if (MessageBox.Show("Confirma envio de Carta Correção da Nf-e?", "Correção da NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 NfeControle nfeControle = (NfeControle)nfeControleBindingSource.Current;
-                service.GerenciadorNFe.EnviarCartaCorrecaoNfe(nfeControle);
+                GerenciadorNFe.EnviarCartaCorrecaoNfe(nfeControle);
             }
         }
 
@@ -273,7 +273,7 @@ namespace Sace
         {
             int posicao = nfeControleBindingSource.Position;
             IEnumerable<NfeControle> listaNfeControleExibida = (IEnumerable<NfeControle>)nfeControleBindingSource.DataSource;
-            IEnumerable<NfeControle> listaNfeControle = service.GerenciadorNFe.ObterPorSaida(codSaida);
+            IEnumerable<NfeControle> listaNfeControle = GerenciadorNFe.ObterPorSaida(codSaida);
             if (listaNfeControle.Count() > 0)
             {
                 var listaControleExibida = new HashSet<String>(listaNfeControleExibida.Select(nfe => nfe.SituacaoNfe).ToList());

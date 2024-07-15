@@ -7,21 +7,12 @@ using Util;
 
 namespace Negocio
 {
-    public class GerenciadorEntradaProduto 
+    public static class GerenciadorEntradaProduto 
     {
-        private readonly SaceContext context;
-        public GerenciadorEntradaProduto(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere uma novo produto na entrada
-        public long Inserir(EntradaProduto entradaProduto, int codTipoEntrada)
+        public static long Inserir(EntradaProduto entradaProduto, int codTipoEntrada)
         {
-            var gerenciadorProduto = new GerenciadorProduto();
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
-
             if (entradaProduto.Quantidade == 0)
                 throw new NegocioException("A quantidade do produto não pode ser igual a zero.");
             else if (entradaProduto.PrecoVendaVarejo <= 0)
@@ -29,7 +20,7 @@ namespace Negocio
             else if (entradaProduto.QuantidadeEmbalagem <= 0)
                 throw new NegocioException("A quantidade de produtos em cada embalagem deve ser maior que zero.");
 
-            Produto produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = entradaProduto.CodProduto });
+            Produto produto = GerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = entradaProduto.CodProduto });
             
             Cst cstEntrada = new Cst() { CodCST = entradaProduto.CodCST } ;
 
@@ -48,34 +39,36 @@ namespace Negocio
             {
                 throw new NegocioException("O campo % ICMS ST não pode ser menor ou igual a zero quando o produto possui substituição tributária.");
             }
-
-            try
+            using (var context = new SaceContext())
             {
-                var _entradaProduto = new TbEntradaProduto();
-                Atribuir(entradaProduto, _entradaProduto);
-                context.Database.BeginTransaction();
-                context.Add(_entradaProduto);
-                context.SaveChanges();
-
-                if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
+                try
                 {
-                    // Incrementa o estoque na loja principal
-                    gerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto, context);
+                    var _entradaProduto = new TbEntradaProduto();
+                    Atribuir(entradaProduto, _entradaProduto);
+                    context.Database.BeginTransaction();
+                    context.Add(_entradaProduto);
+                    context.SaveChanges();
 
-                    Atribuir(entradaProduto, produto);
-                    produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
-                    produto.ExibeNaListagem = true;
-                    
-                    // Atualiza os dados do produto se não foi na entrada padrão
-                    if (entradaProduto.CodEntrada != UtilConfig.Default.ENTRADA_PADRAO) 
-                        gerenciadorProduto.Atualizar(produto);
+                    if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
+                    {
+                        // Incrementa o estoque na loja principal
+                        GerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto, context);
+
+                        Atribuir(entradaProduto, produto);
+                        produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
+                        produto.ExibeNaListagem = true;
+
+                        // Atualiza os dados do produto se não foi na entrada padrão
+                        if (entradaProduto.CodEntrada != UtilConfig.Default.ENTRADA_PADRAO)
+                            GerenciadorProduto.Atualizar(produto);
+                    }
+                    context.Database.CommitTransaction();
+                    return _entradaProduto.CodEntrada;
                 }
-                context.Database.CommitTransaction();
-                return _entradaProduto.CodEntrada;
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("EntradaProduto", e.Message, e);
+                catch (Exception e)
+                {
+                    throw new DadosException("EntradaProduto", e.Message, e);
+                }
             }
         }
 
@@ -84,7 +77,7 @@ namespace Negocio
         /// Atualiza os dados de um produto na entrada
         /// </summary>
         /// <param name="entradaProduto"></param>
-        public void Atualizar(EntradaProduto entradaProduto)
+        public static void Atualizar(EntradaProduto entradaProduto, SaceContext context)
         {
             try
             {
@@ -112,26 +105,28 @@ namespace Negocio
         /// REmove um produto de uma entrada
         /// </summary>
         /// <param name="codEntradaProduto"></param>
-        public void Remover(EntradaProduto entradaProduto, int codTipoEntrada)
+        public static void Remover(EntradaProduto entradaProduto, int codTipoEntrada)
         {
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
-            var transaction = context.Database.BeginTransaction();
-            try
+            using (var context = new SaceContext())
             {
-                var _entradaProduto = new TbEntradaProduto();
-                _entradaProduto.CodEntradaProduto = entradaProduto.CodEntradaProduto;
+                var transaction = context.Database.BeginTransaction();
+                try
+                {
+                    var _entradaProduto = new TbEntradaProduto();
+                    _entradaProduto.CodEntradaProduto = entradaProduto.CodEntradaProduto;
 
-                context.Remove(entradaProduto);
-                context.SaveChanges();
+                    context.Remove(entradaProduto);
+                    context.SaveChanges();
 
-                // Decrementa o estoque na loja principal
-                gerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto, context);
-                transaction.Commit();
-            }
-            catch (Exception e)
-            {
-                transaction.Rollback();
-                throw new DadosException("EntradaProduto", e.Message, e);
+                    // Decrementa o estoque na loja principal
+                    GerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem * (-1)), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto, context);
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    throw new DadosException("EntradaProduto", e.Message, e);
+                }
             }
         }
 
@@ -140,10 +135,8 @@ namespace Negocio
         /// Importa os produtos de uma Nfe
         /// </summary>
         /// <param name="nfe"></param>
-        public List<EntradaProduto> Importar(TNfeProc nfe)
+        public static List<EntradaProduto> Importar(TNfeProc nfe)
         {
-            var gerenciadorEntrada = new GerenciadorEntrada(context);
-            var gerenciadorProduto = new GerenciadorProduto();
             const string VERSAO3 = "3.10";
             const string VERSAO4 = "4.00";
 
@@ -153,7 +146,7 @@ namespace Negocio
                 string numeroNF = nfe.NFe.infNFe.ide.nNF;
                 string versaoNF = nfe.NFe.infNFe.versao;
                 string cpf_cnpjFornecedor = nfe.NFe.infNFe.emit.Item;
-                IEnumerable<Entrada> entradas = gerenciadorEntrada.ObterPorNumeroNotaFiscalFornecedor(numeroNF, cpf_cnpjFornecedor);
+                IEnumerable<Entrada> entradas = GerenciadorEntrada.ObterPorNumeroNotaFiscalFornecedor(numeroNF, cpf_cnpjFornecedor);
                 if (entradas.Count() == 0)
                 {
                     throw new NegocioException("A entrada não foi encontrada para realizar o cadastro de produtos");
@@ -169,7 +162,7 @@ namespace Negocio
                     ProdutoPesquisa produtoPesquisa = null;
                     if (!string.IsNullOrEmpty(produto.prod.cEAN))
                     {
-                        produtoPesquisa = gerenciadorProduto.ObterPorCodigoBarraExato(produto.prod.cEAN).ElementAtOrDefault(0);
+                        produtoPesquisa = GerenciadorProduto.ObterPorCodigoBarraExato(produto.prod.cEAN).ElementAtOrDefault(0);
                     }
                 
                     entradaProduto.CodProduto = (produtoPesquisa != null) ? produtoPesquisa.CodProduto : 1;
@@ -429,29 +422,32 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<EntradaProduto> GetQuery()
+        private static IQueryable<EntradaProduto> GetQuery()
         {
-            var query = from entradaProduto in context.TbEntradaProdutos
-                        select new EntradaProduto
-                        {
-                            BaseCalculoICMS = (decimal)entradaProduto.BaseCalculoIcms,
-                            BaseCalculoICMSST = (decimal)entradaProduto.BaseCalculoIcmsst,
-                            Cfop = entradaProduto.Cfop,
-                            CodCST = entradaProduto.CodCst,
-                            CodEntrada = entradaProduto.CodEntrada,
-                            CodEntradaProduto = entradaProduto.CodEntradaProduto,
-                            CodProduto = entradaProduto.CodProduto,
-                            NomeProduto = entradaProduto.CodProdutoNavigation.Nome,
-                            DataValidade = (DateTime)entradaProduto.DataValidade,
-                            Desconto = (decimal)entradaProduto.Desconto,
-                            PrecoCusto = (decimal)entradaProduto.PrecoCusto,
-                            Quantidade = (decimal)entradaProduto.Quantidade,
-                            QuantidadeDisponivel = (decimal)entradaProduto.QuantidadeDisponivel,
-                            QuantidadeEmbalagem = (decimal)entradaProduto.QuantidadeEmbalagem,
-                            UnidadeCompra = entradaProduto.UnidadeCompra,
-                            ValorUnitario = (decimal)entradaProduto.ValorUnitario
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from entradaProduto in context.TbEntradaProdutos
+                            select new EntradaProduto
+                            {
+                                BaseCalculoICMS = (decimal)entradaProduto.BaseCalculoIcms,
+                                BaseCalculoICMSST = (decimal)entradaProduto.BaseCalculoIcmsst,
+                                Cfop = entradaProduto.Cfop,
+                                CodCST = entradaProduto.CodCst,
+                                CodEntrada = entradaProduto.CodEntrada,
+                                CodEntradaProduto = entradaProduto.CodEntradaProduto,
+                                CodProduto = entradaProduto.CodProduto,
+                                NomeProduto = entradaProduto.CodProdutoNavigation.Nome,
+                                DataValidade = (DateTime)entradaProduto.DataValidade,
+                                Desconto = (decimal)entradaProduto.Desconto,
+                                PrecoCusto = (decimal)entradaProduto.PrecoCusto,
+                                Quantidade = (decimal)entradaProduto.Quantidade,
+                                QuantidadeDisponivel = (decimal)entradaProduto.QuantidadeDisponivel,
+                                QuantidadeEmbalagem = (decimal)entradaProduto.QuantidadeEmbalagem,
+                                UnidadeCompra = entradaProduto.UnidadeCompra,
+                                ValorUnitario = (decimal)entradaProduto.ValorUnitario
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
@@ -459,7 +455,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codEntradaProduto"></param>
         /// <returns></returns>
-        public IEnumerable<EntradaProduto> Obter(long codEntradaProduto)
+        public static IEnumerable<EntradaProduto> Obter(long codEntradaProduto)
         {
             return GetQuery().Where(ep => ep.CodEntradaProduto == codEntradaProduto).ToList();
         }
@@ -469,7 +465,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codEntradaProduto"></param>
         /// <returns></returns>
-        public IEnumerable<EntradaProduto> ObterPorEntrada(long codEntrada)
+        public static IEnumerable<EntradaProduto> ObterPorEntrada(long codEntrada)
         {
             return GetQuery().Where(ep => ep.CodEntrada == codEntrada).ToList();
         }
@@ -479,7 +475,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codEntradaProduto"></param>
         /// <returns></returns>
-        public IEnumerable<EntradaProduto> Obter(long codEntrada, long codProduto)
+        public static IEnumerable<EntradaProduto> Obter(long codEntrada, long codProduto)
         {
             return GetQuery().Where(ep => ep.CodEntrada == codEntrada && ep.CodProduto == codProduto).ToList();
         }
@@ -489,7 +485,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<EntradaProduto> ObterDisponiveisPorEntrada(long codProduto)
+        public static IEnumerable<EntradaProduto> ObterDisponiveisPorEntrada(long codProduto)
         {
             return GetQuery().Where(ep => ep.CodProduto == codProduto
                 && ep.QuantidadeDisponivel > 0).OrderBy(ep => ep.CodEntradaProduto).ToList();
@@ -500,7 +496,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<EntradaProduto> ObterOrdenadoPorValidade(long codProduto)
+        public static IEnumerable<EntradaProduto> ObterOrdenadoPorValidade(long codProduto)
         {
             return GetQuery().Where(ep => ep.CodProduto == codProduto).OrderBy(ep => ep.CodEntradaProduto).ToList();
         }
@@ -510,7 +506,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        private List<EntradaProduto> ObterVendidosOrdenadoPorEntrada(long codProduto)
+        private static List<EntradaProduto> ObterVendidosOrdenadoPorEntrada(long codProduto)
         {
             return GetQuery().Where(ep => ep.CodProduto == codProduto && ep.Quantidade > ep.QuantidadeDisponivel).
                 OrderBy(ep => ep.CodEntradaProduto).ToList();
@@ -521,7 +517,7 @@ namespace Negocio
         /// </summary>
         /// <param name="produto"></param>
         /// <returns></returns>
-        public DateTime GetDataProdutoMaisAntigoEstoque(ProdutoPesquisa produto)
+        public static DateTime GetDataProdutoMaisAntigoEstoque(ProdutoPesquisa produto)
         {
             List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) ObterDisponiveisPorEntrada(produto.CodProduto);
             if (entradaProdutos.Count > 0)
@@ -531,30 +527,33 @@ namespace Negocio
             return DateTime.Now;
         }
 
-        public IEnumerable<EntradaProduto> ObterPorProdutoTipoEntrada(long codProduto, int tipoEntrada)
+        public static IEnumerable<EntradaProduto> ObterPorProdutoTipoEntrada(long codProduto, int tipoEntrada)
         {
-            var query = from entradaProduto in context.TbEntradaProdutos
-                        where entradaProduto.CodEntradaNavigation.CodTipoEntrada == tipoEntrada && entradaProduto.CodProduto == codProduto 
-                        select new EntradaProduto
-                        {
-                            BaseCalculoICMS = (decimal)entradaProduto.BaseCalculoIcms,
-                            BaseCalculoICMSST = (decimal)entradaProduto.BaseCalculoIcmsst,
-                            Cfop = entradaProduto.Cfop,
-                            CodCST = entradaProduto.CodCst,
-                            CodEntrada = entradaProduto.CodEntrada,
-                            CodEntradaProduto = entradaProduto.CodEntradaProduto,
-                            CodProduto = entradaProduto.CodProduto,
-                            DataValidade = (DateTime)entradaProduto.DataValidade,
-                            Desconto = (decimal)entradaProduto.Desconto,
-                            DataEntrada = (DateTime) entradaProduto.CodEntradaNavigation.DataEntrada,
-                            PrecoCusto = (decimal)entradaProduto.PrecoCusto,
-                            Quantidade = (decimal)entradaProduto.Quantidade,
-                            QuantidadeDisponivel = (decimal)entradaProduto.QuantidadeDisponivel,
-                            QuantidadeEmbalagem = (decimal)entradaProduto.QuantidadeEmbalagem,
-                            UnidadeCompra = entradaProduto.UnidadeCompra,
-                            ValorUnitario = (decimal)entradaProduto.ValorUnitario
-                        };
-            return query.ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from entradaProduto in context.TbEntradaProdutos
+                            where entradaProduto.CodEntradaNavigation.CodTipoEntrada == tipoEntrada && entradaProduto.CodProduto == codProduto
+                            select new EntradaProduto
+                            {
+                                BaseCalculoICMS = (decimal)entradaProduto.BaseCalculoIcms,
+                                BaseCalculoICMSST = (decimal)entradaProduto.BaseCalculoIcmsst,
+                                Cfop = entradaProduto.Cfop,
+                                CodCST = entradaProduto.CodCst,
+                                CodEntrada = entradaProduto.CodEntrada,
+                                CodEntradaProduto = entradaProduto.CodEntradaProduto,
+                                CodProduto = entradaProduto.CodProduto,
+                                DataValidade = (DateTime)entradaProduto.DataValidade,
+                                Desconto = (decimal)entradaProduto.Desconto,
+                                DataEntrada = (DateTime)entradaProduto.CodEntradaNavigation.DataEntrada,
+                                PrecoCusto = (decimal)entradaProduto.PrecoCusto,
+                                Quantidade = (decimal)entradaProduto.Quantidade,
+                                QuantidadeDisponivel = (decimal)entradaProduto.QuantidadeDisponivel,
+                                QuantidadeEmbalagem = (decimal)entradaProduto.QuantidadeEmbalagem,
+                                UnidadeCompra = entradaProduto.UnidadeCompra,
+                                ValorUnitario = (decimal)entradaProduto.ValorUnitario
+                            };
+                return query.ToList();
+            }
         }
 
         
@@ -564,7 +563,7 @@ namespace Negocio
         /// <param name="produto"></param>
         /// <param name="dataValidade"></param>
         /// <param name="quantidadeDevolvida"></param>
-        private void EstornarItensVendidosEstoque(SaidaProduto saidaProduto, SaceContext context)
+        private static void EstornarItensVendidosEstoque(SaidaProduto saidaProduto, SaceContext context)
         {
             decimal quantidadeDevolvida = Math.Abs(saidaProduto.Quantidade);
             List<EntradaProduto> entradaProdutos = ObterVendidosOrdenadoPorEntrada(saidaProduto.CodProduto);
@@ -582,7 +581,7 @@ namespace Negocio
                             {
                                 entradaProduto.QuantidadeDisponivel += quantidadeDevolvida - quantidadeRetornada;
                                 quantidadeRetornada += quantidadeDevolvida - quantidadeRetornada;
-                                Atualizar(entradaProduto);
+                                Atualizar(entradaProduto, context);
                             }
                         }
                         if (quantidadeDevolvida == quantidadeRetornada)
@@ -606,7 +605,7 @@ namespace Negocio
                             quantidadeRetornada += entradaProduto.Quantidade - entradaProduto.QuantidadeDisponivel;
                             entradaProduto.QuantidadeDisponivel = entradaProduto.Quantidade;
                         }
-                        Atualizar(entradaProduto);
+                        Atualizar(entradaProduto, context);
                         if (quantidadeDevolvida == quantidadeRetornada)
                             break;
                     }
@@ -616,7 +615,7 @@ namespace Negocio
             // acontece quando uma data de validade não existe no estoque
             if (quantidadeRetornada < quantidadeDevolvida)
             {
-                BaixarItensVendidosEstoqueEntradaPadrao(saidaProduto, ((-1) * (quantidadeDevolvida-quantidadeRetornada)));
+                BaixarItensVendidosEstoqueEntradaPadrao(saidaProduto, ((-1) * (quantidadeDevolvida-quantidadeRetornada)), context);
             }
         }
         
@@ -627,7 +626,7 @@ namespace Negocio
         /// <param name="dataValidade"></param>
         /// <param name="quantidadeVendida"></param>
         /// <returns></returns>
-        public decimal BaixarItensVendidosEstoque(SaidaProduto saidaProduto, SaceContext context) {
+        public static decimal BaixarItensVendidosEstoque(SaidaProduto saidaProduto, SaceContext context) {
             List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)ObterDisponiveisPorEntrada(saidaProduto.CodProduto);
 
             decimal somaPrecosCusto = 0;
@@ -675,13 +674,13 @@ namespace Negocio
                             }
                         }
                     }
-                    Atualizar(entradaProduto);
+                    Atualizar(entradaProduto, context);
                 }
             }
 
             if (quantidadeBaixas < saidaProduto.Quantidade)
             {
-                somaPrecosCusto += BaixarItensVendidosEstoqueEntradaPadrao(saidaProduto, (saidaProduto.Quantidade - quantidadeBaixas));
+                somaPrecosCusto += BaixarItensVendidosEstoqueEntradaPadrao(saidaProduto, (saidaProduto.Quantidade - quantidadeBaixas), context);
             }
             return somaPrecosCusto;
         }
@@ -692,10 +691,10 @@ namespace Negocio
         /// <param name="produtoPesquisa"></param>
         /// <param name="quantidade"></param>
         /// <returns></returns>
-        private decimal BaixarItensVendidosEstoqueEntradaPadrao(SaidaProduto saidaProduto, decimal quantidade) {
-            var gerenciadorProduto = new GerenciadorProduto();
+        private static decimal BaixarItensVendidosEstoqueEntradaPadrao(SaidaProduto saidaProduto, decimal quantidade, SaceContext context) {
+
             List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)Obter(UtilConfig.Default.ENTRADA_PADRAO, saidaProduto.CodProduto);
-            Produto produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
+            Produto produto = GerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
             EntradaProduto entradaProduto = null;
             if (entradaProdutos.Count > 0)
             {
@@ -705,7 +704,7 @@ namespace Negocio
             if (entradaProduto != null)
             {
                 entradaProduto.QuantidadeDisponivel -= quantidade;
-                Atualizar(entradaProduto);
+                Atualizar(entradaProduto, context);
             }
             else
             {
@@ -751,7 +750,7 @@ namespace Negocio
         /// </summary>
         /// <param name="entradaProduto"></param>
         /// <param name="produto"></param>
-        public void Atribuir(EntradaProduto entradaProduto, Produto produto)
+        private static void Atribuir(EntradaProduto entradaProduto, Produto produto)
         {
             produto.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;
             produto.LucroPrecoVendaVarejo = entradaProduto.LucroPrecoVendaVarejo;

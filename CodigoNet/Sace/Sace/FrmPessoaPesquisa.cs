@@ -19,18 +19,13 @@ namespace Sace
         private String filtroNome;
 
         public Pessoa PessoaSelected { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmPessoaPesquisa(DbContextOptions<SaceContext> saceOptions)
+        public FrmPessoaPesquisa()
         {
             InitializeComponent();
             PessoaSelected = null;
             filtroTipoPessoa = null;
             filtroNome = null;
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         public FrmPessoaPesquisa(Char tipoPessoa)
@@ -59,28 +54,28 @@ namespace Sace
             }
             else if (filtroTipoPessoa != null)
             {
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorTipoPessoa(filtroTipoPessoa.ToString());
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorTipoPessoa(filtroTipoPessoa.ToString());
             }
             else
             {
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterTodos();
             }
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) )
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorNomeFantasiaComContas60DiasAtraso(txtTexto.Text);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorNomeFantasiaComContas60DiasAtraso(txtTexto.Text);
             else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                pessoaBindingSource.DataSource = gerenciadorPessoa.Obter(long.Parse(txtTexto.Text));
+                pessoaBindingSource.DataSource = GerenciadorPessoa.Obter(long.Parse(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorCpfCnpj(txtTexto.Text);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorCpfCnpj(txtTexto.Text);
             else if ((cmbBusca.SelectedIndex == 4) && !txtTexto.Text.Equals(""))
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorEndereco(txtTexto.Text);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorEndereco(txtTexto.Text);
             else if ((cmbBusca.SelectedIndex == 5) && !txtTexto.Text.Equals(""))
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorBairro(txtTexto.Text);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorBairro(txtTexto.Text);
             else if ((cmbBusca.SelectedIndex == 6) && !txtTexto.Text.Equals(""))
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorNome(txtTexto.Text);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorNome(txtTexto.Text);
             else
                 pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorNomeFantasia(txtTexto.Text);
         }
@@ -115,7 +110,7 @@ namespace Sace
         {
             txtTexto.Text = "";
             if ((cmbBusca.SelectedIndex == 1))
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorNomeFantasiaComContas60DiasAtraso(txtTexto.Text);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorNomeFantasiaComContas60DiasAtraso(txtTexto.Text);
         }
     }
 }

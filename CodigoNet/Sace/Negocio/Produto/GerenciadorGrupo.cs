@@ -1,50 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Dados;
+﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorGrupo 
+    public static class GerenciadorGrupo 
     {
-        private readonly SaceContext context;
-
-        public GerenciadorGrupo(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere um grupo e um grupo padrão
         /// </summary>
         /// <param name="grupo"></param>
         /// <returns></returns>
-        public long Inserir(Grupo grupo)
+        public static long Inserir(Grupo grupo)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var transaction = context.Database.BeginTransaction();
-                var _grupo = new TbGrupo();
-                _grupo.Descricao = grupo.Descricao;
+                try
+                {
+                    var transaction = context.Database.BeginTransaction();
+                    var _grupo = new TbGrupo();
+                    _grupo.Descricao = grupo.Descricao;
 
-                context.Add(_grupo);
-                context.SaveChanges();
+                    context.Add(_grupo);
+                    context.SaveChanges();
 
-                var _subgrupo = new TbSubgrupo();
-                _subgrupo.CodGrupo = Convert.ToInt32(_grupo.CodGrupo);
-                _subgrupo.Descricao = "---- NAO DEFINIDO ----";
-                context.Add(_subgrupo);
-                context.SaveChanges();
+                    var _subgrupo = new TbSubgrupo();
+                    _subgrupo.CodGrupo = Convert.ToInt32(_grupo.CodGrupo);
+                    _subgrupo.Descricao = "---- NAO DEFINIDO ----";
+                    context.Add(_subgrupo);
+                    context.SaveChanges();
 
-                transaction.Commit();
-                
-                return _grupo.CodGrupo;
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Grupo", e.Message, e);
+                    transaction.Commit();
+
+                    return _grupo.CodGrupo;
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("Grupo", e.Message, e);
+                }
             }
         }
 
@@ -52,25 +45,28 @@ namespace Negocio
         /// Atualizar grupo
         /// </summary>
         /// <param name="grupo"></param>
-        public void Atualizar(Grupo grupo)
+        public static void Atualizar(Grupo grupo)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var _grupo = context.TbGrupos.Find(grupo.CodGrupo);
-                if (_grupo != null)
+                try
                 {
-                    _grupo.Descricao = grupo.Descricao;
+                    var _grupo = context.TbGrupos.FirstOrDefault(g => g.CodGrupo == grupo.CodGrupo);
+                    if (_grupo != null)
+                    {
+                        _grupo.Descricao = grupo.Descricao;
 
-                    context.SaveChanges();
-                } 
-                else
-                {
-                    throw new NegocioException("Grupo não encontrado para atualização.");
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Grupo não encontrado para atualização.");
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Grupo", e.Message, e);
+                catch (Exception e)
+                {
+                    throw new DadosException("Grupo", e.Message, e);
+                }
             }
         }
 
@@ -78,21 +74,29 @@ namespace Negocio
         /// Remover um grupo
         /// </summary>
         /// <param name="codGrupo"></param>
-        public void Remover(int codGrupo)
+        public static void Remover(int codGrupo)
         {
             if (codGrupo == 1)
                 throw new NegocioException("Esse grupo não pode ser excluído para manter a consistência da base de dados");
-            try
+            using (var context = new SaceContext())
             {
-                var grupo = new TbGrupo();
-                grupo.CodGrupo = codGrupo;
-
-                context.Remove(grupo);
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Grupo", e.Message, e);
+                try
+                {
+                    var grupo = context.TbGrupos.FirstOrDefault(g => g.CodGrupo == codGrupo);
+                    if (grupo != null)
+                    {
+                        context.Remove(grupo);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Grupo não encontrado para exclusão.");
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("Grupo", e.Message, e);
+                }
             }
         }
 
@@ -100,22 +104,25 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Grupo> GetQuery()
+        private static IQueryable<Grupo> GetQuery()
         {
-            var query = from grupo in context.TbGrupos
-                        select new Grupo
-                        {
-                            CodGrupo = grupo.CodGrupo,
-                            Descricao = grupo.Descricao,
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from grupo in context.TbGrupos
+                            select new Grupo
+                            {
+                                CodGrupo = grupo.CodGrupo,
+                                Descricao = grupo.Descricao,
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
         /// Obtém todos os grupos cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Grupo> ObterTodos()
+        public static IEnumerable<Grupo> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -125,7 +132,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codGrupo"></param>
         /// <returns></returns>
-        public IEnumerable<Grupo> Obter(int codGrupo)
+        public static IEnumerable<Grupo> Obter(int codGrupo)
         {
             return GetQuery().Where(grupo => grupo.CodGrupo == codGrupo).ToList();
         }
@@ -135,7 +142,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Grupo> ObterPorDescricao(string descricao)
+        public static IEnumerable<Grupo> ObterPorDescricao(string descricao)
         {
             return GetQuery().Where(grupo => grupo.Descricao.StartsWith(descricao)).ToList();
         }

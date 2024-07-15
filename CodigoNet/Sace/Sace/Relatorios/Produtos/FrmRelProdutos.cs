@@ -19,7 +19,7 @@ namespace Sace.Relatorios.Produtos
 
         private void FrmRelProdutos_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodosExibiveis();
+            produtoBindingSource.DataSource = GerenciadorProduto.ObterTodosExibiveis();
             this.reportViewer1.RefreshReport();
         }
     }

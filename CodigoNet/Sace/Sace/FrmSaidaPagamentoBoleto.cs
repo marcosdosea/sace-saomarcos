@@ -79,7 +79,7 @@ namespace Sace
         {
             decimal total = decimal.Parse(totalTextBox.Text);
             if (saida != null) {
-                SaidaPagamento saidaPagamento = service.GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida).FirstOrDefault();
+                SaidaPagamento saidaPagamento = GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida).FirstOrDefault();
                 Conta conta = new Conta();
                 conta.CF = saida.CupomFiscal;
                 conta.CodEntrada = UtilConfig.Default.ENTRADA_PADRAO;
@@ -103,7 +103,7 @@ namespace Sace
             if (listaContaBoletos.Sum(b => b.Valor) >= total)
             {
                 if (MessageBox.Show("Confirma Substitução por Boletos?", "Confirmar Substituição por Boletos", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    service.GerenciadorConta.Substituir(saida.CupomFiscal, listaContaBoletos);
+                    GerenciadorConta.Substituir(saida.CupomFiscal, listaContaBoletos);
                 }
             
             }

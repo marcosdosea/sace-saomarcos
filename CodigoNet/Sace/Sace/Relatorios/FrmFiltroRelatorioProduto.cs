@@ -7,20 +7,14 @@ namespace Sace.Relatorios
 {
     public partial class FrmFiltroRelatorioProduto : Form
     {
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-
-        public FrmFiltroRelatorioProduto(DbContextOptions<SaceContext> saceOptions)
+        public FrmFiltroRelatorioProduto()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            this.service = new SaceService(context);
         }
 
         private void FrmFiltroRelatorioProduto_Load(object sender, EventArgs e)
         {
-            codPessoaComboBox.DataSource = gerenciadorPessoa.ObterTodos();
+            codPessoaComboBox.DataSource = GerenciadorPessoa.ObterTodos();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -32,7 +26,7 @@ namespace Sace.Relatorios
         {
             long codPessoa = Convert.ToInt64(codPessoaComboBox.SelectedValue.ToString());
             decimal lucro = Convert.ToDecimal(lucroTextBox.Text);
-            FrmRelProdutosRevenda relatorio = new FrmRelProdutosRevenda(codPessoa, lucro, saceOptions);
+            FrmRelProdutosRevenda relatorio = new FrmRelProdutosRevenda(codPessoa, lucro);
             relatorio.ShowDialog();
             relatorio.Dispose();
         }

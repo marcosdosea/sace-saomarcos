@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorCfop 
+    public static class GerenciadorCfop 
     {
 
         /// <summary>
@@ -12,7 +12,7 @@ namespace Negocio
         /// </summary>
         /// <param name="cfop"></param>
         /// <returns></returns>
-        public int Inserir(Cfop cfop)
+        public static int Inserir(Cfop cfop)
         {
             try
             {
@@ -22,7 +22,6 @@ namespace Negocio
                 _cfop.Icms = cfop.Icms;
                 using (var context = new SaceContext())
                 {
-
                     context.Add(_cfop);
                     context.SaveChanges();
                 }
@@ -40,14 +39,14 @@ namespace Negocio
         /// Atualiza dados do cfop na base de dados
         /// </summary>
         /// <param name="cfop"></param>
-        public void Atualizar(Cfop cfop)
+        public static void Atualizar(Cfop cfop)
         {
             try
             {
                 using (var context = new SaceContext())
                 {
 
-                    var _cfop = context.TbCfops.Find(cfop.CodCfop);
+                    var _cfop = context.TbCfops.FirstOrDefault(c => c.Cfop == cfop.CodCfop);
 
                     if (_cfop != null)
                     {
@@ -72,17 +71,22 @@ namespace Negocio
         /// Remover um cfop da base de dados
         /// </summary>
         /// <param name="codCfop"></param>
-        public void Remover(Int32 codCfop)
+        public static void Remover(int codCfop)
         {
             try
             {
-                var cfop = new TbCfop();
-                cfop.Cfop = codCfop;
                 using (var context = new SaceContext())
                 {
-
-                    context.Remove(cfop);
-                    context.SaveChanges();
+                    var cfop = context.TbCfops.FirstOrDefault(c => c.Cfop == codCfop);
+                    if (cfop != null)
+                    {
+                        context.Remove(cfop);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("CFOP não foi encontrado para exclusão.");
+                    }
                 }
             }
             catch (Exception e)
@@ -95,7 +99,7 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Cfop> GetQuery()
+        private static IQueryable<Cfop> GetQuery()
         {
             using (var context = new SaceContext())
             {
@@ -115,7 +119,7 @@ namespace Negocio
         /// Obtém todos os cfops cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Cfop> ObterTodos()
+        public static IEnumerable<Cfop> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -125,7 +129,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Cfop> Obter(int codCfop)
+        public static IEnumerable<Cfop> Obter(int codCfop)
         {
             return GetQuery().Where(cfop => cfop.CodCfop == codCfop).ToList();
         }
@@ -135,7 +139,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Cfop> ObterPorDescricao(string descricao)
+        public static IEnumerable<Cfop> ObterPorDescricao(string descricao)
         {
             return GetQuery().Where(cfop => cfop.Descricao.StartsWith(descricao)).ToList();
         }

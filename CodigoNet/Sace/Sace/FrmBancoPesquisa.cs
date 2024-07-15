@@ -6,27 +6,25 @@ namespace Sace
     public partial class FrmBancoPesquisa : Form
     {
         public Banco BancoSelected { get; set; }
-        private GerenciadorBanco gerenciadorBanco;
 
         public FrmBancoPesquisa()
         {
             InitializeComponent();
             BancoSelected = null;
-            gerenciadorBanco = new GerenciadorBanco();
         }
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
         {
-            bancoBindingSource.DataSource = gerenciadorBanco.ObterTodos();
+            bancoBindingSource.DataSource = GerenciadorBanco.ObterTodos();
             cmbBusca.SelectedIndex = 0;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                bancoBindingSource.DataSource = gerenciadorBanco.Obter(int.Parse(txtTexto.Text));
+                bancoBindingSource.DataSource = GerenciadorBanco.Obter(int.Parse(txtTexto.Text));
             else
-                bancoBindingSource.DataSource = gerenciadorBanco.ObterPorNome(txtTexto.Text);
+                bancoBindingSource.DataSource = GerenciadorBanco.ObterPorNome(txtTexto.Text);
 
         }
 

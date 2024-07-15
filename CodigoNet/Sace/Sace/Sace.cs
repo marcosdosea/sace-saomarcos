@@ -34,9 +34,9 @@ namespace Sace
             
             if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_NFE))
             {
-                lojaMatriz = service.GerenciadorLoja.Obter(1).FirstOrDefault();
+                lojaMatriz = GerenciadorLoja.Obter(1).FirstOrDefault();
                 fileSystemWatcher.Path = lojaMatriz.PastaNfeRetorno;
-                lojaDeposito = service.GerenciadorLoja.Obter(2).FirstOrDefault();
+                lojaDeposito = GerenciadorLoja.Obter(2).FirstOrDefault();
                 fileSystemWatcherDeposito.Path = lojaDeposito.PastaNfeRetorno;
             }
             //AtualizarDadosAcompanhamentoVendas();
@@ -324,7 +324,7 @@ namespace Sace
 
         private void ProcessarDocumentosFiscais()
         {
-            service.GerenciadorNFe.ImprimirDanfe(null);
+            GerenciadorNFe.ImprimirDanfe(null);
             if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_IMPRIMIR_REDUZIDO1.ToUpper()))
             {
                 gerenciadorSaida.ImprimirDAV(Impressora.Tipo.REDUZIDO1, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA1);
@@ -335,11 +335,11 @@ namespace Sace
             }
             if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_NFE.ToUpper()))
             {
-                service.GerenciadorSolicitacaoDocumento.EnviarProximoNF(SERVIDOR_NFE, DocumentoFiscal.TipoSolicitacao.NFE);
-                service.GerenciadorSolicitacaoDocumento.EnviarProximoNF(SERVIDOR_NFE, DocumentoFiscal.TipoSolicitacao.NFCE);
-                service.GerenciadorNFe.ProcessarSolicitacoesCancelamento();
-                service.GerenciadorNFe.ProcessaSolicitacaoConsultaNfe();
-                service.GerenciadorProduto.AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
+                GerenciadorSolicitacaoDocumento.EnviarProximoNF(SERVIDOR_NFE, DocumentoFiscal.TipoSolicitacao.NFE);
+                GerenciadorSolicitacaoDocumento.EnviarProximoNF(SERVIDOR_NFE, DocumentoFiscal.TipoSolicitacao.NFCE);
+                GerenciadorNFe.ProcessarSolicitacoesCancelamento();
+                GerenciadorNFe.ProcessaSolicitacaoConsultaNfe();
+                GerenciadorProduto.AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
             }
         }
 
@@ -422,13 +422,13 @@ namespace Sace
         private void enviarNFesEmitidasOffLineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Confirma que Ambiente está On-line para Autorizar NFEs emitidas Off-Line?", "Confirma Ambiente On-Line", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                service.GerenciadorNFe.EnviarNFEsOffLine();
+                GerenciadorNFe.EnviarNFEsOffLine();
         }
 
         private void calcularImpostoNFCECtempToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Confirma o Cálculo de Totais das NFCE da pasta C:\temp?", "Confirma Cálculo Totais", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                service.GerenciadorNFe.CalcularTotaisNFCe("C:\\temp\\nfe\\");
+                GerenciadorNFe.CalcularTotaisNFCe("C:\\temp\\nfe\\");
         }
 
         private void cálculoParticipaçãoMensalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -441,13 +441,13 @@ namespace Sace
         private void fileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
         {
             if (lojaMatriz != null)
-                service.GerenciadorNFe.RecuperarRetornosNfe(lojaMatriz);
+                GerenciadorNFe.RecuperarRetornosNfe(lojaMatriz);
         }
 
         private void fileSystemWatcherDeposito_Changed(object sender, FileSystemEventArgs e)
         {
             if (lojaDeposito != null)
-                service.GerenciadorNFe.RecuperarRetornosNfe(lojaDeposito);
+                GerenciadorNFe.RecuperarRetornosNfe(lojaDeposito);
         }
 
         private void retornoDeFornecedorvariaToolStripMenuItem_Click(object sender, EventArgs e)

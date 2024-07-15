@@ -4,22 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorSolicitacaoEvento
+    public static class GerenciadorSolicitacaoEvento
     {
 
-        private readonly SaceContext context;
-
-        public GerenciadorSolicitacaoEvento(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
-        /// <summary>
+       /// <summary>
         /// Insere um novo SolicitacaoEvento na base de dados
         /// </summary>
         /// <param name="SolicitacaoEvento"></param>
         /// <returns></returns>
-        public long Inserir(SolicitacaoEventoNfe solicitacaoEvento)
+        public static long Inserir(SolicitacaoEventoNfe solicitacaoEvento)
         {
             
             try
@@ -27,13 +20,16 @@ namespace Negocio
                 if (ObterPorTiposolicitacaoEventoCodNfe(solicitacaoEvento.TipoSolicitacao, solicitacaoEvento.CodNfe).Count() > 0)
                     throw new NegocioException("Evento já está na fila para ser processado. Favor aguardar.");
 
-                var tbSolicitacaoEventoNfe = new TbSolicitacaoEventoNfe();
-                tbSolicitacaoEventoNfe.TipoSolicitacao = solicitacaoEvento.TipoSolicitacao;
-                tbSolicitacaoEventoNfe.CodNfe = solicitacaoEvento.CodNfe;
-                context.Add(tbSolicitacaoEventoNfe);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var tbSolicitacaoEventoNfe = new TbSolicitacaoEventoNfe();
+                    tbSolicitacaoEventoNfe.TipoSolicitacao = solicitacaoEvento.TipoSolicitacao;
+                    tbSolicitacaoEventoNfe.CodNfe = solicitacaoEvento.CodNfe;
+                    context.Add(tbSolicitacaoEventoNfe);
+                    context.SaveChanges();
 
-                return solicitacaoEvento.IdSolicitacaoEvento;
+                    return solicitacaoEvento.IdSolicitacaoEvento;
+                }
             }
             catch (Exception e)
             {
@@ -45,20 +41,44 @@ namespace Negocio
         /// Remove SolicitacaoEvento da base de dados
         /// </summary>
         /// <param name="codSolicitacaoEvento"></param>
-        public void Remover(uint codSolicitacaoEvento)
+        public static void Remover(uint codSolicitacaoEvento)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var solicitacaoEvento = context.TbSolicitacaoEventoNves.Find(new TbSolicitacaoEventoNfe { IdSolicitacaoEvento = codSolicitacaoEvento });
-                if (solicitacaoEvento != null)
+                try
                 {
-                    context.Remove(solicitacaoEvento );
-                    context.SaveChanges();
+                    var solicitacaoEvento = context.TbSolicitacaoEventoNves.FirstOrDefault(s => s.IdSolicitacaoEvento == codSolicitacaoEvento);
+                    if (solicitacaoEvento != null)
+                    {
+                        context.Remove(solicitacaoEvento);
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("SolicitacaoEvento", e.Message, e);
                 }
             }
-            catch (Exception e)
+        }
+
+        /// <summary>
+        /// Obter todos os SolicitacaoEventos pelo tipo solicitacaoEvento
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<SolicitacaoEventoNfe> ObterPorTiposolicitacaoEvento(string tiposolicitacaoEvento)
+        {
+            using (var context = new SaceContext())
             {
-                throw new DadosException("SolicitacaoEvento", e.Message, e);
+                var query = from solicitacao in context.TbSolicitacaoEventoNves
+                            where solicitacao.TipoSolicitacao.Equals(tiposolicitacaoEvento)
+                            orderby solicitacao.IdSolicitacaoEvento
+                            select new SolicitacaoEventoNfe
+                            {
+                                CodNfe = solicitacao.CodNfe,
+                                IdSolicitacaoEvento = solicitacao.IdSolicitacaoEvento,
+                                TipoSolicitacao = solicitacao.TipoSolicitacao
+                            };
+                return query.AsNoTracking().ToList();
             }
         }
 
@@ -66,36 +86,21 @@ namespace Negocio
         /// Obter todos os SolicitacaoEventos pelo tipo solicitacaoEvento
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SolicitacaoEventoNfe> ObterPorTiposolicitacaoEvento(string tiposolicitacaoEvento)
+        public static IEnumerable<SolicitacaoEventoNfe> ObterPorTiposolicitacaoEventoCodNfe(string tiposolicitacaoEvento, int codNfe)
         {
-            var query = from solicitacao in context.TbSolicitacaoEventoNves
-                        where solicitacao.TipoSolicitacao.Equals(tiposolicitacaoEvento)
-                        orderby solicitacao.IdSolicitacaoEvento
-                        select new SolicitacaoEventoNfe
-                        {
-                            CodNfe = solicitacao.CodNfe,
-                            IdSolicitacaoEvento = solicitacao.IdSolicitacaoEvento,
-                            TipoSolicitacao = solicitacao.TipoSolicitacao
-                        };
-            return query.AsNoTracking().ToList();
-        }
-
-        /// <summary>
-        /// Obter todos os SolicitacaoEventos pelo tipo solicitacaoEvento
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<SolicitacaoEventoNfe> ObterPorTiposolicitacaoEventoCodNfe(string tiposolicitacaoEvento, int codNfe)
-        {
-           var query = from solicitacao in context.TbSolicitacaoEventoNves
-                        where solicitacao.TipoSolicitacao.Equals(tiposolicitacaoEvento) && solicitacao.CodNfe.Equals(codNfe)
-                        orderby solicitacao.IdSolicitacaoEvento
-                        select new SolicitacaoEventoNfe
-                        {
-                            CodNfe = solicitacao.CodNfe,
-                            IdSolicitacaoEvento = solicitacao.IdSolicitacaoEvento,
-                            TipoSolicitacao = solicitacao.TipoSolicitacao
-                        };
-            return query.AsNoTracking().ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from solicitacao in context.TbSolicitacaoEventoNves
+                            where solicitacao.TipoSolicitacao.Equals(tiposolicitacaoEvento) && solicitacao.CodNfe.Equals(codNfe)
+                            orderby solicitacao.IdSolicitacaoEvento
+                            select new SolicitacaoEventoNfe
+                            {
+                                CodNfe = solicitacao.CodNfe,
+                                IdSolicitacaoEvento = solicitacao.IdSolicitacaoEvento,
+                                TipoSolicitacao = solicitacao.TipoSolicitacao
+                            };
+                return query.AsNoTracking().ToList();
+            }
         }
     }
 }

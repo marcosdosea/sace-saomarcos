@@ -26,7 +26,7 @@ namespace Sace
 
             if (MessageBox.Show("Confirma exclusão do PRODUTO DO SISTEMA?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorProduto.SubstituirProduto(codProdutoExcluir, codProdutoManter);
+                GerenciadorProduto.SubstituirProduto(codProdutoExcluir, codProdutoManter);
                 //produtoBindingSource.RemoveCurrent();
             }
             codProdutoComboBox.Focus();
@@ -34,7 +34,7 @@ namespace Sace
 
         private void FrmProdutoExcluir_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodos();
+            produtoBindingSource.DataSource = GerenciadorProduto.ObterTodos();
             produtoBindingSource1.DataSource = produtoBindingSource.DataSource;
         }
 

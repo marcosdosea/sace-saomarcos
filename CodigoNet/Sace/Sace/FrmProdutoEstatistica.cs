@@ -18,7 +18,7 @@ namespace Sace
             produto = null;
             this.saceOptions = saceOptions;
             SaceContext context = new SaceContext(saceOptions);
-            this.service = new SaceService(context);
+            this = new SaceService(context);
         }
 
         public FrmProdutoEstatistica(Produto produto)
@@ -30,14 +30,14 @@ namespace Sace
         public FrmProdutoEstatistica(long codProduto)
         {
             InitializeComponent();
-            this.produto = service.GerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = codProduto });
+            this.produto = GerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = codProduto });
         }
 
 
         private void FrmProdutoEstatistica_Load(object sender, EventArgs e)
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, UtilConfig.Default.ENTRADA_PRODUTOS, Principal.Autenticacao.CodUsuario);
-            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodos();
+            produtoBindingSource.DataSource = GerenciadorProduto.ObterTodos();
             //this.tb_produtoTableAdapter.Fill(this.saceDataSet.tb_produto, UtilConfig.Default.ACRESCIMO_PADRAO);
 
             if (produto != null)
@@ -87,20 +87,20 @@ namespace Sace
 
         private void preencherDadosEstatisticos(ProdutoPesquisa produtoPesquisa)
         {
-            Produto produto = service.GerenciadorProduto.Obter(produtoPesquisa);
+            Produto produto = GerenciadorProduto.Obter(produtoPesquisa);
             
             preco_custoTextBox.Text = produto.PrecoCusto.ToString("N2");
             precoVarejoSugestaoTextBox.Text = produto.PrecoVendaVarejoSugestao.ToString("N2");
             precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString("N2");
 
-            produtoLojaBindingSource.DataSource = service.GerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
+            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
             //this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produto.CodProduto);
             //this.produtosVendidosTableAdapter.FillQuantidadeProdutosVendidosMesAnoAsc(saceDataSetConsultas.ProdutosVendidos, produto.CodProduto);
 
             //Dados.saceDataSetConsultas.ProdutosVendidosDataTable pVendidosTable = new Dados.saceDataSetConsultas.ProdutosVendidosDataTable();
             //pVendidosTable = this.saceDataSetConsultas.ProdutosVendidos;
 
-            chart1.DataSource = service.GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 5);
+            chart1.DataSource = GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 5);
 
             chart1.Series[0].Name = "Qtd Vendidos";
             chart1.Series[0].XValueMember = "MesAno";
@@ -111,7 +111,7 @@ namespace Sace
             chart1.DataBind();
             chart1.Visible = true;
 
-            List<ProdutoVendido> produtosVendidos = service.GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 2);
+            List<ProdutoVendido> produtosVendidos = GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 2);
 
             decimal somaVendidos = 0;
             if (produtosVendidos.Count == 0)

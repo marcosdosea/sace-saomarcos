@@ -4,37 +4,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorSaidaPedido
+    public static class GerenciadorSaidaPedido
     {
-        private readonly SaceContext context;
-        private readonly GerenciadorSaida gerenciadorSaida;
-        private readonly GerenciadorSaidaPagamento gerenciadorSaidaPagamento;
-
-        public GerenciadorSaidaPedido(SaceContext saceContext)
-        {
-            context = saceContext;
-            gerenciadorSaida = new GerenciadorSaida();
-            gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
-        }
-
+        
         /// <summary>
         /// Insere dados de saídas associadas a um pedido
         /// </summary>
         /// <param name="saida"></param>
         /// <returns></returns>
-        public long Inserir(SaidaPedido saidaPedido)
+        public static long Inserir(SaidaPedido saidaPedido)
         {
             try
             {
-                TbSaidaPedido _saidaPedido = new TbSaidaPedido();
-                _saidaPedido.CodSaida = saidaPedido.CodSaida;
-                _saidaPedido.CodPedidoGerado = saidaPedido.CodPedido;
-                _saidaPedido.TotalAvista = saidaPedido.TotalAVista;
+                using (var context = new SaceContext())
+                {
+                    TbSaidaPedido _saidaPedido = new TbSaidaPedido();
+                    _saidaPedido.CodSaida = saidaPedido.CodSaida;
+                    _saidaPedido.CodPedidoGerado = saidaPedido.CodPedido;
+                    _saidaPedido.TotalAvista = saidaPedido.TotalAVista;
 
-                context.Add(_saidaPedido);
-                context.SaveChanges();
-                
-                return _saidaPedido.CodSaida;
+                    context.Add(_saidaPedido);
+                    context.SaveChanges();
+
+                    return _saidaPedido.CodSaida;
+                }
             }
             catch (Exception e)
             {
@@ -47,20 +40,23 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <returns></returns>
-        public void Atualizar(SaidaPedido saidaPedido)
+        public static void Atualizar(SaidaPedido saidaPedido)
         {
             try
             {
-                var query = from saidaPedidoE in context.TbSaidaPedidos
-                            where saidaPedidoE.CodSaida == saidaPedido.CodSaida
-                            select saidaPedidoE;
-
-                foreach (TbSaidaPedido _saidaPedido in query)
+                using (var context = new SaceContext())
                 {
-                    _saidaPedido.CodPedidoGerado = saidaPedido.CodPedido;
-                    _saidaPedido.TotalAvista = saidaPedido.TotalAVista;
+                    var query = from saidaPedidoE in context.TbSaidaPedidos
+                                where saidaPedidoE.CodSaida == saidaPedido.CodSaida
+                                select saidaPedidoE;
+
+                    foreach (TbSaidaPedido _saidaPedido in query)
+                    {
+                        _saidaPedido.CodPedidoGerado = saidaPedido.CodPedido;
+                        _saidaPedido.TotalAvista = saidaPedido.TotalAVista;
+                    }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -73,18 +69,21 @@ namespace Negocio
         /// Remove os todos associados ao pedido
         /// </summary>
         /// <param name="saida"></param>
-        public void RemoverPorPedido(long codPedido)
+        public static void RemoverPorPedido(long codPedido)
         {
             try
             {
-                var query = from saidaPedido in context.TbSaidaPedidos
-                            where saidaPedido.CodPedidoGerado == codPedido
-                            select saidaPedido;
-                foreach(TbSaidaPedido saidaPedido in query) 
+                using (var context = new SaceContext())
                 {
-                    context.Remove(saidaPedido);
+                    var query = from saidaPedido in context.TbSaidaPedidos
+                                where saidaPedido.CodPedidoGerado == codPedido
+                                select saidaPedido;
+                    foreach (TbSaidaPedido saidaPedido in query)
+                    {
+                        context.Remove(saidaPedido);
+                    }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -96,18 +95,21 @@ namespace Negocio
         /// Remove uma saída
         /// </summary>
         /// <param name="saida"></param>
-        public void RemoverPorSaida(long codSaida)
+        public static void RemoverPorSaida(long codSaida)
         {
             try
             {
-                var query = from saidaPedido in context.TbSaidaPedidos
-                            where saidaPedido.CodSaida == codSaida
-                            select saidaPedido;
-                foreach (TbSaidaPedido saidaPedido in query)
+                using (var context = new SaceContext())
                 {
-                    context.Remove(saidaPedido);
+                    var query = from saidaPedido in context.TbSaidaPedidos
+                                where saidaPedido.CodSaida == codSaida
+                                select saidaPedido;
+                    foreach (TbSaidaPedido saidaPedido in query)
+                    {
+                        context.Remove(saidaPedido);
+                    }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -118,16 +120,19 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<SaidaPedido> GetQuery()
+        private static IQueryable<SaidaPedido> GetQuery()
         {
-            var query = from saidaPedido in context.TbSaidaPedidos
-                        select new SaidaPedido
-                        {
-                            CodPedido = saidaPedido.CodPedidoGerado,
-                            CodSaida = saidaPedido.CodSaida,
-                            TotalAVista = saidaPedido.TotalAvista
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from saidaPedido in context.TbSaidaPedidos
+                            select new SaidaPedido
+                            {
+                                CodPedido = saidaPedido.CodPedidoGerado,
+                                CodSaida = saidaPedido.CodSaida,
+                                TotalAVista = saidaPedido.TotalAvista
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         
@@ -136,7 +141,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public List<SaidaPedido> ObterPorSaida(long codSaida)
+        public static List<SaidaPedido> ObterPorSaida(long codSaida)
         {
             return GetQuery().Where(sp => sp.CodSaida == codSaida).ToList();
         }
@@ -146,7 +151,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public List<SaidaPedido> ObterPorSaida(List<SaidaPesquisa> saidas)
+        public static List<SaidaPedido> ObterPorSaida(List<SaidaPesquisa> saidas)
         {
             return GetQuery().Where(sp => saidas.Select(s=>s.CodSaida).Contains(sp.CodSaida)).ToList();
         }
@@ -155,17 +160,17 @@ namespace Negocio
         /// Trasnformar Pre-vendas em orçamento quando não há crediários
         /// </summary>
         /// <param name="_listaSaidaPedido"></param>
-        public void TransformarOrcamentoPorRecusaDocumentoFiscal(IEnumerable<long> listaCodSaidas)
+        public static void TransformarOrcamentoPorRecusaDocumentoFiscal(IEnumerable<long> listaCodSaidas)
         {
-            Saida saida = gerenciadorSaida.Obter(listaCodSaidas.ElementAt(0));
+            Saida saida = GerenciadorSaida.Obter(listaCodSaidas.ElementAt(0));
             if (Saida.LISTA_TIPOS_VENDA.Contains(saida.TipoSaida))
             {
                 foreach (long codSaida in listaCodSaidas)
                 {
-                    bool temPagamentoCrediario = gerenciadorSaidaPagamento.ObterPorSaidaFormaPagamento(codSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
+                    bool temPagamentoCrediario = GerenciadorSaidaPagamento.ObterPorSaidaFormaPagamento(codSaida, FormaPagamento.CREDIARIO).ToList().Count > 0;
                     if (!temPagamentoCrediario)
                     {
-                        saida = gerenciadorSaida.Obter(codSaida);
+                        saida = GerenciadorSaida.Obter(codSaida);
                         if ((saida != null) && (saida.TipoSaida != Saida.TIPO_VENDA))
                         {
                             saida.TipoSaida = Saida.TIPO_PRE_VENDA;
@@ -181,7 +186,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public List<SaidaPedido> ObterPorPedido(long codPedido)
+        public static List<SaidaPedido> ObterPorPedido(long codPedido)
         {
             return GetQuery().Where(sp => sp.CodPedido == codPedido).ToList();
         }

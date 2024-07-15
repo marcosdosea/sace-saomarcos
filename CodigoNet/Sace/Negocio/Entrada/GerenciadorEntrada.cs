@@ -6,21 +6,14 @@ using Util;
 
 namespace Negocio
 {
-    public class GerenciadorEntrada
+    public static class GerenciadorEntrada
     {
-        private readonly SaceContext context;
-
-        public GerenciadorEntrada(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Inserir uma nova entrada
         /// </summary>
         /// <param name="entrada"></param>
         /// <returns></returns>
-        public long Inserir(Entrada entrada)
+        public static long Inserir(Entrada entrada)
         {
             try
             {
@@ -37,13 +30,16 @@ namespace Negocio
                     throw new NegocioException("O valor Total dos Protudos ST não pode ser maior que o valor Total dos Produtos.");
                 }
 
-                TbEntradum _entrada = new TbEntradum();
-                Atribuir(entrada, _entrada);
+                using (var context = new SaceContext())
+                {
+                    TbEntradum _entrada = new TbEntradum();
+                    Atribuir(entrada, _entrada);
 
-                context.Add(_entrada);
-                context.SaveChanges();
+                    context.Add(_entrada);
+                    context.SaveChanges();
 
-                return _entrada.CodEntrada;
+                    return _entrada.CodEntrada;
+                }
             }
             catch (Exception e)
             {
@@ -51,35 +47,38 @@ namespace Negocio
             }
         }
 
-        public long Importar(TNfeProc nfe)
+        public static long Importar(TNfeProc nfe)
         {
-            try
+            using (var context = new SaceContext())
             {
-                string numeroNF = nfe.NFe.infNFe.ide.nNF;
-                string cpf_cnpjFornecedor = nfe.NFe.infNFe.emit.Item;
-                IEnumerable<Entrada> entradas = ObterPorNumeroNotaFiscalFornecedor(numeroNF, cpf_cnpjFornecedor);
-                if (entradas.Count() > 0)
+                try
                 {
-                    Entrada entrada = entradas.ElementAtOrDefault(0);
-                    RecuperarDadosEntrada(nfe, entrada);
-                    Atualizar(entrada);
-                    return entrada.CodEntrada;
+                    string numeroNF = nfe.NFe.infNFe.ide.nNF;
+                    string cpf_cnpjFornecedor = nfe.NFe.infNFe.emit.Item;
+                    IEnumerable<Entrada> entradas = ObterPorNumeroNotaFiscalFornecedor(numeroNF, cpf_cnpjFornecedor);
+                    if (entradas.Count() > 0)
+                    {
+                        Entrada entrada = entradas.ElementAtOrDefault(0);
+                        RecuperarDadosEntrada(nfe, entrada);
+                        Atualizar(entrada);
+                        return entrada.CodEntrada;
+                    }
+                    else
+                    {
+                        Entrada entrada = new Entrada();
+                        RecuperarDadosEntrada(nfe, entrada);
+                        long codEntrada = Inserir(entrada);
+                        return codEntrada;
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    Entrada entrada = new Entrada();
-                    RecuperarDadosEntrada(nfe, entrada);
-                    long codEntrada = Inserir(entrada);
-                    return codEntrada;
+                    throw new NegocioException("Problema durante a importação dos dados da Entrada da NF-e. Favor contactar administrador.", e);
                 }
-            }
-            catch (Exception e)
-            {
-                throw new NegocioException("Problema durante a importação dos dados da Entrada da NF-e. Favor contactar administrador.", e);
             }
         }
 
-        private void RecuperarDadosEntrada(TNfeProc nfe, Entrada entrada)
+        private static void RecuperarDadosEntrada(TNfeProc nfe, Entrada entrada)
         {
             CultureInfo ci = new CultureInfo("en-US"); // usado para connversão dos números do xml
             entrada.CodEmpresaFrete = ObterInserirEmpresaFrete(nfe.NFe);
@@ -124,16 +123,15 @@ namespace Negocio
             entrada.ValorSeguro = Convert.ToDecimal(nfe.NFe.infNFe.total.ICMSTot.vSeg, ci);
         }
 
-        private long ObterInserirEmpresaFrete(TNFe nfe)
+        private static long ObterInserirEmpresaFrete(TNFe nfe)
         {
-            var gerenciadorPessoa = new GerenciadorPessoa();
             var gerenciadorMunicipio = new GerenciadorMunicipio();
 
             if (nfe.infNFe.transp != null && nfe.infNFe.transp.transporta != null && !string.IsNullOrEmpty(nfe.infNFe.transp.transporta.Item))
             {
-                Pessoa empresaFrete = gerenciadorPessoa.ObterPorCpfCnpj(nfe.infNFe.transp.transporta.Item).ElementAtOrDefault(0);
+                Pessoa empresaFrete = GerenciadorPessoa.ObterPorCpfCnpj(nfe.infNFe.transp.transporta.Item).ElementAtOrDefault(0);
                 if (empresaFrete == null)
-                    empresaFrete = gerenciadorPessoa.ObterPorNome(nfe.infNFe.transp.transporta.xNome).ElementAtOrDefault(0);
+                    empresaFrete = GerenciadorPessoa.ObterPorNome(nfe.infNFe.transp.transporta.xNome).ElementAtOrDefault(0);
 
                 if (empresaFrete == null)
                 {
@@ -151,7 +149,7 @@ namespace Negocio
 
                     empresaFrete.CodMunicipioIBGE = gerenciadorMunicipio.ObterPorCidadeEstado(empresaFrete.Cidade, empresaFrete.Uf).Codigo;
                     empresaFrete.Tipo = empresaFrete.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
-                    return gerenciadorPessoa.Inserir(empresaFrete);
+                    return GerenciadorPessoa.Inserir(empresaFrete);
                 }
                 else
                 {
@@ -164,19 +162,17 @@ namespace Negocio
             }
         }
 
-        private long ObterInserirFornecedor(TNFe nfe)
+        private static long ObterInserirFornecedor(TNFe nfe)
         {
-            var gerenciadorPessoa = new GerenciadorPessoa();
-
             if (nfe.infNFe.emit != null)
             {
-                Pessoa fornecedor = gerenciadorPessoa.ObterPorCpfCnpj(nfe.infNFe.emit.Item).ElementAtOrDefault(0);
+                Pessoa fornecedor = GerenciadorPessoa.ObterPorCpfCnpj(nfe.infNFe.emit.Item).ElementAtOrDefault(0);
                 if (fornecedor == null)
                 {
                     if (nfe.infNFe.emit.xNome.Length > 50)
-                        fornecedor = gerenciadorPessoa.ObterPorNome(nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50)).ElementAtOrDefault(0);
+                        fornecedor = GerenciadorPessoa.ObterPorNome(nfe.infNFe.emit.xNome.ToUpper().Substring(0, 50)).ElementAtOrDefault(0);
                     else
-                        fornecedor = gerenciadorPessoa.ObterPorNome(nfe.infNFe.emit.xNome.ToUpper()).ElementAtOrDefault(0);
+                        fornecedor = GerenciadorPessoa.ObterPorNome(nfe.infNFe.emit.xNome.ToUpper()).ElementAtOrDefault(0);
                 }
                 if (fornecedor == null)
                 {
@@ -204,7 +200,7 @@ namespace Negocio
                     fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro.Length > 10 ? nfe.infNFe.emit.enderEmit.nro.Substring(0, 10) : nfe.infNFe.emit.enderEmit.nro;
                     fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
                     fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
-                    return gerenciadorPessoa.Inserir(fornecedor);
+                    return GerenciadorPessoa.Inserir(fornecedor);
                 }
                 else
                 {
@@ -227,7 +223,7 @@ namespace Negocio
                         fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro.Length > 10 ? nfe.infNFe.emit.enderEmit.nro.Substring(0, 10) : nfe.infNFe.emit.enderEmit.nro;
                         fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
                         fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
-                        gerenciadorPessoa.Atualizar(fornecedor);
+                        GerenciadorPessoa.Atualizar(fornecedor);
                         return fornecedor.CodPessoa;
                     }
                     else
@@ -257,7 +253,7 @@ namespace Negocio
                         fornecedor.Numero = nfe.infNFe.emit.enderEmit.nro.Length > 10 ? nfe.infNFe.emit.enderEmit.nro.Substring(0, 10) : nfe.infNFe.emit.enderEmit.nro;
                         fornecedor.Uf = nfe.infNFe.emit.enderEmit.UF.ToString();
                         fornecedor.Tipo = fornecedor.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
-                        return gerenciadorPessoa.Inserir(fornecedor);
+                        return GerenciadorPessoa.Inserir(fornecedor);
 
                     }
                 }
@@ -272,7 +268,7 @@ namespace Negocio
         /// Atualizar dados da entrada
         /// </summary>
         /// <param name="entrada"></param>
-        public void Atualizar(Entrada entrada)
+        public static void Atualizar(Entrada entrada)
         {
             if ((entrada.TotalBaseSubstituicao > 0) && (entrada.TotalProdutosST <= 0))
                 throw new NegocioException("Quando a entrada possui valor de substituição tributária é necessário informar o valor Total dos Produtos Substituição Tributária");
@@ -284,14 +280,14 @@ namespace Negocio
             {
                 throw new NegocioException("O valor Total dos Protudos ST não pode ser maior que o valor Total dos Produtos.");
             }
-            var query = from entradaSet in context.TbEntrada
-                        where entradaSet.CodEntrada == entrada.CodEntrada
-                        select entradaSet;
-            var _entrada = query.First();
-            Atribuir(entrada, _entrada);
+            using (var context = new SaceContext())
+            {
+                var _entrada = context.TbEntrada.FirstOrDefault(e => e.CodEntrada == entrada.CodEntrada);
+                Atribuir(entrada, _entrada);
 
-            context.Update(_entrada);
-            context.SaveChanges();
+                context.Update(_entrada);
+                context.SaveChanges();
+            }
         }
 
         
@@ -300,14 +296,23 @@ namespace Negocio
         /// REmover uma entrada
         /// </summary>
         /// <param name="codEntrada"></param>
-        public void Remover(long codEntrada)
+        public static void Remover(long codEntrada)
         {
             try
             {
-                var entrada = new TbEntradum();
-                entrada.CodEntrada = codEntrada;
-                context.Remove(entrada);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var entrada = context.TbEntrada.FirstOrDefault(e => e.CodEntrada == codEntrada);
+                    if (entrada != null)
+                    {
+                        context.Remove(entrada);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Entrada não encontrada para exclusão.");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -319,28 +324,31 @@ namespace Negocio
         /// Encerra o cadastramento da entrada lançando todas as contas a pagar
         /// </summary>
         /// <param name="entrada"></param>
-        public void Encerrar(Entrada entrada)
+        public static void Encerrar(Entrada entrada)
         {
-            var transaction = context.Database.BeginTransaction(); 
-            try
+            using (var context = new SaceContext())
             {
-                if (context.TbConta.Where(conta => conta.CodEntrada == entrada.CodEntrada).Count() == 0)
+                var transaction = context.Database.BeginTransaction();
+                try
                 {
-                    var entradaPagamentos = context.TbEntradaFormaPagamentos.Where(pagamento => pagamento.CodEntrada == entrada.CodEntrada).ToList();
-                    RegistrarPagamentosEntrada(entradaPagamentos, entrada);
+                    if (context.TbConta.Where(conta => conta.CodEntrada == entrada.CodEntrada).Count() == 0)
+                    {
+                        var entradaPagamentos = context.TbEntradaFormaPagamentos.Where(pagamento => pagamento.CodEntrada == entrada.CodEntrada).ToList();
+                        RegistrarPagamentosEntrada(entradaPagamentos, entrada, context);
+                    }
+                    else
+                    {
+                        throw new NegocioException("Existem contas associadas a essa entrada. Ela não pode ser encerrada novamente.");
+                    }
+                    entrada.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+                    Atualizar(entrada);
+                    transaction.Commit();
                 }
-                else
+                catch (Exception e)
                 {
-                    throw new NegocioException("Existem contas associadas a essa entrada. Ela não pode ser encerrada novamente.");
+                    transaction.Rollback();
+                    throw e;
                 }
-                entrada.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
-                Atualizar(entrada);
-                transaction.Commit();
-            }
-            catch (Exception e)
-            {
-                transaction.Rollback();
-                throw e;
             }
         }
 
@@ -349,12 +357,8 @@ namespace Negocio
         /// </summary>
         /// <param name="pagamentos"></param>
         /// <param name="entrada"></param>
-        private void RegistrarPagamentosEntrada(List<TbEntradaFormaPagamento> pagamentos, Entrada entrada)
+        private static void RegistrarPagamentosEntrada(List<TbEntradaFormaPagamento> pagamentos, Entrada entrada, SaceContext context)
         {
-            var gerenciadorConta = new GerenciadorConta(context);
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
-            context.Database.BeginTransaction();
             foreach (TbEntradaFormaPagamento pagamento in pagamentos)
             {
                 // Para cada pagamento é criada uma nova conta
@@ -391,71 +395,73 @@ namespace Negocio
                 }
                 conta.DataVencimento = (DateTime) pagamento.Data;
 
-                conta.CodConta = gerenciadorConta.Inserir(conta, context);
+                conta.CodConta = GerenciadorConta.Inserir(conta, context);
 
                 if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
                 {
                     MovimentacaoConta movimentacao = new MovimentacaoConta();
                     movimentacao.CodContaBanco = pagamento.CodContaBanco;
                     movimentacao.CodConta = conta.CodConta;
-                    movimentacao.CodResponsavel = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).First().CodPessoa;
+                    movimentacao.CodResponsavel = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).First().CodPessoa;
 
                     movimentacao.CodTipoMovimentacao = MovimentacaoConta.PAGAMENTO_FORNECEDOR;
                     movimentacao.DataHora = DateTime.Now;
                     movimentacao.Valor = (decimal) pagamento.Valor;
 
-                    gerenciadorMovimentacaoConta.Inserir(movimentacao, context);
+                    GerenciadorMovimentacaoConta.Inserir(movimentacao, context);
                 }
 
             }
-            context.Database.CommitTransaction();
         }
 
         /// <summary>
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Entrada> GetQuery()
+        private static IQueryable<Entrada> GetQuery()
         {
-            var query = from entrada in context.TbEntrada
-                        select new Entrada
-                        {
-                            CodEmpresaFrete = entrada.CodEmpresaFrete,
-                            CodEntrada = entrada.CodEntrada,
-                            CodFornecedor = entrada.CodFornecedor,
-                            CodSituacaoPagamentos = entrada.CodSituacaoPagamentos,
-                            CodTipoEntrada = entrada.CodTipoEntrada,
-                            DataEmissao = (DateTime)entrada.DataEmissao,
-                            DataEntrada = (DateTime)entrada.DataEntrada,
-                            Desconto = (decimal)entrada.Desconto,
-                            FretePagoEmitente = entrada.FretePagoEmitente,
-                            NomeEmpresaFrete = entrada.CodEmpresaFreteNavigation.Nome,
-                            NomeFornecedor = entrada.CodFornecedorNavigation.Nome,
-                            Cpf_CnpjFornecedor = entrada.CodFornecedorNavigation.CpfCnpj,
-                            FornecedorEhFabricante = entrada.CodFornecedorNavigation.EhFabricante,
-                            NumeroNotaFiscal = entrada.NumeroNotaFiscal,
-                            OutrasDespesas = (decimal)entrada.OutrasDespesas,
-                            TotalBaseCalculo = (decimal)entrada.TotalBaseCalculo,
-                            TotalBaseSubstituicao = (decimal)entrada.TotalBaseSubstituicao,
-                            TotalICMS = (decimal)entrada.TotalIcms,
-                            TotalIPI = (decimal)entrada.TotalIpi,
-                            TotalNota = (decimal)entrada.TotalNota,
-                            TotalProdutos = (decimal)entrada.TotalProdutos,
-                            TotalProdutosST = (decimal)entrada.TotalProdutosSt,
-                            TotalSubstituicao = (decimal)entrada.TotalSubstituicao,
-                            ValorFrete = (decimal)entrada.ValorFrete,
-                            ValorSeguro = (decimal)entrada.ValorSeguro,
-                            Serie = entrada.Serie,
-                            Chave = entrada.Chave
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from entrada in context.TbEntrada
+                            select new Entrada
+                            {
+                                CodEmpresaFrete = entrada.CodEmpresaFrete,
+                                CodEntrada = entrada.CodEntrada,
+                                CodFornecedor = entrada.CodFornecedor,
+                                CodSituacaoPagamentos = entrada.CodSituacaoPagamentos,
+                                CodTipoEntrada = entrada.CodTipoEntrada,
+                                DataEmissao = (DateTime)entrada.DataEmissao,
+                                DataEntrada = (DateTime)entrada.DataEntrada,
+                                Desconto = (decimal)entrada.Desconto,
+                                FretePagoEmitente = entrada.FretePagoEmitente,
+                                NomeEmpresaFrete = entrada.CodEmpresaFreteNavigation.Nome,
+                                NomeFornecedor = entrada.CodFornecedorNavigation.Nome,
+                                Cpf_CnpjFornecedor = entrada.CodFornecedorNavigation.CpfCnpj,
+                                FornecedorEhFabricante = entrada.CodFornecedorNavigation.EhFabricante,
+                                NumeroNotaFiscal = entrada.NumeroNotaFiscal,
+                                OutrasDespesas = (decimal)entrada.OutrasDespesas,
+                                TotalBaseCalculo = (decimal)entrada.TotalBaseCalculo,
+                                TotalBaseSubstituicao = (decimal)entrada.TotalBaseSubstituicao,
+                                TotalICMS = (decimal)entrada.TotalIcms,
+                                TotalIPI = (decimal)entrada.TotalIpi,
+                                TotalNota = (decimal)entrada.TotalNota,
+                                TotalProdutos = (decimal)entrada.TotalProdutos,
+                                TotalProdutosST = (decimal)entrada.TotalProdutosSt,
+                                TotalSubstituicao = (decimal)entrada.TotalSubstituicao,
+                                ValorFrete = (decimal)entrada.ValorFrete,
+                                ValorSeguro = (decimal)entrada.ValorSeguro,
+                                Serie = entrada.Serie,
+                                Chave = entrada.Chave
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
         /// Obtém todos os banco cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Entrada> ObterTodos()
+        public static IEnumerable<Entrada> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -465,7 +471,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Entrada> Obter(long codEntrada)
+        public static IEnumerable<Entrada> Obter(long codEntrada)
         {
             return GetQuery().Where(entrada => entrada.CodEntrada == codEntrada).ToList();
         }
@@ -475,7 +481,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Entrada> ObterPorTipoEntrada(int codTipoEntrada)
+        public static IEnumerable<Entrada> ObterPorTipoEntrada(int codTipoEntrada)
         {
             return GetQuery().Where(entrada => entrada.CodTipoEntrada == codTipoEntrada).ToList();
         }
@@ -485,7 +491,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Entrada> ObterPorNumeroNotaFiscal(string numeroNotaFiscal)
+        public static IEnumerable<Entrada> ObterPorNumeroNotaFiscal(string numeroNotaFiscal)
         {
             return GetQuery().Where(entrada => entrada.NumeroNotaFiscal.StartsWith(numeroNotaFiscal)).ToList();
         }
@@ -495,7 +501,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Entrada> ObterPorNumeroNotaFiscalFornecedor(string numeroNotaFiscal, string cpf_CnpjFornecedor)
+        public static IEnumerable<Entrada> ObterPorNumeroNotaFiscalFornecedor(string numeroNotaFiscal, string cpf_CnpjFornecedor)
         {
             return GetQuery().Where(entrada => entrada.NumeroNotaFiscal.Equals(numeroNotaFiscal) && entrada.Cpf_CnpjFornecedor.Equals(cpf_CnpjFornecedor)).ToList();
         }
@@ -505,7 +511,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Entrada> ObterPorNomeFornecedor(string nomeFornecedor)
+        public static IEnumerable<Entrada> ObterPorNomeFornecedor(string nomeFornecedor)
         {
             return GetQuery().Where(entrada => entrada.NomeFornecedor.StartsWith(nomeFornecedor)).ToList();
         }
@@ -516,15 +522,18 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<SituacaoPagamentos> ObterTodosSituacoesPagamentos()
+        public static IEnumerable<SituacaoPagamentos> ObterTodosSituacoesPagamentos()
         {
-            var query = from situacaoPagamentos in context.TbSituacaoPagamentos
-                        select new SituacaoPagamentos
-                        {
-                            CodSituacaoPagamentos = situacaoPagamentos.CodSituacaoPagamentos,
-                            DescricaoSituacaoPagamentos = situacaoPagamentos.DescricaoSituacaoPagamentos
-                        };
-            return query.ToList();
+            using (var context = new SaceContext())
+            {
+                var query = from situacaoPagamentos in context.TbSituacaoPagamentos
+                            select new SituacaoPagamentos
+                            {
+                                CodSituacaoPagamentos = situacaoPagamentos.CodSituacaoPagamentos,
+                                DescricaoSituacaoPagamentos = situacaoPagamentos.DescricaoSituacaoPagamentos
+                            };
+                return query.ToList();
+            }
         }
 
 

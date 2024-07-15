@@ -12,24 +12,19 @@ namespace Sace.Relatorios.Produtos
     {
         private long codPessoa;
         private decimal lucro;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmRelProdutosRevenda(long codPessoa, decimal lucro, DbContextOptions<SaceContext> saceOptions)
+        public FrmRelProdutosRevenda(long codPessoa, decimal lucro)
         {
             this.codPessoa = codPessoa;
             this.lucro = lucro;
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmRelProdutosRevenda_Load(object sender, EventArgs e)
         {
-            ProdutoBindingSource.DataSource = service.GerenciadorProduto.ObterPorCodigoFabricante(codPessoa);
-            Loja loja = service.GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
-            PessoaBindingSource.DataSource = gerenciadorPessoa.Obter(loja.CodPessoa);
+            ProdutoBindingSource.DataSource = GerenciadorProduto.ObterPorCodigoFabricante(codPessoa);
+            Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
+            PessoaBindingSource.DataSource = GerenciadorPessoa.Obter(loja.CodPessoa);
 
             string parametroLucro = (1 + lucro / 100).ToString();
 

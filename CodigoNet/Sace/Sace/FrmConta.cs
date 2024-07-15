@@ -8,20 +8,18 @@ namespace Sace
     public partial class FrmConta : Form
     {
         private EstadoFormulario estado;
-        private readonly GerenciadorPessoa gerenciadorPessoa;
 
         public FrmConta()
         {
             InitializeComponent();
-            gerenciadorPessoa = new GerenciadorPessoa();
         }
 
         private void FrmContas_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            planoContaBindingSource.DataSource = service.GerenciadorPlanoConta.ObterTodos();
-            contaBindingSource.DataSource = service.GerenciadorConta.ObterTodos();
-            situacaoContaBindingSource.DataSource = service.GerenciadorConta.ObterSituacoesConta();
+            pessoaBindingSource.DataSource = GerenciadorPessoa.ObterTodos();
+            planoContaBindingSource.DataSource = GerenciadorPlanoConta.ObterTodos();
+            contaBindingSource.DataSource = GerenciadorConta.ObterTodos();
+            situacaoContaBindingSource.DataSource = GerenciadorConta.ObterSituacoesConta();
             
             habilitaBotoes(true);
         }
@@ -43,7 +41,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmContaPesquisa frmContaPesquisa = new FrmContaPesquisa(saceOptions);
+            FrmContaPesquisa frmContaPesquisa = new FrmContaPesquisa();
             frmContaPesquisa.ShowDialog();
             if (frmContaPesquisa.ContaSelected != null)
             {
@@ -73,7 +71,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorConta.Remover(long.Parse(codContaTextBox.Text));
+                GerenciadorConta.Remover(long.Parse(codContaTextBox.Text));
                 contaBindingSource.RemoveCurrent();
             }
         }
@@ -95,12 +93,12 @@ namespace Sace
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                long codConta = service.GerenciadorConta.Inserir(conta);
+                long codConta = GerenciadorConta.Inserir(conta);
                 codContaTextBox.Text = codConta.ToString();
             }
             else
             {
-                service.GerenciadorConta.Atualizar(conta);
+                GerenciadorConta.Atualizar(conta);
             }
             contaBindingSource.EndEdit();
             habilitaBotoes(true);
@@ -169,7 +167,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa(saceOptions);
+                    FrmPessoaPesquisa frmPessoaPesquisa = new FrmPessoaPesquisa();
                     frmPessoaPesquisa.ShowDialog();
                     if (frmPessoaPesquisa.PessoaSelected != null)
                     {
@@ -179,7 +177,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa(saceOptions);
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -238,7 +236,7 @@ namespace Sace
         private void tb_contaBindingSource_CurrentChanged(object sender, EventArgs e)
         {
             if (codContaTextBox.Text != "")
-                movimentacaoContaBindingSource.DataSource = service.GerenciadorMovimentacaoConta.ObterPorConta(Convert.ToInt64(codContaTextBox.Text));
+                movimentacaoContaBindingSource.DataSource = GerenciadorMovimentacaoConta.ObterPorConta(Convert.ToInt64(codContaTextBox.Text));
         }
     }
 }

@@ -8,12 +8,9 @@ namespace Sace
     public partial class FrmCalculoParticipacao : Form
     {
 
-        private readonly GerenciadorSaida gerenciadorSaida;
-
         public FrmCalculoParticipacao()
         {
             InitializeComponent();
-            gerenciadorSaida = new GerenciadorSaida();
         }
 
         private void FrmCalculoParticipacao_KeyDown(object sender, KeyEventArgs e)
@@ -36,7 +33,7 @@ namespace Sace
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor; 
+            Cursor.Current = Cursors.WaitCursor;
             DateTime dataInicial = dateTimeInicial.Value;
             DateTime dataFinal = dateTimeFinal.Value;
             decimal valorMinimoVenda = 0;
@@ -47,8 +44,8 @@ namespace Sace
             decimal.TryParse(textAvaliacaoClientes.Text, out avaliacaoClientes);
             decimal metaVendas = 0;
             decimal.TryParse(textMetaVendas.Text, out metaVendas);
-            
-            List<Saida> saidas = gerenciadorSaida.ObterVendasParticipacaoLucros(dataInicial, dataFinal, valorMinimoVenda);
+
+            List<Saida> saidas = GerenciadorSaida.ObterVendasParticipacaoLucros(dataInicial, dataFinal, valorMinimoVenda);
             decimal lucroBruto = saidas.Sum(s => s.TotalLucro);
 
             decimal descontoAvaliacaoClientes = avaliacaoClientes / 5;
@@ -58,17 +55,7 @@ namespace Sace
             valorParticipacao *= descontoAvaliacaoClientes;
             valorParticipacao *= descontoMetaVendas;
             textValorCalculado.Text = (valorParticipacao / numeroFuncionarios).ToString("N2");
-            Cursor.Current = Cursors.Default; 
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
+            Cursor.Current = Cursors.Default;
         }
     }
 }

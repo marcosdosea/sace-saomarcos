@@ -19,8 +19,8 @@ namespace Sace
 
         private void FrmContaBanco_Load(object sender, EventArgs e)
         {
-            bancoBindingSource.DataSource = service.GerenciadorBanco.ObterTodos();
-            contaBancoBindingSource.DataSource = service.GerenciadorContaBanco.ObterTodos();
+            bancoBindingSource.DataSource = GerenciadorBanco.ObterTodos();
+            contaBancoBindingSource.DataSource = GerenciadorContaBanco.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -57,7 +57,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorContaBanco.Remover(Int32.Parse(codContaBancoTextBox.Text));
+                GerenciadorContaBanco.Remover(Int32.Parse(codContaBancoTextBox.Text));
                 contaBancoBindingSource.RemoveCurrent();
             }
         }
@@ -78,12 +78,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codContaBanco = service.GerenciadorContaBanco.Inserir(_contaBanco);
+                    long codContaBanco = GerenciadorContaBanco.Inserir(_contaBanco);
                     codContaBancoTextBox.Text = codContaBanco.ToString();
                 }
                 else
                 {
-                    service.GerenciadorContaBanco.Atualizar(_contaBanco);
+                    GerenciadorContaBanco.Atualizar(_contaBanco);
                 }
                 contaBancoBindingSource.EndEdit();
             }

@@ -8,19 +8,18 @@ namespace Sace
     public partial class FrmBanco : Form
     {
         private EstadoFormulario estado;
-        private GerenciadorBanco gerenciadorBanco;
+
         public Banco BancoSelected { get; set; }
 
         public FrmBanco()
         {
             InitializeComponent();
             BancoSelected = null;
-            gerenciadorBanco = new GerenciadorBanco();
         }
 
         private void FrmBanco_Load(object sender, EventArgs e)
         {
-            bancoBindingSource.DataSource = gerenciadorBanco.ObterTodos();
+            bancoBindingSource.DataSource = GerenciadorBanco.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -55,7 +54,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorBanco.Remover(int.Parse(codBancoTextBox.Text));
+                GerenciadorBanco.Remover(int.Parse(codBancoTextBox.Text));
                 bancoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -77,12 +76,12 @@ namespace Sace
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    int codBanco = (int)gerenciadorBanco.Inserir(banco);
+                    int codBanco = (int)GerenciadorBanco.Inserir(banco);
                     codBancoTextBox.Text = codBanco.ToString();
                 }
                 else
                 {
-                    gerenciadorBanco.Atualizar(banco);
+                    GerenciadorBanco.Atualizar(banco);
                 }
                 bancoBindingSource.EndEdit();
             }

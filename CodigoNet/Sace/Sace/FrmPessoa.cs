@@ -30,8 +30,8 @@ namespace Sace
             var gerenciadorPessoa = new GerenciadorPessoa();
             Cursor.Current = Cursors.WaitCursor;
             pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            municipiosIBGEBindingSource.DataSource = service.GerenciadorMunicipio.ObterTodos();
-            loja = service.GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
+            municipiosIBGEBindingSource.DataSource = GerenciadorMunicipio.ObterTodos();
+            loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
             if (!codPessoaTextBox.Text.Trim().Equals(""))
                 contatosBindingSource.DataSource = gerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
             habilitaBotoes(true);

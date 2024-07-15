@@ -4,31 +4,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorFormaPagamento 
+    public static class GerenciadorFormaPagamento 
     {
-        private readonly SaceContext context;
-
-        public GerenciadorFormaPagamento(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
 
         /// <summary>
         /// Insere uma nova forma de pagamento
         /// </summary>
         /// <param name="formaPagamento"></param>
         /// <returns></returns>
-        public int Inserir(FormaPagamento formaPagamento)
+        public static int Inserir(FormaPagamento formaPagamento)
         {
             try
             {
-                var _formaPagamento = new TbFormaPagamento();
-                Atribuir(formaPagamento, _formaPagamento);
+                using (var context = new SaceContext())
+                {
+                    var _formaPagamento = new TbFormaPagamento();
+                    Atribuir(formaPagamento, _formaPagamento);
 
-                context.Add(_formaPagamento);
-                context.SaveChanges();
-                
-                return _formaPagamento.CodFormaPagamento;
+                    context.Add(_formaPagamento);
+                    context.SaveChanges();
+
+                    return _formaPagamento.CodFormaPagamento;
+                }
             }
             catch (Exception e)
             {
@@ -40,23 +37,23 @@ namespace Negocio
         /// Atualiza forma de pagamento
         /// </summary>
         /// <param name="formaPagamento"></param>
-        public void Atualizar(FormaPagamento formaPagamento)
+        public static void Atualizar(FormaPagamento formaPagamento)
         {
             try
             {
-                var _formaPagamento = new TbFormaPagamento();
-                _formaPagamento.CodFormaPagamento = formaPagamento.CodFormaPagamento;
-
-                _formaPagamento = context.TbFormaPagamentos.Find(_formaPagamento);
-                if (_formaPagamento != null)
+                using (var context = new SaceContext())
                 {
-                    Atribuir(formaPagamento, _formaPagamento);
-                    context.Update(_formaPagamento);
-                    context.SaveChanges();
-                } 
-                else
-                {
-                    throw new NegocioException("Forma de pagamento não encntrada para atualização.");
+                    var _formaPagamento = context.TbFormaPagamentos.FirstOrDefault(fp => fp.CodFormaPagamento == formaPagamento.CodFormaPagamento);
+                    if (_formaPagamento != null)
+                    {
+                        Atribuir(formaPagamento, _formaPagamento);
+                        context.Update(_formaPagamento);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Forma de pagamento não encontrada para atualização.");
+                    }
                 }
             }
             catch (Exception e)
@@ -69,15 +66,23 @@ namespace Negocio
         /// Remove uma forma de pagamento
         /// </summary>
         /// <param name="codformaPagamento"></param>
-        public void Remover(int codFormaPagamento)
+        public static void Remover(int codFormaPagamento)
         {
             try
             {
-                var _formaPagamento = new TbFormaPagamento();
-                _formaPagamento.CodFormaPagamento = codFormaPagamento;
-
-                context.Remove(_formaPagamento);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var _formaPagamento = context.TbFormaPagamentos.FirstOrDefault(fp => fp.CodFormaPagamento == codFormaPagamento);
+                    if (_formaPagamento != null)
+                    {
+                        context.Remove(_formaPagamento);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Forma de pagamento não encontrada.");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -89,25 +94,28 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<FormaPagamento> GetQuery()
+        private static IQueryable<FormaPagamento> GetQuery()
         {
-           var query = from formaPagamento in context.TbFormaPagamentos
-                        select new FormaPagamento
-                        {
-                            CodFormaPagamento = formaPagamento.CodFormaPagamento,
-                            DescontoAcrescimo = formaPagamento.DescontoAcrescimo,
-                            Descricao = formaPagamento.Descricao,
-                            Mapeamento = formaPagamento.Mapeamento,
-                            Parcelas = formaPagamento.Parcelas
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from formaPagamento in context.TbFormaPagamentos
+                            select new FormaPagamento
+                            {
+                                CodFormaPagamento = formaPagamento.CodFormaPagamento,
+                                DescontoAcrescimo = formaPagamento.DescontoAcrescimo,
+                                Descricao = formaPagamento.Descricao,
+                                Mapeamento = formaPagamento.Mapeamento,
+                                Parcelas = formaPagamento.Parcelas
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
         /// Obtém todos as formas de pagamento cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<FormaPagamento> ObterTodos()
+        public static IEnumerable<FormaPagamento> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -117,7 +125,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<FormaPagamento> Obter(int codFormaPagamento)
+        public static IEnumerable<FormaPagamento> Obter(int codFormaPagamento)
         {
             return GetQuery().Where(formaPagamento => formaPagamento.CodFormaPagamento == codFormaPagamento).ToList();
         }
@@ -127,7 +135,7 @@ namespace Negocio
         /// </summary>
         /// <param name="formaPagamento"></param>
         /// <param name="_formaPagamento"></param>
-        private void Atribuir(FormaPagamento formaPagamento, TbFormaPagamento _formaPagamento)
+        private static void Atribuir(FormaPagamento formaPagamento, TbFormaPagamento _formaPagamento)
         {
             _formaPagamento.CodFormaPagamento = formaPagamento.CodFormaPagamento;
             _formaPagamento.DescontoAcrescimo = formaPagamento.DescontoAcrescimo;

@@ -24,8 +24,8 @@ namespace Sace
 
         private void FrmProdutoAjusteEstoque_Load(object sender, EventArgs e)
         {
-            lojaBindingSource.DataSource = service.GerenciadorLoja.ObterTodos();
-            produtoLojaBindingSource.DataSource = service.GerenciadorProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
+            lojaBindingSource.DataSource = GerenciadorLoja.ObterTodos();
+            produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
             habilitaBotoes(true);
         }
 
@@ -78,13 +78,13 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    service.GerenciadorProdutoLoja.Inserir(produtoLoja);
-                    produtoLojaBindingSource.DataSource = service.GerenciadorProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
+                    GerenciadorProdutoLoja.Inserir(produtoLoja);
+                    produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.ObterPorProduto(ProdutoSelected.CodProduto);
                     produtoLojaBindingSource.MoveLast();
                 }
                 else
                 {
-                    service.GerenciadorProdutoLoja.Atualizar(produtoLoja);
+                    GerenciadorProdutoLoja.Atualizar(produtoLoja);
                     produtoLojaBindingSource.EndEdit();
                 }
             }
@@ -205,7 +205,7 @@ namespace Sace
             {
                 nomeProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.Nome;
                 codProdutoTextBox.Text = frmProdutoPesquisa.ProdutoPesquisa.CodProduto.ToString();
-                produtoLojaBindingSource.DataSource = service.GerenciadorProdutoLoja.ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
+                produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.ObterPorProduto(frmProdutoPesquisa.ProdutoPesquisa.CodProduto);
                 ProdutoSelected = frmProdutoPesquisa.ProdutoPesquisa;
                 habilitaBotoes(true);
             }

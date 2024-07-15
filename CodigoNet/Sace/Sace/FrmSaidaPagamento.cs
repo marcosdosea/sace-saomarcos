@@ -30,17 +30,16 @@ namespace Sace
             var gerenciadorSaida = new GerenciadorSaida();
             var gerenciadorUsuario = new GerenciadorUsuario();
             var gerenciadorContaBanco = new GerenciadorContaBanco();
-            var gerenciadorCartaoCredito = new GerenciadorCartaoCredito();
+            var GerenciadorCartaoCredito = new GerenciadorCartaoCredito();
             var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento();
-            var gerenciadorFormaPagamento = new GerenciadorFormaPagamento();
             saidaPagamentoBindingSource.DataSource = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
-            formaPagamentoBindingSource.DataSource = gerenciadorFormaPagamento.ObterTodos();
+            formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.ObterTodos();
             clienteBindingSource.SuspendBinding();
             clienteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
             usuarioBindingSource.DataSource = gerenciadorUsuario.ObterTodos().OrderBy(u => u.Login);
 
             contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
-            cartaoCreditoBindingSource.DataSource = gerenciadorCartaoCredito.ObterTodos();
+            cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.ObterTodos();
             saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
             saida = (Saida)saidaBindingSource.Current;
             if (saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO && saida.TipoSaida != Saida.TIPO_PRE_CREDITO)
@@ -128,11 +127,11 @@ namespace Sace
                 saida.Total = decimal.Parse(totalTextBox.Text);
 
                 codFormaPagamentoComboBox.Focus();
-                service.GerenciadorSaidaPagamento.Inserir(saidaPagamento, saida);
+                GerenciadorSaidaPagamento.Inserir(saidaPagamento, saida);
 
                 AtualizaValores();
 
-                saidaPagamentoBindingSource.DataSource = service.GerenciadorSaidaPagamento.ObterPorSaida(long.Parse(codSaidaTextBox.Text));
+                saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.ObterPorSaida(long.Parse(codSaidaTextBox.Text));
 
                 if (Math.Round(saida.TotalAVista, 2) <= Math.Round(saida.TotalPago, 2))
                 {
@@ -201,7 +200,7 @@ namespace Sace
                                     {
                                         List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
-                                        long codSolicitacao = service.GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFE, false, false);
+                                        long codSolicitacao = GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFE, false, false);
                                         FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE, saceOptions);
                                         frmSaidaAutorizacao.ShowDialog();
                                         frmSaidaAutorizacao.Dispose();
@@ -221,7 +220,7 @@ namespace Sace
                                     {
                                         List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
-                                        long codSolicitacao = service.GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFE, false, false);
+                                        long codSolicitacao = GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFE, false, false);
                                         FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE, saceOptions);
                                         frmSaidaAutorizacao.ShowDialog();
                                         frmSaidaAutorizacao.Dispose();
@@ -266,7 +265,7 @@ namespace Sace
                                         {
                                             List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
-                                            long codSolicitacao = service.GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
+                                            long codSolicitacao = GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
                                             FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFCE, saceOptions);
                                             frmSaidaAutorizacao.ShowDialog();
                                             frmSaidaAutorizacao.Dispose();
@@ -306,8 +305,8 @@ namespace Sace
                 {
                     // Exclui os dados do pagamento
                     long codSaidaPagamento = long.Parse(tb_saida_forma_pagamentoDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                    service.GerenciadorSaidaPagamento.RemoverPorSaida(saida);
-                    saidaPagamentoBindingSource.DataSource = service.GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+                    GerenciadorSaidaPagamento.RemoverPorSaida(saida);
+                    saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
 
                     InicializaVariaveis();
                     AtualizaValores();

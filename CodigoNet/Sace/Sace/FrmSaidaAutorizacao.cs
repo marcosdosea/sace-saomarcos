@@ -40,7 +40,7 @@ namespace Sace
         {
             if (!exibiuResultadoCartao || !exibiuResultadoNfe)
             {
-                //Dados.tb_solicitacao_documento documentoE = service.GerenciadorSolicitacaoDocumento.ObterSolicitacaoDocumento(codSolicitacao);
+                //Dados.tb_solicitacao_documento documentoE = GerenciadorSolicitacaoDocumento.ObterSolicitacaoDocumento(codSolicitacao);
                 //if (documentoE != null)
                 //{
                 //    if (documentoE.haPagamentoCartao && !exibiuResultadoCartao)
@@ -60,7 +60,7 @@ namespace Sace
             Cursor.Current = Cursors.WaitCursor;
             contConsultas++;
             // recupera a último envio da nfe
-            List<NfeControle> listaNfe = service.GerenciadorNFe.ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
+            List<NfeControle> listaNfe = GerenciadorNFe.ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
             if (tipoNfe==DocumentoFiscal.TipoSolicitacao.NFE)
                 listaNfe = listaNfe.Where(nfe => nfe.Modelo.Equals(NfeControle.MODELO_NFE)).OrderBy(nfe => nfe.CodNfe).ToList();
             else
@@ -68,7 +68,7 @@ namespace Sace
             
             //if (listaNfe.Count == 0)
             //{
-            //    listaNfe = service.GerenciadorNFe.ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
+            //    listaNfe = GerenciadorNFe.ObterPorSaida(codSaida).OrderBy(nfe => nfe.CodNfe).ToList();
             //}
             //else
             //{
@@ -116,7 +116,7 @@ namespace Sace
                     //textNfe.Text = "Favor verificar {0} (1) NCM ausentes nos produtos {0} (2) CNPJ/CPF ou IE do cliente incorretos. {0}";
                     lblNffe.ForeColor = Color.Red;
                     Cursor.Current = Cursors.Default;
-                    Loja loja = service.GerenciadorLoja.Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
+                    Loja loja = GerenciadorLoja.Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
                     if (loja != null)
                     {
                         DirectoryInfo Dir = new DirectoryInfo(loja.PastaNfeErro);
@@ -195,7 +195,7 @@ namespace Sace
             if (nfeControle != null)
             {
                 nfeControle.CodSolicitacao = 0;
-                service.GerenciadorNFe.Atualizar(nfeControle);
+                GerenciadorNFe.Atualizar(nfeControle);
             }
             this.Close();
         }
@@ -213,10 +213,10 @@ namespace Sace
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            //nfeControle = service.GerenciadorNFe.ObterPorSolicitacao(codSolicitacao).FirstOrDefault();
+            //nfeControle = GerenciadorNFe.ObterPorSolicitacao(codSolicitacao).FirstOrDefault();
             if (nfeControle != null)
             {
-                service.GerenciadorNFe.ImprimirDanfe(nfeControle);
+                GerenciadorNFe.ImprimirDanfe(nfeControle);
             }
             this.Close();
         }

@@ -43,7 +43,7 @@ namespace Sace
 		private void FrmSaida_Load(object sender, EventArgs e)
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodosNomesExibiveis();
+			produtoBindingSource.DataSource = GerenciadorProduto.ObterTodosNomesExibiveis();
 			ObterSaidas(0);
 
 			cfopPadrao = gerenciadorSaida.ObterCfopTipoSaida(tipoSaidaFormulario);
@@ -287,11 +287,11 @@ namespace Sace
 				bool saidaProdutoInvalida = (saidaProduto.CodProduto == 1) || (saidaProduto.Quantidade == 0) || (saidaProduto.ValorVendaAVista == 0);
 				if (estado.Equals(EstadoFormulario.INSERIR_DETALHE) && !saidaProdutoInvalida)
 				{
-					service.GerenciadorSaidaProduto.Inserir(saidaProduto, saida);
+					GerenciadorSaidaProduto.Inserir(saidaProduto, saida);
 					codSaidaTextBox_TextChanged(sender, e);
 					saidaProdutoBindingSource.MoveLast();
 					if (saida.TipoSaida == Saida.TIPO_ORCAMENTO &&
-						service.GerenciadorProdutoLoja.ObterEstoque(saidaProduto.CodProduto) < saidaProduto.Quantidade)
+						GerenciadorProdutoLoja.ObterEstoque(saidaProduto.CodProduto) < saidaProduto.Quantidade)
 					{
 						MessageBox.Show("Estoque INSUFICIENTE em caso de VENDA", "ATENÇÃO", MessageBoxButtons.OK);
 					}
@@ -315,7 +315,7 @@ namespace Sace
 					SaidaProduto saidaProduto = (SaidaProduto)saidaProdutoBindingSource.Current;
 					//saida = gerenciadorSaida.GetInstance().Obter(saida.CodSaida);
 
-					service.GerenciadorSaidaProduto.Remover(saidaProduto, saida);
+					GerenciadorSaidaProduto.Remover(saidaProduto, saida);
 					saidaProdutoBindingSource.RemoveCurrent();
 
 				}
@@ -445,7 +445,7 @@ namespace Sace
 				{
 					quantidadeTextBox.Text = produto.QtdProdutoAtacado.ToString();
 				}
-				IEnumerable<PontaEstoque> listaPontaEstoque = service.GerenciadorPontaEstoque.ObterPorProduto(produto.CodProduto);
+				IEnumerable<PontaEstoque> listaPontaEstoque = GerenciadorPontaEstoque.ObterPorProduto(produto.CodProduto);
 				if (listaPontaEstoque.Count() > 0)
 				{
 					FrmPontaEstoquePesquisa frmPontaEstoquePesquisa = new FrmPontaEstoquePesquisa(listaPontaEstoque, saceOptions);
@@ -592,7 +592,7 @@ namespace Sace
 				if ((saida != null) && (saida.CodSaida > 0))
 				{
 					saida = gerenciadorSaida.Obter(saida.CodSaida);
-					saidaProdutoBindingSource.DataSource = service.GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+					saidaProdutoBindingSource.DataSource = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
 					descricaoTipoSaidaTextBox.Text = saida.DescricaoTipoSaida;
 					pedidoGeradoTextBox.Text = saida.CupomFiscal;
 					VendedorTextBox.Text = saida.LoginVendedor;
@@ -711,13 +711,13 @@ namespace Sace
 			List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
 
 			listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
-			listaSaidaPagamento = service.GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+			listaSaidaPagamento = GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
 
 			FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, saceOptions);
 			frmSaidaNF.ShowDialog();
 			frmSaidaNF.Dispose();
 
-			List<NfeControle> listaNfes = service.GerenciadorNFe.ObterPorSaida(saida.CodSaida).ToList();
+			List<NfeControle> listaNfes = GerenciadorNFe.ObterPorSaida(saida.CodSaida).ToList();
 
 			saida = gerenciadorSaida.Obter(saida.CodSaida);
 			if ((saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA)) && (listaNfes.Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() == 0))
@@ -757,12 +757,12 @@ namespace Sace
 			DialogResult result = MessageBox.Show("Se for possível PODE BAIXAR o PREÇO de VENDA?", "Atualizar Preços com Valores do Dia", MessageBoxButtons.YesNoCancel);
 			if (result == DialogResult.Yes)
 			{
-				service.GerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, true);
+				GerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, true);
 				codSaidaTextBox_TextChanged(sender, e);
 			}
 			else if (result.Equals(DialogResult.No))
 			{
-				service.GerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, false);
+				GerenciadorSaidaProduto.AtualizarPrecosComValoresDia(saida, false);
 				codSaidaTextBox_TextChanged(sender, e);
 			}
 		}

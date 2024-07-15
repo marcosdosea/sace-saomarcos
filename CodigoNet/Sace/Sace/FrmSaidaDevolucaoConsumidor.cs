@@ -27,7 +27,7 @@ namespace Sace
             saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
             saida = (Saida) saidaBindingSource.Current;
             
-            lojaBindingSourceOrigem.DataSource = service.GerenciadorLoja.ObterTodos();
+            lojaBindingSourceOrigem.DataSource = GerenciadorLoja.ObterTodos();
             int codLoja = ((Loja) codPessoaComboBoxOrigem.SelectedItem).CodLoja;
         }
 
@@ -47,7 +47,7 @@ namespace Sace
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
-                    listaSaidaPagamento = service.GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+                    listaSaidaPagamento = GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
                 
                     FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, saceOptions);
                     frmSaidaNF.ShowDialog();

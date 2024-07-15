@@ -16,35 +16,29 @@ namespace Sace.Relatorios.Produtos
         private decimal totalPagar;
         private decimal desconto;
 
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-
-        public FrmDAV(List<long> listaCodSaidas, decimal total, decimal totalPagar, decimal desconto, DbContextOptions<SaceContext> saceOptions)
+        public FrmDAV(List<long> listaCodSaidas, decimal total, decimal totalPagar, decimal desconto)
         {
             InitializeComponent();
             this.listaCodSaidas = listaCodSaidas;
             this.total = total;
             this.totalPagar = totalPagar;
             this.desconto = desconto;
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmDAV_Load(object sender, EventArgs e)
         {
             // Obtém os produtos das saídas
-            List<SaidaProdutoRelatorio> listaSaidaProdutoRelatorio = service.GerenciadorSaidaProduto.ObterPorSaidasRelatorio(listaCodSaidas);
+            List<SaidaProdutoRelatorio> listaSaidaProdutoRelatorio = GerenciadorSaidaProduto.ObterPorSaidasRelatorio(listaCodSaidas);
             SaidaProdutoRelatorioBindingSource.DataSource = listaSaidaProdutoRelatorio;
 
             if (listaSaidaProdutoRelatorio.Count > 0)
             {
                 // Obtém os demais dados para preenchimento do relatório
                 long codCliente = listaSaidaProdutoRelatorio.ElementAtOrDefault(0).CodCliente;
-                PessoaBindingSource.DataSource = gerenciadorPessoa.Obter(codCliente);
+                PessoaBindingSource.DataSource = GerenciadorPessoa.Obter(codCliente);
                 
-                Loja loja = service.GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
-                PessoaLojaBindingSource.DataSource = gerenciadorPessoa.Obter(loja.CodPessoa);
+                Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
+                PessoaLojaBindingSource.DataSource = GerenciadorPessoa.Obter(loja.CodPessoa);
 
                 ReportParameterCollection parameterCollection = new ReportParameterCollection();
                 parameterCollection.Add(new ReportParameter("TotalSaidas", total.ToString("N2")));

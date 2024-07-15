@@ -1,21 +1,20 @@
 ﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
-using System.Transactions;
 using Util;
 using Vip.Printer;
 using Vip.Printer.Enums;
 
 namespace Negocio
 {
-    public class GerenciadorSaida
+    public static class GerenciadorSaida
     {
         /// <summary>
         /// Insere dados de uma saída (orçamento/pré-venda/venda/saída depósito)
         /// </summary>
         /// <param name="saida"></param>
         /// <returns></returns>
-        public long Inserir(Saida saida)
+        public static long Inserir(Saida saida)
         {
             try
             {
@@ -39,7 +38,7 @@ namespace Negocio
         /// Atualiza dados de uma saída (orçamento/pré-venda/venda/saída depósito)
         /// </summary>
         /// <param name="saida"></param>
-        public void Atualizar(Saida saida)
+        public static void Atualizar(Saida saida)
         {
             try
             {
@@ -69,7 +68,7 @@ namespace Negocio
         /// Atualiza dados de uma saída (orçamento/pré-venda/venda/saída depósito)
         /// </summary>
         /// <param name="saida"></param>
-        public void Atualizar(Saida saida, SaceContext context)
+        public static void Atualizar(Saida saida, SaceContext context)
         {
             try
             {
@@ -98,7 +97,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSituacaoPagamentos"></param>
         /// <param name="codSaida"></param>
-        public void AtualizarSituacaoPagamentoPorSaida(int codSituacaoPagamentos, long codSaida)
+        public static void AtualizarSituacaoPagamentoPorSaida(int codSituacaoPagamentos, long codSaida)
         {
             try
             {
@@ -128,7 +127,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
-        public void AtualizarPorPedido(string nfe, string observacao, long codCliente, string pedidoGerado)
+        public static void AtualizarPorPedido(string nfe, string observacao, long codCliente, string pedidoGerado)
         {
             try
             {
@@ -158,7 +157,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <param name="tipoDocumento"></param>
-        public void AtualizarTipoDocumentoFiscal(long codSaida, string tipoDocumento)
+        public static void AtualizarTipoDocumentoFiscal(long codSaida, string tipoDocumento)
         {
             try
             {
@@ -186,7 +185,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
-        public void AtualizarSaidasPorNfeSituacao(NfeControle nfeControle)
+        public static void AtualizarSaidasPorNfeSituacao(NfeControle nfeControle)
         {
             try
             {
@@ -246,7 +245,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nfe"></param>
         /// <param name="pedidoGerado"></param>
-        public void AtualizarNfePorCodSaida(string nfe, string observacao, long codSaida)
+        public static void AtualizarNfePorCodSaida(string nfe, string observacao, long codSaida)
         {
             try
             {
@@ -275,20 +274,15 @@ namespace Negocio
         /// Remove os dados de uma saída. No caso de vendas e pré-vendas transforma em orçamento.
         /// </summary>
         /// <param name="saida"></param>
-        public void Remover(Saida saida)
+        public static void Remover(Saida saida)
         {
             using (var context = new SaceContext())
             {
-                var gerenciadorNFe = new GerenciadorNFe(context);
-                var gerenciadorConta = new GerenciadorConta(context);
-                var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
-                var gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
-                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
                 try
                 {
                     context.Database.BeginTransaction();
 
-                    List<NfeControle> listaNfeControle = gerenciadorNFe.ObterPorSaida(saida.CodSaida).ToList();
+                    List<NfeControle> listaNfeControle = GerenciadorNFe.ObterPorSaida(saida.CodSaida).ToList();
                     if (listaNfeControle.Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0)
                         throw new NegocioException("Não é possível remover saídas / devoluções com NF-e AUTORIZADAS pelo sistema");
 
@@ -296,15 +290,15 @@ namespace Negocio
                         throw new NegocioException("Não é possível remover pedidos com NF-e associadas");
 
 
-                    gerenciadorSaidaPagamento.RemoverPorSaida(saida);
+                    GerenciadorSaidaPagamento.RemoverPorSaida(saida);
 
                     if (saida.TipoSaida.Equals(Saida.TIPO_CREDITO))
                     {
-                        List<Conta> listaContas = gerenciadorConta.ObterPorSaida(saida.CodSaida).ToList();
-                        gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
+                        List<Conta> listaContas = GerenciadorConta.ObterPorSaida(saida.CodSaida).ToList();
+                        GerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
                         foreach (Conta conta in listaContas)
                         {
-                            gerenciadorConta.Remover(conta.CodConta);
+                            GerenciadorConta.Remover(conta.CodConta);
                         }
                     }
 
@@ -334,7 +328,7 @@ namespace Negocio
                     }
                     else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                     {
-                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         RegistrarBaixaEstoque(saidaProdutos, context);
                         var query = from saidaE in context.TbSaida
                                     where saidaE.CodSaida == saida.CodSaida
@@ -348,7 +342,7 @@ namespace Negocio
                     }
                     else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA))
                     {
-                        gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
+                        GerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
                         RegistrarEstornoEstoque(saida, null, context);
                         saida.TipoSaida = Saida.TIPO_ORCAMENTO;
                         saida.CupomFiscal = "";
@@ -370,17 +364,11 @@ namespace Negocio
         /// Verifica se é possível editar um saída e caso possível tranforma-a em um orçamento
         /// </summary>
         /// <param name="saida"></param>
-        public void PrepararEdicaoSaida(Saida saida)
+        public static void PrepararEdicaoSaida(Saida saida)
         {
             using (var context = new SaceContext())
             {
                 context.Database.BeginTransaction();
-                var gerenciadorNFe = new GerenciadorNFe(context);
-                var gerenciadorConta = new GerenciadorConta(context);
-                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-                var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento(context);
-                var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
-                var gerenciadorSolicitacaoDocumento = new GerenciadorSolicitacaoDocumento(context);
                 try
                 {
                     if (saida.TipoSaida == Saida.TIPO_CREDITO)
@@ -390,7 +378,7 @@ namespace Negocio
                         throw new NegocioException("Não é possível editar uma saída cujo Comprovante Fiscal já foi emitido.");
 
 
-                    bool possuiNfeAutorizada = gerenciadorNFe.ObterPorSaida(saida.CodSaida).Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0;
+                    bool possuiNfeAutorizada = GerenciadorNFe.ObterPorSaida(saida.CodSaida).Where(nfe => nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_AUTORIZADA)).Count() > 0;
                     if ((saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE_PERDA) && (possuiNfeAutorizada))
                         throw new NegocioException("Não é possível editar Baixa de Estoque cuja Nota Fiscal já foi emitida e autorizada.");
                     if ((saida.TipoSaida == Saida.TIPO_USO_INTERNO) && (possuiNfeAutorizada))
@@ -403,14 +391,14 @@ namespace Negocio
                         throw new NegocioException("Não é possível editar uma Devolução para Fornecedor cuja Nota Fiscal já foi emitida e autorizada.");
                     else if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) && (saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO))
                     {
-                        IEnumerable<SaidaPagamento> pagamentos = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+                        IEnumerable<SaidaPagamento> pagamentos = GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
                         // houve pagamento não realizado em dinheiro
                         if (pagamentos.Where(p => p.CodFormaPagamento.Equals(FormaPagamento.DINHEIRO)).Count() != pagamentos.Count())
                         {
-                            IEnumerable<Conta> contas = gerenciadorConta.ObterPorSaida(saida.CodSaida);
+                            IEnumerable<Conta> contas = GerenciadorConta.ObterPorSaida(saida.CodSaida);
                             foreach (Conta conta in contas)
                             {
-                                bool possuiMovimentacaoFinanceira = gerenciadorMovimentacaoConta.ObterPorConta(conta.CodConta).Count() > 0;
+                                bool possuiMovimentacaoFinanceira = GerenciadorMovimentacaoConta.ObterPorConta(conta.CodConta).Count() > 0;
                                 if (possuiMovimentacaoFinanceira)
                                     throw new NegocioException("Não é possível editar pedidos que já possuem PAGAMENTOS REALIZADOS.");
                             }
@@ -419,10 +407,10 @@ namespace Negocio
                     // Se houver documento fiscal aguardando impressão
                     if (saida.TipoSaida == Saida.TIPO_PRE_VENDA)
                     {
-                        gerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
+                        GerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
                     }
 
-                    gerenciadorSaidaPagamento.RemoverPorSaida(saida);
+                    GerenciadorSaidaPagamento.RemoverPorSaida(saida);
                     if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_DEPOSITO) ||
                         saida.TipoSaida.Equals(Saida.TIPO_RETORNO_DEPOSITO) || saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) ||
                         saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO) ||
@@ -432,7 +420,7 @@ namespace Negocio
                     }
                     if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                     {
-                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         RegistrarBaixaEstoque(saidaProdutos, context);
                     }
                     if (saida.TipoSaida.Equals(Saida.TIPO_PRE_VENDA) || saida.TipoSaida.Equals(Saida.TIPO_VENDA) ||
@@ -466,7 +454,7 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Saida> GetQuery()
+        private static IQueryable<Saida> GetQuery()
         {
             using (var context = new SaceContext())
             {
@@ -524,7 +512,7 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<SaidaPesquisa> GetQueryPesquisa()
+        private static IQueryable<SaidaPesquisa> GetQueryPesquisa()
         {
             using (var context = new SaceContext())
             {
@@ -549,7 +537,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public Saida Obter(long codSaida)
+        public static Saida Obter(long codSaida)
         {
             List<Saida> saidas = GetQuery().Where(saida => saida.CodSaida == codSaida).ToList();
             if (saidas.Count == 1)
@@ -564,7 +552,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<Saida> ObterPorTipoSaida(List<int> listaTiposSaida)
+        public static List<Saida> ObterPorTipoSaida(List<int> listaTiposSaida)
         {
             return GetQuery().Where(saida => listaTiposSaida.Contains(saida.TipoSaida)).OrderBy(s => s.CodSaida).ToList();
         }
@@ -574,7 +562,7 @@ namespace Negocio
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public object ObterPorDataPedido(string data)
+        public static object ObterPorDataPedido(string data)
         {
             DateTime dataConvertida = DateTime.Now;
             try
@@ -594,7 +582,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<SaidaPesquisa> ObterPorCupomFiscal(String cupomFiscal)
+        public static List<SaidaPesquisa> ObterPorCupomFiscal(String cupomFiscal)
         {
             using (var context = new SaceContext())
             {
@@ -615,7 +603,7 @@ namespace Negocio
             }
         }
 
-        public List<SaidaPesquisa> ObterSaidaPorNfe(int codNfe)
+        public static List<SaidaPesquisa> ObterSaidaPorNfe(int codNfe)
         {
             using (var context = new SaceContext())
             {
@@ -642,7 +630,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<Saida> ObterSaidaConsumidor(long codSaidaInicial)
+        public static List<Saida> ObterSaidaConsumidor(long codSaidaInicial)
         {
             List<int> listaCodSaidasExibir = new List<int>();
             listaCodSaidasExibir.AddRange(Saida.LISTA_TIPOS_VENDA);
@@ -666,7 +654,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<Saida> ObterSaidaPorAno(int ano)
+        public static List<Saida> ObterSaidaPorAno(int ano)
         {
             return GetQuery().Where(saida => saida.DataSaida.Year == 2017).OrderBy(s => s.CodSaida).ToList();
 
@@ -676,7 +664,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public decimal ObterTrocoPagamentos(DateTime dataInicial, DateTime dataFinal)
+        public static decimal ObterTrocoPagamentos(DateTime dataInicial, DateTime dataFinal)
         {
             using (var context = new SaceContext())
             {
@@ -697,7 +685,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public decimal ObterTrocoSaidas(DateTime dataInicial, DateTime dataFinal)
+        public static decimal ObterTrocoSaidas(DateTime dataInicial, DateTime dataFinal)
         {
             using (var context = new SaceContext())
             {
@@ -716,7 +704,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<SaidaPesquisa> ObterPorPedido(string pedidoGerado)
+        public static List<SaidaPesquisa> ObterPorPedido(string pedidoGerado)
         {
             using (var context = new SaceContext())
             {
@@ -743,7 +731,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<SaidaPesquisa> ObterPorCodSaidas(List<long> listaCodSaidas)
+        public static List<SaidaPesquisa> ObterPorCodSaidas(List<long> listaCodSaidas)
         {
             using (var context = new SaceContext())
             {
@@ -771,7 +759,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<SaidaPesquisa> ObterPorSolicitacaoSaida(List<SolicitacaoSaida> listaSolicitacaoSaida)
+        public static List<SaidaPesquisa> ObterPorSolicitacaoSaida(List<SolicitacaoSaida> listaSolicitacaoSaida)
         {
             List<long> listaCodSaida = listaSolicitacaoSaida.Select(s => s.CodSaida).ToList();
             using (var context = new SaceContext())
@@ -800,7 +788,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<SaidaPesquisa> ObterPorNomeCliente(string nomeCliente)
+        public static List<SaidaPesquisa> ObterPorNomeCliente(string nomeCliente)
         {
             return GetQueryPesquisa().Where(saida => saida.NomeCliente.StartsWith(nomeCliente)).OrderBy(s => s.CodSaida).ToList();
         }
@@ -810,7 +798,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<SaidaPesquisa> ObterPreVendasPendentes()
+        public static List<SaidaPesquisa> ObterPreVendasPendentes()
         {
             return GetQueryPesquisa().Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA &&
                 saida.CupomFiscal.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA && saida.CodCliente == UtilConfig.Default.CLIENTE_PADRAO).OrderBy(s => s.CodSaida).ToList();
@@ -822,7 +810,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public List<Saida> ObterVendasParticipacaoLucros(DateTime dataInicial, DateTime dataFinal, decimal valorVenda)
+        public static List<Saida> ObterVendasParticipacaoLucros(DateTime dataInicial, DateTime dataFinal, decimal valorVenda)
         {
             return GetQuery().Where(saida => (saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA || saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE_PERDA || saida.TipoSaida == Saida.TIPO_USO_INTERNO) &&
                 saida.CodCliente != 1324 &&
@@ -831,7 +819,7 @@ namespace Negocio
                 saida.TotalAVista >= valorVenda).ToList();
         }
 
-        public NumerosPeriodo ObterVendasMensalComparandoAnoAnterior()
+        public static NumerosPeriodo ObterVendasMensalComparandoAnoAnterior()
         {
             DateTime dataAtual = DateTime.Now.AddDays(-1);
             using (var context = new SaceContext())
@@ -888,7 +876,7 @@ namespace Negocio
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public int ObterCfopTipoSaida(int codTipoSaida)
+        public static int ObterCfopTipoSaida(int codTipoSaida)
         {
             using (var context = new SaceContext())
             {
@@ -906,7 +894,7 @@ namespace Negocio
         /// <param name="dataInicial"></param>
         /// <param name="dataFinal"></param>
         /// <returns></returns>
-        public List<VendasGrupoProduto> ObterVendasPorGrupo(int codGrupo, DateTime dataInicial, DateTime dataFinal)
+        public static List<VendasGrupoProduto> ObterVendasPorGrupo(int codGrupo, DateTime dataInicial, DateTime dataFinal)
         {
             using (var context = new SaceContext())
             {
@@ -933,7 +921,7 @@ namespace Negocio
             }
         }
 
-        public List<VendasVendedor> ObterVendasPorVendedor(DateTime dataInicial, DateTime dataFinal)
+        public static List<VendasVendedor> ObterVendasPorVendedor(DateTime dataInicial, DateTime dataFinal)
         {
             dataInicial = dataInicial.Date;
             dataFinal = dataFinal.Date.AddDays(1);
@@ -971,12 +959,10 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <param name="tipo_encerramento"></param>
-        public void Encerrar(Saida saida, int tipo_encerramento, List<SaidaPagamento> saidaPagamentos, Pessoa cliente)
+        public static void Encerrar(Saida saida, int tipo_encerramento, List<SaidaPagamento> saidaPagamentos, Pessoa cliente)
         {
             using (var context = new SaceContext())
             {
-                var gerenciadorLoja = new GerenciadorLoja();
-                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
                 context.Database.BeginTransaction();
                 try
                 {
@@ -998,7 +984,7 @@ namespace Negocio
                         saida.TipoSaida = tipo_encerramento;
                         saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
-                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos, context);
 
                         saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
@@ -1011,7 +997,7 @@ namespace Negocio
                         saida.TipoSaida = tipo_encerramento;
                         saida.CodSituacaoPagamentos = SituacaoPagamentos.QUITADA;
 
-                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos, context);
                         saida.TotalLucro = 0;
                         saida.TotalLucro -= somaPrecosCusto;
@@ -1021,13 +1007,13 @@ namespace Negocio
                     {
                         saida.TipoSaida = Saida.TIPO_REMESSA_DEPOSITO;
 
-                        Loja lojaDestino = gerenciadorLoja.ObterPorPessoa(saida.CodCliente).ElementAt(0);
+                        Loja lojaDestino = GerenciadorLoja.ObterPorPessoa(saida.CodCliente).ElementAt(0);
                         if (lojaDestino.CodLoja.Equals(saida.CodLojaOrigem))
                         {
                             throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
                         }
 
-                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         Atualizar(saida);
                         RegistrarTransferenciaEstoque(saidaProdutos, UtilConfig.Default.LOJA_PADRAO, lojaDestino.CodLoja, context);
                     }
@@ -1039,14 +1025,14 @@ namespace Negocio
                             throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
                         }
                         Atualizar(saida);
-                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         RegistrarTransferenciaEstoque(saidaProdutos, saida.CodLojaOrigem, UtilConfig.Default.LOJA_PADRAO, context);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                     {
                         saida.TipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
                         Atualizar(saida);
-                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         RegistrarBaixaEstoque(saidaProdutos, context);
                         AtualizarCfopProdutosDevolucao(saidaProdutos, saida, context);
                     }
@@ -1054,7 +1040,7 @@ namespace Negocio
                     {
                         saida.TipoSaida = Saida.TIPO_REMESSA_CONSERTO;
                         Atualizar(saida);
-                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         RegistrarBaixaEstoque(saidaProdutos, context);
                         //AtualizarCfopProdutosDevolucao(saidaProdutos, saida);
                     }
@@ -1084,18 +1070,17 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <param name="consumidor"></param>
-        public void EncerrarDevolucaoConsumidor(Saida saida)
+        public static void EncerrarDevolucaoConsumidor(Saida saida)
         {
             using (var context = new SaceContext())
             {
                 context.Database.BeginTransaction();
-                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
                 try
                 {
                     saida.TipoSaida = Saida.TIPO_DEVOLUCAO_CONSUMIDOR;
                     //saida.CodCliente = consumidor.CodPessoa;
                     Atualizar(saida);
-                    List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                     RegistrarEstornoEstoque(saida, saidaProdutos, context);
                     AtualizarCfopProdutosDevolucao(saidaProdutos, saida, context);
                     context.Database.CommitTransaction();
@@ -1124,18 +1109,16 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <param name="consumidor"></param>
-        public void EncerrarRetornoFornecedor(Saida saida)
+        public static void EncerrarRetornoFornecedor(Saida saida)
         {
             using (var context = new SaceContext())
             {
-                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-
                 try
                 {
                     context.Database.BeginTransaction();
                     saida.TipoSaida = Saida.TIPO_RETORNO_FORNECEDOR;
                     Atualizar(saida);
-                    List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                     RegistrarEstornoEstoque(saida, saidaProdutos, context);
                     AtualizarCfopProdutosDevolucao(saidaProdutos, saida, context);
                     context.Database.CommitTransaction();
@@ -1164,15 +1147,11 @@ namespace Negocio
         /// </summary>
         /// <param name="saidaProdutos"></param>
         /// <param name="_saida"></param>
-        private void AtualizarCfopProdutosDevolucao(List<SaidaProduto> saidaProdutos, Saida saida, SaceContext context)
+        private static void AtualizarCfopProdutosDevolucao(List<SaidaProduto> saidaProdutos, Saida saida, SaceContext context)
         {
-            var gerenciadorPessoa = new GerenciadorPessoa();
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-
-            Pessoa fornecedor = gerenciadorPessoa.Obter(saida.CodCliente).ElementAtOrDefault(0);
-            Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
-            Pessoa pessoaLoja = gerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
+            Pessoa fornecedor = GerenciadorPessoa.Obter(saida.CodCliente).ElementAtOrDefault(0);
+            Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
+            Pessoa pessoaLoja = GerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
 
             bool ehMesmoUF = false;
             if (pessoaLoja != null && fornecedor != null)
@@ -1216,7 +1195,7 @@ namespace Negocio
         /// </summary>
         /// <param name="saida"></param>
         /// <returns></returns>
-        public decimal ObterTotalNotaFiscal(Saida saida)
+        public static decimal ObterTotalNotaFiscal(Saida saida)
         {
             if (saida.BaseCalculoICMSSubst > 0)
                 return saida.TotalAVista + saida.ValorICMSSubst + saida.ValorFrete + saida.ValorSeguro - saida.Desconto + saida.OutrasDespesas + saida.ValorIPI;
@@ -1230,19 +1209,14 @@ namespace Negocio
         /// <param name="produto"></param>
         /// <param name="dataVencimento"></param>
         /// <returns></returns>
-        public Boolean DataVencimentoProdutoAceitavel(ProdutoPesquisa produto, DateTime dataVencimento)
+        public static bool DataVencimentoProdutoAceitavel(ProdutoPesquisa produto, DateTime dataVencimento)
         {
-            using (var context = new SaceContext())
+            if ((bool)produto.TemVencimento)
             {
-                var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
-                if ((bool)produto.TemVencimento)
-                {
-                    DateTime dataMaisAntigo = gerenciadorEntradaProduto.GetDataProdutoMaisAntigoEstoque(produto);
-                    return (dataMaisAntigo >= dataVencimento);
-                }
-                return true;
-
+                DateTime dataMaisAntigo = GerenciadorEntradaProduto.GetDataProdutoMaisAntigoEstoque(produto);
+                return (dataMaisAntigo >= dataVencimento);
             }
+            return true;
         }
 
         /// <summary>
@@ -1250,11 +1224,8 @@ namespace Negocio
         /// </summary>
         /// <param name="pagamentos"></param>
         /// <param name="saida"></param>
-        public void RegistrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida, SaceContext context)
+        public static void RegistrarPagamentosSaida(List<SaidaPagamento> pagamentos, Saida saida, SaceContext context)
         {
-            var gerenciadorConta = new GerenciadorConta(context);
-            var gerenciadorCartaoCredito = new GerenciadorCartaoCredito();
-            var gerenciadorMovimentacaoConta = new GerenciadorMovimentacaoConta(context);
             decimal totalRegistrado = 0;
 
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
@@ -1276,14 +1247,14 @@ namespace Negocio
 
                 conta.DataVencimento = saida.DataSaida;
                 conta.Desconto = 0;
-                conta.CodConta = gerenciadorConta.Inserir(conta, context);
+                conta.CodConta = GerenciadorConta.Inserir(conta, context);
             }
 
 
             foreach (SaidaPagamento pagamento in pagamentos)
             {
 
-                List<Conta> contas = gerenciadorConta.ObterPorSaidaPagamento(saida.CodSaida, pagamento.CodSaidaPagamento).ToList();
+                List<Conta> contas = GerenciadorConta.ObterPorSaidaPagamento(saida.CodSaida, pagamento.CodSaidaPagamento).ToList();
 
                 if (contas.Count > 0)
                 {
@@ -1310,7 +1281,7 @@ namespace Negocio
 
                 if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                 {
-                    conta.CodPessoa = gerenciadorCartaoCredito.Obter(pagamento.CodCartaoCredito).ElementAt(0).CodPessoa;
+                    conta.CodPessoa = GerenciadorCartaoCredito.Obter(pagamento.CodCartaoCredito).ElementAt(0).CodPessoa;
                     conta.FormatoConta = Conta.FORMATO_CONTA_CARTAO;
                 }
 
@@ -1343,7 +1314,7 @@ namespace Negocio
                 {
                     if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                     {
-                        CartaoCredito cartaoCredito = gerenciadorCartaoCredito.Obter(pagamento.CodCartaoCredito).ElementAt(0);
+                        CartaoCredito cartaoCredito = GerenciadorCartaoCredito.Obter(pagamento.CodCartaoCredito).ElementAt(0);
                         pagamento.Data = pagamento.Data.AddDays((double)cartaoCredito.DiaBase);
                         conta.DataVencimento = pagamento.Data;
                         conta.Desconto = (pagamento.Valor * cartaoCredito.Desconto / 100) / pagamento.Parcelas;
@@ -1358,7 +1329,7 @@ namespace Negocio
                         conta.DataVencimento = pagamento.Data;
                     }
 
-                    conta.CodConta = gerenciadorConta.Inserir(conta, context);
+                    conta.CodConta = GerenciadorConta.Inserir(conta, context);
                 }
 
                 totalRegistrado += pagamento.Valor;
@@ -1384,7 +1355,7 @@ namespace Negocio
 
                     movimentacao.CodTipoMovimentacao = (movimentacao.Valor > 0) ? MovimentacaoConta.RECEBIMENTO_CLIENTE : MovimentacaoConta.DEVOLUCAO_CLIENTE;
 
-                    gerenciadorMovimentacaoConta.Inserir(movimentacao, context);
+                    GerenciadorMovimentacaoConta.Inserir(movimentacao, context);
                 }
             }
         }
@@ -1394,26 +1365,22 @@ namespace Negocio
         /// No caso de devolução do consumidor o estoque é incrementado.
         /// </summary>
         /// <param name="saidaProdutos"></param>
-        public void RegistrarEstornoEstoque(Saida saida, List<SaidaProduto> saidaProdutos, SaceContext context)
+        public static void RegistrarEstornoEstoque(Saida saida, List<SaidaProduto> saidaProdutos, SaceContext context)
         {
-            var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
-            var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
-
             if (saidaProdutos == null)
-                saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
                 if (saidaProduto.CodCST != Cst.ST_OUTRAS)
                 {
-                    gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade, 0, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
+                    GerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade, 0, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
                 }
                 else
                 {
-                    gerenciadorProdutoLoja.AdicionaQuantidade(0, saidaProduto.Quantidade, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
+                    GerenciadorProdutoLoja.AdicionaQuantidade(0, saidaProduto.Quantidade, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
                 }
                 saidaProduto.Quantidade *= (-1); // inverte sinal da quantidade para fazer o retorno
-                gerenciadorEntradaProduto.BaixarItensVendidosEstoque(saidaProduto, context);
+                GerenciadorEntradaProduto.BaixarItensVendidosEstoque(saidaProduto, context);
             }
             context.SaveChanges();
         }
@@ -1424,28 +1391,25 @@ namespace Negocio
         /// </summary>
         /// <param name="saidaProdutos"></param>
         /// <returns> A soma dos preços de custo dos produtos baixados para determinar o lucro</returns>
-        private decimal RegistrarBaixaEstoque(List<SaidaProduto> saidaProdutos, SaceContext context)
+        private static decimal RegistrarBaixaEstoque(List<SaidaProduto> saidaProdutos, SaceContext context)
         {
-            var gerenciadorProduto = new GerenciadorProduto();
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
-            var gerenciadorEntradaProduto = new GerenciadorEntradaProduto(context);
             decimal somaPrecosCusto = 0;
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                var produto = gerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
+                var produto = GerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
 
                 // Baixa sempre o estoque da loja matriz
                 if (saidaProduto.CodCST != Cst.ST_OUTRAS)
                 {
-                    gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
+                    GerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
                 }
                 else
                 {
-                    gerenciadorProdutoLoja.AdicionaQuantidade(0, saidaProduto.Quantidade * (-1), UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
+                    GerenciadorProdutoLoja.AdicionaQuantidade(0, saidaProduto.Quantidade * (-1), UtilConfig.Default.LOJA_PADRAO, saidaProduto.CodProduto, context);
                 }
 
                 decimal custoAtual = produto.PrecoCusto * saidaProduto.Quantidade;
-                decimal custoEstoque = gerenciadorEntradaProduto.BaixarItensVendidosEstoque(saidaProduto, context);
+                decimal custoEstoque = GerenciadorEntradaProduto.BaixarItensVendidosEstoque(saidaProduto, context);
                 // Se não houver preço de custo do produto
                 if (custoAtual <= 0)
                 {
@@ -1483,20 +1447,19 @@ namespace Negocio
         /// <param name="saidaProdutos"></param>
         /// <param name="lojaOrigem"></param>
         /// <param name="lojaDestino"></param>
-        private void RegistrarTransferenciaEstoque(List<SaidaProduto> saidaProdutos, int lojaOrigem, int lojaDestino, SaceContext context)
+        private static void RegistrarTransferenciaEstoque(List<SaidaProduto> saidaProdutos, int lojaOrigem, int lojaDestino, SaceContext context)
         {
-            var gerenciadorProdutoLoja = new GerenciadorProdutoLoja();
             foreach (SaidaProduto saidaProduto in saidaProdutos)
             {
-                gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, lojaOrigem, saidaProduto.CodProduto, context);
-                gerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade, 0, lojaDestino, saidaProduto.CodProduto, context);
+                GerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade * (-1), 0, lojaOrigem, saidaProduto.CodProduto, context);
+                GerenciadorProdutoLoja.AdicionaQuantidade(saidaProduto.Quantidade, 0, lojaDestino, saidaProduto.CodProduto, context);
             }
         }
 
         /// <summary>
         /// Receber pagamentos Contas
         /// </summary>
-        public void ReceberPagamentosContas(List<ContaSaida> listaContaSaida, List<SaidaPagamento> pagamentos, List<MovimentacaoConta> listaMovimentacaoConta, Saida saida)
+        public static void ReceberPagamentosContas(List<ContaSaida> listaContaSaida, List<SaidaPagamento> pagamentos, List<MovimentacaoConta> listaMovimentacaoConta, Saida saida)
         {
             using (var context = new SaceContext())
             {
@@ -1547,7 +1510,7 @@ namespace Negocio
 
 
 
-        public List<SaidaProduto> ExcluirProdutosDevolvidosMesmoPreco(List<SaidaProduto> saidaProdutos)
+        public static List<SaidaProduto> ExcluirProdutosDevolvidosMesmoPreco(List<SaidaProduto> saidaProdutos)
         {
             List<SaidaProduto> listaSemDevolucoes = new List<SaidaProduto>();
             List<SaidaProduto> listaDevolucoes = new List<SaidaProduto>();
@@ -1603,15 +1566,13 @@ namespace Negocio
         }
 
 
-        public bool SolicitaImprimirDAV(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Impressora.Tipo impressora)
+        public static bool SolicitaImprimirDAV(List<long> listaCodSaidas, decimal total, decimal totalAVista, decimal desconto, Impressora.Tipo impressora)
         {
             using (var context = new SaceContext())
             {
-                var gerenciadorImprimirDocumento = new GerenciadorImprimirDocumento(context);
-
                 string tipoDocumento = impressora.Equals(Impressora.Tipo.REDUZIDO1) ? Impressora.REDUZIDO1 : Impressora.REDUZIDO2;
 
-                if (gerenciadorImprimirDocumento.ObterPorTipoDocumentoCodDocumento(tipoDocumento, listaCodSaidas.Min()).Count() > 0)
+                if (GerenciadorImprimirDocumento.ObterPorTipoDocumentoCodDocumento(tipoDocumento, listaCodSaidas.Min()).Count() > 0)
                     throw new NegocioException("Documento já foi solicitado para impressão. Verifique se impressora ligada.");
 
 
@@ -1640,7 +1601,7 @@ namespace Negocio
         }
 
 
-        public bool ImprimirDAV(Impressora.Tipo impressora, string portaImpressora)
+        public static bool ImprimirDAV(Impressora.Tipo impressora, string portaImpressora)
         {
             using (var context = new SaceContext())
             {
@@ -1666,13 +1627,10 @@ namespace Negocio
             }
         }
 
-        private bool ImprimirDAVComprimido(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string portaImpressora)
+        private static bool ImprimirDAVComprimido(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string portaImpressora)
         {
             using (var context = new SaceContext())
             {
-                var gerenciadorPessoa = new GerenciadorPessoa();
-                var gerenciadorLoja = new GerenciadorLoja();
-                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
                 try
                 {
                     ImprimeTexto imp = new ImprimeTexto();
@@ -1682,8 +1640,8 @@ namespace Negocio
                     }
 
 
-                    Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-                    Pessoa pessoaLoja = (Pessoa)gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+                    Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
+                    Pessoa pessoaLoja = (Pessoa) GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
 
                     imp.Imp(imp.Comprimido);
                     imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
@@ -1703,7 +1661,7 @@ namespace Negocio
                     imp.ImpColLFCentralizado(0, 59, pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1);
                     imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
 
-                    Pessoa cliente = (Pessoa)gerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
+                    Pessoa cliente = (Pessoa) GerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
                     imp.ImpLF("Cliente: " + cliente.NomeFantasia);
                     //imp.ImpColLF(39, "CPF/CNPJ: " + cliente.CpfCnpj);
                     if (saidas.Count == 1)
@@ -1722,7 +1680,7 @@ namespace Negocio
                             imp.ImpLF("==> Documento: " + saida.CodSaida + "    Data: " + saida.DataSaida.ToShortDateString() + "     CF: " + saida.CupomFiscal);
                         }
 
-                        List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                        List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         foreach (SaidaProduto produto in saidaProdutos)
                         {
                             imp.ImpColDireita(0, 4, produto.CodProduto.ToString());
@@ -1775,17 +1733,14 @@ namespace Negocio
         }
 
 
-        private void ImprimirDAVComprimidoVip(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string porta)
+        private static void ImprimirDAVComprimidoVip(List<SaidaPesquisa> saidas, decimal total, decimal totalAVista, decimal desconto, string porta)
         {
             using (var context = new SaceContext())
             {
-                var gerenciadorLoja = new GerenciadorLoja();
-                var gerenciadorPessoa = new GerenciadorPessoa();
-                var gerenciadorSaidaProduto = new GerenciadorSaidaProduto(context);
                 var printer = new Printer(porta, PrinterType.Bematech);
 
-                Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-                Pessoa pessoaLoja = (Pessoa)gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+                Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
+                Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
 
                 //chamando a função para impressão do texto
                 printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
@@ -1803,7 +1758,7 @@ namespace Negocio
                 printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
 
 
-                Pessoa cliente = (Pessoa)gerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
+                Pessoa cliente = (Pessoa)GerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
 
                 if (cliente.NomeFantasia.Length > 32)
                     printer.WriteLine("Cliente: " + cliente.NomeFantasia.Substring(1, 32));
@@ -1827,7 +1782,7 @@ namespace Negocio
                         printer.WriteLine("=> Documento: " + saida.CodSaida + " Data: " + saida.DataSaida.ToShortDateString() + " CF:" + saida.CupomFiscal + "\n");
                     }
 
-                    List<SaidaProduto> saidaProdutos = gerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
+                    List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                     foreach (SaidaProduto produto in saidaProdutos)
                     {
                         printer.Write(produto.CodProduto.ToString().PadLeft(6));
@@ -1883,13 +1838,11 @@ namespace Negocio
         }
 
 
-        public void ImprimirCreditoPagamento(Saida saidaCredito, string portaImpressora)
+        public static void ImprimirCreditoPagamento(Saida saidaCredito, string portaImpressora)
         {
-            var gerenciadorLoja = new GerenciadorLoja();
-            var gerenciadorPessoa = new GerenciadorPessoa();
             var printer = new Printer(portaImpressora, PrinterType.Bematech);
-            Loja loja = gerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-            Pessoa pessoaLoja = (Pessoa)gerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+            Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
+            Pessoa pessoaLoja = (Pessoa) GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
 
             printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
 
@@ -1901,7 +1854,7 @@ namespace Negocio
             printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Nome, 42));
             printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1, 42));
             printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-            Pessoa cliente = gerenciadorPessoa.Obter(saidaCredito.CodCliente).ElementAt(0);
+            Pessoa cliente = GerenciadorPessoa.Obter(saidaCredito.CodCliente).ElementAt(0);
 
             printer.WriteLine("Cliente: " + cliente.NomeFantasia);
             printer.WriteLine("Data/Hora: " + saidaCredito.DataSaida);

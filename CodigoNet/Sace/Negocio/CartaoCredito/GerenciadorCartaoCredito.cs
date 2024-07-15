@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorCartaoCredito
+    public static class GerenciadorCartaoCredito
     {
         /// <summary>
         /// Insere os dados de um cartão de crédito
         /// </summary>
         /// <param name="cartaoCredito"></param>
         /// <returns></returns>
-        public int Inserir(CartaoCredito cartaoCredito)
+        public static int Inserir(CartaoCredito cartaoCredito)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Negocio
         /// Atualiza os dados de um cartão de crédito
         /// </summary>
         /// <param name="cartaoCredito"></param>
-        public void Atualizar(CartaoCredito cartaoCredito)
+        public static void Atualizar(CartaoCredito cartaoCredito)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Negocio
         /// Remove os dados de um cartão de crédito
         /// </summary>
         /// <param name="codCartaoCredito"></param>
-        public void Remover(int codCartaoCredito)
+        public static void Remover(int codCartaoCredito)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace Negocio
         /// Consulta padrão para retornar dados do cartão de crédito
         /// </summary>
         /// <returns></returns>
-        private IQueryable<CartaoCredito> GetQuery()
+        private static IQueryable<CartaoCredito> GetQuery()
         {
             using (var context = new SaceContext())
             {
@@ -113,7 +113,7 @@ namespace Negocio
         /// Obtém todos os cartões de crédito cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<CartaoCredito> ObterTodos()
+        public static IEnumerable<CartaoCredito> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -123,7 +123,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codCartaoCredito"></param>
         /// <returns>código do cartão</returns>
-        public IEnumerable<CartaoCredito> Obter(Int32 codCartaoCredito)
+        public static IEnumerable<CartaoCredito> Obter(Int32 codCartaoCredito)
         {
             return GetQuery().Where(cartao => cartao.CodCartao == codCartaoCredito).ToList();
         }
@@ -134,7 +134,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codCartaoCredito"></param>
         /// <returns>código do cartão</returns>
-        public IEnumerable<CartaoCredito> ObterPorMapeamentoCappta(String nomeBandeira)
+        public static IEnumerable<CartaoCredito> ObterPorMapeamentoCappta(String nomeBandeira)
         {
             return GetQuery().Where(cartao => cartao.MapeamentoCappta == nomeBandeira).ToList();
         }
@@ -144,7 +144,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns>nome do cartão</returns>
-        public IEnumerable<CartaoCredito> ObterPorNome(string nome)
+        public static IEnumerable<CartaoCredito> ObterPorNome(string nome)
         {
             return GetQuery().Where(cartao => cartao.Nome.StartsWith(nome)).ToList();
         }
@@ -155,7 +155,7 @@ namespace Negocio
         /// </summary>
         /// <param name="cartaoCredito"></param>
         /// <param name="_cartaoCredito"></param>
-        private void Atribuir(CartaoCredito cartaoCredito, TbCartaoCredito _cartaoCredito)
+        private static void Atribuir(CartaoCredito cartaoCredito, TbCartaoCredito _cartaoCredito)
         {
             _cartaoCredito.CodCartao = cartaoCredito.CodCartao;
             _cartaoCredito.CodContaBanco = cartaoCredito.CodContaBanco;

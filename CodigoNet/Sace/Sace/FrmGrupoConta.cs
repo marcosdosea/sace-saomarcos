@@ -10,26 +10,22 @@ namespace Sace
     {
         private EstadoFormulario estado;
         public GrupoConta GrupoContaSelected { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmGrupoConta(DbContextOptions<SaceContext> saceOptions)
+
+        public FrmGrupoConta()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            this.service = new SaceService(context);
         }
 
         private void FrmGrupoConta_Load(object sender, EventArgs e)
         {
-            grupoContaBindingSource.DataSource = service.GerenciadorGrupoConta.ObterTodos();
+            grupoContaBindingSource.DataSource = GerenciadorGrupoConta.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmGrupoContaPesquisa frmTipoContaPesquisa = new FrmGrupoContaPesquisa(saceOptions);
+            FrmGrupoContaPesquisa frmTipoContaPesquisa = new FrmGrupoContaPesquisa();
             frmTipoContaPesquisa.ShowDialog();
             if (frmTipoContaPesquisa.GrupoConta != null)
             {
@@ -58,7 +54,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorGrupoConta.Remover(Int32.Parse(codGrupoContaTextBox.Text));
+                GerenciadorGrupoConta.Remover(Int32.Parse(codGrupoContaTextBox.Text));
                 grupoContaBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -82,12 +78,12 @@ namespace Sace
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    grupoConta.CodGrupoConta = (int) service.GerenciadorGrupoConta.Inserir(grupoConta);
+                    grupoConta.CodGrupoConta = (int) GerenciadorGrupoConta.Inserir(grupoConta);
                     codGrupoContaTextBox.Text = grupoConta.CodGrupoConta.ToString();
                 }
                 else
                 {
-                    service.GerenciadorGrupoConta.Atualizar(grupoConta);
+                    GerenciadorGrupoConta.Atualizar(grupoConta);
                 }
                 grupoContaBindingSource.EndEdit();
             }

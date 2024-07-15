@@ -5,14 +5,14 @@ using Util;
 
 namespace Negocio
 {
-    public class GerenciadorPessoa
+    public static class GerenciadorPessoa
     {
         /// <summary>
         /// Insere uma pessoa no banco de dados
         /// </summary>
         /// <param name="pessoa"></param>
         /// <returns></returns>
-        public long Inserir(Pessoa pessoa)
+        public static long Inserir(Pessoa pessoa)
         {
             try
             {
@@ -27,11 +27,10 @@ namespace Negocio
                         throw new NegocioException("O CPF/CNPJ já está cadastrado na base de dados.");
                 }
 
-
-                var _pessoa = new TbPessoa();
-                Atribuir(pessoa, _pessoa);
                 using (var context = new SaceContext())
                 {
+                    var _pessoa = new TbPessoa();
+                    Atribuir(pessoa, _pessoa);
                     context.Add(_pessoa);
                     context.SaveChanges();
                     return _pessoa.CodPessoa;
@@ -61,7 +60,7 @@ namespace Negocio
         /// Atualiza os dados de um pessoa
         /// </summary>
         /// <param name="pessoa"></param>
-        public void Atualizar(Pessoa pessoa)
+        public static void Atualizar(Pessoa pessoa)
         {
             ValidarCpfCnpj(pessoa);
 
@@ -69,6 +68,7 @@ namespace Negocio
                 throw new NegocioException("Os dados dessa pessoa não podem ser alterados ou removidos");
             if (pessoa.Nome.Trim().Equals("") || pessoa.NomeFantasia.Trim().Equals(""))
                 throw new NegocioException("O nome e o nome fantasia da pessoa não podem ficar em branco.");
+
             try
             {
                 using (var context = new SaceContext())
@@ -106,7 +106,7 @@ namespace Negocio
         /// Remove os dados de uma pessoa
         /// </summary>
         /// <param name="codpessoa"></param>
-        public void Remover(long codPessoa)
+        public static void Remover(long codPessoa)
         {
             if (codPessoa == UtilConfig.Default.CLIENTE_PADRAO)
                 throw new NegocioException("Essa pessoa não pode ser removida.");
@@ -134,7 +134,7 @@ namespace Negocio
         /// </summary>
         /// <param name="contatoPessoa"></param>
         /// <returns></returns>
-        public void InserirContato(ContatoPessoa contatoPessoa)
+        public static void InserirContato(ContatoPessoa contatoPessoa)
         {
             try
             {
@@ -167,7 +167,7 @@ namespace Negocio
         /// Remove contato de uma pessoa
         /// </summary>
         /// <param name="contatoPessoa"></param>
-        public void RemoverContato(ContatoPessoa contatoPessoa)
+        public static void RemoverContato(ContatoPessoa contatoPessoa)
         {
             try
             {
@@ -192,7 +192,7 @@ namespace Negocio
             }
         }
 
-        private IQueryable<Pessoa> GetQuery()
+        private static IQueryable<Pessoa> GetQuery()
         {
             using (var context = new SaceContext())
             {
@@ -235,7 +235,7 @@ namespace Negocio
         /// Obtém todos as pessoas cadastradas
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterTodos()
+        public static IEnumerable<Pessoa> ObterTodos()
         {
             return GetQuery().OrderBy(p => p.CodPessoa).ToList();
         }
@@ -246,7 +246,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> Obter(Int64 codPessoa)
+        public static IEnumerable<Pessoa> Obter(long codPessoa)
         {
             return GetQuery().Where(pessoa => pessoa.CodPessoa == codPessoa).ToList();
         }
@@ -256,7 +256,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterPorTipoPessoa(string tipoPessoa)
+        public static IEnumerable<Pessoa> ObterPorTipoPessoa(string tipoPessoa)
         {
             return GetQuery().Where(pessoa => pessoa.Tipo.Equals(tipoPessoa)).OrderBy(p => p.NomeFantasia).ToList();
         }
@@ -267,7 +267,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterPorNome(string nome)
+        public static IEnumerable<Pessoa> ObterPorNome(string nome)
         {
             return GetQuery().Where(pessoa => pessoa.Nome.StartsWith(nome)).OrderBy(p => p.Nome).ToList();
         }
@@ -277,7 +277,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterPorNomeFantasia(string nomefantasia)
+        public static IEnumerable<Pessoa> ObterPorNomeFantasia(string nomefantasia)
         {
             return GetQuery().Where(pessoa => pessoa.NomeFantasia.StartsWith(nomefantasia)).OrderBy(p => p.NomeFantasia).ToList();
         }
@@ -287,7 +287,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterPorCpfCnpj(string CpfCnpj)
+        public static IEnumerable<Pessoa> ObterPorCpfCnpj(string CpfCnpj)
         {
             return GetQuery().Where(pessoa => pessoa.CpfCnpj.StartsWith(CpfCnpj)).OrderBy(p => p.NomeFantasia).ToList();
         }
@@ -297,7 +297,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterPorCpfCnpjEquals(string CpfCnpj)
+        public static IEnumerable<Pessoa> ObterPorCpfCnpjEquals(string CpfCnpj)
         {
             return GetQuery().Where(pessoa => pessoa.CpfCnpj.Equals(CpfCnpj)).ToList();
         }
@@ -307,7 +307,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterPorEndereco(string endereco)
+        public static IEnumerable<Pessoa> ObterPorEndereco(string endereco)
         {
             return GetQuery().Where(pessoa => pessoa.Endereco.StartsWith(endereco)).OrderBy(p => p.NomeFantasia).ToList();
         }
@@ -317,7 +317,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterPorBairro(string bairro)
+        public static IEnumerable<Pessoa> ObterPorBairro(string bairro)
         {
             return GetQuery().Where(pessoa => pessoa.Bairro.StartsWith(bairro)).OrderBy(p => p.NomeFantasia).ToList();
         }
@@ -327,7 +327,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterPorNomeFantasiaComContas60DiasAtraso(string nomeFantasia)
+        public static IEnumerable<Pessoa> ObterPorNomeFantasiaComContas60DiasAtraso(string nomeFantasia)
         {
             using (var context = new SaceContext())
             {
@@ -346,7 +346,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public IEnumerable<Pessoa> ObterContatos(long codPessoa)
+        public static IEnumerable<Pessoa> ObterContatos(long codPessoa)
         {
             using (var context = new SaceContext())
             {
@@ -398,7 +398,7 @@ namespace Negocio
         /// <param name="cliente"></param>
         /// <param name="totalNovaCompra"></param>
         /// <returns></returns>
-        public decimal ObterLimiteCompraDisponivel(Pessoa cliente)
+        public static decimal ObterLimiteCompraDisponivel(Pessoa cliente)
         {
             using (var context = new SaceContext())
             {
@@ -421,7 +421,7 @@ namespace Negocio
         /// <param name="pessoa"></param>
         /// <param name="_pessoa"></param>
         /// <returns></returns>
-        private TbPessoa Atribuir(Pessoa pessoa, TbPessoa _pessoa)
+        private static TbPessoa Atribuir(Pessoa pessoa, TbPessoa _pessoa)
         {
             _pessoa.Bairro = pessoa.Bairro;
             _pessoa.Cep = pessoa.Cep;
@@ -451,7 +451,7 @@ namespace Negocio
             return _pessoa;
         }
 
-        public void SubstituirPessoa(long codPessoaExcluir, long codPessoaManter)
+        public static void SubstituirPessoa(long codPessoaExcluir, long codPessoaManter)
         {
             using (var context = new SaceContext())
             {

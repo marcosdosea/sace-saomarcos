@@ -46,11 +46,11 @@ namespace Sace
                 txtTexto.Select(filtroNome.Length + 1, filtroNome.Length + 1);
                 if (ExibirTodos)
                 {
-                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNome(txtTexto.Text);
+                    produtoBindingSource.DataSource = GerenciadorProduto.ObterPorNome(txtTexto.Text);
                 }
                 else
                 {
-                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
+                    produtoBindingSource.DataSource = GerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
                 }
             }
             else
@@ -66,14 +66,14 @@ namespace Sace
             if ((txtTexto.Text.Trim().Length > 0) && (txtTexto.Text.Length > textoAtual.Length))
             {
                 if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                    produtoBindingSource.DataSource = service.GerenciadorProduto.Obter(int.Parse(txtTexto.Text));
+                    produtoBindingSource.DataSource = GerenciadorProduto.Obter(int.Parse(txtTexto.Text));
                 else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
                 {
-                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorReferenciaFabricante(txtTexto.Text);
+                    produtoBindingSource.DataSource = GerenciadorProduto.ObterPorReferenciaFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 3) && !txtTexto.Text.Equals(""))
                 {
-                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNomeProdutoFabricante(txtTexto.Text);
+                    produtoBindingSource.DataSource = GerenciadorProduto.ObterPorNomeProdutoFabricante(txtTexto.Text);
                 }
                 else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Length > 9))
                 {
@@ -81,7 +81,7 @@ namespace Sace
                     {
                         DateTime data = Convert.ToDateTime(txtTexto.Text);
                         // se conseguir converter para uma data válida ele faz a busca
-                        produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorDataAtualizacaoMaiorIgual(data);
+                        produtoBindingSource.DataSource = GerenciadorProduto.ObterPorDataAtualizacaoMaiorIgual(data);
                     }
                     catch (Exception)
                     {
@@ -91,11 +91,11 @@ namespace Sace
                 }
                 else if (cmbBusca.SelectedIndex == 5) // códigos de barra inválidos
                 {
-                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorCodigosBarraInvalidos();
+                    produtoBindingSource.DataSource = GerenciadorProduto.ObterPorCodigosBarraInvalidos();
                 }
                 else if (cmbBusca.SelectedIndex == 6) // códigos de barra inválidos
                 {
-                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorCodigosBarraEmBranco();
+                    produtoBindingSource.DataSource = GerenciadorProduto.ObterPorCodigosBarraEmBranco();
                 }
                 else if ((cmbBusca.SelectedIndex == 7) && (txtTexto.Text.Length > 9))
                 {
@@ -103,7 +103,7 @@ namespace Sace
                     {
                         DateTime data = Convert.ToDateTime(txtTexto.Text);
                         // se conseguir converter para uma data válida ele faz a busca
-                        produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorDataMudancaPrecoMaiorIgual(data);
+                        produtoBindingSource.DataSource = GerenciadorProduto.ObterPorDataMudancaPrecoMaiorIgual(data);
                     }
                     catch (Exception)
                     {
@@ -114,16 +114,16 @@ namespace Sace
                 else if ((cmbBusca.SelectedIndex == 8) && (txtTexto.Text.Length > 0))
                 {
                     long codFabricante = long.Parse(txtTexto.Text);
-                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorCodigoFabricante(codFabricante);
+                    produtoBindingSource.DataSource = GerenciadorProduto.ObterPorCodigoFabricante(codFabricante);
                 }
                 else
                 {
                     if ((!txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length >= 1)) || ((txtTexto.Text.StartsWith("%") && (txtTexto.Text.Length >= 1))))
                     {
                         if (ExibirTodos)
-                            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNome(txtTexto.Text);
+                            produtoBindingSource.DataSource = GerenciadorProduto.ObterPorNome(txtTexto.Text);
                         else
-                            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
+                            produtoBindingSource.DataSource = GerenciadorProduto.ObterPorNomeExibiveis(txtTexto.Text);
                     }
                 }
                             }
@@ -236,7 +236,7 @@ namespace Sace
                     decimal precoVarejo = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[4].Value.ToString());
                     decimal precoAtacado = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[5].Value.ToString());
                     decimal precoRevenda = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[6].Value.ToString());
-                    service.GerenciadorProduto.AtualizarPrecoVarejoAtacado(codProduto, nomeProduto, precoVarejo, precoAtacado, precoRevenda);
+                    GerenciadorProduto.AtualizarPrecoVarejoAtacado(codProduto, nomeProduto, precoVarejo, precoAtacado, precoRevenda);
                 }
 
             }

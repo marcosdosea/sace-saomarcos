@@ -20,29 +20,25 @@ namespace Sace
 
         public Subgrupo SubgrupoSelected { get; set; }
         public Grupo GrupoSelected { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmSubgrupo(DbContextOptions<SaceContext> saceOptions)
+
+        public FrmSubgrupo()
         {
             InitializeComponent();
             GrupoSelected = null;
             SubgrupoSelected = null;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmSubgrupo_Load(object sender, EventArgs e)
         {
-            grupoBindingSource.DataSource = service.GerenciadorGrupo.ObterTodos();
-            subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.ObterTodos();
+            grupoBindingSource.DataSource = GerenciadorGrupo.ObterTodos();
+            subgrupoBindingSource.DataSource = GerenciadorSubgrupo.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmSubgrupoPesquisa frmSubgrupoPesquisa = new FrmSubgrupoPesquisa(saceOptions);
+            FrmSubgrupoPesquisa frmSubgrupoPesquisa = new FrmSubgrupoPesquisa();
             frmSubgrupoPesquisa.ShowDialog();
             if (frmSubgrupoPesquisa.SubgrupoSelected != null)
             {
@@ -73,7 +69,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorSubgrupo.Remover(Int32.Parse(codSubgrupoTextBox.Text));
+                GerenciadorSubgrupo.Remover(Int32.Parse(codSubgrupoTextBox.Text));
                 subgrupoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -95,12 +91,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codSubgrupo = service.GerenciadorSubgrupo.Inserir(subgrupo);
+                    long codSubgrupo = GerenciadorSubgrupo.Inserir(subgrupo);
                     codSubgrupoTextBox.Text = codSubgrupo.ToString();
                 }
                 else
                 {
-                    service.GerenciadorSubgrupo.Atualizar(subgrupo);
+                    GerenciadorSubgrupo.Atualizar(subgrupo);
                 }
                 subgrupoBindingSource.EndEdit();
             }
@@ -212,7 +208,7 @@ namespace Sace
         private void FrmSubgrupo_FormClosing(object sender, FormClosingEventArgs e)
         {
             SubgrupoSelected = (Subgrupo)subgrupoBindingSource.Current;
-            GrupoSelected = service.GerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
+            GrupoSelected = GerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
         }
 
         private void codGrupoComboBox_KeyPress(object sender, KeyPressEventArgs e)

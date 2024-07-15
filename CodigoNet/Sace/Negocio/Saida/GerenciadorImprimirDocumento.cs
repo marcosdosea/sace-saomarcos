@@ -5,36 +5,32 @@ using System.Net.Http.Headers;
 
 namespace Negocio
 {
-    public class GerenciadorImprimirDocumento
+    public static class GerenciadorImprimirDocumento
     {
-        private readonly SaceContext context;
-
-        public GerenciadorImprimirDocumento(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere um novo ImprimirDocumento na base de dados
         /// </summary>
         /// <param name="ImprimirDocumento"></param>
         /// <returns></returns>
-        public long Inserir(ImprimirDocumento documento)
+        public static long Inserir(ImprimirDocumento documento)
         {
-            TbImprimirDocumento _documento = new TbImprimirDocumento();
-            try
+            using (var context = new SaceContext())
             {
-                if (ObterPorTipoDocumentoCodDocumento(documento.TipoDocumento, documento.CodDocumento).Count() > 0)
-                    throw new NegocioException("Documento já está na fila de impressão. Favor verificar se o computador está ligado.");
-                Atribuir(documento, _documento);
-                context.Add(_documento);
-                context.SaveChanges();
+                try
+                {
+                    if (ObterPorTipoDocumentoCodDocumento(documento.TipoDocumento, documento.CodDocumento).Count() > 0)
+                        throw new NegocioException("Documento já está na fila de impressão. Favor verificar se o computador está ligado.");
+                    var _documento = new TbImprimirDocumento();
+                    Atribuir(documento, _documento);
+                    context.Add(_documento);
+                    context.SaveChanges();
 
-                return _documento.CodImprimir;
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("ImprimirDocumento", e.Message, e);
+                    return _documento.CodImprimir;
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("ImprimirDocumento", e.Message, e);
+                }
             }
         }
 
@@ -43,19 +39,26 @@ namespace Negocio
         /// Remove ImprimirDocumento da base de dados
         /// </summary>
         /// <param name="codImprimirDocumento"></param>
-        public void Remover(long codImprimirDocumento)
+        public static void Remover(long codImprimirDocumento)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var _imprimirDocumento = new TbImprimirDocumento();
-                _imprimirDocumento.CodImprimir = codImprimirDocumento;
-
-                context.Remove(_imprimirDocumento);
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("ImprimirDocumento", e.Message, e);
+                try
+                {
+                    var _imprimirDocumento = context.TbImprimirDocumentos.FirstOrDefault(i => i.CodImprimir == codImprimirDocumento);
+                    if (_imprimirDocumento != null)
+                    {
+                        context.Remove(_imprimirDocumento);
+                        context.SaveChanges();
+                    } else
+                    {
+                        throw new NegocioException("Não encontrou documento para exclusão.");
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("ImprimirDocumento", e.Message, e);
+                }
             }
         }
 
@@ -63,27 +66,29 @@ namespace Negocio
         /// Consulta padrão para retornar dados do cartão de crédito
         /// </summary>
         /// <returns></returns>
-        private IQueryable<ImprimirDocumento> GetQuery()
+        private static IQueryable<ImprimirDocumento> GetQuery()
         {
-            var query = from imprimir in context.TbImprimirDocumentos
-                        select new ImprimirDocumento
-                        {
-                            CodDocumento = imprimir.CodDocumento,
-                            TipoDocumento = imprimir.TipoDocumento,
-                            CodImprimir = imprimir.CodImprimir,
-                            Desconto = imprimir.Desconto,
-                            HostSolicitante = imprimir.HostSolicitante,
-                            Total = imprimir.Total,
-                            TotalAvista = imprimir.TotalAvista
-                        };
-            return query.AsNoTracking();
-
+            using (var context = new SaceContext())
+            {
+                var query = from imprimir in context.TbImprimirDocumentos
+                            select new ImprimirDocumento
+                            {
+                                CodDocumento = imprimir.CodDocumento,
+                                TipoDocumento = imprimir.TipoDocumento,
+                                CodImprimir = imprimir.CodImprimir,
+                                Desconto = imprimir.Desconto,
+                                HostSolicitante = imprimir.HostSolicitante,
+                                Total = imprimir.Total,
+                                TotalAvista = imprimir.TotalAvista
+                            };
+                return query.AsNoTracking();
+            }
         }
         /// <summary>
         /// Obter todos os ImprimirDocumentos pelo tipo documento
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ImprimirDocumento> ObterPorTipoDocumento(string tipoDocumento)
+        public static IEnumerable<ImprimirDocumento> ObterPorTipoDocumento(string tipoDocumento)
         {
             return GetQuery().
                 Where(d => d.TipoDocumento == tipoDocumento).
@@ -95,7 +100,7 @@ namespace Negocio
         /// Obter todos os ImprimirDocumentos pelo tipo documento
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ImprimirDocumento> ObterPorHost(string host)
+        public static IEnumerable<ImprimirDocumento> ObterPorHost(string host)
         {
             return GetQuery().
                 Where(d => d.HostSolicitante.Equals(host) ).
@@ -108,7 +113,7 @@ namespace Negocio
         /// Obter todos os ImprimirDocumentos pelo tipo documento
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ImprimirDocumento> ObterPorTipoDocumentoCodDocumento(string tipoDocumento, long codDocumento)
+        public static IEnumerable<ImprimirDocumento> ObterPorTipoDocumentoCodDocumento(string tipoDocumento, long codDocumento)
         {
             return GetQuery().
                 Where(d => d.TipoDocumento.Equals(tipoDocumento) && d.CodDocumento.Equals(codDocumento)).
@@ -121,14 +126,13 @@ namespace Negocio
         /// Obter todos os ImprimirDocumentos pelo tipo documento
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ImprimirDocumento> ObterPorTipoDocumentoHost(string tipoDocumento, string host)
+        public static IEnumerable<ImprimirDocumento> ObterPorTipoDocumentoHost(string tipoDocumento, string host)
         {
             return GetQuery().
                 Where(d => d.TipoDocumento.Equals(tipoDocumento) && d.HostSolicitante.Equals(host)).
                 OrderBy(d => d.CodImprimir).
                 ToList();
         }
-
 
         private static void Atribuir(ImprimirDocumento documento, TbImprimirDocumento _documento)
         {

@@ -4,31 +4,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorGrupoConta
+    public static class GerenciadorGrupoConta
     {
-        private readonly SaceContext context;
-
-        public GerenciadorGrupoConta(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
 
         /// <summary>
         /// Insere um novo grupo de contas
         /// </summary>
         /// <param name="grupoConta"></param>
         /// <returns></returns>
-        public int Inserir(GrupoConta grupoConta)
+        public static int Inserir(GrupoConta grupoConta)
         {
             try
             {
-                var _grupoConta = new TbGrupoContum();
-                _grupoConta.Descricao = grupoConta.Descricao;
+                using (var context = new SaceContext())
+                {
+                    var _grupoConta = new TbGrupoContum();
+                    _grupoConta.Descricao = grupoConta.Descricao;
 
-                context.Add(_grupoConta);
-                context.SaveChanges();
+                    context.Add(_grupoConta);
+                    context.SaveChanges();
 
-                return _grupoConta.CodGrupoConta;
+                    return _grupoConta.CodGrupoConta;
+                }
             }
             catch (Exception e)
             {
@@ -39,18 +36,21 @@ namespace Negocio
         /// Atualiza os dados do grupo de contas
         /// </summary>
         /// <param name="grupoConta"></param>
-        public void Atualizar(GrupoConta grupoConta)
+        public static void Atualizar(GrupoConta grupoConta)
         {
             try
             {
-                var _grupoConta = new TbGrupoContum();
-                _grupoConta.CodGrupoConta = grupoConta.CodGrupoConta;
-                _grupoConta = context.TbGrupoConta.Find(_grupoConta);
-
-                if (_grupoConta != null)
+                using (var context = new SaceContext())
                 {
-                    _grupoConta.Descricao = grupoConta.Descricao;
-                    context.SaveChanges();
+                    var _grupoConta = new TbGrupoContum();
+                    _grupoConta.CodGrupoConta = grupoConta.CodGrupoConta;
+                    _grupoConta = context.TbGrupoConta.Find(_grupoConta);
+
+                    if (_grupoConta != null)
+                    {
+                        _grupoConta.Descricao = grupoConta.Descricao;
+                        context.SaveChanges();
+                    }
                 }
             }
             catch (Exception e)
@@ -63,22 +63,23 @@ namespace Negocio
         /// Remove um grupo de contas
         /// </summary>
         /// <param name="codGrupoConta"></param>
-        public void Remover(Int32 codGrupoConta)
+        public static void Remover(int codGrupoConta)
         {
             if ((codGrupoConta == 1) || (codGrupoConta == 2))
                 throw new NegocioException("Esse grupo não pode ser excluído para manter a consistência da base de dados");
-
-            try
+            using (var context = new SaceContext())
             {
-                var _grupoConta = new TbGrupoContum();
-                _grupoConta.CodGrupoConta = codGrupoConta;
+                try
+                {
+                    var _grupoConta = context.TbGrupoConta.FirstOrDefault(g => g.CodGrupoConta == codGrupoConta);
 
-                context.Remove(_grupoConta);
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Grupo de Contas", e.Message, e);
+                    context.Remove(_grupoConta);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("Grupo de Contas", e.Message, e);
+                }
             }
         }
 
@@ -86,23 +87,26 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<GrupoConta> GetQuery()
+        private static IQueryable<GrupoConta> GetQuery()
         {
-            var query = from grupoConta in context.TbGrupoConta
-                        select new GrupoConta
-                        {
-                            CodGrupoConta = grupoConta.CodGrupoConta,
-                            Descricao = grupoConta.Descricao
-                        };
+            using (var context = new SaceContext())
+            {
+                var query = from grupoConta in context.TbGrupoConta
+                            select new GrupoConta
+                            {
+                                CodGrupoConta = grupoConta.CodGrupoConta,
+                                Descricao = grupoConta.Descricao
+                            };
 
-            return query.AsNoTracking();
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
         /// Obtém todos os grupos de contas cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<GrupoConta> ObterTodos()
+        public static IEnumerable<GrupoConta> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -112,7 +116,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<GrupoConta> Obter(int codGrupoConta)
+        public static IEnumerable<GrupoConta> Obter(int codGrupoConta)
         {
             return GetQuery().Where(grupoConta => grupoConta.CodGrupoConta == codGrupoConta).ToList();
         }
@@ -122,7 +126,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<GrupoConta> ObterPorDescricao(string descricao)
+        public static IEnumerable<GrupoConta> ObterPorDescricao(string descricao)
         {
             return GetQuery().Where(grupoConta => grupoConta.Descricao.StartsWith(descricao)).ToList();
         }

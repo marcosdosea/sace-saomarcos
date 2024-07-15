@@ -19,30 +19,30 @@ namespace Sace
             GrupoSelected = null;
             this.saceOptions = saceOptions;
             SaceContext context = new SaceContext(saceOptions);
-            this.service = new SaceService(context);
+            this = new SaceService(context);
         }
 
         private void FrmSubgrupoPesquisa_Load(object sender, EventArgs e)
         {
-            subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.ObterTodos();
+            subgrupoBindingSource.DataSource = GerenciadorSubgrupo.ObterTodos();
             cmbBusca.SelectedIndex = 1;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.Obter(Convert.ToInt32(txtTexto.Text));
+                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.Obter(Convert.ToInt32(txtTexto.Text));
             else if ((cmbBusca.SelectedIndex == 1) && !txtTexto.Text.Equals(""))
-                subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.ObterPorDescricao(txtTexto.Text);                
+                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.ObterPorDescricao(txtTexto.Text);                
             else if ((cmbBusca.SelectedIndex == 2) && !txtTexto.Text.Equals(""))
-                subgrupoBindingSource.DataSource = service.GerenciadorSubgrupo.ObterPorDescricaoGrupo(txtTexto.Text);
+                subgrupoBindingSource.DataSource = GerenciadorSubgrupo.ObterPorDescricaoGrupo(txtTexto.Text);
             
         }
 
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             SubgrupoSelected = (Subgrupo) subgrupoBindingSource.Current;
-            GrupoSelected = service.GerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
+            GrupoSelected = GerenciadorGrupo.Obter(SubgrupoSelected.CodGrupo).ElementAt(0);
             this.Close();
         }
 

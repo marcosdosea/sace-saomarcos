@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorProdutoLoja
+    public static class GerenciadorProdutoLoja
     {
         /// <summary>
         /// Insere um novo produto na loja
         /// </summary>
         /// <param name="produtoLoja"></param>
         /// <returns></returns>
-        public long Inserir(ProdutoLoja produtoLoja)
+        public static long Inserir(ProdutoLoja produtoLoja)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace Negocio
         /// Atualiza os dados de um produto na loja
         /// </summary>
         /// <param name="produtoLoja"></param>
-        public void Atualizar(ProdutoLoja produtoLoja)
+        public static void Atualizar(ProdutoLoja produtoLoja)
         {
             using (var context = new SaceContext())
             {
@@ -59,7 +59,7 @@ namespace Negocio
                         context.Update(_produtoLoja);
                         context.SaveChanges();
 
-                        AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto);
+                        AtualizarEstoqueEntradasProduto(produtoLoja.CodProduto, context);
                     }
                     transaction.Commit();
                 }
@@ -75,7 +75,7 @@ namespace Negocio
         /// Remove
         /// </summary>
         /// <param name="produtoLojaPK"></param>
-        public void Remover(long codProduto, int codLoja)
+        public static void Remover(long codProduto, int codLoja)
         {
             using (var context = new SaceContext())
             {
@@ -87,7 +87,7 @@ namespace Negocio
                     produtoLoja.CodLoja = codLoja;
                     context.Remove(produtoLoja);
                     context.SaveChanges();
-                    AtualizarEstoqueEntradasProduto(codProduto);
+                    AtualizarEstoqueEntradasProduto(codProduto, context);
                     transaction.Commit();
                 }
                 catch (Exception e)
@@ -102,7 +102,7 @@ namespace Negocio
         /// Consulta simples para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<ProdutoLoja> GetQuery()
+        private static IQueryable<ProdutoLoja> GetQuery()
         {
             using (var context = new SaceContext())
             {
@@ -129,7 +129,7 @@ namespace Negocio
         /// <param name="codProduto"></param>
         /// <param name="codLoja"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoLoja> Obter(long codProduto, int codLoja)
+        public static IEnumerable<ProdutoLoja> Obter(long codProduto, int codLoja)
         {
             return GetQuery().Where(pl => pl.CodProduto == codProduto && pl.CodLoja == codLoja).ToList();
         }
@@ -139,7 +139,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoLoja> ObterPorProduto(long codProduto)
+        public static IEnumerable<ProdutoLoja> ObterPorProduto(long codProduto)
         {
             return GetQuery().Where(pl => pl.CodProduto == codProduto).ToList();
         }
@@ -149,7 +149,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public IEnumerable<ProdutoLoja> ObterPorLoja(int codLoja)
+        public static IEnumerable<ProdutoLoja> ObterPorLoja(int codLoja)
         {
             return GetQuery().Where(pl => pl.CodLoja == codLoja).ToList();
         }
@@ -159,7 +159,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codProduto"></param>
         /// <returns></returns>
-        public decimal ObterEstoque(long codProduto)
+        public static decimal ObterEstoque(long codProduto)
         {
             return GetQuery().Where(pl => pl.CodProduto == codProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
         }
@@ -167,7 +167,7 @@ namespace Negocio
         /// Obter estoque de todos os produtos da estoque
         /// </summary>
         /// <returns></returns>
-        public List<ProdutoLoja> ObterTodos()
+        public static List<ProdutoLoja> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -179,7 +179,7 @@ namespace Negocio
         /// <param name="quantidadeAux"></param>
         /// <param name="codLoja"></param>
         /// <param name="codProduto"></param>
-        public void AdicionaQuantidade(decimal quantidade, decimal quantidadeAux, int codLoja, long codProduto, SaceContext context)
+        public static void AdicionaQuantidade(decimal quantidade, decimal quantidadeAux, int codLoja, long codProduto, SaceContext context)
         {
             var query = from produtoLoja in context.TbProdutoLojas
                         where produtoLoja.CodLoja == codLoja && produtoLoja.CodProduto == codProduto
@@ -208,70 +208,67 @@ namespace Negocio
         /// Atualiza o estoque do produto após uma entrada
         /// </summary>
         /// <param name="codProduto"></param>
-        public void AtualizarEstoqueEntradasProduto(long codProduto)
+        private static void AtualizarEstoqueEntradasProduto(long codProduto, SaceContext context)
         {
-            using (var context = new SaceContext())
+            IEnumerable<ProdutoLoja> listaProdutosLoja = ObterPorProduto(codProduto);
+            decimal quantidadeEstoquePrincipalLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoque);
+            decimal quantidadeEstoqueAuxLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoqueAux);
+
+            var entradasProdutoPrincipal = context.TbEntradaProdutos
+                    .Where(ep => ep.CodProduto == codProduto && ep.CodEntradaNavigation.CodTipoEntrada == Entrada.TIPO_ENTRADA)
+                    .OrderByDescending(ep => ep.CodEntradaProduto); ;
+            var entradasProdutoAuxiliar = context.TbEntradaProdutos
+                    .Where(ep => ep.CodProduto == codProduto && ep.CodEntradaNavigation.CodTipoEntrada == Entrada.TIPO_ENTRADA_AUX)
+                    .OrderByDescending(ep => ep.CodEntradaProduto); ;
+
+            decimal quantidadeEstoquePrincipalEntradaProduto = 0;
+            entradasProdutoPrincipal?.Sum(ep => ep.QuantidadeDisponivel);
+            decimal quantidadeEstoqueAuxEntradaProduto = 0;
+            entradasProdutoAuxiliar?.Sum(ep => ep.QuantidadeDisponivel);
+
+            var query = from entradaProdutoE in context.TbEntradaProdutos
+                        where entradaProdutoE.CodEntradaNavigation.CodTipoEntrada == Entrada.TIPO_ENTRADA && entradaProdutoE.CodProduto == codProduto
+                        orderby entradaProdutoE.CodEntradaProduto descending
+                        select entradaProdutoE;
+            // Atualiza as entradas principais com os valores do estoque totais dos produto / loja
+            if ((quantidadeEstoquePrincipalLojas > 0) && (quantidadeEstoquePrincipalLojas != quantidadeEstoquePrincipalEntradaProduto))
             {
-                IEnumerable<ProdutoLoja> listaProdutosLoja = ObterPorProduto(codProduto);
-                decimal quantidadeEstoquePrincipalLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoque);
-                decimal quantidadeEstoqueAuxLojas = listaProdutosLoja.Sum(pl => pl.QtdEstoqueAux);
-
-                var entradasProdutoPrincipal = context.TbEntradaProdutos
-                        .Where(ep => ep.CodProduto == codProduto && ep.CodEntradaNavigation.CodTipoEntrada == Entrada.TIPO_ENTRADA)
-                        .OrderByDescending(ep => ep.CodEntradaProduto); ;
-                var entradasProdutoAuxiliar = context.TbEntradaProdutos
-                        .Where(ep => ep.CodProduto == codProduto && ep.CodEntradaNavigation.CodTipoEntrada == Entrada.TIPO_ENTRADA_AUX)
-                        .OrderByDescending(ep => ep.CodEntradaProduto); ;
-
-                decimal quantidadeEstoquePrincipalEntradaProduto = 0;
-                entradasProdutoPrincipal?.Sum(ep => ep.QuantidadeDisponivel);
-                decimal quantidadeEstoqueAuxEntradaProduto = 0;
-                entradasProdutoAuxiliar?.Sum(ep => ep.QuantidadeDisponivel);
-
-                var query = from entradaProdutoE in context.TbEntradaProdutos
-                            where entradaProdutoE.CodEntradaNavigation.CodTipoEntrada == Entrada.TIPO_ENTRADA && entradaProdutoE.CodProduto == codProduto
-                            orderby entradaProdutoE.CodEntradaProduto descending
-                            select entradaProdutoE;
-                // Atualiza as entradas principais com os valores do estoque totais dos produto / loja
-                if ((quantidadeEstoquePrincipalLojas > 0) && (quantidadeEstoquePrincipalLojas != quantidadeEstoquePrincipalEntradaProduto))
+                foreach (var entradaProdutoPrincipalE in query)
                 {
-                    foreach (var entradaProdutoPrincipalE in query)
+                    decimal quantidadeEntrada = (decimal)(entradaProdutoPrincipalE.Quantidade * entradaProdutoPrincipalE.QuantidadeEmbalagem);
+                    if (quantidadeEntrada > quantidadeEstoquePrincipalLojas)
                     {
-                        decimal quantidadeEntrada = (decimal)(entradaProdutoPrincipalE.Quantidade * entradaProdutoPrincipalE.QuantidadeEmbalagem);
-                        if (quantidadeEntrada > quantidadeEstoquePrincipalLojas)
-                        {
-                            entradaProdutoPrincipalE.QuantidadeDisponivel = quantidadeEstoquePrincipalLojas;
-                            quantidadeEstoquePrincipalLojas = 0;
-                        }
-                        else
-                        {
-                            entradaProdutoPrincipalE.QuantidadeDisponivel = quantidadeEntrada;
-                            quantidadeEstoquePrincipalLojas -= quantidadeEntrada;
-                        }
-                        context.Update(entradaProdutoPrincipalE);
+                        entradaProdutoPrincipalE.QuantidadeDisponivel = quantidadeEstoquePrincipalLojas;
+                        quantidadeEstoquePrincipalLojas = 0;
                     }
-                    context.SaveChanges();
+                    else
+                    {
+                        entradaProdutoPrincipalE.QuantidadeDisponivel = quantidadeEntrada;
+                        quantidadeEstoquePrincipalLojas -= quantidadeEntrada;
+                    }
+                    context.Update(entradaProdutoPrincipalE);
                 }
+                context.SaveChanges();
+            }
 
-                // Atualiza as entradas auxiliares com os valores do estoque totais dos produto / loja
-                if (quantidadeEstoqueAuxLojas != quantidadeEstoqueAuxEntradaProduto)
+            // Atualiza as entradas auxiliares com os valores do estoque totais dos produto / loja
+            if (quantidadeEstoqueAuxLojas != quantidadeEstoqueAuxEntradaProduto)
+            {
+                foreach (var entradaProdutoAuxiliar in query)
                 {
-                    foreach (var entradaProdutoAuxiliar in query)
+                    if (entradaProdutoAuxiliar.Quantidade > quantidadeEstoqueAuxLojas)
                     {
-                        if (entradaProdutoAuxiliar.Quantidade > quantidadeEstoqueAuxLojas)
-                        {
-                            entradaProdutoAuxiliar.QuantidadeDisponivel = quantidadeEstoqueAuxLojas;
-                            quantidadeEstoqueAuxLojas = 0;
-                        }
-                        else
-                        {
-                            entradaProdutoAuxiliar.QuantidadeDisponivel = entradaProdutoAuxiliar.Quantidade;
-                            quantidadeEstoqueAuxLojas -= (decimal)entradaProdutoAuxiliar.Quantidade;
-                        }
-                        context.Update(entradaProdutoAuxiliar);
+                        entradaProdutoAuxiliar.QuantidadeDisponivel = quantidadeEstoqueAuxLojas;
+                        quantidadeEstoqueAuxLojas = 0;
                     }
-                    context.SaveChanges();
+                    else
+                    {
+                        entradaProdutoAuxiliar.QuantidadeDisponivel = entradaProdutoAuxiliar.Quantidade;
+                        quantidadeEstoqueAuxLojas -= (decimal)entradaProdutoAuxiliar.Quantidade;
+                    }
+                    context.Update(entradaProdutoAuxiliar);
                 }
+                context.SaveChanges();
             }
         }
     }

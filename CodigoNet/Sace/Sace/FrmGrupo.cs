@@ -10,20 +10,15 @@ namespace Sace
     {
         private EstadoFormulario estado;
         public Grupo GrupoSelected { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmGrupo(DbContextOptions<SaceContext> saceOptions)
+        public FrmGrupo()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context); 
         }
 
         private void FrmGrupo_Load(object sender, EventArgs e)
         {
-            grupoBindingSource.DataSource = service.GerenciadorGrupo.ObterTodos();
+            grupoBindingSource.DataSource = GerenciadorGrupo.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -58,7 +53,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorGrupo.Remover(Int32.Parse(codGrupoTextBox.Text));
+                GerenciadorGrupo.Remover(Int32.Parse(codGrupoTextBox.Text));
                 grupoBindingSource.RemoveCurrent();
             }
             btnBuscar.Focus();
@@ -80,12 +75,12 @@ namespace Sace
                 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codGrupo = service.GerenciadorGrupo.Inserir(grupo);
+                    long codGrupo = GerenciadorGrupo.Inserir(grupo);
                     codGrupoTextBox.Text = codGrupo.ToString();
                 }
                 else
                 {
-                    service.GerenciadorGrupo.Atualizar(grupo);
+                    GerenciadorGrupo.Atualizar(grupo);
                 }
                 grupoBindingSource.EndEdit();
             }

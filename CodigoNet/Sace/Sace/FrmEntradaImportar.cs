@@ -10,23 +10,16 @@ namespace Sace
         IEnumerable<EntradaProduto> listaEntradaProduto;
         Entrada entrada;
 
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-
-
-        public FrmEntradaImportar(Entrada entrada, IEnumerable<EntradaProduto> listaEntradaProduto, DbContextOptions<SaceContext> saceOptions)
+        public FrmEntradaImportar(Entrada entrada, IEnumerable<EntradaProduto> listaEntradaProduto)
         {
             InitializeComponent();
             this.listaEntradaProduto = listaEntradaProduto;
             this.entrada = entrada;
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmEntradaImportar_Load(object sender, EventArgs e)
         {
-            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodosNomes();
+            produtoBindingSource.DataSource = GerenciadorProduto.ObterTodosNomes();
             entradaProdutoBindingSource.DataSource = listaEntradaProduto;
         }
 
@@ -35,7 +28,7 @@ namespace Sace
             EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
             entradaProduto.QuantidadeEmbalagem = entradaProduto.QuantidadeEmbalagem == 0 ? 1 : entradaProduto.QuantidadeEmbalagem;
             entradaProduto.QuantidadeDisponivel = entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem;
-            service.GerenciadorEntradaProduto.Inserir(entradaProduto, Entrada.TIPO_ENTRADA);
+            GerenciadorEntradaProduto.Inserir(entradaProduto, Entrada.TIPO_ENTRADA);
             entradaProdutoBindingSource.RemoveCurrent();
             codProdutoComboBox.Focus();
         }
@@ -48,7 +41,7 @@ namespace Sace
 
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
-            ProdutoPesquisa produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, EstadoFormulario.INSERIR_DETALHE, produtoBindingSource, true, service, saceOptions);
+            ProdutoPesquisa produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, EstadoFormulario.INSERIR_DETALHE, produtoBindingSource, true);
             EntradaProduto entradaProduto = (EntradaProduto)entradaProdutoBindingSource.Current;
             if (produtoPesquisa.CodProduto != 1)
             {
@@ -69,11 +62,11 @@ namespace Sace
         {
             if ((e.KeyCode == Keys.F3) && (codProdutoComboBox.Focused))
             {
-                FrmProduto frmProduto = new FrmProduto(saceOptions);
+                FrmProduto frmProduto = new FrmProduto();
                 frmProduto.ShowDialog();
                 if (frmProduto.ProdutoPesquisa != null)
                 {
-                    produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodosNomes();
+                    produtoBindingSource.DataSource = GerenciadorProduto.ObterTodosNomes();
                     produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new ProdutoNome() { CodProduto = frmProduto.ProdutoPesquisa.CodProduto });
                 }
                 frmProduto.Dispose();
@@ -179,7 +172,7 @@ namespace Sace
             frmProduto.ShowDialog();
             entradaProduto.CodProduto = frmProduto.ProdutoPesquisa.CodProduto;
             entradaProdutoBindingSource.ResumeBinding();
-            produtoBindingSource.DataSource = service.GerenciadorProduto.ObterTodosNomes();
+            produtoBindingSource.DataSource = GerenciadorProduto.ObterTodosNomes();
             produtoBindingSource.Position = produtoBindingSource.List.IndexOf(new ProdutoNome() { CodProduto = entradaProduto.CodProduto });
             frmProduto.Dispose();
         }

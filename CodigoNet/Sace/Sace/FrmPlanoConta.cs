@@ -24,8 +24,8 @@ namespace Sace
 
         private void FrmPlanoConta_Load(object sender, EventArgs e)
         {
-            grupoContaBindingSource.DataSource = service.GerenciadorGrupoConta.ObterTodos();
-            planoContaBindingSource.DataSource = service.GerenciadorPlanoConta.ObterTodos();
+            grupoContaBindingSource.DataSource = GerenciadorGrupoConta.ObterTodos();
+            planoContaBindingSource.DataSource = GerenciadorPlanoConta.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -62,7 +62,7 @@ namespace Sace
         {
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                service.GerenciadorPlanoConta.Remover(int.Parse(codPlanoContaTextBox.Text));
+                GerenciadorPlanoConta.Remover(int.Parse(codPlanoContaTextBox.Text));
                 planoContaBindingSource.RemoveCurrent();
             }
         }
@@ -88,12 +88,12 @@ namespace Sace
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
-                    long codPlanoConta = service.GerenciadorPlanoConta.Inserir(planoConta);
+                    long codPlanoConta = GerenciadorPlanoConta.Inserir(planoConta);
                     codPlanoContaTextBox.Text = codPlanoConta.ToString();
                 }
                 else
                 {
-                    service.GerenciadorPlanoConta.Atualizar(planoConta);
+                    GerenciadorPlanoConta.Atualizar(planoConta);
                 }
                 planoContaBindingSource.EndEdit();
             }
