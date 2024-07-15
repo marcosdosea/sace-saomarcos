@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorUsuario
+    public static class GerenciadorUsuario
     {
 
         /// <summary>
@@ -12,7 +12,7 @@ namespace Negocio
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public long Inserir(Usuario usuario)
+        public static long Inserir(Usuario usuario)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Negocio
         /// Atualiza dados do usuario
         /// </summary>
         /// <param name="usuario"></param>
-        public void Atualizar(Usuario usuario)
+        public static void Atualizar(Usuario usuario)
         {
             try
             {
@@ -55,6 +55,10 @@ namespace Negocio
 
                         context.SaveChanges();
                     }
+                    else
+                    {
+                        throw new NegocioException("Usuário não encontrado para alteração.");
+                    }
                 }
             }
             catch (Exception e)
@@ -67,7 +71,7 @@ namespace Negocio
         /// Remove dados do usuario
         /// </summary>
         /// <param name="codUsuario"></param>
-        public void Remover(int codPessoa)
+        public static void Remover(int codPessoa)
         {
             if (codPessoa == 1)
                 throw new NegocioException("O usuario não pode ser removido.");
@@ -97,7 +101,7 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Usuario> GetQuery()
+        private static IQueryable<Usuario> GetQuery()
         {
             using (var context = new SaceContext())
             {
@@ -119,7 +123,7 @@ namespace Negocio
         /// Obtém todos os usuario cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Usuario> ObterTodos()
+        public static IEnumerable<Usuario> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -129,7 +133,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codUsuario"></param>
         /// <returns></returns>
-        public IEnumerable<Usuario> Obter(int codPessoa)
+        public static IEnumerable<Usuario> Obter(int codPessoa)
         {
             return GetQuery().Where(usuario => usuario.CodPessoa == codPessoa).ToList();
         }
@@ -139,7 +143,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Usuario> ObterPorLogin(string login)
+        public static IEnumerable<Usuario> ObterPorLogin(string login)
         {
             return GetQuery().Where(usuario => usuario.Login.StartsWith(login)).ToList();
         }
@@ -149,7 +153,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Perfil> ObterPerfis()
+        public static IEnumerable<Perfil> ObterPerfis()
         {
             using (var context = new SaceContext())
             {

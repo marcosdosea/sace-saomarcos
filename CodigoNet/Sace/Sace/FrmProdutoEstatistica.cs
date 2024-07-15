@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 
 namespace Sace
@@ -10,15 +8,10 @@ namespace Sace
 
         private Produto produto;
 
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-        public FrmProdutoEstatistica(DbContextOptions<SaceContext> saceOptions)
+        public FrmProdutoEstatistica()
         {
             InitializeComponent();
             produto = null;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            this = new SaceService(context);
         }
 
         public FrmProdutoEstatistica(Produto produto)
@@ -74,7 +67,7 @@ namespace Sace
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true, service, saceOptions);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true);
             
             if (_produtoPesquisa != null)
             {

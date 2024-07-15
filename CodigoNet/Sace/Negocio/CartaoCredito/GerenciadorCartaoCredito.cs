@@ -85,28 +85,25 @@ namespace Negocio
         /// Consulta padrão para retornar dados do cartão de crédito
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<CartaoCredito> GetQuery()
+        private static IQueryable<CartaoCredito> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
 
-                var query = from cartao in context.TbCartaoCreditos
-                            select new CartaoCredito
-                            {
-                                CodCartao = cartao.CodCartao,
-                                CodContaBanco = cartao.CodContaBanco,
-                                CodPessoa = (int)cartao.CodPessoa,
-                                DiaBase = (int)cartao.DiaBase,
-                                Mapeamento = cartao.Mapeamento,
-                                Nome = cartao.Nome,
-                                DescricaoContaBanco = cartao.CodContaBancoNavigation.Descricao,
-                                NomePessoa = cartao.CodPessoaNavigation.NomeFantasia,
-                                Desconto = cartao.Desconto,
-                                MapeamentoCappta = cartao.MapeamentoCappta,
-                                TipoCartao = cartao.TipoCartao
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from cartao in context.TbCartaoCreditos
+                        select new CartaoCredito
+                        {
+                            CodCartao = cartao.CodCartao,
+                            CodContaBanco = cartao.CodContaBanco,
+                            CodPessoa = (int)cartao.CodPessoa,
+                            DiaBase = (int)cartao.DiaBase,
+                            Mapeamento = cartao.Mapeamento,
+                            Nome = cartao.Nome,
+                            DescricaoContaBanco = cartao.CodContaBancoNavigation.Descricao,
+                            NomePessoa = cartao.CodPessoaNavigation.NomeFantasia,
+                            Desconto = cartao.Desconto,
+                            MapeamentoCappta = cartao.MapeamentoCappta,
+                            TipoCartao = cartao.TipoCartao
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -115,7 +112,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<CartaoCredito> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -125,7 +126,10 @@ namespace Negocio
         /// <returns>código do cartão</returns>
         public static IEnumerable<CartaoCredito> Obter(Int32 codCartaoCredito)
         {
-            return GetQuery().Where(cartao => cartao.CodCartao == codCartaoCredito).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(cartao => cartao.CodCartao == codCartaoCredito).ToList();
+            }
         }
 
 
@@ -136,7 +140,11 @@ namespace Negocio
         /// <returns>código do cartão</returns>
         public static IEnumerable<CartaoCredito> ObterPorMapeamentoCappta(String nomeBandeira)
         {
-            return GetQuery().Where(cartao => cartao.MapeamentoCappta == nomeBandeira).ToList();
+            using (var context = new SaceContext())
+            {
+
+                return GetQuery(context).Where(cartao => cartao.MapeamentoCappta == nomeBandeira).ToList();
+            }
         }
 
         /// <summary>
@@ -146,7 +154,11 @@ namespace Negocio
         /// <returns>nome do cartão</returns>
         public static IEnumerable<CartaoCredito> ObterPorNome(string nome)
         {
-            return GetQuery().Where(cartao => cartao.Nome.StartsWith(nome)).ToList();
+            using (var context = new SaceContext())
+            {
+
+                return GetQuery(context).Where(cartao => cartao.Nome.StartsWith(nome)).ToList();
+            }
         }
 
 

@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 using Util;
 
@@ -8,21 +6,16 @@ namespace Sace
 {
     public partial class FrmProdutoSolicitacoesCompra : Form
     {
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmProdutoSolicitacoesCompra(DbContextOptions<SaceContext> saceOptions)
+        public FrmProdutoSolicitacoesCompra()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmProdutoEstatistica_Load(object sender, EventArgs e)
         {
             produtoBindingSource.DataSource = GerenciadorProduto.ObterTodos();
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = GerenciadorPessoa.ObterTodos();
 
             if (MessageBox.Show("Deseja ANALISAR ESTOQUE para atualizar SOLICITAÇÕES DE COMPRA?", "Confirmar Análise Estoque", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -183,7 +176,7 @@ namespace Sace
 
         private void comboBoxFornecedor_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, comboBoxFornecedor, EstadoFormulario.ATUALIZAR, pessoaBindingSource, true, false, service); 
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, comboBoxFornecedor, EstadoFormulario.ATUALIZAR, pessoaBindingSource, true, false); 
         }
 
         private void comboBoxFornecedor_SelectedIndexChanged(object sender, EventArgs e)
@@ -236,8 +229,6 @@ namespace Sace
                     solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.BackColor = Color.White;
                     solicitacoesCompraDataGridView.Rows[i].Cells[0].Style.ForeColor = Color.Black;
                 }
-
-
             }
         }
 

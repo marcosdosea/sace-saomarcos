@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 using Util;
 
@@ -9,26 +7,22 @@ namespace Sace
     public partial class FrmSaidaDevolucao : Form
     {
         private Saida saida;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmSaidaDevolucao(Saida saida, DbContextOptions<SaceContext> saceOptions)
+        public FrmSaidaDevolucao(Saida saida)
         {
             InitializeComponent();
             this.saida = saida;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
+
         }
 
         private void FrmSaidaDevolucao_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
             entradaBindingSource.DataSource = GerenciadorEntrada.ObterTodos();
-            saida = gerenciadorSaida.Obter(saida.CodSaida);
+            saida = GerenciadorSaida.Obter(saida.CodSaida);
             entradaBindingSource.Position = entradaBindingSource.IndexOf(new Entrada() { CodEntrada = saida.CodEntrada });
-            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
-            IEnumerable<Pessoa> pessoas = gerenciadorPessoa.ObterTodos();
+            saidaBindingSource.DataSource = GerenciadorSaida.Obter(saida.CodSaida);
+            IEnumerable<Pessoa> pessoas = GerenciadorPessoa.ObterTodos();
             pessoaDestinoBindingSource.DataSource = pessoas;
             pessoaFreteBindingSource.DataSource = pessoas;
             pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.List.IndexOf(new Pessoa() { CodPessoa = saida.CodCliente });
@@ -66,17 +60,17 @@ namespace Sace
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_REMESSA_CONSERTO)) {
                 if (MessageBox.Show("Confirma Remessa de Produtos para Conserto?", "Confirmar Remessa para Conserto", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null, null);
+                    GerenciadorSaida.Encerrar(saida, Saida.TIPO_REMESSA_CONSERTO, null, null);
                 }
             }
             else if (saida.TipoSaida == Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR)
             {
                 if (MessageBox.Show("Confirma Devoulução de Produtos?", "Confirmar Dados da Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null, null);
+                    GerenciadorSaida.Encerrar(saida, Saida.TIPO_DEVOLUCAO_FORNECEDOR, null, null);
                 }
             }
-            gerenciadorSaida.Atualizar(saida);
+            GerenciadorSaida.Atualizar(saida);
             
             this.Close();
         }
@@ -116,7 +110,7 @@ namespace Sace
                 saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
                 saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
 
-                totalNotaFiscalTextBox.Text = gerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
+                totalNotaFiscalTextBox.Text = GerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
             }
             codSaidaTextBox_Leave(sender, e);
         }
@@ -135,7 +129,7 @@ namespace Sace
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false, service);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false);
             codSaidaTextBox_Leave(sender, e);
         }
 

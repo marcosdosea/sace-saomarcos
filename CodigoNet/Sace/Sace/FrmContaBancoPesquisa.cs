@@ -15,18 +15,16 @@ namespace Sace
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)
         {
-            var gerenciadorContaBanco = new GerenciadorContaBanco();
-            contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
+            contaBancoBindingSource.DataSource = GerenciadorContaBanco.ObterTodos();
             cmbBusca.SelectedIndex = 1;
         }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
-            var gerenciadorContaBanco = new GerenciadorContaBanco();
             if ((cmbBusca.SelectedIndex == 0) && !txtTexto.Text.Equals(""))
-                contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterPorNumero(txtTexto.Text);
+                contaBancoBindingSource.DataSource = GerenciadorContaBanco.ObterPorNumero(txtTexto.Text);
             else
-                contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterPorDescricao(txtTexto.Text);
+                contaBancoBindingSource.DataSource = GerenciadorContaBanco.ObterPorDescricao(txtTexto.Text);
         }
 
         private void tb_bancoDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -8,16 +8,9 @@ namespace Sace
 {
     public partial class FrmMovimentacaoCaixa : Form
     {
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-
-        public FrmMovimentacaoCaixa(DbContextOptions<SaceContext> saceOptions)
+        public FrmMovimentacaoCaixa()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context);
-
             contaBancoBindingSource.DataSource = GerenciadorContaBanco.ObterTodos();
             dateTimePickerFinal.Value = DateTime.Now;
             dateTimePickerInicial.Value = DateTime.Now;
@@ -42,7 +35,7 @@ namespace Sace
             TotalPagamentoSaida totalPagamentoDinheiro = totaisPagamentos.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
             if (totalPagamentoDinheiro != null)
             {
-                decimal trocoPorPeriodo = gerenciadorSaida.ObterTrocoPagamentos(dataInicial, dataFinal);
+                decimal trocoPorPeriodo = GerenciadorSaida.ObterTrocoPagamentos(dataInicial, dataFinal);
                 totalPagamentoDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisPagamentosBindingSource.DataSource = totaisPagamentos;
@@ -53,7 +46,7 @@ namespace Sace
             TotalPagamentoSaida totalPagamentoSaidaDinheiro = totaisSaida.Where(t => t.CodFormaPagamentos.Equals(FormaPagamento.DINHEIRO)).FirstOrDefault();
             if (totalPagamentoSaidaDinheiro != null)
             {
-                decimal trocoPorPeriodo = gerenciadorSaida.ObterTrocoSaidas(dataInicial, dataFinal);
+                decimal trocoPorPeriodo = GerenciadorSaida.ObterTrocoSaidas(dataInicial, dataFinal);
                 totalPagamentoSaidaDinheiro.TotalPagamento -= trocoPorPeriodo;
             }
             totaisSaidaBindingSource.DataSource = totaisSaida;
@@ -118,7 +111,7 @@ namespace Sace
 
         private void btnDetalhes_Click(object sender, EventArgs e)
         {
-            FrmMovimentacaoCaixaRecebido frmRecebido = new FrmMovimentacaoCaixaRecebido(dateTimePickerInicial.Value, dateTimePickerFinal.Value, saceOptions);
+            FrmMovimentacaoCaixaRecebido frmRecebido = new FrmMovimentacaoCaixaRecebido(dateTimePickerInicial.Value, dateTimePickerFinal.Value);
             frmRecebido.ShowDialog();
             frmRecebido.Dispose();
         }

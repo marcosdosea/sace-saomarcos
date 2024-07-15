@@ -125,8 +125,6 @@ namespace Negocio
 
         private static long ObterInserirEmpresaFrete(TNFe nfe)
         {
-            var gerenciadorMunicipio = new GerenciadorMunicipio();
-
             if (nfe.infNFe.transp != null && nfe.infNFe.transp.transporta != null && !string.IsNullOrEmpty(nfe.infNFe.transp.transporta.Item))
             {
                 Pessoa empresaFrete = GerenciadorPessoa.ObterPorCpfCnpj(nfe.infNFe.transp.transporta.Item).ElementAtOrDefault(0);
@@ -147,7 +145,7 @@ namespace Negocio
                     if (nfe.infNFe.transp.transporta.xMun != null)
                         empresaFrete.Cidade = nfe.infNFe.transp.transporta.xMun.ToUpper();
 
-                    empresaFrete.CodMunicipioIBGE = gerenciadorMunicipio.ObterPorCidadeEstado(empresaFrete.Cidade, empresaFrete.Uf).Codigo;
+                    empresaFrete.CodMunicipioIBGE = GerenciadorMunicipio.ObterPorCidadeEstado(empresaFrete.Cidade, empresaFrete.Uf).Codigo;
                     empresaFrete.Tipo = empresaFrete.CpfCnpj.Length == 11 ? Pessoa.PESSOA_FISICA : Pessoa.PESSOA_JURIDICA;
                     return GerenciadorPessoa.Inserir(empresaFrete);
                 }

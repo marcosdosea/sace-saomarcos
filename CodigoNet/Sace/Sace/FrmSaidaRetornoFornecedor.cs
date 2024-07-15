@@ -9,24 +9,19 @@ namespace Sace
     public partial class FrmSaidaRetornoFornecedor : Form
     {
         private Saida saida;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmSaidaRetornoFornecedor(Saida saida, DbContextOptions<SaceContext> saceOptions)
+        public FrmSaidaRetornoFornecedor(Saida saida)
         {
             InitializeComponent();
             this.saida = saida;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmSaidaRetornoFornecedor_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saida = gerenciadorSaida.Obter(saida.CodSaida);
-            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
-            IEnumerable<Pessoa> pessoas = gerenciadorPessoa.ObterTodos();
+            saida = GerenciadorSaida.Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = GerenciadorSaida.Obter(saida.CodSaida);
+            IEnumerable<Pessoa> pessoas = GerenciadorPessoa.ObterTodos();
             pessoaDestinoBindingSource.DataSource = pessoas;
             pessoaFreteBindingSource.DataSource = pessoas;
             pessoaDestinoBindingSource.Position = pessoaDestinoBindingSource.List.IndexOf(new Pessoa() { CodPessoa = saida.CodCliente });
@@ -63,10 +58,10 @@ namespace Sace
             {
                 if (MessageBox.Show("Confirma Retorno de mercadorias do fornecedor?", "Confirmar Dados do Retorno de Mercadorias", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.EncerrarRetornoFornecedor(saida);
+                    GerenciadorSaida.EncerrarRetornoFornecedor(saida);
                 }
             }
-            gerenciadorSaida.Atualizar(saida);
+            GerenciadorSaida.Atualizar(saida);
             
             this.Close();
         }
@@ -106,7 +101,7 @@ namespace Sace
                 saida.Desconto = Convert.ToDecimal(descontoTextBox.Text);
                 saida.OutrasDespesas = Convert.ToDecimal(outrasDespesasTextBox.Text);
 
-                totalNotaFiscalTextBox.Text = gerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
+                totalNotaFiscalTextBox.Text = GerenciadorSaida.ObterTotalNotaFiscal(saida).ToString("N2");
             }
             codSaidaTextBox_Leave(sender, e);
         }
@@ -125,7 +120,7 @@ namespace Sace
 
         private void codEmpresaFreteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false, service);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codEmpresaFreteComboBox, EstadoFormulario.INSERIR, pessoaFreteBindingSource, false, false);
             codSaidaTextBox_Leave(sender, e);
         }
 
@@ -149,12 +144,12 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa(saceOptions);
+            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa();
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.SaidaSelected != null)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                saidaCupomBindingSource.DataSource = gerenciadorSaida.Obter(frmSaidaPesquisa.SaidaSelected.CodSaida);
+                saidaCupomBindingSource.DataSource = GerenciadorSaida.Obter(frmSaidaPesquisa.SaidaSelected.CodSaida);
                 saidaCupomBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
                 Cursor.Current = Cursors.Default;
             }

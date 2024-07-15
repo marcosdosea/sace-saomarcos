@@ -169,7 +169,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoComboBox.Focused))
                 {
-                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa(saceOptions);
+                    FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa();
                     frmGrupoPesquisa.ShowDialog();
                     if (frmGrupoPesquisa.SelectedGrupo != null)
                     {
@@ -179,7 +179,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoComboBox.Focused))
                 {
-                    FrmGrupo frmGrupo = new FrmGrupo(saceOptions);
+                    FrmGrupo frmGrupo = new FrmGrupo();
                     frmGrupo.ShowDialog();
                     if (frmGrupo.GrupoSelected != null)
                     {

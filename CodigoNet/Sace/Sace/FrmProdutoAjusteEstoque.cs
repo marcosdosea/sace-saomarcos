@@ -1,6 +1,5 @@
 ﻿using Dados;
 using Dominio;
-using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -10,16 +9,11 @@ namespace Sace
     {
         private EstadoFormulario estado;
         public ProdutoPesquisa ProdutoSelected { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmProdutoAjusteEstoque(ProdutoPesquisa _produto, DbContextOptions<SaceContext> saceOptions)
+        public FrmProdutoAjusteEstoque(ProdutoPesquisa _produto)
         {
             InitializeComponent();
             ProdutoSelected = _produto;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmProdutoAjusteEstoque_Load(object sender, EventArgs e)
@@ -199,7 +193,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true, saceOptions);
+            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {

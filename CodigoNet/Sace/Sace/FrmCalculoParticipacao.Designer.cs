@@ -160,7 +160,6 @@
             this.textAvaliacaoClientes.Size = new System.Drawing.Size(150, 20);
             this.textAvaliacaoClientes.TabIndex = 16;
             this.textAvaliacaoClientes.Text = "5";
-            this.textAvaliacaoClientes.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label6
             // 
@@ -170,7 +169,6 @@
             this.label6.Size = new System.Drawing.Size(153, 13);
             this.label6.TabIndex = 15;
             this.label6.Text = "Avaliação Media Clientes (0-5):";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // textMetaVendas
             // 

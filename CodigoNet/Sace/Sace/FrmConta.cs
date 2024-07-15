@@ -93,7 +93,7 @@ namespace Sace
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                long codConta = GerenciadorConta.Inserir(conta);
+                long codConta = GerenciadorConta.Inserir(conta, null);
                 codContaTextBox.Text = codConta.ToString();
             }
             else
@@ -188,7 +188,7 @@ namespace Sace
 
                 else if ((e.KeyCode == Keys.F2) && (codPlanoContaComboBox.Focused))
                 {
-                    FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa(saceOptions);
+                    FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa();
                     frmPlanoContaPesquisa.ShowDialog();
                     if (frmPlanoContaPesquisa.PlanoContaSelected != null)
                     {
@@ -198,7 +198,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPlanoContaComboBox.Focused))
                 {
-                    FrmPlanoConta frmPlanoConta = new FrmPlanoConta(saceOptions);
+                    FrmPlanoConta frmPlanoConta = new FrmPlanoConta();
                     frmPlanoConta.ShowDialog();
                     if (frmPlanoConta.PlanoContaSelected != null)
                     {

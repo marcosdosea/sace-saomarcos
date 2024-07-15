@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 using System.Globalization;
 
@@ -13,18 +11,13 @@ namespace Sace
 
         public bool ExibirTodos { get; set;}
         public ProdutoPesquisa ProdutoPesquisa { get; set; }
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmProdutoPreco(bool exibirTodos, DbContextOptions<SaceContext> saceOptions)
+        public FrmProdutoPreco(bool exibirTodos)
         {
             InitializeComponent();
             ProdutoPesquisa = null;
             filtroNome = null;
             ExibirTodos = exibirTodos;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         public FrmProdutoPreco(String nome, bool exibirTodos)

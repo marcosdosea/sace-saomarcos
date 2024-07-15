@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 
 namespace Sace
@@ -8,16 +6,11 @@ namespace Sace
     public partial class FrmPlanoContaPesquisa : Form
     {
         public PlanoConta PlanoContaSelected;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmPlanoContaPesquisa(DbContextOptions<SaceContext> saceOptions)
+        public FrmPlanoContaPesquisa()
         {
             InitializeComponent();
             PlanoContaSelected = null;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmPlanoContaPesquisa_Load(object sender, EventArgs e)

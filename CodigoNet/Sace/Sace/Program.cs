@@ -18,16 +18,16 @@ namespace Sace
             // see https://aka.ms/applicationconfiguration.
 
             // configuração da string de conexão
-            var builder = new DbContextOptionsBuilder<SaceContext>();
+            //var builder = new DbContextOptionsBuilder<SaceContext>();
             
-            builder.UseMySQL(UtilConfig.Default.SaceConnection);
-            var options = builder.Options;
+            //builder.UseMySQL(UtilConfig.Default.SaceConnection);
+           // var options = builder.Options;
             
             TratarException eh = new TratarException();
 
             ApplicationConfiguration.Initialize();
             Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
-            Application.Run(new Principal(options));
+            Application.Run(new Principal());
         }
     }
 }

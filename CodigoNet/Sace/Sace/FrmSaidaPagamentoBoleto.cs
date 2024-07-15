@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 using Util;
 
@@ -10,17 +8,12 @@ namespace Sace
     {
         SaidaPesquisa saida;
         List<Conta> listaContaBoletos;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmSaidaPagamentoBoleto(string cupomFiscal, DbContextOptions<SaceContext> saceOptions)
+        public FrmSaidaPagamentoBoleto(string cupomFiscal)
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
 
-            List<SaidaPesquisa> saidas = gerenciadorSaida.ObterPorCupomFiscal(cupomFiscal);
+            List<SaidaPesquisa> saidas = GerenciadorSaida.ObterPorCupomFiscal(cupomFiscal);
             if (saidas.Count > 0)
             {
                 saida = saidas.FirstOrDefault();
@@ -64,7 +57,7 @@ namespace Sace
             // permite excluir um contato quando o foco está na grid
             else if ((e.KeyCode == Keys.Delete) && (contaDataGridView.Focused == true))
             {
-                ExcluirBoleto(sender, e);
+                //ExcluirBoleto(sender, e);
             }
 
 
@@ -112,11 +105,6 @@ namespace Sace
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void ExcluirBoleto(object sender, EventArgs e)
-        {
-
         }
     }
 }

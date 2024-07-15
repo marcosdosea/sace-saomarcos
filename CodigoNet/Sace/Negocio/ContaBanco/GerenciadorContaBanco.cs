@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorContaBanco
+    public static class GerenciadorContaBanco
     {
         /// <summary>
         /// Insere os dados de uma conta bancária
         /// </summary>
         /// <param name="contaBanco"></param>
         /// <returns></returns>
-        public long Inserir(ContaBanco contaBanco)
+        public static long Inserir(ContaBanco contaBanco)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Negocio
         /// Atualiza os dados de uma conta bancária
         /// </summary>
         /// <param name="contaBanco"></param>
-        public void Atualizar(ContaBanco contaBanco)
+        public static void Atualizar(ContaBanco contaBanco)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Negocio
         /// Remove os dados de uma conta bancária
         /// </summary>
         /// <param name="codcontaBanco"></param>
-        public void Remover(int codContaBanco)
+        public static void Remover(int codContaBanco)
         {
             if (codContaBanco == 1)
                 throw new NegocioException("A conta bancária/Caixa não pode ser excluída.");
@@ -94,23 +94,20 @@ namespace Negocio
         /// Query Geral para obter dados das contas
         /// </summary>
         /// <returns></returns>
-        private IQueryable<ContaBanco> GetQuery()
+        private static IQueryable<ContaBanco> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from contaBanco in context.TbContaBancos
-                            select new ContaBanco
-                            {
-                                CodContaBanco = contaBanco.CodContaBanco,
-                                NumeroConta = contaBanco.Numeroconta,
-                                Agencia = contaBanco.Agencia,
-                                Descricao = contaBanco.Descricao,
-                                Saldo = (decimal)contaBanco.Saldo,
-                                CodBanco = (int)contaBanco.CodBanco,
-                                NomeBanco = contaBanco.CodBancoNavigation.Nome
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from contaBanco in context.TbContaBancos
+                        select new ContaBanco
+                        {
+                            CodContaBanco = contaBanco.CodContaBanco,
+                            NumeroConta = contaBanco.Numeroconta,
+                            Agencia = contaBanco.Agencia,
+                            Descricao = contaBanco.Descricao,
+                            Saldo = (decimal)contaBanco.Saldo,
+                            CodBanco = (int)contaBanco.CodBanco,
+                            NomeBanco = contaBanco.CodBancoNavigation.Nome
+                        };
+            return query.AsNoTracking();
         }
 
 
@@ -118,9 +115,12 @@ namespace Negocio
         /// Obtém todos as contas bancárias
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ContaBanco> ObterTodos()
+        public static IEnumerable<ContaBanco> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -128,9 +128,12 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<ContaBanco> Obter(int codContaBanco)
+        public static IEnumerable<ContaBanco> Obter(int codContaBanco)
         {
-            return GetQuery().Where(contaBanco => contaBanco.CodContaBanco == codContaBanco).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(contaBanco => contaBanco.CodContaBanco == codContaBanco).ToList();
+            }
         }
 
         /// <summary>
@@ -138,9 +141,11 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<ContaBanco> ObterPorNumero(string numero)
+        public static IEnumerable<ContaBanco> ObterPorNumero(string numero)
         {
-            return GetQuery().Where(contaBanco => contaBanco.NumeroConta.StartsWith(numero)).ToList();
+            using (var context = new SaceContext()) {
+                return GetQuery(context).Where(contaBanco => contaBanco.NumeroConta.StartsWith(numero)).ToList();
+            }
         }
 
         /// <summary>
@@ -148,9 +153,12 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<ContaBanco> ObterPorDescricao(string descricao)
+        public static IEnumerable<ContaBanco> ObterPorDescricao(string descricao)
         {
-            return GetQuery().Where(contaBanco => contaBanco.Descricao.StartsWith(descricao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(contaBanco => contaBanco.Descricao.StartsWith(descricao)).ToList();
+            }
         }
 
         /// <summary>
@@ -158,7 +166,7 @@ namespace Negocio
         /// </summary>
         /// <param name="contaBanco"></param>
         /// <param name="_contaBanco"></param>
-        private void Atribuir(ContaBanco contaBanco, TbContaBanco _contaBanco)
+        private static void Atribuir(ContaBanco contaBanco, TbContaBanco _contaBanco)
         {
             _contaBanco.Agencia = contaBanco.Agencia;
             _contaBanco.CodBanco = contaBanco.CodBanco;

@@ -9,17 +9,12 @@ namespace Sace
     {
         public PontaEstoque PontaEstoqueSelected { get; set; }
         IEnumerable<PontaEstoque> listaPontaEstoque;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
         
-        public FrmPontaEstoquePesquisa(IEnumerable<PontaEstoque> listaPontaEstoque, DbContextOptions<SaceContext> saceOptions)
+        public FrmPontaEstoquePesquisa(IEnumerable<PontaEstoque> listaPontaEstoque)
         {
             InitializeComponent();
             PontaEstoqueSelected = null;
             this.listaPontaEstoque = listaPontaEstoque;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmBancoPesquisa_Load(object sender, EventArgs e)

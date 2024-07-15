@@ -16,6 +16,8 @@ namespace Negocio
         {
             try
             {
+                if (context == null)
+                    context = new SaceContext();
                 var _conta = new TbContum();
                 Atribuir(conta, _conta);
 

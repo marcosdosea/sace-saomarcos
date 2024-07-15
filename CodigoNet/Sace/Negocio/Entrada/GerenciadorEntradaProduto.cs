@@ -750,7 +750,7 @@ namespace Negocio
         /// </summary>
         /// <param name="entradaProduto"></param>
         /// <param name="produto"></param>
-        private static void Atribuir(EntradaProduto entradaProduto, Produto produto)
+        public static void Atribuir(EntradaProduto entradaProduto, Produto produto)
         {
             produto.LucroPrecoVendaAtacado = entradaProduto.LucroPrecoVendaAtacado;
             produto.LucroPrecoVendaVarejo = entradaProduto.LucroPrecoVendaVarejo;

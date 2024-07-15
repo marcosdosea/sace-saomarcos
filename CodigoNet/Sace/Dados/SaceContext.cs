@@ -67,7 +67,7 @@ namespace Dados
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySQL(UtilConfig.Default.SaceConnectionBackup);
+                optionsBuilder.UseMySQL(UtilConfig.Default.SaceConnection);
             }
         }
 

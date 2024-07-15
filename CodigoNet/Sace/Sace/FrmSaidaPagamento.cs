@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 using System.Data;
 using Util;
@@ -26,21 +24,15 @@ namespace Sace
         /// <param name="e"></param>
         private void FrmSaidaPagamento_Load(object sender, EventArgs e)
         {
-            var gerenciadorPessoa = new GerenciadorPessoa();
-            var gerenciadorSaida = new GerenciadorSaida();
-            var gerenciadorUsuario = new GerenciadorUsuario();
-            var gerenciadorContaBanco = new GerenciadorContaBanco();
-            var GerenciadorCartaoCredito = new GerenciadorCartaoCredito();
-            var gerenciadorSaidaPagamento = new GerenciadorSaidaPagamento();
-            saidaPagamentoBindingSource.DataSource = gerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
+            saidaPagamentoBindingSource.DataSource = GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
             formaPagamentoBindingSource.DataSource = GerenciadorFormaPagamento.ObterTodos();
             clienteBindingSource.SuspendBinding();
-            clienteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            usuarioBindingSource.DataSource = gerenciadorUsuario.ObterTodos().OrderBy(u => u.Login);
+            clienteBindingSource.DataSource = GerenciadorPessoa.ObterTodos();
+            usuarioBindingSource.DataSource = GerenciadorUsuario.ObterTodos().OrderBy(u => u.Login);
 
-            contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
+            contaBancoBindingSource.DataSource = GerenciadorContaBanco.ObterTodos();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.ObterTodos();
-            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = GerenciadorSaida.Obter(saida.CodSaida);
             saida = (Saida)saidaBindingSource.Current;
             if (saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO && saida.TipoSaida != Saida.TIPO_PRE_CREDITO)
             {
@@ -179,10 +171,10 @@ namespace Sace
 
                         if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
                         {
-                            gerenciadorSaida.Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
+                            GerenciadorSaida.Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
                             if (cliente.ImprimirDAV)
                             {
-                                if (!gerenciadorSaida.SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, Impressora.Tipo.REDUZIDO2))
+                                if (!GerenciadorSaida.SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, Impressora.Tipo.REDUZIDO2))
                                 {
                                     MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
@@ -190,7 +182,7 @@ namespace Sace
                         }
                         else if (cliente.CodPessoa.Equals(UtilConfig.Default.PESSOA_USO_INTERNO))
                         {
-                            gerenciadorSaida.Encerrar(saida, Saida.TIPO_USO_INTERNO, listaPagamentosSaida, cliente);
+                            GerenciadorSaida.Encerrar(saida, Saida.TIPO_USO_INTERNO, listaPagamentosSaida, cliente);
                             if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
                             {
                                 if (saida.TotalAVista > 0)
@@ -201,7 +193,7 @@ namespace Sace
                                         List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
                                         long codSolicitacao = GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFE, false, false);
-                                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE, saceOptions);
+                                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE);
                                         frmSaidaAutorizacao.ShowDialog();
                                         frmSaidaAutorizacao.Dispose();
                                     }
@@ -210,7 +202,7 @@ namespace Sace
                         }
                         else if (cliente.CodPessoa.Equals(UtilConfig.Default.PESSOA_BAIXA_ESTOQUE))
                         {
-                            gerenciadorSaida.Encerrar(saida, Saida.TIPO_BAIXA_ESTOQUE_PERDA, listaPagamentosSaida, cliente);
+                            GerenciadorSaida.Encerrar(saida, Saida.TIPO_BAIXA_ESTOQUE_PERDA, listaPagamentosSaida, cliente);
                             if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
                             {
                                 if (saida.TotalAVista > 0)
@@ -221,7 +213,7 @@ namespace Sace
                                         List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
                                         long codSolicitacao = GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFE, false, false);
-                                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE, saceOptions);
+                                        FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFE);
                                         frmSaidaAutorizacao.ShowDialog();
                                         frmSaidaAutorizacao.Dispose();
                                     }
@@ -234,7 +226,7 @@ namespace Sace
                             // limite de compra é verificado quando cadastrado um valor maior do que zero no cliente
                             if ((cliente.LimiteCompra > 0) && (frmSaidaConfirma.Opcao == Saida.TIPO_PRE_VENDA))
                             {
-                                decimal limiteCompraDisponivel = gerenciadorPessoa.ObterLimiteCompraDisponivel(cliente);
+                                decimal limiteCompraDisponivel = GerenciadorPessoa.ObterLimiteCompraDisponivel(cliente);
                                 if (limiteCompraDisponivel <= saida.TotalAVista)
                                 {
                                     if (MessageBox.Show("Cliente NÃO POSSUI LIMITE DISPONÍVEL para essa compra! O limite disponível é R$ " + limiteCompraDisponivel.ToString("N2") + ". Você possui permissão para liberar essa SAÍDA?", "Limite de Compra Ultrapassado", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -245,14 +237,14 @@ namespace Sace
                             }
                             if (limiteCompraLiberado)
                             {
-                                gerenciadorSaida.Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
+                                GerenciadorSaida.Encerrar(saida, frmSaidaConfirma.Opcao, listaPagamentosSaida, cliente);
                                 if (frmSaidaConfirma.Opcao.Equals(Saida.TIPO_PRE_VENDA))
                                 {
                                     // quando tem pagamento crediário imprime o DAV
                                     bool temPagamentoCrediario = listaPagamentosSaida.Where(sp => sp.CodFormaPagamento.Equals(FormaPagamento.CREDIARIO)).ToList().Count > 0;
                                     if (temPagamentoCrediario && cliente.ImprimirDAV)
                                     {
-                                        if (!gerenciadorSaida.SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, Impressora.Tipo.REDUZIDO2))
+                                        if (!GerenciadorSaida.SolicitaImprimirDAV(new List<long>() { saida.CodSaida }, saida.Total, saida.TotalAVista, saida.Desconto, Impressora.Tipo.REDUZIDO2))
                                         {
                                             MessageBox.Show("Não foi possível realizar a impressão. Por Favor Verifique se a impressora REDUZIDA está LIGADA.", "Problema na Impressão", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         }
@@ -266,7 +258,7 @@ namespace Sace
                                             List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista } };
 
                                             long codSolicitacao = GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaPagamentosSaida, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFCE, saceOptions);
+                                            FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(saida.CodSaida, saida.CodCliente, DocumentoFiscal.TipoSolicitacao.NFCE);
                                             frmSaidaAutorizacao.ShowDialog();
                                             frmSaidaAutorizacao.Dispose();
                                         }
@@ -410,7 +402,7 @@ namespace Sace
                 frmPessoa.ShowDialog();
                 if (frmPessoa.PessoaSelected != null)
                 {
-                    clienteBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+                    clienteBindingSource.DataSource = GerenciadorPessoa.ObterTodos();
                     clienteBindingSource.Position = clienteBindingSource.List.IndexOf(frmPessoa.PessoaSelected);
                 }
                 frmPessoa.Dispose();
@@ -444,7 +436,7 @@ namespace Sace
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            Pessoa cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, EstadoFormulario.INSERIR, clienteBindingSource, true, false, service);
+            Pessoa cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, EstadoFormulario.INSERIR, clienteBindingSource, true, false);
             cpf_CnpjTextBox.Text = cliente.CpfCnpj;
             codSaidaTextBox_Leave(sender, e);
         }

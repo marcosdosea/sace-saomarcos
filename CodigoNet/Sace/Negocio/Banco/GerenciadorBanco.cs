@@ -50,6 +50,10 @@ namespace Negocio
                         context.Update(_banco);
                         context.SaveChanges();
                     }
+                    else
+                    {
+                        throw new NegocioException("Banco não encontrado para atualização");
+                    }
                 }
             }
             catch (Exception e)
@@ -76,6 +80,10 @@ namespace Negocio
                         context.Remove(_banco);
                         context.SaveChanges();
 
+                    }
+                    else
+                    {
+                        throw new NegocioException("Banco não encontrado para remoção");
                     }
                 }
             }

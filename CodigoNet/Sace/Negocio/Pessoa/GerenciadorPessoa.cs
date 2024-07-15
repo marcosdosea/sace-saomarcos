@@ -192,43 +192,40 @@ namespace Negocio
             }
         }
 
-        private static IQueryable<Pessoa> GetQuery()
+        private static IQueryable<Pessoa> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from pessoa in context.TbPessoas
-                            select new Pessoa
-                            {
-                                Bairro = pessoa.Bairro,
-                                Cep = pessoa.Cep,
-                                Cidade = pessoa.Cidade,
-                                CodPessoa = pessoa.CodPessoa,
-                                Complemento = pessoa.Complemento,
-                                CpfCnpj = pessoa.CpfCnpj,
-                                EhFabricante = pessoa.EhFabricante,
-                                Email = pessoa.Email,
-                                Endereco = pessoa.Endereco,
-                                Fone1 = pessoa.Fone1,
-                                Fone2 = pessoa.Fone2,
-                                Fone3 = pessoa.Fone3,
-                                Ie = pessoa.Ie,
-                                IeSubstituto = pessoa.IeSubstituto,
-                                ImprimirCF = pessoa.ImprimirCf,
-                                ImprimirDAV = (bool)pessoa.ImprimirDav,
-                                LimiteCompra = (decimal)pessoa.LimiteCompra,
-                                Nome = pessoa.Nome,
-                                NomeFantasia = pessoa.NomeFantasia,
-                                Numero = pessoa.Numero,
-                                Observacao = pessoa.Observacao,
-                                Tipo = pessoa.Tipo,
-                                Uf = pessoa.Uf,
-                                ValorComissao = (decimal)pessoa.ValorComissao,
-                                CodMunicipioIBGE = pessoa.CodMunicipiosIbge,
-                                NomeMunicipioIBGE = pessoa.CodMunicipiosIbgeNavigation.Municipio,
-                                BloquearCrediario = pessoa.BloquearCrediario
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from pessoa in context.TbPessoas
+                        select new Pessoa
+                        {
+                            Bairro = pessoa.Bairro,
+                            Cep = pessoa.Cep,
+                            Cidade = pessoa.Cidade,
+                            CodPessoa = pessoa.CodPessoa,
+                            Complemento = pessoa.Complemento,
+                            CpfCnpj = pessoa.CpfCnpj,
+                            EhFabricante = pessoa.EhFabricante,
+                            Email = pessoa.Email,
+                            Endereco = pessoa.Endereco,
+                            Fone1 = pessoa.Fone1,
+                            Fone2 = pessoa.Fone2,
+                            Fone3 = pessoa.Fone3,
+                            Ie = pessoa.Ie,
+                            IeSubstituto = pessoa.IeSubstituto,
+                            ImprimirCF = pessoa.ImprimirCf,
+                            ImprimirDAV = (bool)pessoa.ImprimirDav,
+                            LimiteCompra = (decimal)pessoa.LimiteCompra,
+                            Nome = pessoa.Nome,
+                            NomeFantasia = pessoa.NomeFantasia,
+                            Numero = pessoa.Numero,
+                            Observacao = pessoa.Observacao,
+                            Tipo = pessoa.Tipo,
+                            Uf = pessoa.Uf,
+                            ValorComissao = (decimal)pessoa.ValorComissao,
+                            CodMunicipioIBGE = pessoa.CodMunicipiosIbge,
+                            NomeMunicipioIBGE = pessoa.CodMunicipiosIbgeNavigation.Municipio,
+                            BloquearCrediario = pessoa.BloquearCrediario
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -237,7 +234,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Pessoa> ObterTodos()
         {
-            return GetQuery().OrderBy(p => p.CodPessoa).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).OrderBy(p => p.CodPessoa).ToList();
+            }
         }
 
 
@@ -248,8 +248,12 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Pessoa> Obter(long codPessoa)
         {
-            return GetQuery().Where(pessoa => pessoa.CodPessoa == codPessoa).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pessoa => pessoa.CodPessoa == codPessoa).ToList();
+            }
         }
+
 
         /// <summary>
         /// Obter pelo tipo da pessoa
@@ -258,9 +262,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Pessoa> ObterPorTipoPessoa(string tipoPessoa)
         {
-            return GetQuery().Where(pessoa => pessoa.Tipo.Equals(tipoPessoa)).OrderBy(p => p.NomeFantasia).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pessoa => pessoa.Tipo.Equals(tipoPessoa)).OrderBy(p => p.NomeFantasia).ToList();
+            }
         }
-
 
         /// <summary>
         /// Obter pelo código da pessoa
@@ -269,9 +275,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Pessoa> ObterPorNome(string nome)
         {
-            return GetQuery().Where(pessoa => pessoa.Nome.StartsWith(nome)).OrderBy(p => p.Nome).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pessoa => pessoa.Nome.StartsWith(nome)).OrderBy(p => p.Nome).ToList();
+            }
         }
-
         /// <summary>
         /// Obter pelo código da pessoa
         /// </summary>
@@ -279,9 +287,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Pessoa> ObterPorNomeFantasia(string nomefantasia)
         {
-            return GetQuery().Where(pessoa => pessoa.NomeFantasia.StartsWith(nomefantasia)).OrderBy(p => p.NomeFantasia).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pessoa => pessoa.NomeFantasia.StartsWith(nomefantasia)).OrderBy(p => p.NomeFantasia).ToList();
+            }
         }
-
         /// <summary>
         /// Obter pelo cpf/cnpj da pessoa
         /// </summary>
@@ -289,9 +299,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Pessoa> ObterPorCpfCnpj(string CpfCnpj)
         {
-            return GetQuery().Where(pessoa => pessoa.CpfCnpj.StartsWith(CpfCnpj)).OrderBy(p => p.NomeFantasia).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pessoa => pessoa.CpfCnpj.StartsWith(CpfCnpj)).OrderBy(p => p.NomeFantasia).ToList();
+            }
         }
-
         /// <summary>
         /// Obter pelo cpf/cnpj da pessoa
         /// </summary>
@@ -299,9 +311,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Pessoa> ObterPorCpfCnpjEquals(string CpfCnpj)
         {
-            return GetQuery().Where(pessoa => pessoa.CpfCnpj.Equals(CpfCnpj)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pessoa => pessoa.CpfCnpj.Equals(CpfCnpj)).ToList();
+            }
         }
-
         /// <summary>
         /// Obter pelo endereco da pessoa
         /// </summary>
@@ -309,9 +323,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Pessoa> ObterPorEndereco(string endereco)
         {
-            return GetQuery().Where(pessoa => pessoa.Endereco.StartsWith(endereco)).OrderBy(p => p.NomeFantasia).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pessoa => pessoa.Endereco.StartsWith(endereco)).OrderBy(p => p.NomeFantasia).ToList();
+            }
         }
-
         /// <summary>
         /// Obter pelo bairro da pessoa
         /// </summary>
@@ -319,9 +335,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Pessoa> ObterPorBairro(string bairro)
         {
-            return GetQuery().Where(pessoa => pessoa.Bairro.StartsWith(bairro)).OrderBy(p => p.NomeFantasia).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pessoa => pessoa.Bairro.StartsWith(bairro)).OrderBy(p => p.NomeFantasia).ToList();
+            }
         }
-
         /// <summary>
         /// Obter pelo bairro da pessoa
         /// </summary>
@@ -337,7 +355,7 @@ namespace Negocio
                             select contas.CodPessoa;
                 List<long> pessoasEmAtraso = query.Distinct().ToList();
 
-                return GetQuery().Where(pessoa => pessoasEmAtraso.Contains(pessoa.CodPessoa) && pessoa.NomeFantasia.StartsWith(nomeFantasia)).OrderBy(p => p.NomeFantasia).ToList();
+                return GetQuery(context).Where(pessoa => pessoasEmAtraso.Contains(pessoa.CodPessoa) && pessoa.NomeFantasia.StartsWith(nomeFantasia)).OrderBy(p => p.NomeFantasia).ToList();
             }
         }
 

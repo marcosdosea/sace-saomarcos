@@ -74,7 +74,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true, saceOptions);
+            FrmProdutoPesquisaPreco frmProdutoPesquisa = new FrmProdutoPesquisaPreco(true);
             frmProdutoPesquisa.ShowDialog();
             if (frmProdutoPesquisa.ProdutoPesquisa != null)
             {
@@ -249,7 +249,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codSubgrupoComboBox.Focused))
                 {
-                    FrmSubgrupoPesquisa frmSubGrupoPesquisa = new FrmSubgrupoPesquisa(saceOptions);
+                    FrmSubgrupoPesquisa frmSubGrupoPesquisa = new FrmSubgrupoPesquisa();
                     frmSubGrupoPesquisa.ShowDialog();
                     if (frmSubGrupoPesquisa.SubgrupoSelected != null)
                     {
@@ -326,7 +326,7 @@ namespace Sace
 
         private void codigoFabricanteComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codigoFabricanteComboBox, estado, fabricanteBindingSource, true, false, service);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codigoFabricanteComboBox, estado, fabricanteBindingSource, true, false);
             codProdutoTextBox_Leave(sender, e);
         }
 
@@ -345,7 +345,7 @@ namespace Sace
         private void btnEstoque_Click(object sender, EventArgs e)
         {
             ProdutoPesquisa _produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
-            FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produtoPesquisa, saceOptions);
+            FrmProdutoAjusteEstoque frmAjuste = new FrmProdutoAjusteEstoque(_produtoPesquisa);
             frmAjuste.ShowDialog();
             frmAjuste.Dispose();
             if (frmAjuste.ProdutoSelected != null)
@@ -358,7 +358,7 @@ namespace Sace
         private void btnPontaEstoque_Click(object sender, EventArgs e)
         {
             ProdutoPesquisa _produtoPesquisa = (ProdutoPesquisa)produtoBindingSource.Current;
-            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(_produtoPesquisa, saceOptions);
+            FrmPontaEstoque frmPontaEstoque = new FrmPontaEstoque(_produtoPesquisa);
             frmPontaEstoque.ShowDialog();
             frmPontaEstoque.Dispose();
             if (frmPontaEstoque.ProdutoSelected != null)

@@ -4,32 +4,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorPlanoConta
+    public static class GerenciadorPlanoConta
     {
-        private readonly SaceContext context;
-
-        public GerenciadorPlanoConta(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
-
+       
         /// <summary>
         /// Insere um novo plano de contas
         /// </summary>
         /// <param name="planoConta"></param>
         /// <returns></returns>
-        public long Inserir(PlanoConta planoConta)
+        public static long Inserir(PlanoConta planoConta)
         {
             try
             {
                 var _planoConta = new TbPlanoContum();
                 Atribuir(planoConta, _planoConta);
-
-                context.Add(_planoConta);
-                context.SaveChanges();
-
-                return _planoConta.CodPlanoConta;
+                using (var context = new SaceContext())
+                {
+                    context.Add(_planoConta);
+                    context.SaveChanges();
+                    return _planoConta.CodPlanoConta;
+                }
             }
             catch (Exception e)
             {
@@ -41,25 +35,26 @@ namespace Negocio
         /// Atualiza os dados do plano de contas
         /// </summary>
         /// <param name="planoConta"></param>
-        public void Atualizar(PlanoConta planoConta)
+        public static void Atualizar(PlanoConta planoConta)
         {
             if ((planoConta.CodPlanoConta == 1) || (planoConta.CodPlanoConta == 2))
                 throw new NegocioException("O plano de conta não pode ser editado para manter a consitência da base de dados.");
 
             try
             {
-                var _planoConta = new TbPlanoContum();
-                _planoConta.CodPlanoConta = planoConta.CodPlanoConta;
+                using (var context = new SaceContext())
+                {
 
-                _planoConta = context.TbPlanoConta.Find(_planoConta);
-                if (_planoConta != null)
-                {
-                    Atribuir(planoConta, _planoConta);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new NegocioException("Plano de contas não encontrado para atualização.");
+                    var _planoConta = context.TbPlanoConta.FirstOrDefault(p => p.CodPlanoConta == planoConta.CodPlanoConta);
+                    if (_planoConta != null)
+                    {
+                        Atribuir(planoConta, _planoConta);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Plano de contas não encontrado para atualização.");
+                    }
                 }
             }
             catch (Exception e)
@@ -72,17 +67,26 @@ namespace Negocio
         /// Remove um plano de conta
         /// </summary>
         /// <param name="codplanoConta"></param>
-        public void Remover(Int64 codplanoConta)
+        public static void Remover(long codPlanoConta)
         {
-            if ((codplanoConta == 1) || (codplanoConta == 2))
+            if ((codPlanoConta == 1) || (codPlanoConta == 2))
                 throw new NegocioException("O plano de conta não pode ser removido para manter a consitência da base de dados.");
             try
             {
-                var _planoConta = new TbPlanoContum();
-                _planoConta.CodPlanoConta = codplanoConta;
+                using (var context = new SaceContext())
+                {
+                    var _planoConta = context.TbPlanoConta.FirstOrDefault(p => p.CodPlanoConta == codPlanoConta);
 
-                context.Remove(_planoConta);
-                context.SaveChanges();
+                    if (_planoConta != null)
+                    {
+                        context.Remove(_planoConta);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Plano de conta não encontrado para remoção.");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -94,26 +98,29 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<PlanoConta> GetQuery()
+        private static IQueryable<PlanoConta> GetQuery()
         {
-            var query = from planoConta in context.TbPlanoConta
-                        select new PlanoConta
-                        {
-                            CodPlanoConta = planoConta.CodPlanoConta,
-                            CodGrupoConta = planoConta.CodGrupoConta,
-                            Descricao = planoConta.Descricao,
-                            DiaBase = planoConta.DiaBase == null ? (short)1 : (short)planoConta.DiaBase,
-                            TipoConta = planoConta.CodTipoConta,
-                            DescricaoTipoConta = planoConta.CodTipoContaNavigation.DescricaoTipoConta
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from planoConta in context.TbPlanoConta
+                            select new PlanoConta
+                            {
+                                CodPlanoConta = planoConta.CodPlanoConta,
+                                CodGrupoConta = planoConta.CodGrupoConta,
+                                Descricao = planoConta.Descricao,
+                                DiaBase = planoConta.DiaBase == null ? (short)1 : (short)planoConta.DiaBase,
+                                TipoConta = planoConta.CodTipoConta,
+                                DescricaoTipoConta = planoConta.CodTipoContaNavigation.DescricaoTipoConta
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
         /// Obtém todos os planos de contas cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PlanoConta> ObterTodos()
+        public static IEnumerable<PlanoConta> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -123,7 +130,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPlanoConta"></param>
         /// <returns></returns>
-        public IEnumerable<PlanoConta> Obter(int codPlanoConta)
+        public static IEnumerable<PlanoConta> Obter(int codPlanoConta)
         {
             return GetQuery().Where(planoConta => planoConta.CodPlanoConta == codPlanoConta).ToList();
         }
@@ -133,7 +140,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<PlanoConta> ObterPorDescricao(string descricao)
+        public static IEnumerable<PlanoConta> ObterPorDescricao(string descricao)
         {
             return GetQuery().Where(planoConta => planoConta.Descricao.StartsWith(descricao)).ToList();
         }

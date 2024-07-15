@@ -26,7 +26,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa(saceOptions);
+            FrmContaBancoPesquisa frmContaBancoPesquisa = new FrmContaBancoPesquisa();
             frmContaBancoPesquisa.ShowDialog();
             if (frmContaBancoPesquisa.ContaBancoSelected != null)
             {
@@ -156,7 +156,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codBancoComboBox.Focused))
                 {
-                    FrmBancoPesquisa frmBancoPesquisa = new FrmBancoPesquisa(saceOptions);
+                    FrmBancoPesquisa frmBancoPesquisa = new FrmBancoPesquisa();
                     frmBancoPesquisa.ShowDialog();
                     if (frmBancoPesquisa.BancoSelected != null)
                     {
@@ -166,7 +166,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codBancoComboBox.Focused))
                 {
-                    FrmBanco frmBanco = new FrmBanco(saceOptions);
+                    FrmBanco frmBanco = new FrmBanco();
                     frmBanco.ShowDialog();
                     if (frmBanco.BancoSelected != null)
                     {

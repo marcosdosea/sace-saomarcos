@@ -1,36 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Dados;
+﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorCst 
+    public static class GerenciadorCst 
     {
-        private readonly SaceContext context;
-
-        public GerenciadorCst(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere um novo cst na base de dados
         /// </summary>
         /// <param name="cst"></param>
         /// <returns></returns>
-        public void Inserir(Cst cst)
+        public static void Inserir(Cst cst)
         {
             try
             {
                 var _cst = new TbCst();
                 _cst.CodCst = cst.CodCST;
                 _cst.DescricaoCst = cst.Descricao;
-                
-                context.Add(_cst);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    context.Add(_cst);
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -43,21 +35,24 @@ namespace Negocio
         /// Atualiza dados do cst na base de dados
         /// </summary>
         /// <param name="cst"></param>
-        public void Atualizar(Cst cst)
+        public static void Atualizar(Cst cst)
         {
             try
             {
-                var _cst = context.TbCsts.Find(cst.CodCST);
-                if (_cst != null)
+                using (var context = new SaceContext())
                 {
-                    _cst.DescricaoCst = cst.Descricao;
-                    _cst.CodCst = cst.CodCST;
-
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new NegocioException("CST não encntrado para atualização.");
+                    var _cst = context.TbCsts.FirstOrDefault(c => c.CodCst == cst.CodCST);
+                    if (_cst != null)
+                    {
+                        _cst.DescricaoCst = cst.Descricao;
+                        _cst.CodCst = cst.CodCST;
+                        context.Update(_cst);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("CST não encontrado para atualização.");
+                    }
                 }
             }
             catch (Exception e)
@@ -70,15 +65,23 @@ namespace Negocio
         /// Remover um cst da base de dados
         /// </summary>
         /// <param name="codCst"></param>
-        public void Remover(string codCst)
+        public static void Remover(string codCST)
         {
             try
             {
-                var cst = new TbCst();
-                cst.CodCst = codCst;
-
-                context.Remove(cst);
-                context.SaveChanges();  
+                using (var context = new SaceContext())
+                {
+                    var _cst = context.TbCsts.FirstOrDefault(c => c.CodCst == codCST);
+                    if (_cst != null)
+                    {
+                        context.Remove(_cst);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("CST não encontrado para exclusão");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -90,22 +93,25 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Cst> GetQuery()
+        private static IQueryable<Cst> GetQuery()
         {
-            var query = from cst in context.TbCsts
-                        select new Cst
-                        {
-                            CodCST = cst.CodCst,
-                            Descricao = cst.DescricaoCst,
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from cst in context.TbCsts
+                            select new Cst
+                            {
+                                CodCST = cst.CodCst,
+                                Descricao = cst.DescricaoCst,
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
         /// Obtém todos os csts cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Cst> ObterTodos()
+        public static IEnumerable<Cst> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -115,7 +121,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codBanco"></param>
         /// <returns></returns>
-        public IEnumerable<Cst> Obter(string codCst)
+        public static IEnumerable<Cst> Obter(string codCst)
         {
             return GetQuery().Where(cst => cst.CodCST.Equals(codCst)).ToList();
         }
@@ -125,7 +131,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Cst> ObterPorDescricao(string descricao)
+        public static IEnumerable<Cst> ObterPorDescricao(string descricao)
         {
             return GetQuery().Where(cst => cst.Descricao.StartsWith(descricao)).ToList();
         }

@@ -17,9 +17,8 @@ namespace Sace
 
         private void FrmCartaoCredito_Load(object sender, EventArgs e)
         {
-            var gerenciadorContaBanco = new GerenciadorContaBanco();
             cartaoCreditoBindingSource.DataSource = GerenciadorCartaoCredito.ObterTodos();
-            contaBancoBindingSource.DataSource = gerenciadorContaBanco.ObterTodos();
+            contaBancoBindingSource.DataSource = GerenciadorContaBanco.ObterTodos();
             pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
             
             habilitaBotoes(true);

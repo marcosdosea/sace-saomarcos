@@ -77,7 +77,7 @@ namespace Sace
             else if ((cmbBusca.SelectedIndex == 6) && !txtTexto.Text.Equals(""))
                 pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorNome(txtTexto.Text);
             else
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorNomeFantasia(txtTexto.Text);
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorNomeFantasia(txtTexto.Text);
         }
 
         private void tb_pessoaDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

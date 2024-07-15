@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 using System.Data;
 using Util;
@@ -14,19 +12,14 @@ namespace Sace
         private long codSaida;
         private List<SaidaPedido> listaSaidaPedido;
         private List<SaidaPagamento> listaSaidaPagamento;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-        public FrmSaidaNFe(long codSaida, List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento, DbContextOptions<SaceContext> saceOptions)
+
+        public FrmSaidaNFe(long codSaida, List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento)
         {
             InitializeComponent();
             this.codSaida = codSaida;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
-            this.Saida = gerenciadorSaida.Obter(codSaida);
             this.listaSaidaPedido = listaSaidaPedido;
             this.listaSaidaPagamento = listaSaidaPagamento;
-            IEnumerable<Pessoa> listaPessoas = gerenciadorPessoa.Obter(Saida.CodCliente);
+            IEnumerable<Pessoa> listaPessoas = GerenciadorPessoa.Obter(Saida.CodCliente);
             nfeControleBindingSource.DataSource = GerenciadorNFe.ObterPorSaida(codSaida);
 			Cliente = listaPessoas.FirstOrDefault();
 			if (Saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO)
@@ -37,7 +30,7 @@ namespace Sace
             }
             else
             {
-                pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+                pessoaBindingSource.DataSource = GerenciadorPessoa.ObterTodos();
                 codPessoaComboBox.Focus();
             }
 
@@ -62,7 +55,7 @@ namespace Sace
                 }
                 else if (Saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
                 {
-                    SaidaPesquisa saidaCupomVenda = gerenciadorSaida.ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
+                    SaidaPesquisa saidaCupomVenda = GerenciadorSaida.ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
                     if (Saida.TotalAVista < saidaCupomVenda.TotalAVista)
                     {
                         Saida.Observacao += "Devolução Parcial referente ao cupom fiscal " + saidaCupomVenda.CupomFiscal + " emitido em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Cliente não precisou dos itens comprados. Cupom fiscal e Nf-e relativas a venda referenciadas abaixo";
@@ -74,7 +67,7 @@ namespace Sace
                 }
                 else if (Saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR)
                 {
-                    SaidaPesquisa saidaCupomVenda = gerenciadorSaida.ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
+                    SaidaPesquisa saidaCupomVenda = GerenciadorSaida.ObterPorPedido(Saida.Nfe).ElementAtOrDefault(0);
                     if (Saida.TotalAVista < saidaCupomVenda.TotalAVista)
                     {
                         Saida.Observacao += "Devolução Parcial referente a nota fiscal " + saidaCupomVenda.CupomFiscal + " emitida em " + saidaCupomVenda.DataSaida.ToShortDateString() + ". Motivo da Devolução: Fornecedor não aceitou receber os itens devolvidos porque estavam danificados. Nf-e relativa a devolução referenciada abaixo";
@@ -122,7 +115,7 @@ namespace Sace
                     // Atualiza os dados da saída
                     Saida.Observacao = observacaoTextBox.Text.Trim();
                     if (Saida.CupomFiscal.Trim().Equals(""))
-                        gerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
+                        GerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, Saida.CodSaida);
                     //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>() { new SaidaPedido() { CodSaida = Saida.CodSaida, TotalAVista = Saida.TotalAVista } };
                     //List<SaidaPagamento> listaSaidaPagamento = GerenciadorSaidaPagamento.ObterPorSaida(Saida.CodSaida);
                     GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFE, ehNfeComplementar, true);
@@ -140,17 +133,17 @@ namespace Sace
                 if (Cliente.CodPessoa != Saida.CodCliente)
                 {
                     Saida.CodCliente = Cliente.CodPessoa;
-                    gerenciadorSaida.Atualizar(Saida);
+                    GerenciadorSaida.Atualizar(Saida);
                 }
                 Saida.Observacao = observacaoTextBox.Text;
                 if (Saida.CupomFiscal.Trim().Equals(""))
                 {
                     foreach (SaidaPedido saidaPedido in listaSaidaPedido)
-                        gerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, saidaPedido.CodSaida);
+                        GerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, saidaPedido.CodSaida);
                 }
                 else
                 {
-                    gerenciadorSaida.AtualizarPorPedido(Saida.Nfe, Saida.Observacao, Cliente.CodPessoa, Saida.CupomFiscal);
+                    GerenciadorSaida.AtualizarPorPedido(Saida.Nfe, Saida.Observacao, Cliente.CodPessoa, Saida.CupomFiscal);
                 }
                 NfeControle nfe = (NfeControle)nfeControleBindingSource.Current;
                 if (nfe != null)
@@ -159,7 +152,7 @@ namespace Sace
                 // envia nota fiscal
                 //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                 //Saida saida = gerenciadorSaida.Obter(Saida.CodSaida);
-                List<SaidaPesquisa> listaSaidas = gerenciadorSaida.ObterPorCodSaidas(listaSaidaPedido.Select(s=>s.CodSaida).ToList());
+                List<SaidaPesquisa> listaSaidas = GerenciadorSaida.ObterPorCodSaidas(listaSaidaPedido.Select(s=>s.CodSaida).ToList());
                 List<string> listaDocumentosFiscais = listaSaidas.Select(s => s.CupomFiscal).Distinct().ToList();
                 if (listaSaidas.Where(s=> !string.IsNullOrEmpty(s.CupomFiscal)).Count() > 0)
                 {
@@ -168,7 +161,7 @@ namespace Sace
                     {
                         if (!string.IsNullOrEmpty(docFiscal))
                         {
-                            listaSaidas.AddRange(gerenciadorSaida.ObterPorCupomFiscal(Saida.CupomFiscal));    
+                            listaSaidas.AddRange(GerenciadorSaida.ObterPorCupomFiscal(Saida.CupomFiscal));    
                         }
                     }  
                         
@@ -197,7 +190,7 @@ namespace Sace
 
 
 				long codSolicitacao = GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
-                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(Saida.CodSaida, Saida.CodCliente, tipoSolicitacao, saceOptions);
+                FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(Saida.CodSaida, Saida.CodCliente, tipoSolicitacao);
                 frmSaidaAutorizacao.ShowDialog();
                 frmSaidaAutorizacao.Dispose();
             }
@@ -266,7 +259,7 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            Cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, EstadoFormulario.INSERIR, pessoaBindingSource, true, false, service);
+            Cliente = ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, EstadoFormulario.INSERIR, pessoaBindingSource, true, false);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

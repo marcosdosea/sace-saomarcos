@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 using Util;
 
@@ -11,15 +9,10 @@ namespace Sace
         private EstadoFormulario estado;
 
         public PlanoConta PlanoContaSelected;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmPlanoConta(DbContextOptions<SaceContext> saceOptions)
+        public FrmPlanoConta()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmPlanoConta_Load(object sender, EventArgs e)
@@ -31,7 +24,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa(saceOptions);
+            FrmPlanoContaPesquisa frmPlanoContaPesquisa = new FrmPlanoContaPesquisa();
             frmPlanoContaPesquisa.ShowDialog();
             if (frmPlanoContaPesquisa.PlanoContaSelected != null)
             {
@@ -166,7 +159,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F2) && (codGrupoContaComboBox.Focused))
                 {
-                    FrmGrupoContaPesquisa frmGrupoContaPesquisa = new FrmGrupoContaPesquisa(saceOptions);
+                    FrmGrupoContaPesquisa frmGrupoContaPesquisa = new FrmGrupoContaPesquisa();
                     frmGrupoContaPesquisa.ShowDialog();
                     if (frmGrupoContaPesquisa.GrupoConta != null)
                     {
@@ -176,7 +169,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codGrupoContaComboBox.Focused))
                 {
-                    FrmGrupoConta frmGrupoConta = new FrmGrupoConta(saceOptions);
+                    FrmGrupoConta frmGrupoConta = new FrmGrupoConta();
                     frmGrupoConta.ShowDialog();
                     if (frmGrupoConta.GrupoContaSelected != null)
                     {

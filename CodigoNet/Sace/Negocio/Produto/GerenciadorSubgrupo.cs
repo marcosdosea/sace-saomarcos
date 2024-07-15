@@ -1,39 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Dados;
+﻿using Dados;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorSubgrupo
+    public static class GerenciadorSubgrupo
     {
-        private readonly SaceContext context;
-
-        public GerenciadorSubgrupo(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
 
         /// <summary>
         /// Insere um novo subgrupo
         /// </summary>
         /// <param name="subgrupo"></param>
         /// <returns></returns>
-        public long Inserir(Subgrupo subgrupo)
+        public static long Inserir(Subgrupo subgrupo)
         {
             try
             {
                 var _subgrupo = new TbSubgrupo();
                 _subgrupo.CodGrupo = subgrupo.CodGrupo;
                 _subgrupo.Descricao = subgrupo.Descricao;
-
-                context.Add(_subgrupo);
-                context.SaveChanges();
-
-                return _subgrupo.CodSubgrupo;
+                using (var context = new SaceContext())
+                {
+                    context.Add(_subgrupo);
+                    context.SaveChanges();
+                    return _subgrupo.CodSubgrupo;
+                }
             }
             catch (Exception e)
             {
@@ -45,23 +36,23 @@ namespace Negocio
         /// Atualiza o subgrupo
         /// </summary>
         /// <param name="subgrupo"></param>
-        public void Atualizar(Subgrupo subgrupo)
+        public static void Atualizar(Subgrupo subgrupo)
         {
             try
             {
-                var _subgrupo = new TbSubgrupo();
-                _subgrupo.CodSubgrupo = subgrupo.CodSubgrupo;
-
-                _subgrupo = context.TbSubgrupos.Find(_subgrupo);
-                if (_subgrupo != null)
+                using (var context = new SaceContext())
                 {
-                    _subgrupo.CodGrupo = subgrupo.CodGrupo;
-                    _subgrupo.Descricao = subgrupo.Descricao;
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new NegocioException("Subgrupo não foi encontrado para atualização.");
+                    var _subgrupo = context.TbSubgrupos.FirstOrDefault(s => s.CodSubgrupo == subgrupo.CodSubgrupo);
+                    if (_subgrupo != null)
+                    {
+                        _subgrupo.CodGrupo = subgrupo.CodGrupo;
+                        _subgrupo.Descricao = subgrupo.Descricao;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Subgrupo não foi encontrado para atualização.");
+                    }
                 }
             }
             catch (Exception e)
@@ -74,17 +65,25 @@ namespace Negocio
         /// Remove um subgrupo
         /// </summary>
         /// <param name="codSubgrupo"></param>
-        public void Remover(int codSubgrupo)
+        public static void Remover(int codSubgrupo)
         {
             if (codSubgrupo == 1)
                 throw new NegocioException("Esse subgrupo não pode ser excluído para manter a consistência da base de dados");
             try
             {
-                var _subgrupo = new TbSubgrupo();
-                _subgrupo.CodSubgrupo = codSubgrupo;
-
-                context.Remove(_subgrupo);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var _subgrupo = context.TbSubgrupos.FirstOrDefault(s => s.CodSubgrupo == codSubgrupo);
+                    if (_subgrupo != null)
+                    {
+                        context.Remove(_subgrupo);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Subgrupo não encontrado para exclusão.");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -96,24 +95,27 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<Subgrupo> GetQuery()
+        private static IQueryable<Subgrupo> GetQuery()
         {
-            var query = from subgrupo in context.TbSubgrupos
-                        select new Subgrupo
-                        {
-                            CodGrupo = (int)subgrupo.CodGrupo,
-                            Descricao = subgrupo.Descricao,
-                            CodSubgrupo = subgrupo.CodSubgrupo,
-                            DescricaoGrupo = subgrupo.CodGrupoNavigation.Descricao
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from subgrupo in context.TbSubgrupos
+                            select new Subgrupo
+                            {
+                                CodGrupo = (int)subgrupo.CodGrupo,
+                                Descricao = subgrupo.Descricao,
+                                CodSubgrupo = subgrupo.CodSubgrupo,
+                                DescricaoGrupo = subgrupo.CodGrupoNavigation.Descricao
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
         /// Obtém todos os subgrupos cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Subgrupo> ObterTodos()
+        public static IEnumerable<Subgrupo> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -123,7 +125,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSubgrupo"></param>
         /// <returns></returns>
-        public IEnumerable<Subgrupo> Obter(int codSubgrupo)
+        public static IEnumerable<Subgrupo> Obter(int codSubgrupo)
         {
             return GetQuery().Where(subgrupo => subgrupo.CodSubgrupo == codSubgrupo).ToList();
         }
@@ -133,7 +135,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Subgrupo> ObterPorDescricao(string descricao)
+        public static IEnumerable<Subgrupo> ObterPorDescricao(string descricao)
         {
             return GetQuery().Where(subgrupo => subgrupo.Descricao.StartsWith(descricao)).ToList();
         }
@@ -143,7 +145,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<Subgrupo> ObterPorDescricaoGrupo(string descricao)
+        public static IEnumerable<Subgrupo> ObterPorDescricaoGrupo(string descricao)
         {
             return GetQuery().Where(subgrupo => subgrupo.DescricaoGrupo.StartsWith(descricao)).ToList();
         }
@@ -153,7 +155,7 @@ namespace Negocio
         /// </summary>
         /// <param name="grupo"></param>
         /// <returns></returns>
-        public IEnumerable<Subgrupo> ObterPorGrupo(Grupo grupo)
+        public static IEnumerable<Subgrupo> ObterPorGrupo(Grupo grupo)
         {
             return GetQuery().Where(subgrupo => subgrupo.CodGrupo == grupo.CodGrupo).ToList();
         }

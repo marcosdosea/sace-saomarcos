@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 
 namespace Sace
@@ -10,16 +8,11 @@ namespace Sace
         public Subgrupo SubgrupoSelected { get; set; }
         public Grupo GrupoSelected { get; set; }
 
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-        public FrmSubgrupoPesquisa(DbContextOptions<SaceContext> saceOptions)
+        public FrmSubgrupoPesquisa()
         {
             InitializeComponent();
             SubgrupoSelected = null;
             GrupoSelected = null;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            this = new SaceService(context);
         }
 
         private void FrmSubgrupoPesquisa_Load(object sender, EventArgs e)

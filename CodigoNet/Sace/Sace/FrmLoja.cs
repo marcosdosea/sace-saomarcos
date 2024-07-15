@@ -1,6 +1,5 @@
 ﻿using Dados;
 using Dominio;
-using Microsoft.EntityFrameworkCore;
 using Negocio;
 using Util;
 
@@ -9,27 +8,22 @@ namespace Sace
     public partial class FrmLoja : Form
     {
         private EstadoFormulario estado;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmLoja(DbContextOptions<SaceContext> saceOptions)
+        public FrmLoja()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmLoja_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
+            pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_JURIDICA);
             lojaBindingSource.DataSource = GerenciadorLoja.ObterTodos();
             habilitaBotoes(true);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmLojaPesquisa frmLojaPesquisa = new FrmLojaPesquisa(saceOptions);
+            FrmLojaPesquisa frmLojaPesquisa = new FrmLojaPesquisa();
             frmLojaPesquisa.ShowDialog();
             if (frmLojaPesquisa.LojaSelected != null)
             {
@@ -172,7 +166,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa(saceOptions);
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {
@@ -204,7 +198,7 @@ namespace Sace
 
         private void codPessoaComboBox_Leave(object sender, EventArgs e)
         {
-            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true, service);
+            ComponentesLeave.PessoaComboBox_Leave(sender, e, codPessoaComboBox, estado, pessoaBindingSource, true, true);
         }
 
         private void nomeTextBox_Leave(object sender, EventArgs e)

@@ -4,32 +4,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorPontaEstoque
+    public static class GerenciadorPontaEstoque
     {
-
-        private readonly SaceContext context;
-
-        public GerenciadorPontaEstoque(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
 
         /// <summary>
         /// Insere dados do pontaEstoque
         /// </summary>
         /// <param name="pontaEstoque"></param>
         /// <returns></returns>
-        public long Inserir(PontaEstoque pontaEstoque)
+        public static long Inserir(PontaEstoque pontaEstoque)
         {
             var _pontaEstoque = new TbPontaEstoque();
             try
             {
                 Atribuir(pontaEstoque, _pontaEstoque);
-
-                context.Add(_pontaEstoque);
-                context.SaveChanges();
-
-                return _pontaEstoque.CodPontaEstoque;
+                using (var context = new SaceContext())
+                {
+                    context.Add(_pontaEstoque);
+                    context.SaveChanges();
+                    return _pontaEstoque.CodPontaEstoque;
+                }
             }
             catch (Exception e)
             {
@@ -43,19 +37,22 @@ namespace Negocio
         /// Atualiza dados do pontaEstoque
         /// </summary>
         /// <param name="pontaEstoque"></param>
-        public void Atualizar(PontaEstoque pontaEstoque)
+        public static void Atualizar(PontaEstoque pontaEstoque)
         {
             try
             {
-                var _pontaEstoque = context.TbPontaEstoques.Find(pontaEstoque.CodPontaEstoque);
-                if (_pontaEstoque != null)
+                using (var context = new SaceContext())
                 {
-                    Atribuir(pontaEstoque, _pontaEstoque);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new NegocioException("Ponta de estoque não encontrada para atualização.");
+                    var _pontaEstoque = context.TbPontaEstoques.FirstOrDefault(p => p.CodPontaEstoque == pontaEstoque.CodPontaEstoque);
+                    if (_pontaEstoque != null)
+                    {
+                        Atribuir(pontaEstoque, _pontaEstoque);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Ponta de estoque não encontrada para atualização.");
+                    }
                 }
             }
             catch (Exception e)
@@ -68,15 +65,22 @@ namespace Negocio
         /// Remove dados do pontaEstoque
         /// </summary>
         /// <param name="codPontaEstoque"></param>
-        public void Remover(long codPontaEstoque)
+        public static void Remover(long codPontaEstoque)
         {
             try
             {
-                var pontaEstoque = new TbPontaEstoque();
-                pontaEstoque.CodPontaEstoque = codPontaEstoque;
-
-                context.Remove(pontaEstoque);
-                context.SaveChanges();
+                using (var context = new SaceContext())
+                {
+                    var _pontaEstoque = context.TbPontaEstoques.FirstOrDefault(p => p.CodPontaEstoque == codPontaEstoque);
+                    if (_pontaEstoque != null)
+                    {
+                        context.Remove(_pontaEstoque);
+                        context.SaveChanges();
+                    } else
+                    {
+                        throw new NegocioException("Ponta de estoque não encontrada para remoção");
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -88,25 +92,28 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<PontaEstoque> GetQuery()
+        private static IQueryable<PontaEstoque> GetQuery()
         {
-            var query = from pontaEstoque in context.TbPontaEstoques
-                        select new PontaEstoque
-                        {
-                            CodPontaEstoque = pontaEstoque.CodPontaEstoque,
-                            Quantidade = pontaEstoque.Quantidade,
-                            Caracteristica = pontaEstoque.Caracteristica,
-                            CodProduto = pontaEstoque.CodProduto,
-                            NomeProduto = pontaEstoque.CodProdutoNavigation.Nome
-                        };
-            return query.AsNoTracking();
+            using (var context = new SaceContext())
+            {
+                var query = from pontaEstoque in context.TbPontaEstoques
+                            select new PontaEstoque
+                            {
+                                CodPontaEstoque = pontaEstoque.CodPontaEstoque,
+                                Quantidade = pontaEstoque.Quantidade,
+                                Caracteristica = pontaEstoque.Caracteristica,
+                                CodProduto = pontaEstoque.CodProduto,
+                                NomeProduto = pontaEstoque.CodProdutoNavigation.Nome
+                            };
+                return query.AsNoTracking();
+            }
         }
 
         /// <summary>
         /// Obtém todos os pontaEstoque cadastrados
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PontaEstoque> ObterTodos()
+        public static IEnumerable<PontaEstoque> ObterTodos()
         {
             return GetQuery().ToList();
         }
@@ -116,7 +123,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codPontaEstoque"></param>
         /// <returns></returns>
-        public IEnumerable<PontaEstoque> Obter(long codPontaEstoque)
+        public static IEnumerable<PontaEstoque> Obter(long codPontaEstoque)
         {
             return GetQuery().Where(pontaEstoque => pontaEstoque.CodPontaEstoque == codPontaEstoque).ToList();
         }
@@ -126,7 +133,7 @@ namespace Negocio
         /// </summary>
         /// <param name="nome"></param>
         /// <returns></returns>
-        public IEnumerable<PontaEstoque> ObterPorProduto(long codProduto)
+        public static IEnumerable<PontaEstoque> ObterPorProduto(long codProduto)
         {
             return GetQuery().Where(pontaEstoque => pontaEstoque.CodProduto.Equals(codProduto)).ToList();
         }

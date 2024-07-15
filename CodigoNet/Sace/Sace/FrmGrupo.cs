@@ -24,7 +24,7 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa(saceOptions);
+            FrmGrupoPesquisa frmGrupoPesquisa = new FrmGrupoPesquisa();
             frmGrupoPesquisa.ShowDialog();
             if (frmGrupoPesquisa.SelectedGrupo != null)
             {

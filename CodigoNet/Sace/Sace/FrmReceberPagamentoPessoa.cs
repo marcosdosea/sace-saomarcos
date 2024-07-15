@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 using Util;
 
@@ -18,20 +16,15 @@ namespace Sace
         private bool quitadaChecked;
         private decimal descontoCalculado;
         private bool alterouDesconto;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmReceberPagamentoPessoa(DbContextOptions<SaceContext> saceOptions)
+        public FrmReceberPagamentoPessoa()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            var context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmReceberPagamentoPessoa_Load(object sender, EventArgs e)
         {
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = GerenciadorPessoa.ObterTodos();
             habilitaBotoes(true);
         }
 
@@ -79,9 +72,9 @@ namespace Sace
             bool podeImprimirCF = (valorRecebido == faltaReceber);
 
             Saida saida = NovaSaidaTipoPreCredito(pessoa.CodPessoa, valorRecebido);
-            saida.CodSaida = gerenciadorSaida.Inserir(saida);
+            saida.CodSaida = GerenciadorSaida.Inserir(saida);
 
-            FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null, saceOptions);
+            FrmSaidaPagamento frmSaidaPagamento = new FrmSaidaPagamento(saida, null);
             frmSaidaPagamento.ShowDialog();
             frmSaidaPagamento.Dispose();
 
@@ -92,11 +85,11 @@ namespace Sace
                 if (MessageBox.Show("Confirma pagamento?", "Confirmação Pagamento", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     var listaMovimentacaoConta = (List<MovimentacaoConta>)movimentacaoContaBindingSource.DataSource;
-                    gerenciadorSaida.ReceberPagamentosContas(listaContaSaida, listaSaidaPagamentos, listaMovimentacaoConta, saida);
+                    GerenciadorSaida.ReceberPagamentosContas(listaContaSaida, listaSaidaPagamentos, listaMovimentacaoConta, saida);
                 }
                 else
                 {
-                    gerenciadorSaida.Remover(saida);
+                    GerenciadorSaida.Remover(saida);
                 }
             }
             listaSaidaPagamentos = new List<SaidaPagamento>();
@@ -114,13 +107,13 @@ namespace Sace
                         }
                     }
                     GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamentos, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaContaSaida.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE, saceOptions);
+                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaContaSaida.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
                     frmSaidaAutorizacao.ShowDialog();
                     frmSaidaAutorizacao.Dispose();
                 }
                 else if (!podeImprimirCF && MessageBox.Show("Deseja imprimir CRÉDITO para o cliente?", "Confirmar Impressão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    gerenciadorSaida.ImprimirCreditoPagamento(saida, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA2);
+                    GerenciadorSaida.ImprimirCreditoPagamento(saida, UtilConfig.Default.PORTA_IMPRESSORA_REDUZIDA2);
                 }
             }
             codClienteComboBox_Leave(sender, e);
@@ -201,7 +194,7 @@ namespace Sace
             decimal totalAVista = Convert.ToDecimal(totalAVistaTextBox.Text);
             decimal desconto = Convert.ToDecimal(descontoTextBox.Text);
 
-            FrmSaidaDAV frmSaidaDAV = new FrmSaidaDAV(codSaidas, total, totalAVista, desconto, false, saceOptions);
+            FrmSaidaDAV frmSaidaDAV = new FrmSaidaDAV(codSaidas, total, totalAVista, desconto, false);
             frmSaidaDAV.ShowDialog();
             frmSaidaDAV.Dispose();
         }
@@ -232,9 +225,9 @@ namespace Sace
             if (!pedidoGerado.Trim().Equals("") || (pessoa.ImprimirCF))
             {
                 long codSaida = Convert.ToInt64(contasPessoaDataGridView.SelectedRows[0].Cells[1].Value.ToString());
-                Saida saida = gerenciadorSaida.Obter(codSaida);
+                Saida saida = GerenciadorSaida.Obter(codSaida);
                 AtualizarValoresDescontosContas();
-                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, saceOptions);
+                FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
                 frmSaidaNF.ShowDialog();
                 frmSaidaNF.Dispose();
             }
@@ -244,7 +237,7 @@ namespace Sace
                 {
                     AtualizarValoresDescontosContas();
                     GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, DocumentoFiscal.TipoSolicitacao.NFCE, false, false);
-                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE, saceOptions);
+                    FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(listaSaidaPedido.FirstOrDefault().CodSaida, pessoa.CodPessoa, DocumentoFiscal.TipoSolicitacao.NFCE);
                     frmSaidaAutorizacao.ShowDialog();
                     frmSaidaAutorizacao.Dispose();
                 }
@@ -339,7 +332,7 @@ namespace Sace
 
         private void codClienteComboBox_Leave(object sender, EventArgs e)
         {
-            pessoa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, estado, pessoaBindingSource, true, true, service);
+            pessoa = ComponentesLeave.PessoaComboBox_Leave(sender, e, codClienteComboBox, estado, pessoaBindingSource, true, true);
             if ((pessoa != null) && (!pessoa.CodPessoa.Equals(UtilConfig.Default.CLIENTE_PADRAO)))
             {
                 // Obter todas as contas da pessoa em aberto
@@ -549,7 +542,7 @@ namespace Sace
                 }
             }
 
-            FrmSaidaPagamentoBoleto frmSaidaPagamentoBoleto = new FrmSaidaPagamentoBoleto(cupomFiscal, saceOptions);
+            FrmSaidaPagamentoBoleto frmSaidaPagamentoBoleto = new FrmSaidaPagamentoBoleto(cupomFiscal);
             frmSaidaPagamentoBoleto.ShowDialog();
             frmSaidaPagamentoBoleto.Dispose();
         }

@@ -14,22 +14,17 @@ namespace Sace
         private bool exibiuResultadoNfe = false;
         DocumentoFiscal.TipoSolicitacao tipoNfe;
         int contConsultas;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmSaidaAutorizacao(long codSaida, long codCliente, DocumentoFiscal.TipoSolicitacao tipo, DbContextOptions<SaceContext> saceOptions)
+        public FrmSaidaAutorizacao(long codSaida, long codCliente, DocumentoFiscal.TipoSolicitacao tipo)
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
             this.codSaida = codSaida;
             nfeControle = null;
             lblCartao.ForeColor = Color.Black;
             tipoNfe = tipo;
             if (codCliente != Util.UtilConfig.Default.CLIENTE_PADRAO)
             {
-                Pessoa cliente = gerenciadorPessoa.Obter(codCliente).FirstOrDefault();
+                Pessoa cliente = GerenciadorPessoa.Obter(codCliente).FirstOrDefault();
                 if ((cliente != null) && (cliente.ImprimirCF))
                     tipoNfe = DocumentoFiscal.TipoSolicitacao.NFE;
             }

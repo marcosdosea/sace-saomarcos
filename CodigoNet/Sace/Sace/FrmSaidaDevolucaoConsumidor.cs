@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 using Util;
 
@@ -9,22 +7,17 @@ namespace Sace
     public partial class FrmSaidaDevolucaoConsumidor : Form
     {
         private Saida saida;
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
 
-        public FrmSaidaDevolucaoConsumidor(Saida saida, DbContextOptions<SaceContext> saceOptions)
+        public FrmSaidaDevolucaoConsumidor(Saida saida)
         {
             InitializeComponent();
             this.saida = saida;
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void FrmSaidaDevolucaoConsumidor_Load(object sender, EventArgs e)
         {
             codSaidaTextBox.Text = saida.CodSaida.ToString();
-            saidaBindingSource.DataSource = gerenciadorSaida.Obter(saida.CodSaida);
+            saidaBindingSource.DataSource = GerenciadorSaida.Obter(saida.CodSaida);
             saida = (Saida) saidaBindingSource.Current;
             
             lojaBindingSourceOrigem.DataSource = GerenciadorLoja.ObterTodos();
@@ -43,13 +36,13 @@ namespace Sace
                 if (MessageBox.Show("Confirma DEVOLUÇÃO do CONSUMIDOR/Fornecedor?", "Confirmar Devolução", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     saida.Nfe = docFiscalReferenciado;
-                    gerenciadorSaida.EncerrarDevolucaoConsumidor(saida);
+                    GerenciadorSaida.EncerrarDevolucaoConsumidor(saida);
                     List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
                     listaSaidaPedido.Add(new SaidaPedido() { CodSaida = saida.CodSaida, TotalAVista = saida.TotalAVista });
                     List<SaidaPagamento> listaSaidaPagamento = new List<SaidaPagamento>();
                     listaSaidaPagamento = GerenciadorSaidaPagamento.ObterPorSaida(saida.CodSaida);
                 
-                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento, saceOptions);
+                    FrmSaidaNFe frmSaidaNF = new FrmSaidaNFe(saida.CodSaida, listaSaidaPedido, listaSaidaPagamento);
                     frmSaidaNF.ShowDialog();
                     frmSaidaNF.Dispose();
                     this.Close();
@@ -86,12 +79,12 @@ namespace Sace
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa(saceOptions);
+            FrmSaidaPesquisa frmSaidaPesquisa = new FrmSaidaPesquisa();
             frmSaidaPesquisa.ShowDialog();
             if (frmSaidaPesquisa.SaidaSelected != null)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                saidaCupomBindingSource.DataSource = gerenciadorSaida.ObterSaidaConsumidor(frmSaidaPesquisa.SaidaSelected.CodSaida);
+                saidaCupomBindingSource.DataSource = GerenciadorSaida.ObterSaidaConsumidor(frmSaidaPesquisa.SaidaSelected.CodSaida);
                 saidaCupomBindingSource.Position = saidaBindingSource.List.IndexOf(frmSaidaPesquisa.SaidaSelected);
                 Cursor.Current = Cursors.Default;
             }

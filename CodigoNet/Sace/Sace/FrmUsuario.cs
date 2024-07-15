@@ -10,9 +10,6 @@ namespace Sace
     {
         private EstadoFormulario estado;
 
-        private readonly GerenciadorPessoa gerenciadorPessoa;
-        private readonly GerenciadorUsuario gerenciadorUsuario;
-
         public FrmUsuario()
         {
             InitializeComponent();
@@ -23,9 +20,9 @@ namespace Sace
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.USUARIOS, Principal.Autenticacao.CodUsuario);
 
-            pessoaBindingSource.DataSource = gerenciadorPessoa.ObterTodos();
-            usuarioBindingSource.DataSource = gerenciadorUsuario.ObterTodos();
-            perfilBindingSource.DataSource = gerenciadorUsuario.ObterPerfis();
+            pessoaBindingSource.DataSource = GerenciadorPessoa.ObterTodos();
+            usuarioBindingSource.DataSource = GerenciadorUsuario.ObterTodos();
+            perfilBindingSource.DataSource = GerenciadorUsuario.ObterPerfis();
             habilitaBotoes(true);
         }
 
@@ -66,12 +63,12 @@ namespace Sace
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                gerenciadorUsuario.Inserir(usuario);
+                GerenciadorUsuario.Inserir(usuario);
                 usuarioBindingSource.MoveLast();
             }
             else
             {
-                gerenciadorUsuario.Atualizar(usuario);
+                GerenciadorUsuario.Atualizar(usuario);
                 usuarioBindingSource.EndEdit();
             }
             habilitaBotoes(true);
@@ -95,7 +92,7 @@ namespace Sace
 
             if (MessageBox.Show("Confirma exclusão?", "Confirmar Exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                gerenciadorUsuario.Remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
+                GerenciadorUsuario.Remover(Convert.ToInt32(codPessoaComboBox.SelectedValue));
             }
 
         }
@@ -190,7 +187,7 @@ namespace Sace
                 }
                 else if ((e.KeyCode == Keys.F3) && (codPessoaComboBox.Focused))
                 {
-                    FrmPessoa frmPessoa = new FrmPessoa(saceOptions);
+                    FrmPessoa frmPessoa = new FrmPessoa();
                     frmPessoa.ShowDialog();
                     if (frmPessoa.PessoaSelected != null)
                     {

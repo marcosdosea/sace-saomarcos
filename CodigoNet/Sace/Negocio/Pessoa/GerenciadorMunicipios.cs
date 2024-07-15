@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public class GerenciadorMunicipio
+    public static class GerenciadorMunicipio
     {
 
         /// <summary>
@@ -12,7 +12,7 @@ namespace Negocio
         /// </summary>
         /// <param name="Municipio"></param>
         /// <returns></returns>
-        public int Inserir(MunicipiosIBGE municipio)
+        public static int Inserir(MunicipiosIBGE municipio)
         {
             try
             {
@@ -35,15 +35,13 @@ namespace Negocio
         /// Atualiza os dados de um Municipio
         /// </summary>
         /// <param name="Municipio"></param>
-        public void Atualizar(MunicipiosIBGE municipio)
+        public static void Atualizar(MunicipiosIBGE municipio)
         {
             try
             {
-                var _municipio = new TbMunicipiosIbge();
-                _municipio.Codigo = municipio.Codigo;
                 using (var context = new SaceContext())
                 {
-                    _municipio = context.TbMunicipiosIbges.FirstOrDefault(m => m.Codigo == municipio.Codigo);
+                    var _municipio = context.TbMunicipiosIbges.FirstOrDefault(m => m.Codigo == municipio.Codigo);
                     if (_municipio != null)
                     {
                         Atribuir(municipio, _municipio);
@@ -52,7 +50,7 @@ namespace Negocio
                     }
                     else
                     {
-                        throw new NegocioException("Município para atualização não encontrado.");
+                        throw new NegocioException("Município não encontrado para atualização.");
                     }
                 }
             }
@@ -66,16 +64,22 @@ namespace Negocio
         /// Remove os dados de uma Municipio
         /// </summary>
         /// <param name="codMunicipio"></param>
-        public void Remover(int codMunicipio)
+        public static void Remover(int codMunicipio)
         {
             try
             {
-                var municipio = new TbMunicipiosIbge();
-                municipio.Codigo = codMunicipio;
                 using (var context = new SaceContext())
                 {
-                    context.Remove(municipio);
-                    context.SaveChanges();
+                    var _municipio = context.TbMunicipiosIbges.FirstOrDefault(m => m.Codigo == codMunicipio);
+                    if (_municipio != null)
+                    {
+                        context.Remove(_municipio);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Município não encontrado para remoção.");
+                    }
                 }
             }
             catch (Exception e)
@@ -84,7 +88,7 @@ namespace Negocio
             }
         }
 
-        private IQueryable<MunicipiosIBGE> GetQuery()
+        private static IQueryable<MunicipiosIBGE> GetQuery()
         {
             using (var context = new SaceContext())
             {
@@ -103,7 +107,7 @@ namespace Negocio
         /// Obtém todos as Municipios cadastradas
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<MunicipiosIBGE> ObterTodos()
+        public static IEnumerable<MunicipiosIBGE> ObterTodos()
         {
             return GetQuery().OrderBy(m=> m.Municipio).ToList();
         }
@@ -112,7 +116,7 @@ namespace Negocio
         /// Obtém todos as Municipios cadastradas
         /// </summary>
         /// <returns></returns>
-        public MunicipiosIBGE ObterPorCidadeEstado(string municipio, string siglaEstado)
+        public static MunicipiosIBGE ObterPorCidadeEstado(string municipio, string siglaEstado)
         {
             return GetQuery().OrderBy(m => m.Municipio.Equals(municipio) && m.Uf.Equals(siglaEstado)).ToList().ElementAtOrDefault(0);
         }
@@ -123,12 +127,11 @@ namespace Negocio
         /// <param name="Municipio"></param>
         /// <param name="_Municipio"></param>
         /// <returns></returns>
-        private TbMunicipiosIbge Atribuir(MunicipiosIBGE municipio, TbMunicipiosIbge _municipio)
+        private static void Atribuir(MunicipiosIBGE municipio, TbMunicipiosIbge _municipio)
         {
             _municipio.Codigo = municipio.Codigo;
             _municipio.Municipio = municipio.Municipio;
             _municipio.Uf = municipio.Uf;
-            return _municipio;
         }
     }
 }

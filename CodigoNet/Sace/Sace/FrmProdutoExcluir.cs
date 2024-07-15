@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Negocio;
 
 namespace Sace
@@ -8,15 +6,9 @@ namespace Sace
     public partial class FrmProdutoExcluir : Form
     {
 
-        private readonly SaceService service;
-        private readonly DbContextOptions<SaceContext> saceOptions;
-
-        public FrmProdutoExcluir(DbContextOptions<SaceContext> saceOptions)
+        public FrmProdutoExcluir()
         {
             InitializeComponent();
-            this.saceOptions = saceOptions;
-            SaceContext context = new SaceContext(saceOptions);
-            service = new SaceService(context);
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -46,13 +38,13 @@ namespace Sace
         private void codProdutoComboBox_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true, service, saceOptions);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox, estado, produtoBindingSource, true);
         }
 
         private void codProdutoComboBox1_Leave(object sender, EventArgs e)
         {
             EstadoFormulario estado = EstadoFormulario.INSERIR;
-            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox1, estado, produtoBindingSource1, true, service, saceOptions);
+            ProdutoPesquisa _produtoPesquisa = ComponentesLeave.ProdutoComboBox_Leave(sender, e, codProdutoComboBox1, estado, produtoBindingSource1, true);
         }
 
         private void FrmProdutoExcluir_KeyDown(object sender, KeyEventArgs e)
