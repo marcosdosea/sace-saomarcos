@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public static class GerenciadorCfop 
+    public static class GerenciadorCfop
     {
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Negocio
                     {
                         _cfop.Descricao = cfop.Descricao;
                         _cfop.Icms = cfop.Icms;
-
+                        context.Update(_cfop);
                         context.SaveChanges();
                     }
                     else
@@ -99,20 +99,16 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Cfop> GetQuery()
+        private static IQueryable<Cfop> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-
-                var query = from cfop in context.TbCfops
-                            select new Cfop
-                            {
-                                CodCfop = cfop.Cfop,
-                                Descricao = cfop.Descricao,
-                                Icms = cfop.Icms
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from cfop in context.TbCfops
+                        select new Cfop
+                        {
+                            CodCfop = cfop.Cfop,
+                            Descricao = cfop.Descricao,
+                            Icms = cfop.Icms
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -121,7 +117,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Cfop> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -131,7 +130,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Cfop> Obter(int codCfop)
         {
-            return GetQuery().Where(cfop => cfop.CodCfop == codCfop).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(cfop => cfop.CodCfop == codCfop).ToList();
+            }
         }
 
         /// <summary>
@@ -141,7 +143,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Cfop> ObterPorDescricao(string descricao)
         {
-            return GetQuery().Where(cfop => cfop.Descricao.StartsWith(descricao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(cfop => cfop.Descricao.StartsWith(descricao)).ToList();
+            }
         }
     }
 }

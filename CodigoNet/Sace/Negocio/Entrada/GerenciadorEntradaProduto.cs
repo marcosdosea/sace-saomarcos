@@ -1,13 +1,12 @@
 ﻿using Dados;
 using Dominio;
-using Dominio.NFE2;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using Util;
 
 namespace Negocio
 {
-    public static class GerenciadorEntradaProduto 
+    public static class GerenciadorEntradaProduto
     {
         /// <summary>
         /// Insere uma novo produto na entrada
@@ -21,8 +20,8 @@ namespace Negocio
                 throw new NegocioException("A quantidade de produtos em cada embalagem deve ser maior que zero.");
 
             Produto produto = GerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = entradaProduto.CodProduto });
-            
-            Cst cstEntrada = new Cst() { CodCST = entradaProduto.CodCST } ;
+
+            Cst cstEntrada = new Cst() { CodCST = entradaProduto.CodCST };
 
             bool ehTributacaoIntegral = cstEntrada.EhTributacaoIntegral;
             if (!produto.EhTributacaoIntegral && ehTributacaoIntegral)
@@ -34,7 +33,7 @@ namespace Negocio
             {
                 throw new NegocioException("O campo % CRED ICMS não pode ser menor ou igual a zero quando o produto possui tributação normal.");
             }
-            else if ((!ehTributacaoIntegral) && (entradaProduto.IcmsSubstituto <= 0) && 
+            else if ((!ehTributacaoIntegral) && (entradaProduto.IcmsSubstituto <= 0) &&
                 (!entradaProduto.CodCST.Substring(1).Equals(Cst.ST_SUBSTITUICAO_ICMS_COBRADO)) && !cstEntrada.EhTributacaoSimples)
             {
                 throw new NegocioException("O campo % ICMS ST não pode ser menor ou igual a zero quando o produto possui substituição tributária.");
@@ -72,7 +71,7 @@ namespace Negocio
             }
         }
 
-        
+
         /// <summary>
         /// Atualiza os dados de um produto na entrada
         /// </summary>
@@ -164,7 +163,7 @@ namespace Negocio
                     {
                         produtoPesquisa = GerenciadorProduto.ObterPorCodigoBarraExato(produto.prod.cEAN).ElementAtOrDefault(0);
                     }
-                
+
                     entradaProduto.CodProduto = (produtoPesquisa != null) ? produtoPesquisa.CodProduto : 1;
                     entradaProduto.DataEntrada = entrada.DataEntrada;
                     entradaProduto.FornecedorEhFabricante = entrada.FornecedorEhFabricante;
@@ -174,7 +173,7 @@ namespace Negocio
                         entradaProduto.Frete = 0;
                     entradaProduto.Ncmsh = produto.prod.NCM;
                     entradaProduto.NomeProduto = produto.prod.xProd.Length > 50 ? produto.prod.xProd.Substring(0, 50).ToUpper() : produto.prod.xProd.ToUpper();
-                    
+
                     entradaProduto.Quantidade = Convert.ToDecimal(produto.prod.qCom, ci);
                     entradaProduto.QuantidadeEmbalagem = (produtoPesquisa == null) ? 1 : produtoPesquisa.QuantidadeEmbalagem;
                     entradaProduto.Simples = (produtoPesquisa == null) ? UtilConfig.Default.SIMPLES : produtoPesquisa.Simples;
@@ -183,14 +182,14 @@ namespace Negocio
                     entradaProduto.ValorUnitario = Convert.ToDecimal(produto.prod.vUnCom, ci);
                     entradaProduto.Desconto = Convert.ToDecimal(produto.prod.vDesc, ci) / entradaProduto.ValorTotal * 100;
                     entradaProduto.CodigoBarra = produto.prod.cEAN;
-                    
-                    
+
+
 
                     entradaProduto.ReferenciaFabricante = produto.prod.cProd;
 
                     for (int i = 0; i < produto.imposto.Items.Length; i++)
                     {
-                        
+
                         if (produto.imposto.Items[i] is TNFeInfNFeDetImpostoICMS)
                         {
                             var icms = ((TNFeInfNFeDetImpostoICMS)produto.imposto.Items[i]).Item;
@@ -202,7 +201,7 @@ namespace Negocio
                                 entradaProduto.CodCST = icms00.orig.ToString().Substring(4) + icms00.CST.ToString().Substring(4);
                                 entradaProduto.CodCSTNFe = icms00.orig.ToString().Substring(4) + icms00.CST.ToString().Substring(4);
                                 entradaProduto.Icms = Convert.ToDecimal(icms00.pICMS, ci);
-                                entradaProduto.IcmsSubstituto = 0; 
+                                entradaProduto.IcmsSubstituto = 0;
                             }
                             else if (icms is TNFeInfNFeDetImpostoICMSICMS10)
                             {
@@ -214,7 +213,7 @@ namespace Negocio
                                 entradaProduto.Icms = Convert.ToDecimal(icms10.pICMS, ci);
                                 if (entrada.TotalProdutosST > 0)
                                     entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100; //Convert.ToDecimal(icms10.pICMSST, ci);
-                            } 
+                            }
                             else if (icms is TNFeInfNFeDetImpostoICMSICMS20)
                             {
                                 TNFeInfNFeDetImpostoICMSICMS20 icms20 = ((TNFeInfNFeDetImpostoICMSICMS20)icms); ;
@@ -257,7 +256,7 @@ namespace Negocio
                                 entradaProduto.Icms = Convert.ToDecimal(icms60.vICMSSTRet, ci);
                                 if (entrada.TotalProdutosST > 0)
                                     entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100; //Convert.ToDecimal(icms10.pICMSST, ci);
-                            } 
+                            }
                             else if (icms is TNFeInfNFeDetImpostoICMSICMS70)
                             {
                                 TNFeInfNFeDetImpostoICMSICMS70 icms70 = ((TNFeInfNFeDetImpostoICMSICMS70)icms); ;
@@ -277,7 +276,7 @@ namespace Negocio
                                 entradaProduto.CodCST = icms101.orig.ToString().Substring(4) + icms101.CSOSN.ToString().Substring(4);
                                 entradaProduto.CodCSTNFe = icms101.orig.ToString().Substring(4) + icms101.CSOSN.ToString().Substring(4);
                                 entradaProduto.Icms = Convert.ToDecimal(icms101.pCredSN, ci);
-                                entradaProduto.IcmsSubstituto = 0; 
+                                entradaProduto.IcmsSubstituto = 0;
                             }
                             else if (icms is TNFeInfNFeDetImpostoICMSICMSSN102)
                             {
@@ -296,7 +295,7 @@ namespace Negocio
                                 entradaProduto.BaseCalculoICMSST = Convert.ToDecimal(icms900.vBCST, ci);
                                 entradaProduto.CodCST = icms900.orig.ToString().Substring(4) + icms900.CSOSN.ToString().Substring(4);
                                 entradaProduto.CodCSTNFe = icms900.orig.ToString().Substring(4) + icms900.CSOSN.ToString().Substring(4);
-                                entradaProduto.Icms = Convert.ToDecimal(icms900.pICMS, ci); 
+                                entradaProduto.Icms = Convert.ToDecimal(icms900.pICMS, ci);
                                 entradaProduto.IcmsSubstituto = 0;
                                 if (entrada.TotalProdutosST > 0)
                                     entradaProduto.IcmsSubstituto = entrada.TotalSubstituicao / entrada.TotalProdutosST * 100;
@@ -406,7 +405,7 @@ namespace Negocio
                         entradaProduto.PrecoVendaAtacado = produtoPesquisa.PrecoVendaAtacado;
                         entradaProduto.PrecoVendaVarejo = produtoPesquisa.PrecoVendaVarejo;
                     }
-                     
+
                     listaProtutos.Add(entradaProduto);
                 }
 
@@ -422,32 +421,30 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<EntradaProduto> GetQuery()
+        private static IQueryable<EntradaProduto> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from entradaProduto in context.TbEntradaProdutos
-                            select new EntradaProduto
-                            {
-                                BaseCalculoICMS = (decimal)entradaProduto.BaseCalculoIcms,
-                                BaseCalculoICMSST = (decimal)entradaProduto.BaseCalculoIcmsst,
-                                Cfop = entradaProduto.Cfop,
-                                CodCST = entradaProduto.CodCst,
-                                CodEntrada = entradaProduto.CodEntrada,
-                                CodEntradaProduto = entradaProduto.CodEntradaProduto,
-                                CodProduto = entradaProduto.CodProduto,
-                                NomeProduto = entradaProduto.CodProdutoNavigation.Nome,
-                                DataValidade = (DateTime)entradaProduto.DataValidade,
-                                Desconto = (decimal)entradaProduto.Desconto,
-                                PrecoCusto = (decimal)entradaProduto.PrecoCusto,
-                                Quantidade = (decimal)entradaProduto.Quantidade,
-                                QuantidadeDisponivel = (decimal)entradaProduto.QuantidadeDisponivel,
-                                QuantidadeEmbalagem = (decimal)entradaProduto.QuantidadeEmbalagem,
-                                UnidadeCompra = entradaProduto.UnidadeCompra,
-                                ValorUnitario = (decimal)entradaProduto.ValorUnitario
-                            };
-                return query.AsNoTracking();
-            }
+
+            var query = from entradaProduto in context.TbEntradaProdutos
+                        select new EntradaProduto
+                        {
+                            BaseCalculoICMS = (decimal)entradaProduto.BaseCalculoIcms,
+                            BaseCalculoICMSST = (decimal)entradaProduto.BaseCalculoIcmsst,
+                            Cfop = entradaProduto.Cfop,
+                            CodCST = entradaProduto.CodCst,
+                            CodEntrada = entradaProduto.CodEntrada,
+                            CodEntradaProduto = entradaProduto.CodEntradaProduto,
+                            CodProduto = entradaProduto.CodProduto,
+                            NomeProduto = entradaProduto.CodProdutoNavigation.Nome,
+                            DataValidade = (DateTime)entradaProduto.DataValidade,
+                            Desconto = (decimal)entradaProduto.Desconto,
+                            PrecoCusto = (decimal)entradaProduto.PrecoCusto,
+                            Quantidade = (decimal)entradaProduto.Quantidade,
+                            QuantidadeDisponivel = (decimal)entradaProduto.QuantidadeDisponivel,
+                            QuantidadeEmbalagem = (decimal)entradaProduto.QuantidadeEmbalagem,
+                            UnidadeCompra = entradaProduto.UnidadeCompra,
+                            ValorUnitario = (decimal)entradaProduto.ValorUnitario
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -457,7 +454,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<EntradaProduto> Obter(long codEntradaProduto)
         {
-            return GetQuery().Where(ep => ep.CodEntradaProduto == codEntradaProduto).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(ep => ep.CodEntradaProduto == codEntradaProduto).ToList();
+            }
         }
 
         /// <summary>
@@ -467,7 +467,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<EntradaProduto> ObterPorEntrada(long codEntrada)
         {
-            return GetQuery().Where(ep => ep.CodEntrada == codEntrada).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(ep => ep.CodEntrada == codEntrada).ToList();
+            }
         }
 
         /// <summary>
@@ -477,7 +480,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<EntradaProduto> Obter(long codEntrada, long codProduto)
         {
-            return GetQuery().Where(ep => ep.CodEntrada == codEntrada && ep.CodProduto == codProduto).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(ep => ep.CodEntrada == codEntrada && ep.CodProduto == codProduto).ToList();
+            }
         }
 
         /// <summary>
@@ -487,8 +493,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<EntradaProduto> ObterDisponiveisPorEntrada(long codProduto)
         {
-            return GetQuery().Where(ep => ep.CodProduto == codProduto
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(ep => ep.CodProduto == codProduto
                 && ep.QuantidadeDisponivel > 0).OrderBy(ep => ep.CodEntradaProduto).ToList();
+            }
         }
 
         /// <summary>
@@ -498,7 +507,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<EntradaProduto> ObterOrdenadoPorValidade(long codProduto)
         {
-            return GetQuery().Where(ep => ep.CodProduto == codProduto).OrderBy(ep => ep.CodEntradaProduto).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(ep => ep.CodProduto == codProduto).OrderBy(ep => ep.CodEntradaProduto).ToList();
+            }
         }
 
         /// <summary>
@@ -508,8 +520,11 @@ namespace Negocio
         /// <returns></returns>
         private static List<EntradaProduto> ObterVendidosOrdenadoPorEntrada(long codProduto)
         {
-            return GetQuery().Where(ep => ep.CodProduto == codProduto && ep.Quantidade > ep.QuantidadeDisponivel).
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(ep => ep.CodProduto == codProduto && ep.Quantidade > ep.QuantidadeDisponivel).
                 OrderBy(ep => ep.CodEntradaProduto).ToList();
+            }
         }
 
         /// <summary>
@@ -519,7 +534,7 @@ namespace Negocio
         /// <returns></returns>
         public static DateTime GetDataProdutoMaisAntigoEstoque(ProdutoPesquisa produto)
         {
-            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>) ObterDisponiveisPorEntrada(produto.CodProduto);
+            List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)ObterDisponiveisPorEntrada(produto.CodProduto);
             if (entradaProdutos.Count > 0)
             {
                 return entradaProdutos[0].DataValidade;
@@ -556,7 +571,7 @@ namespace Negocio
             }
         }
 
-        
+
         /// <summary>
         /// Estorna dos lotes do estoque uma determinada quantidade
         /// </summary>
@@ -611,14 +626,14 @@ namespace Negocio
                     }
                 }
             }
-            
+
             // acontece quando uma data de validade não existe no estoque
             if (quantidadeRetornada < quantidadeDevolvida)
             {
-                BaixarItensVendidosEstoqueEntradaPadrao(saidaProduto, ((-1) * (quantidadeDevolvida-quantidadeRetornada)), context);
+                BaixarItensVendidosEstoqueEntradaPadrao(saidaProduto, ((-1) * (quantidadeDevolvida - quantidadeRetornada)), context);
             }
         }
-        
+
         /// <summary>
         /// Baixa dos lotes do estoque uma determinada quantidade vendida
         /// </summary>
@@ -626,7 +641,8 @@ namespace Negocio
         /// <param name="dataValidade"></param>
         /// <param name="quantidadeVendida"></param>
         /// <returns></returns>
-        public static decimal BaixarItensVendidosEstoque(SaidaProduto saidaProduto, SaceContext context) {
+        public static decimal BaixarItensVendidosEstoque(SaidaProduto saidaProduto, SaceContext context)
+        {
             List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)ObterDisponiveisPorEntrada(saidaProduto.CodProduto);
 
             decimal somaPrecosCusto = 0;
@@ -635,7 +651,7 @@ namespace Negocio
             if (saidaProduto.Quantidade < 0)
             {
                 EstornarItensVendidosEstoque(saidaProduto, context);
-            } 
+            }
             else if (entradaProdutos.Count > 0)
             {
                 // reduz a quantidade de itens disponíveis nos lotes de entrada
@@ -691,7 +707,8 @@ namespace Negocio
         /// <param name="produtoPesquisa"></param>
         /// <param name="quantidade"></param>
         /// <returns></returns>
-        private static decimal BaixarItensVendidosEstoqueEntradaPadrao(SaidaProduto saidaProduto, decimal quantidade, SaceContext context) {
+        private static decimal BaixarItensVendidosEstoqueEntradaPadrao(SaidaProduto saidaProduto, decimal quantidade, SaceContext context)
+        {
 
             List<EntradaProduto> entradaProdutos = (List<EntradaProduto>)Obter(UtilConfig.Default.ENTRADA_PADRAO, saidaProduto.CodProduto);
             Produto produto = GerenciadorProduto.Obter(new ProdutoPesquisa() { CodProduto = saidaProduto.CodProduto });
@@ -710,12 +727,12 @@ namespace Negocio
             {
                 entradaProduto = new EntradaProduto();
                 entradaProduto.CodEntrada = UtilConfig.Default.ENTRADA_PADRAO;
-                entradaProduto.CodProduto = produto.CodProduto; 
+                entradaProduto.CodProduto = produto.CodProduto;
 
                 entradaProduto.UnidadeCompra = produto.Unidade;
                 entradaProduto.Quantidade = 10000;
                 entradaProduto.QuantidadeEmbalagem = produto.QuantidadeEmbalagem == 0 ? 1 : produto.QuantidadeEmbalagem;
-                entradaProduto.QuantidadeDisponivel = (entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem) - quantidade; 
+                entradaProduto.QuantidadeDisponivel = (entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem) - quantidade;
                 entradaProduto.ValorUnitario = produto.UltimoPrecoCompra;
                 //entradaProduto.ValorTotal = 0;
                 entradaProduto.BaseCalculoICMS = 0;
@@ -734,14 +751,14 @@ namespace Negocio
                 entradaProduto.QtdProdutoAtacado = produto.QtdProdutoAtacado;
                 entradaProduto.DataEntrada = (DateTime)produto.DataUltimoPedido;
                 entradaProduto.Desconto = produto.Desconto;
-                entradaProduto.PrecoCusto = produto.PrecoCusto; 
+                entradaProduto.PrecoCusto = produto.PrecoCusto;
                 entradaProduto.ValorDesconto = 0;
                 entradaProduto.CodCST = produto.CodCST;
                 entradaProduto.Cfop = 9999;
 
                 Inserir(entradaProduto, Entrada.TIPO_ENTRADA);
             }
-            
+
             return 0;
         }
 

@@ -288,7 +288,7 @@ namespace Negocio
             }
         }
 
-        
+
 
         /// <summary>
         /// REmover uma entrada
@@ -381,7 +381,7 @@ namespace Negocio
                 conta.TipoConta = Conta.CONTA_PAGAR.ToString();
 
 
-                conta.Valor = (decimal) pagamento.Valor;
+                conta.Valor = (decimal)pagamento.Valor;
 
                 if (pagamento.CodFormaPagamento == FormaPagamento.BOLETO)
                 {
@@ -391,7 +391,7 @@ namespace Negocio
                 {
                     conta.FormatoConta = Conta.FORMATO_CONTA_FICHA;
                 }
-                conta.DataVencimento = (DateTime) pagamento.Data;
+                conta.DataVencimento = (DateTime)pagamento.Data;
 
                 conta.CodConta = GerenciadorConta.Inserir(conta, context);
 
@@ -404,7 +404,7 @@ namespace Negocio
 
                     movimentacao.CodTipoMovimentacao = MovimentacaoConta.PAGAMENTO_FORNECEDOR;
                     movimentacao.DataHora = DateTime.Now;
-                    movimentacao.Valor = (decimal) pagamento.Valor;
+                    movimentacao.Valor = (decimal)pagamento.Valor;
 
                     GerenciadorMovimentacaoConta.Inserir(movimentacao, context);
                 }
@@ -416,43 +416,41 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Entrada> GetQuery()
+        private static IQueryable<Entrada> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from entrada in context.TbEntrada
-                            select new Entrada
-                            {
-                                CodEmpresaFrete = entrada.CodEmpresaFrete,
-                                CodEntrada = entrada.CodEntrada,
-                                CodFornecedor = entrada.CodFornecedor,
-                                CodSituacaoPagamentos = entrada.CodSituacaoPagamentos,
-                                CodTipoEntrada = entrada.CodTipoEntrada,
-                                DataEmissao = (DateTime)entrada.DataEmissao,
-                                DataEntrada = (DateTime)entrada.DataEntrada,
-                                Desconto = (decimal)entrada.Desconto,
-                                FretePagoEmitente = entrada.FretePagoEmitente,
-                                NomeEmpresaFrete = entrada.CodEmpresaFreteNavigation.Nome,
-                                NomeFornecedor = entrada.CodFornecedorNavigation.Nome,
-                                Cpf_CnpjFornecedor = entrada.CodFornecedorNavigation.CpfCnpj,
-                                FornecedorEhFabricante = entrada.CodFornecedorNavigation.EhFabricante,
-                                NumeroNotaFiscal = entrada.NumeroNotaFiscal,
-                                OutrasDespesas = (decimal)entrada.OutrasDespesas,
-                                TotalBaseCalculo = (decimal)entrada.TotalBaseCalculo,
-                                TotalBaseSubstituicao = (decimal)entrada.TotalBaseSubstituicao,
-                                TotalICMS = (decimal)entrada.TotalIcms,
-                                TotalIPI = (decimal)entrada.TotalIpi,
-                                TotalNota = (decimal)entrada.TotalNota,
-                                TotalProdutos = (decimal)entrada.TotalProdutos,
-                                TotalProdutosST = (decimal)entrada.TotalProdutosSt,
-                                TotalSubstituicao = (decimal)entrada.TotalSubstituicao,
-                                ValorFrete = (decimal)entrada.ValorFrete,
-                                ValorSeguro = (decimal)entrada.ValorSeguro,
-                                Serie = entrada.Serie,
-                                Chave = entrada.Chave
-                            };
-                return query.AsNoTracking();
-            }
+
+            var query = from entrada in context.TbEntrada
+                        select new Entrada
+                        {
+                            CodEmpresaFrete = entrada.CodEmpresaFrete,
+                            CodEntrada = entrada.CodEntrada,
+                            CodFornecedor = entrada.CodFornecedor,
+                            CodSituacaoPagamentos = entrada.CodSituacaoPagamentos,
+                            CodTipoEntrada = entrada.CodTipoEntrada,
+                            DataEmissao = (DateTime)entrada.DataEmissao,
+                            DataEntrada = (DateTime)entrada.DataEntrada,
+                            Desconto = (decimal)entrada.Desconto,
+                            FretePagoEmitente = entrada.FretePagoEmitente,
+                            NomeEmpresaFrete = entrada.CodEmpresaFreteNavigation.Nome,
+                            NomeFornecedor = entrada.CodFornecedorNavigation.Nome,
+                            Cpf_CnpjFornecedor = entrada.CodFornecedorNavigation.CpfCnpj,
+                            FornecedorEhFabricante = entrada.CodFornecedorNavigation.EhFabricante,
+                            NumeroNotaFiscal = entrada.NumeroNotaFiscal,
+                            OutrasDespesas = (decimal)entrada.OutrasDespesas,
+                            TotalBaseCalculo = (decimal)entrada.TotalBaseCalculo,
+                            TotalBaseSubstituicao = (decimal)entrada.TotalBaseSubstituicao,
+                            TotalICMS = (decimal)entrada.TotalIcms,
+                            TotalIPI = (decimal)entrada.TotalIpi,
+                            TotalNota = (decimal)entrada.TotalNota,
+                            TotalProdutos = (decimal)entrada.TotalProdutos,
+                            TotalProdutosST = (decimal)entrada.TotalProdutosSt,
+                            TotalSubstituicao = (decimal)entrada.TotalSubstituicao,
+                            ValorFrete = (decimal)entrada.ValorFrete,
+                            ValorSeguro = (decimal)entrada.ValorSeguro,
+                            Serie = entrada.Serie,
+                            Chave = entrada.Chave
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -461,7 +459,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Entrada> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -471,7 +472,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Entrada> Obter(long codEntrada)
         {
-            return GetQuery().Where(entrada => entrada.CodEntrada == codEntrada).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(entrada => entrada.CodEntrada == codEntrada).ToList();
+            }
         }
 
         /// <summary>
@@ -481,7 +485,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Entrada> ObterPorTipoEntrada(int codTipoEntrada)
         {
-            return GetQuery().Where(entrada => entrada.CodTipoEntrada == codTipoEntrada).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(entrada => entrada.CodTipoEntrada == codTipoEntrada).ToList();
+            }
         }
 
         /// <summary>
@@ -491,7 +498,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Entrada> ObterPorNumeroNotaFiscal(string numeroNotaFiscal)
         {
-            return GetQuery().Where(entrada => entrada.NumeroNotaFiscal.StartsWith(numeroNotaFiscal)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(entrada => entrada.NumeroNotaFiscal.StartsWith(numeroNotaFiscal)).ToList();
+            }
         }
 
         /// <summary>
@@ -501,7 +511,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Entrada> ObterPorNumeroNotaFiscalFornecedor(string numeroNotaFiscal, string cpf_CnpjFornecedor)
         {
-            return GetQuery().Where(entrada => entrada.NumeroNotaFiscal.Equals(numeroNotaFiscal) && entrada.Cpf_CnpjFornecedor.Equals(cpf_CnpjFornecedor)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(entrada => entrada.NumeroNotaFiscal.Equals(numeroNotaFiscal) && entrada.Cpf_CnpjFornecedor.Equals(cpf_CnpjFornecedor)).ToList();
+            }
         }
 
         /// <summary>
@@ -511,7 +524,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Entrada> ObterPorNomeFornecedor(string nomeFornecedor)
         {
-            return GetQuery().Where(entrada => entrada.NomeFornecedor.StartsWith(nomeFornecedor)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(entrada => entrada.NomeFornecedor.StartsWith(nomeFornecedor)).ToList();
+            }
         }
 
 

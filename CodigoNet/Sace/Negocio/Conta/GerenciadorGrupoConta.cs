@@ -6,7 +6,6 @@ namespace Negocio
 {
     public static class GerenciadorGrupoConta
     {
-
         /// <summary>
         /// Insere um novo grupo de contas
         /// </summary>
@@ -49,6 +48,7 @@ namespace Negocio
                     if (_grupoConta != null)
                     {
                         _grupoConta.Descricao = grupoConta.Descricao;
+                        context.Update(_grupoConta);
                         context.SaveChanges();
                     }
                 }
@@ -87,19 +87,16 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<GrupoConta> GetQuery()
+        private static IQueryable<GrupoConta> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from grupoConta in context.TbGrupoConta
-                            select new GrupoConta
-                            {
-                                CodGrupoConta = grupoConta.CodGrupoConta,
-                                Descricao = grupoConta.Descricao
-                            };
+            var query = from grupoConta in context.TbGrupoConta
+                        select new GrupoConta
+                        {
+                            CodGrupoConta = grupoConta.CodGrupoConta,
+                            Descricao = grupoConta.Descricao
+                        };
 
-                return query.AsNoTracking();
-            }
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -108,7 +105,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<GrupoConta> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -118,7 +118,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<GrupoConta> Obter(int codGrupoConta)
         {
-            return GetQuery().Where(grupoConta => grupoConta.CodGrupoConta == codGrupoConta).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(grupoConta => grupoConta.CodGrupoConta == codGrupoConta).ToList();
+            }
         }
 
         /// <summary>
@@ -128,7 +131,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<GrupoConta> ObterPorDescricao(string descricao)
         {
-            return GetQuery().Where(grupoConta => grupoConta.Descricao.StartsWith(descricao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(grupoConta => grupoConta.Descricao.StartsWith(descricao)).ToList();
+            }
         }
     }
 }

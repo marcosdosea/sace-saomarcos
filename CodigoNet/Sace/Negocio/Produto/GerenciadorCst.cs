@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public static class GerenciadorCst 
+    public static class GerenciadorCst
     {
         /// <summary>
         /// Insere um novo cst na base de dados
@@ -93,18 +93,15 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Cst> GetQuery()
+        private static IQueryable<Cst> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from cst in context.TbCsts
-                            select new Cst
-                            {
-                                CodCST = cst.CodCst,
-                                Descricao = cst.DescricaoCst,
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from cst in context.TbCsts
+                        select new Cst
+                        {
+                            CodCST = cst.CodCst,
+                            Descricao = cst.DescricaoCst,
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -113,7 +110,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Cst> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -123,7 +123,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Cst> Obter(string codCst)
         {
-            return GetQuery().Where(cst => cst.CodCST.Equals(codCst)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(cst => cst.CodCST.Equals(codCst)).ToList();
+            }
         }
 
         /// <summary>
@@ -133,7 +136,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Cst> ObterPorDescricao(string descricao)
         {
-            return GetQuery().Where(cst => cst.Descricao.StartsWith(descricao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(cst => cst.Descricao.StartsWith(descricao)).ToList();
+            }
         }
     }
 }

@@ -95,36 +95,32 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Loja> GetQuery()
+        private static IQueryable<Loja> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from loja in context.TbLojas
-                            select new Loja
-                            {
-                                CodLoja = loja.CodLoja,
-                                CodPessoa = loja.CodPessoa,
-                                Nome = loja.Nome,
-                                NomeServidorNfe = loja.NomeServidorNfe,
-                                PastaNfeAutorizados = loja.PastaNfeAutorizados,
-                                PastaNfeEnviado = loja.PastaNfeEnviado,
-                                PastaNfeEnvio = loja.PastaNfeEnvio,
-                                PastaNfeErro = loja.PastaNfeErro,
-                                PastaNfeEspelho = loja.PastaNfeEspelho,
-                                PastaNfeRetorno = loja.PastaNfeRetorno,
-                                PastaNfeValidado = loja.PastaNfeValidado,
-                                PastaNfeValidar = loja.PastaNfeValidar,
-                                Cnpj = loja.CodPessoaNavigation.CpfCnpj,
-                                CodMunicipioIBGE = loja.CodPessoaNavigation.CodMunicipiosIbge,
-                                Estado = loja.CodPessoaNavigation.Uf,
-                                Ie = loja.CodPessoaNavigation.Ie,
-                                NomePessoa = loja.CodPessoaNavigation.Nome,
-                                NumeroSequenciaNFeAtual = loja.NumeroSequenciaNfeAtual,
-                                NumeroSequenciaNFCeAtual = loja.NumeroSequencialNfceAtual
-                            };
-                return query.AsNoTracking();
-            }
-
+            var query = from loja in context.TbLojas
+                        select new Loja
+                        {
+                            CodLoja = loja.CodLoja,
+                            CodPessoa = loja.CodPessoa,
+                            Nome = loja.Nome,
+                            NomeServidorNfe = loja.NomeServidorNfe,
+                            PastaNfeAutorizados = loja.PastaNfeAutorizados,
+                            PastaNfeEnviado = loja.PastaNfeEnviado,
+                            PastaNfeEnvio = loja.PastaNfeEnvio,
+                            PastaNfeErro = loja.PastaNfeErro,
+                            PastaNfeEspelho = loja.PastaNfeEspelho,
+                            PastaNfeRetorno = loja.PastaNfeRetorno,
+                            PastaNfeValidado = loja.PastaNfeValidado,
+                            PastaNfeValidar = loja.PastaNfeValidar,
+                            Cnpj = loja.CodPessoaNavigation.CpfCnpj,
+                            CodMunicipioIBGE = loja.CodPessoaNavigation.CodMunicipiosIbge,
+                            Estado = loja.CodPessoaNavigation.Uf,
+                            Ie = loja.CodPessoaNavigation.Ie,
+                            NomePessoa = loja.CodPessoaNavigation.Nome,
+                            NumeroSequenciaNFeAtual = loja.NumeroSequenciaNfeAtual,
+                            NumeroSequenciaNFCeAtual = loja.NumeroSequencialNfceAtual
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -133,7 +129,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<Loja> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -143,7 +142,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<Loja> Obter(int codLoja)
         {
-            return GetQuery().Where(loja => loja.CodLoja == codLoja).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(loja => loja.CodLoja == codLoja).ToList();
+            }
         }
 
         /// <summary>
@@ -153,7 +155,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<Loja> ObterPorNome(string nome)
         {
-            return GetQuery().Where(loja => loja.Nome.StartsWith(nome)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(loja => loja.Nome.StartsWith(nome)).ToList();
+            }
         }
 
         /// <summary>
@@ -163,7 +168,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<Loja> ObterPorPessoa(long codPessoa)
         {
-            return GetQuery().Where(loja => loja.CodPessoa == codPessoa).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(loja => loja.CodPessoa == codPessoa).ToList();
+            }
         }
 
         /// <summary>
@@ -221,7 +229,6 @@ namespace Negocio
                 }
             }
         }
-
 
         private static void Atribuir(Loja loja, TbLoja _loja)
         {

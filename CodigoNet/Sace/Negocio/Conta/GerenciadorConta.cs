@@ -215,33 +215,30 @@ namespace Negocio
         /// Consulta para retornar dados da entidade quando houver saídas associadas
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Conta> GetQuery()
+        private static IQueryable<Conta> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from conta in context.TbConta
-                            orderby conta.CodConta
-                            select new Conta
-                            {
-                                CodConta = conta.CodConta,
-                                CodEntrada = (long)conta.CodEntrada,
-                                CodPagamento = conta.CodPagamento,
-                                CodPessoa = conta.CodPessoa,
-                                CF = conta.CodSaidaNavigation.PedidoGerado,
-                                CodPlanoConta = conta.CodPlanoConta,
-                                CodSaida = (long)conta.CodSaida,
-                                CodSituacao = conta.CodSituacao,
-                                DescricaoSituacao = conta.CodSituacaoNavigation.DescricaoSituacao,
-                                DataVencimento = conta.DataVencimento,
-                                Desconto = conta.Desconto,
-                                Observacao = conta.Observacao,
-                                TipoConta = conta.CodPlanoContaNavigation.CodTipoConta,
-                                FormatoConta = conta.FormatoConta,
-                                NumeroDocumento = conta.NumeroDocumento,
-                                Valor = conta.Valor
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from conta in context.TbConta
+                        orderby conta.CodConta
+                        select new Conta
+                        {
+                            CodConta = conta.CodConta,
+                            CodEntrada = (long)conta.CodEntrada,
+                            CodPagamento = conta.CodPagamento,
+                            CodPessoa = conta.CodPessoa,
+                            CF = conta.CodSaidaNavigation.PedidoGerado,
+                            CodPlanoConta = conta.CodPlanoConta,
+                            CodSaida = (long)conta.CodSaida,
+                            CodSituacao = conta.CodSituacao,
+                            DescricaoSituacao = conta.CodSituacaoNavigation.DescricaoSituacao,
+                            DataVencimento = conta.DataVencimento,
+                            Desconto = conta.Desconto,
+                            Observacao = conta.Observacao,
+                            TipoConta = conta.CodPlanoContaNavigation.CodTipoConta,
+                            FormatoConta = conta.FormatoConta,
+                            NumeroDocumento = conta.NumeroDocumento,
+                            Valor = conta.Valor
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -250,7 +247,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Conta> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -260,7 +260,10 @@ namespace Negocio
         /// <returns>código do cartão</returns>
         public static IEnumerable<Conta> Obter(long codConta)
         {
-            return GetQuery().Where(conta => conta.CodConta == codConta).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(conta => conta.CodConta == codConta).ToList();
+            }
         }
 
         /// <summary>
@@ -270,7 +273,10 @@ namespace Negocio
         /// <returns>código da entrada</returns>
         public static IEnumerable<Conta> ObterPorEntrada(long codEntrada)
         {
-            return GetQuery().Where(conta => conta.CodEntrada == codEntrada).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(conta => conta.CodEntrada == codEntrada).ToList();
+            }
         }
 
         /// <summary>
@@ -280,8 +286,10 @@ namespace Negocio
         /// <returns>código da saida</returns>
         public static IEnumerable<Conta> ObterPorSaida(long codSaida)
         {
-
-            return GetQuery().Where(conta => conta.CodSaida == codSaida).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(conta => conta.CodSaida == codSaida).ToList();
+            }
         }
 
 
@@ -328,7 +336,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Conta> ObterPorEntradaPagamento(long codEntrada, long codPagamento)
         {
-            return GetQuery().Where(conta => conta.CodEntrada == codEntrada && conta.CodPagamento == codPagamento).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(conta => conta.CodEntrada == codEntrada && conta.CodPagamento == codPagamento).ToList();
+
+            }
         }
 
 
@@ -340,9 +352,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Conta> ObterPorSaidaPagamento(long codSaida, long codPagamento)
         {
-            return GetQuery().Where(conta => conta.CodSaida == codSaida && conta.CodPagamento == codPagamento).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(conta => conta.CodSaida == codSaida && conta.CodPagamento == codPagamento).ToList();
+            }
         }
-
 
         /// <summary>
         /// Obter contas de uma determinada saida na situação
@@ -352,7 +366,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Conta> ObterPorSituacaoSaida(string codSituacao, long codSaida)
         {
-            return GetQuery().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodSaida == codSaida).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodSaida == codSaida).ToList();
+            }
         }
 
 
@@ -364,7 +381,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Conta> ObterPorSituacaoPessoa(string codSituacao, long codPessoa)
         {
-            return GetQuery().Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodPessoa == codPessoa).OrderBy(conta => conta.DataVencimento).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(conta => conta.CodSituacao.Equals(codSituacao) && conta.CodPessoa == codPessoa).OrderBy(conta => conta.DataVencimento).ToList();
+            }
         }
 
         /// <summary>
@@ -377,8 +397,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Conta> ObterPorSituacaoPessoaPeriodo(string situacao1, string situacao2, long codPessoa, DateTime dataInicial, DateTime dataFinal)
         {
-            return GetQuery().Where(conta => (conta.CodSituacao.Equals(situacao1) || conta.CodSituacao.Equals(situacao2)) &&
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(conta => (conta.CodSituacao.Equals(situacao1) || conta.CodSituacao.Equals(situacao2)) &&
                   conta.CodPessoa == codPessoa && conta.DataVencimento >= dataInicial && conta.DataVencimento <= dataFinal).OrderBy(conta => conta.DataVencimento).ToList();
+            }
         }
 
         /// <summary>

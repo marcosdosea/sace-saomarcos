@@ -16,7 +16,7 @@ namespace Negocio
         {
             try
             {
-                var _municipio = new TbMunicipiosIbge(); 
+                var _municipio = new TbMunicipiosIbge();
                 Atribuir(municipio, _municipio);
                 using (var context = new SaceContext())
                 {
@@ -88,19 +88,16 @@ namespace Negocio
             }
         }
 
-        private static IQueryable<MunicipiosIBGE> GetQuery()
+        private static IQueryable<MunicipiosIBGE> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from municipios in context.TbMunicipiosIbges
-                            select new MunicipiosIBGE
-                            {
-                                Codigo = municipios.Codigo,
-                                Municipio = municipios.Municipio,
-                                Uf = municipios.Uf
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from municipios in context.TbMunicipiosIbges
+                        select new MunicipiosIBGE
+                        {
+                            Codigo = municipios.Codigo,
+                            Municipio = municipios.Municipio,
+                            Uf = municipios.Uf
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -109,7 +106,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<MunicipiosIBGE> ObterTodos()
         {
-            return GetQuery().OrderBy(m=> m.Municipio).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).OrderBy(m => m.Municipio).ToList();
+            }
         }
 
         /// <summary>
@@ -118,9 +118,12 @@ namespace Negocio
         /// <returns></returns>
         public static MunicipiosIBGE ObterPorCidadeEstado(string municipio, string siglaEstado)
         {
-            return GetQuery().OrderBy(m => m.Municipio.Equals(municipio) && m.Uf.Equals(siglaEstado)).ToList().ElementAtOrDefault(0);
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).OrderBy(m => m.Municipio.Equals(municipio) && m.Uf.Equals(siglaEstado)).ToList().ElementAtOrDefault(0);
+            }
         }
-        
+
         /// <summary>
         /// Atribui os dados de Municipio à entidade Municipio
         /// </summary>

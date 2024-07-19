@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public static class GerenciadorFormaPagamento 
+    public static class GerenciadorFormaPagamento
     {
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Negocio
                 throw new DadosException("FormaPagamento", e.Message, e);
             }
         }
-       
+
         /// <summary>
         /// Atualiza forma de pagamento
         /// </summary>
@@ -94,21 +94,19 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<FormaPagamento> GetQuery()
+        private static IQueryable<FormaPagamento> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from formaPagamento in context.TbFormaPagamentos
-                            select new FormaPagamento
-                            {
-                                CodFormaPagamento = formaPagamento.CodFormaPagamento,
-                                DescontoAcrescimo = formaPagamento.DescontoAcrescimo,
-                                Descricao = formaPagamento.Descricao,
-                                Mapeamento = formaPagamento.Mapeamento,
-                                Parcelas = formaPagamento.Parcelas
-                            };
-                return query.AsNoTracking();
-            }
+
+            var query = from formaPagamento in context.TbFormaPagamentos
+                        select new FormaPagamento
+                        {
+                            CodFormaPagamento = formaPagamento.CodFormaPagamento,
+                            DescontoAcrescimo = formaPagamento.DescontoAcrescimo,
+                            Descricao = formaPagamento.Descricao,
+                            Mapeamento = formaPagamento.Mapeamento,
+                            Parcelas = formaPagamento.Parcelas
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -117,7 +115,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<FormaPagamento> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -127,7 +128,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<FormaPagamento> Obter(int codFormaPagamento)
         {
-            return GetQuery().Where(formaPagamento => formaPagamento.CodFormaPagamento == codFormaPagamento).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(formaPagamento => formaPagamento.CodFormaPagamento == codFormaPagamento).ToList();
+            }
         }
 
         /// <summary>

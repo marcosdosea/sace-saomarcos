@@ -6,13 +6,6 @@ namespace Negocio
 {
     public class GerenciadorTipoMovimentacaoConta
     {
-        private readonly SaceContext context;
-
-        public GerenciadorTipoMovimentacaoConta(SaceContext saceContext)
-        {
-            context = saceContext;
-        }
-
         /// <summary>
         /// Insere um novo tipo de movimentacao
         /// </summary>
@@ -22,14 +15,17 @@ namespace Negocio
         {
             try
             {
-                var _tipoMovimentacaoConta = new TbTipoMovimentacaoContum();
-                _tipoMovimentacaoConta.Descricao = tipoMovimentacaoConta.Descricao;
-                _tipoMovimentacaoConta.SomaSaldo = tipoMovimentacaoConta.SomaSaldo;
+                using (var context = new SaceContext())
+                {
+                    var _tipoMovimentacaoConta = new TbTipoMovimentacaoContum();
+                    _tipoMovimentacaoConta.Descricao = tipoMovimentacaoConta.Descricao;
+                    _tipoMovimentacaoConta.SomaSaldo = tipoMovimentacaoConta.SomaSaldo;
 
-                context.Add(_tipoMovimentacaoConta);
-                context.SaveChanges();
+                    context.Add(_tipoMovimentacaoConta);
+                    context.SaveChanges();
 
-                return _tipoMovimentacaoConta.CodTipoMovimentacao;
+                    return _tipoMovimentacaoConta.CodTipoMovimentacao;
+                }
             }
             catch (Exception e)
             {
@@ -43,25 +39,28 @@ namespace Negocio
         /// <param name="tipoMovimentacaoConta"></param>
         public void Atualizar(TipoMovimentacaoConta tipoMovimentacaoConta)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var _tipoMovimentacaoConta = context.TbTipoMovimentacaoConta.Find(tipoMovimentacaoConta.CodTipoMovimentacao);
-
-                if (_tipoMovimentacaoConta != null)
+                try
                 {
-                    _tipoMovimentacaoConta.Descricao = tipoMovimentacaoConta.Descricao;
-                    _tipoMovimentacaoConta.SomaSaldo = tipoMovimentacaoConta.SomaSaldo;
+                    var _tipoMovimentacaoConta = context.TbTipoMovimentacaoConta.Find(tipoMovimentacaoConta.CodTipoMovimentacao);
 
-                    context.SaveChanges();
+                    if (_tipoMovimentacaoConta != null)
+                    {
+                        _tipoMovimentacaoConta.Descricao = tipoMovimentacaoConta.Descricao;
+                        _tipoMovimentacaoConta.SomaSaldo = tipoMovimentacaoConta.SomaSaldo;
+
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new NegocioException("Tipo Mvimentação conta não encontrado");
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    throw new NegocioException("Tipo Mvimentação conta não encontrado");
+                    throw new DadosException("Tipo Movimentação Conta", e.Message, e);
                 }
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Tipo Movimentação Conta", e.Message, e);
             }
         }
 
@@ -69,18 +68,21 @@ namespace Negocio
         /// Remove um tipo de movimentacao de conta
         /// </summary>
         /// <param name="codTipoMovimentacaoConta"></param>
-        public void Remover(Int32 codTipoMovimentacaoConta)
+        public void Remover(int codTipoMovimentacaoConta)
         {
-            try
+            using (var context = new SaceContext())
             {
-                var tipoMovimentacaoConta = new TbTipoMovimentacaoContum();
-                tipoMovimentacaoConta.CodTipoMovimentacao = codTipoMovimentacaoConta;
-                context.Remove(tipoMovimentacaoConta);
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw new DadosException("Tipo Movimentação Conta", e.Message, e);
+                try
+                {
+                    var tipoMovimentacaoConta = new TbTipoMovimentacaoContum();
+                    tipoMovimentacaoConta.CodTipoMovimentacao = codTipoMovimentacaoConta;
+                    context.Remove(tipoMovimentacaoConta);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new DadosException("Tipo Movimentação Conta", e.Message, e);
+                }
             }
         }
 
@@ -88,7 +90,7 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private IQueryable<TipoMovimentacaoConta> GetQuery()
+        private IQueryable<TipoMovimentacaoConta> GetQuery(SaceContext context)
         {
             var query = from tipoMovimentacaoConta in context.TbTipoMovimentacaoConta
                         select new TipoMovimentacaoConta
@@ -106,7 +108,10 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<TipoMovimentacaoConta> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -116,7 +121,10 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<TipoMovimentacaoConta> Obter(int codTipoMovimentacaoConta)
         {
-            return GetQuery().Where(tmc => tmc.CodTipoMovimentacao == codTipoMovimentacaoConta).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(tmc => tmc.CodTipoMovimentacao == codTipoMovimentacaoConta).ToList();
+            }
         }
 
         /// <summary>
@@ -126,7 +134,10 @@ namespace Negocio
         /// <returns></returns>
         public IEnumerable<TipoMovimentacaoConta> ObterPorDescricao(string descricao)
         {
-            return GetQuery().Where(tmc => tmc.Descricao.StartsWith(descricao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(tmc => tmc.Descricao.StartsWith(descricao)).ToList();
+            }
         }
     }
 }

@@ -136,42 +136,40 @@ namespace Negocio
         /// Query Geral para obter dados das nfes
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<NfeControle> GetQuery()
+        private static IQueryable<NfeControle> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from nfe in context.TbNves
-                            select new NfeControle
-                            {
-                                Chave = nfe.Chave,
-                                CodNfe = nfe.CodNfe,
-                                JustificativaCancelamento = nfe.JustificativaCancelamento,
-                                MensagemSituacaoReciboEnvio = nfe.MensagemSituacaoReciboEnvio,
-                                MensagemSitucaoProtocoloCancelamento = nfe.MensagemSituacaoProtocoloCancelamento,
-                                MensagemSitucaoProtocoloUso = nfe.MensagemSituacaoProtocoloUso,
-                                NumeroLoteEnvio = nfe.NumeroLoteEnvio,
-                                NumeroProtocoloCancelamento = nfe.NumeroProtocoloCancelamento,
-                                NumeroProtocoloUso = nfe.NumeroProtocoloUso,
-                                NumeroRecibo = nfe.NumeroRecibo,
-                                SituacaoNfe = nfe.SituacaoNfe,
-                                SituacaoProtocoloCancelamento = nfe.SituacaoProtocoloCancelamento,
-                                SituacaoProtocoloUso = nfe.SituacaoProtocoloUso,
-                                SituacaoReciboEnvio = nfe.SituacaoReciboEnvio,
-                                DataEmissao = nfe.DataEmissao,
-                                DataCancelamento = nfe.DataCancelamento,
-                                Correcao = nfe.Correcao,
-                                DataCartaCorrecao = nfe.DataCartaCorrecao,
-                                MensagemSitucaoCartaCorrecao = nfe.MensagemSitucaoCartaCorrecao,
-                                NumeroProtocoloCartaCorrecao = nfe.NumeroProtocoloCartaCorrecao,
-                                SeqCartaCorrecao = nfe.SeqCartaCorrecao,
-                                SituacaoProtocoloCartaCorrecao = nfe.SituacaoProtocoloCartaCorrecao,
-                                NumeroSequenciaNfe = nfe.NumeroSequenciaNfe,
-                                Modelo = nfe.Modelo,
-                                CodLoja = nfe.CodLoja,
-                                CodSolicitacao = nfe.CodSolicitacao
-                            };
-                return query.AsNoTracking();
-            }
+
+            var query = from nfe in context.TbNves
+                        select new NfeControle
+                        {
+                            Chave = nfe.Chave,
+                            CodNfe = nfe.CodNfe,
+                            JustificativaCancelamento = nfe.JustificativaCancelamento,
+                            MensagemSituacaoReciboEnvio = nfe.MensagemSituacaoReciboEnvio,
+                            MensagemSitucaoProtocoloCancelamento = nfe.MensagemSituacaoProtocoloCancelamento,
+                            MensagemSitucaoProtocoloUso = nfe.MensagemSituacaoProtocoloUso,
+                            NumeroLoteEnvio = nfe.NumeroLoteEnvio,
+                            NumeroProtocoloCancelamento = nfe.NumeroProtocoloCancelamento,
+                            NumeroProtocoloUso = nfe.NumeroProtocoloUso,
+                            NumeroRecibo = nfe.NumeroRecibo,
+                            SituacaoNfe = nfe.SituacaoNfe,
+                            SituacaoProtocoloCancelamento = nfe.SituacaoProtocoloCancelamento,
+                            SituacaoProtocoloUso = nfe.SituacaoProtocoloUso,
+                            SituacaoReciboEnvio = nfe.SituacaoReciboEnvio,
+                            DataEmissao = nfe.DataEmissao,
+                            DataCancelamento = nfe.DataCancelamento,
+                            Correcao = nfe.Correcao,
+                            DataCartaCorrecao = nfe.DataCartaCorrecao,
+                            MensagemSitucaoCartaCorrecao = nfe.MensagemSitucaoCartaCorrecao,
+                            NumeroProtocoloCartaCorrecao = nfe.NumeroProtocoloCartaCorrecao,
+                            SeqCartaCorrecao = nfe.SeqCartaCorrecao,
+                            SituacaoProtocoloCartaCorrecao = nfe.SituacaoProtocoloCartaCorrecao,
+                            NumeroSequenciaNfe = nfe.NumeroSequenciaNfe,
+                            Modelo = nfe.Modelo,
+                            CodLoja = nfe.CodLoja,
+                            CodSolicitacao = nfe.CodSolicitacao
+                        };
+            return query.AsNoTracking();
         }
 
 
@@ -181,7 +179,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<NfeControle> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -190,7 +191,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<NfeControle> ObterPorChave(string chave)
         {
-            return GetQuery().Where(nc => nc.Chave.Equals(chave)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(nc => nc.Chave.Equals(chave)).ToList();
+            }
         }
 
         /// <summary>
@@ -199,7 +203,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<NfeControle> ObterPorLote(string numeroLote)
         {
-            return GetQuery().Where(nc => nc.NumeroLoteEnvio.Equals(numeroLote)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(nc => nc.NumeroLoteEnvio.Equals(numeroLote)).ToList();
+            }
         }
 
         /// <summary>
@@ -208,7 +215,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<NfeControle> ObterPorRecibo(string numeroRecibo)
         {
-            return GetQuery().Where(nc => nc.NumeroRecibo.Equals(numeroRecibo)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(nc => nc.NumeroRecibo.Equals(numeroRecibo)).ToList();
+            }
         }
 
         /// <summary>
@@ -217,7 +227,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<NfeControle> ObterPorSolicitacao(long codSolicitacao)
         {
-            return GetQuery().Where(nc => nc.CodSolicitacao == codSolicitacao).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(nc => nc.CodSolicitacao == codSolicitacao).ToList();
+            }
         }
 
         /// <summary>
@@ -227,7 +240,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<NfeControle> Obter(int codNfe)
         {
-            return GetQuery().Where(nfe => nfe.CodNfe == codNfe).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(nfe => nfe.CodNfe == codNfe).ToList();
+            }
         }
 
         /// <summary>
@@ -237,7 +253,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<NfeControle> ObterPorSituacao(string situacao)
         {
-            return GetQuery().Where(nfe => nfe.SituacaoNfe.Equals(situacao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(nfe => nfe.SituacaoNfe.Equals(situacao)).ToList();
+            }
         }
 
         /// <summary>
@@ -248,7 +267,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<NfeControle> ObterPorNumeroNfeLojaModelo(int numeroSequenciaNfe, int codLoja, string modelo)
         {
-            return GetQuery().Where(nfe => nfe.NumeroSequenciaNfe == numeroSequenciaNfe && nfe.CodLoja == codLoja && nfe.Modelo.Equals(modelo)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(nfe => nfe.NumeroSequenciaNfe == numeroSequenciaNfe && nfe.CodLoja == codLoja && nfe.Modelo.Equals(modelo)).ToList();
+            }
         }
 
         /// <summary>
@@ -258,7 +280,10 @@ namespace Negocio
         /// <returns></returns>
         public static object ObterPorLoja(int codLoja)
         {
-            return GetQuery().Where(nfe => nfe.CodLoja == codLoja).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(nfe => nfe.CodLoja == codLoja).ToList();
+            }
         }
 
         /// <summary>

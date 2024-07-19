@@ -6,7 +6,7 @@ namespace Negocio
 {
     public static class GerenciadorPlanoConta
     {
-       
+
         /// <summary>
         /// Insere um novo plano de contas
         /// </summary>
@@ -98,22 +98,19 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<PlanoConta> GetQuery()
+        private static IQueryable<PlanoConta> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from planoConta in context.TbPlanoConta
-                            select new PlanoConta
-                            {
-                                CodPlanoConta = planoConta.CodPlanoConta,
-                                CodGrupoConta = planoConta.CodGrupoConta,
-                                Descricao = planoConta.Descricao,
-                                DiaBase = planoConta.DiaBase == null ? (short)1 : (short)planoConta.DiaBase,
-                                TipoConta = planoConta.CodTipoConta,
-                                DescricaoTipoConta = planoConta.CodTipoContaNavigation.DescricaoTipoConta
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from planoConta in context.TbPlanoConta
+                        select new PlanoConta
+                        {
+                            CodPlanoConta = planoConta.CodPlanoConta,
+                            CodGrupoConta = planoConta.CodGrupoConta,
+                            Descricao = planoConta.Descricao,
+                            DiaBase = planoConta.DiaBase == null ? (short)1 : (short)planoConta.DiaBase,
+                            TipoConta = planoConta.CodTipoConta,
+                            DescricaoTipoConta = planoConta.CodTipoContaNavigation.DescricaoTipoConta
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -122,7 +119,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<PlanoConta> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -132,7 +132,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<PlanoConta> Obter(int codPlanoConta)
         {
-            return GetQuery().Where(planoConta => planoConta.CodPlanoConta == codPlanoConta).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(planoConta => planoConta.CodPlanoConta == codPlanoConta).ToList();
+            }
         }
 
         /// <summary>
@@ -142,7 +145,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<PlanoConta> ObterPorDescricao(string descricao)
         {
-            return GetQuery().Where(planoConta => planoConta.Descricao.StartsWith(descricao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(planoConta => planoConta.Descricao.StartsWith(descricao)).ToList();
+            }
         }
 
         /// <summary>

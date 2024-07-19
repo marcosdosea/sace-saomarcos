@@ -133,27 +133,23 @@ namespace Negocio
         /// Query Geral para obter dados das movimentacoes
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<MovimentacaoConta> GetQuery()
+        private static IQueryable<MovimentacaoConta> GetQuery(SaceContext context)
         {
-
-            using (var context = new SaceContext())
-            {
-                var query = from movimentacao in context.TbMovimentacaoConta
-                            select new MovimentacaoConta
-                            {
-                                CodConta = (long)movimentacao.CodConta,
-                                CodContaBanco = movimentacao.CodContaBanco,
-                                CodMovimentacao = movimentacao.CodMovimentacao,
-                                CodResponsavel = movimentacao.CodResponsavel,
-                                NomeResponsavel = movimentacao.CodResponsavelNavigation.Nome,
-                                CodTipoMovimentacao = movimentacao.CodTipoMovimentacao,
-                                DescricaoTipoMovimentacao = movimentacao.CodTipoMovimentacaoNavigation.Descricao,
-                                DataHora = movimentacao.DataHora,
-                                SomaSaldo = movimentacao.CodTipoMovimentacaoNavigation.SomaSaldo,
-                                Valor = movimentacao.Valor
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from movimentacao in context.TbMovimentacaoConta
+                        select new MovimentacaoConta
+                        {
+                            CodConta = (long)movimentacao.CodConta,
+                            CodContaBanco = movimentacao.CodContaBanco,
+                            CodMovimentacao = movimentacao.CodMovimentacao,
+                            CodResponsavel = movimentacao.CodResponsavel,
+                            NomeResponsavel = movimentacao.CodResponsavelNavigation.Nome,
+                            CodTipoMovimentacao = movimentacao.CodTipoMovimentacao,
+                            DescricaoTipoMovimentacao = movimentacao.CodTipoMovimentacaoNavigation.Descricao,
+                            DataHora = movimentacao.DataHora,
+                            SomaSaldo = movimentacao.CodTipoMovimentacaoNavigation.SomaSaldo,
+                            Valor = movimentacao.Valor
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -163,9 +159,11 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<MovimentacaoConta> Obter(long codMovimentacao)
         {
-            return GetQuery().Where(m => m.CodMovimentacao == codMovimentacao).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(m => m.CodMovimentacao == codMovimentacao).ToList();
+            }
         }
-
         /// <summary>
         /// Obter movimentacoes por conta
         /// </summary>
@@ -173,7 +171,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<MovimentacaoConta> ObterPorConta(long codConta)
         {
-            return GetQuery().Where(m => m.CodConta == codConta).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(m => m.CodConta == codConta).ToList();
+            }
         }
 
         /// <summary>
@@ -183,7 +184,10 @@ namespace Negocio
         /// <returns> Contas </returns>
         public static IEnumerable<MovimentacaoConta> ObterPorContas(List<long> listaCodContas)
         {
-            return GetQuery().Where(m => listaCodContas.Contains(m.CodConta)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(m => listaCodContas.Contains(m.CodConta)).ToList();
+            }
         }
 
 
@@ -193,7 +197,6 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<TotaisMovimentacaoConta> ObterTotalMovimentacaoContaPeriodo(int codContaBanco, DateTime dataInicial, DateTime dataFinal)
         {
-
             using (var context = new SaceContext())
             {
                 var query = from movimentacao in context.TbMovimentacaoConta
@@ -221,8 +224,7 @@ namespace Negocio
         /// <returns></returns>
         public static IQueryable<MovimentacaoPeriodo> ObterMovimentacaoContaPeriodo(DateTime dataInicio, DateTime dataFim)
         {
-            
-            DateTime dataBuscaInicio = dataInicio.Date;
+           DateTime dataBuscaInicio = dataInicio.Date;
             DateTime dataBuscaFim = dataFim.Date.AddDays(1).AddMinutes(-1);
 
             using (var context = new SaceContext())
