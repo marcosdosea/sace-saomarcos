@@ -76,7 +76,8 @@ namespace Negocio
                     {
                         context.Remove(_pontaEstoque);
                         context.SaveChanges();
-                    } else
+                    }
+                    else
                     {
                         throw new NegocioException("Ponta de estoque não encontrada para remoção");
                     }
@@ -92,21 +93,18 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<PontaEstoque> GetQuery()
+        private static IQueryable<PontaEstoque> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from pontaEstoque in context.TbPontaEstoques
-                            select new PontaEstoque
-                            {
-                                CodPontaEstoque = pontaEstoque.CodPontaEstoque,
-                                Quantidade = pontaEstoque.Quantidade,
-                                Caracteristica = pontaEstoque.Caracteristica,
-                                CodProduto = pontaEstoque.CodProduto,
-                                NomeProduto = pontaEstoque.CodProdutoNavigation.Nome
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from pontaEstoque in context.TbPontaEstoques
+                        select new PontaEstoque
+                        {
+                            CodPontaEstoque = pontaEstoque.CodPontaEstoque,
+                            Quantidade = pontaEstoque.Quantidade,
+                            Caracteristica = pontaEstoque.Caracteristica,
+                            CodProduto = pontaEstoque.CodProduto,
+                            NomeProduto = pontaEstoque.CodProdutoNavigation.Nome
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -115,7 +113,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<PontaEstoque> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -125,7 +126,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<PontaEstoque> Obter(long codPontaEstoque)
         {
-            return GetQuery().Where(pontaEstoque => pontaEstoque.CodPontaEstoque == codPontaEstoque).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pontaEstoque => pontaEstoque.CodPontaEstoque == codPontaEstoque).ToList();
+            }
         }
 
         /// <summary>
@@ -135,7 +139,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<PontaEstoque> ObterPorProduto(long codProduto)
         {
-            return GetQuery().Where(pontaEstoque => pontaEstoque.CodProduto.Equals(codProduto)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pontaEstoque => pontaEstoque.CodProduto.Equals(codProduto)).ToList();
+            }
         }
 
         private static void Atribuir(PontaEstoque pontaEstoque, TbPontaEstoque _pontaEstoque)

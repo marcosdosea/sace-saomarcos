@@ -152,31 +152,28 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<SaidaPagamento> GetQuery()
+        private static IQueryable<SaidaPagamento> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from saidaPagamento in context.TbSaidaFormaPagamentos
-                            select new SaidaPagamento
-                            {
-                                CodCartaoCredito = saidaPagamento.CodCartao,
-                                CodContaBanco = saidaPagamento.CodContaBanco,
-                                DescricaoContaBanco = saidaPagamento.CodContaBancoNavigation.Descricao,
-                                CodFormaPagamento = saidaPagamento.CodFormaPagamento,
-                                CodSaida = saidaPagamento.CodSaida,
-                                CodSaidaPagamento = saidaPagamento.CodSaidaFormaPagamento,
-                                Data = (DateTime)saidaPagamento.Data,
-                                DescricaoFormaPagamento = saidaPagamento.CodFormaPagamentoNavigation.Descricao,
-                                IntervaloDias = (int)saidaPagamento.IntervaloDias,
-                                MapeamentoCartao = saidaPagamento.CodCartaoNavigation.Mapeamento,
-                                MapeamentoFormaPagamento = saidaPagamento.CodFormaPagamentoNavigation.Mapeamento,
-                                NomeCartaoCredito = saidaPagamento.CodCartaoNavigation.Nome,
-                                Parcelas = (int)saidaPagamento.Parcelas,
-                                Valor = (decimal)saidaPagamento.Valor,
-                                NumeroControle = saidaPagamento.NumeroControle
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from saidaPagamento in context.TbSaidaFormaPagamentos
+                        select new SaidaPagamento
+                        {
+                            CodCartaoCredito = saidaPagamento.CodCartao,
+                            CodContaBanco = saidaPagamento.CodContaBanco,
+                            DescricaoContaBanco = saidaPagamento.CodContaBancoNavigation.Descricao,
+                            CodFormaPagamento = saidaPagamento.CodFormaPagamento,
+                            CodSaida = saidaPagamento.CodSaida,
+                            CodSaidaPagamento = saidaPagamento.CodSaidaFormaPagamento,
+                            Data = (DateTime)saidaPagamento.Data,
+                            DescricaoFormaPagamento = saidaPagamento.CodFormaPagamentoNavigation.Descricao,
+                            IntervaloDias = (int)saidaPagamento.IntervaloDias,
+                            MapeamentoCartao = saidaPagamento.CodCartaoNavigation.Mapeamento,
+                            MapeamentoFormaPagamento = saidaPagamento.CodFormaPagamentoNavigation.Mapeamento,
+                            NomeCartaoCredito = saidaPagamento.CodCartaoNavigation.Nome,
+                            Parcelas = (int)saidaPagamento.Parcelas,
+                            Valor = (decimal)saidaPagamento.Valor,
+                            NumeroControle = saidaPagamento.NumeroControle
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -186,7 +183,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaPagamento> Obter(long codSaidaPagamento)
         {
-            return GetQuery().Where(sp => sp.CodSaidaPagamento == codSaidaPagamento).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(sp => sp.CodSaidaPagamento == codSaidaPagamento).ToList();
+            }
         }
 
         /// <summary>
@@ -196,7 +196,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaPagamento> ObterPorSaida(long codSaida)
         {
-            return GetQuery().Where(sp => sp.CodSaida == codSaida).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(sp => sp.CodSaida == codSaida).ToList();
+            }
         }
 
 
@@ -207,7 +210,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaPagamento> ObterPorSaidas(List<long> listaCodSaidas)
         {
-            return GetQuery().Where(sp => listaCodSaidas.Contains(sp.CodSaida)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(sp => listaCodSaidas.Contains(sp.CodSaida)).ToList();
+            }
         }
 
         /// <summary>
@@ -217,7 +223,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaPagamento> ObterPorSaidaFormaPagamento(long codSaida, int codFormaPagamento)
         {
-            return GetQuery().Where(sp => sp.CodSaida == codSaida && sp.CodFormaPagamento == codFormaPagamento).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(sp => sp.CodSaida == codSaida && sp.CodFormaPagamento == codFormaPagamento).ToList();
+            }
         }
 
         /// <summary>

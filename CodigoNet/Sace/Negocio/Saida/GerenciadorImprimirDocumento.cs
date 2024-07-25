@@ -50,7 +50,8 @@ namespace Negocio
                     {
                         context.Remove(_imprimirDocumento);
                         context.SaveChanges();
-                    } else
+                    }
+                    else
                     {
                         throw new NegocioException("Não encontrou documento para exclusão.");
                     }
@@ -66,23 +67,20 @@ namespace Negocio
         /// Consulta padrão para retornar dados do cartão de crédito
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<ImprimirDocumento> GetQuery()
+        private static IQueryable<ImprimirDocumento> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from imprimir in context.TbImprimirDocumentos
-                            select new ImprimirDocumento
-                            {
-                                CodDocumento = imprimir.CodDocumento,
-                                TipoDocumento = imprimir.TipoDocumento,
-                                CodImprimir = imprimir.CodImprimir,
-                                Desconto = imprimir.Desconto,
-                                HostSolicitante = imprimir.HostSolicitante,
-                                Total = imprimir.Total,
-                                TotalAvista = imprimir.TotalAvista
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from imprimir in context.TbImprimirDocumentos
+                        select new ImprimirDocumento
+                        {
+                            CodDocumento = imprimir.CodDocumento,
+                            TipoDocumento = imprimir.TipoDocumento,
+                            CodImprimir = imprimir.CodImprimir,
+                            Desconto = imprimir.Desconto,
+                            HostSolicitante = imprimir.HostSolicitante,
+                            Total = imprimir.Total,
+                            TotalAvista = imprimir.TotalAvista
+                        };
+            return query.AsNoTracking();
         }
         /// <summary>
         /// Obter todos os ImprimirDocumentos pelo tipo documento
@@ -90,10 +88,13 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ImprimirDocumento> ObterPorTipoDocumento(string tipoDocumento)
         {
-            return GetQuery().
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).
                 Where(d => d.TipoDocumento == tipoDocumento).
                 OrderBy(d => d.CodImprimir).
                 ToList();
+            }
         }
 
         /// <summary>
@@ -102,10 +103,13 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ImprimirDocumento> ObterPorHost(string host)
         {
-            return GetQuery().
-                Where(d => d.HostSolicitante.Equals(host) ).
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).
+                Where(d => d.HostSolicitante.Equals(host)).
                 OrderBy(d => d.CodImprimir).
                 ToList();
+            }
         }
 
 
@@ -115,10 +119,13 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ImprimirDocumento> ObterPorTipoDocumentoCodDocumento(string tipoDocumento, long codDocumento)
         {
-            return GetQuery().
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).
                 Where(d => d.TipoDocumento.Equals(tipoDocumento) && d.CodDocumento.Equals(codDocumento)).
                 OrderBy(d => d.CodImprimir).
                 ToList();
+            }
         }
 
 
@@ -128,10 +135,13 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ImprimirDocumento> ObterPorTipoDocumentoHost(string tipoDocumento, string host)
         {
-            return GetQuery().
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).
                 Where(d => d.TipoDocumento.Equals(tipoDocumento) && d.HostSolicitante.Equals(host)).
                 OrderBy(d => d.CodImprimir).
                 ToList();
+            }
         }
 
         private static void Atribuir(ImprimirDocumento documento, TbImprimirDocumento _documento)

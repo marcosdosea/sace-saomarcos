@@ -6,7 +6,7 @@ namespace Negocio
 {
     public static class GerenciadorSaidaPedido
     {
-        
+
         /// <summary>
         /// Insere dados de saídas associadas a um pedido
         /// </summary>
@@ -62,7 +62,7 @@ namespace Negocio
             {
                 throw new DadosException("Saída", e.Message, e);
             }
-            
+
         }
 
         /// <summary>
@@ -120,22 +120,19 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<SaidaPedido> GetQuery()
+        private static IQueryable<SaidaPedido> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from saidaPedido in context.TbSaidaPedidos
-                            select new SaidaPedido
-                            {
-                                CodPedido = saidaPedido.CodPedidoGerado,
-                                CodSaida = saidaPedido.CodSaida,
-                                TotalAVista = saidaPedido.TotalAvista
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from saidaPedido in context.TbSaidaPedidos
+                        select new SaidaPedido
+                        {
+                            CodPedido = saidaPedido.CodPedidoGerado,
+                            CodSaida = saidaPedido.CodSaida,
+                            TotalAVista = saidaPedido.TotalAvista
+                        };
+            return query.AsNoTracking();
         }
 
-        
+
         /// <summary>
         /// Obtém todos os pedidos associados a uma saída
         /// </summary>
@@ -143,7 +140,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaPedido> ObterPorSaida(long codSaida)
         {
-            return GetQuery().Where(sp => sp.CodSaida == codSaida).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(sp => sp.CodSaida == codSaida).ToList();
+            }
         }
 
         /// <summary>
@@ -153,7 +153,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaPedido> ObterPorSaida(List<SaidaPesquisa> saidas)
         {
-            return GetQuery().Where(sp => saidas.Select(s=>s.CodSaida).Contains(sp.CodSaida)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(sp => saidas.Select(s => s.CodSaida).Contains(sp.CodSaida)).ToList();
+            }
         }
 
         /// <summary>
@@ -188,7 +191,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaPedido> ObterPorPedido(long codPedido)
         {
-            return GetQuery().Where(sp => sp.CodPedido == codPedido).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(sp => sp.CodPedido == codPedido).ToList();
+            }
         }
     }
 }

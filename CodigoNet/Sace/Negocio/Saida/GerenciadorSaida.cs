@@ -454,82 +454,77 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Saida> GetQuery()
+        private static IQueryable<Saida> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from saida in context.TbSaida
-                            select new Saida
-                            {
-                                BaseCalculoICMS = (decimal)saida.BaseCalculoIcms,
-                                BaseCalculoICMSSubst = (decimal)saida.BaseCalculoIcmssubst,
-                                CodCliente = saida.CodCliente,
-                                CodEmpresaFrete = saida.CodEmpresaFrete,
-                                CodProfissional = (long)saida.CodProfissional,
-                                CodEntrada = saida.CodEntrada,
-                                CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
-                                CodSaida = saida.CodSaida,
-                                CpfCnpj = saida.CpfCnpj,
-                                DataSaida = saida.DataSaida,
-                                Desconto = (decimal)saida.Desconto,
-                                DescricaoSituacaoPagamentos = saida.CodSituacaoPagamentosNavigation.DescricaoSituacaoPagamentos,
-                                DescricaoTipoSaida = saida.CodTipoSaidaNavigation.DescricaoTipoSaida,
-                                EntregaRealizada = (bool)saida.EntregaRealizada,
-                                EspecieVolumes = saida.EspecieVolumes,
-                                Marca = saida.Marca,
-                                Nfe = saida.Nfe == null ? "" : saida.Nfe,
-                                NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
-                                LoginVendedor = saida.CodProfissionalNavigation.TbUsuario.Login,
-                                Numero = (decimal)saida.Numero,
-                                NumeroCartaoVenda = (int)saida.NumeroCartaoVenda,
-                                OutrasDespesas = (decimal)saida.OutrasDespesas,
-                                Observacao = saida.Observacao,
-                                CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
-                                DataEmissaoCupomFiscal = saida.DataEmissaoDocFiscal == null ? saida.DataSaida : (DateTime)saida.DataEmissaoDocFiscal,
-                                PesoBruto = (decimal)saida.PesoBruto,
-                                PesoLiquido = (decimal)saida.PesoLiquido,
-                                QuantidadeVolumes = (decimal)saida.QuantidadeVolumes,
-                                TipoSaida = saida.CodTipoSaida,
-                                Total = (decimal)saida.Total,
-                                TotalAVista = (decimal)saida.TotalAvista,
-                                TotalLucro = (decimal)saida.TotalLucro,
-                                TotalNotaFiscal = (decimal)saida.TotalNotaFiscal,
-                                TotalPago = (decimal)saida.TotalPago,
-                                Troco = (decimal)saida.Troco,
-                                ValorFrete = (decimal)saida.ValorFrete,
-                                ValorICMS = (decimal)saida.ValorIcms,
-                                ValorICMSSubst = (decimal)saida.ValorIcmssubst,
-                                ValorIPI = (decimal)saida.ValorIpi,
-                                ValorSeguro = (decimal)saida.ValorSeguro,
-                                CodLojaOrigem = saida.CodLojaOrigem,
-                                TipoDocumentoFiscal = saida.TipoDocumentoFiscal
-                            };
-                return query.AsNoTracking();
-            }
+
+            var query = from saida in context.TbSaida
+                        select new Saida
+                        {
+                            BaseCalculoICMS = (decimal)saida.BaseCalculoIcms,
+                            BaseCalculoICMSSubst = (decimal)saida.BaseCalculoIcmssubst,
+                            CodCliente = saida.CodCliente,
+                            CodEmpresaFrete = saida.CodEmpresaFrete,
+                            CodProfissional = (long)saida.CodProfissional,
+                            CodEntrada = saida.CodEntrada,
+                            CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
+                            CodSaida = saida.CodSaida,
+                            CpfCnpj = saida.CpfCnpj,
+                            DataSaida = saida.DataSaida,
+                            Desconto = (decimal)saida.Desconto,
+                            DescricaoSituacaoPagamentos = saida.CodSituacaoPagamentosNavigation.DescricaoSituacaoPagamentos,
+                            DescricaoTipoSaida = saida.CodTipoSaidaNavigation.DescricaoTipoSaida,
+                            EntregaRealizada = (bool)saida.EntregaRealizada,
+                            EspecieVolumes = saida.EspecieVolumes,
+                            Marca = saida.Marca,
+                            Nfe = saida.Nfe == null ? "" : saida.Nfe,
+                            NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
+                            LoginVendedor = saida.CodProfissionalNavigation.TbUsuario.Login,
+                            Numero = (decimal)saida.Numero,
+                            NumeroCartaoVenda = (int)saida.NumeroCartaoVenda,
+                            OutrasDespesas = (decimal)saida.OutrasDespesas,
+                            Observacao = saida.Observacao,
+                            CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
+                            DataEmissaoCupomFiscal = saida.DataEmissaoDocFiscal == null ? saida.DataSaida : (DateTime)saida.DataEmissaoDocFiscal,
+                            PesoBruto = (decimal)saida.PesoBruto,
+                            PesoLiquido = (decimal)saida.PesoLiquido,
+                            QuantidadeVolumes = (decimal)saida.QuantidadeVolumes,
+                            TipoSaida = saida.CodTipoSaida,
+                            Total = (decimal)saida.Total,
+                            TotalAVista = (decimal)saida.TotalAvista,
+                            TotalLucro = (decimal)saida.TotalLucro,
+                            TotalNotaFiscal = (decimal)saida.TotalNotaFiscal,
+                            TotalPago = (decimal)saida.TotalPago,
+                            Troco = (decimal)saida.Troco,
+                            ValorFrete = (decimal)saida.ValorFrete,
+                            ValorICMS = (decimal)saida.ValorIcms,
+                            ValorICMSSubst = (decimal)saida.ValorIcmssubst,
+                            ValorIPI = (decimal)saida.ValorIpi,
+                            ValorSeguro = (decimal)saida.ValorSeguro,
+                            CodLojaOrigem = saida.CodLojaOrigem,
+                            TipoDocumentoFiscal = saida.TipoDocumentoFiscal
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<SaidaPesquisa> GetQueryPesquisa()
+        private static IQueryable<SaidaPesquisa> GetQueryPesquisa(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from saida in context.TbSaida
-                            select new SaidaPesquisa
-                            {
-                                CodSaida = saida.CodSaida,
-                                DataSaida = saida.DataSaida,
-                                CodCliente = saida.CodCliente,
-                                NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
-                                CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
-                                TotalAVista = (decimal)saida.TotalAvista,
-                                CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
-                                TipoSaida = saida.CodTipoSaida
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from saida in context.TbSaida
+                        select new SaidaPesquisa
+                        {
+                            CodSaida = saida.CodSaida,
+                            DataSaida = saida.DataSaida,
+                            CodCliente = saida.CodCliente,
+                            NomeCliente = saida.CodClienteNavigation.NomeFantasia,// cliente.nomeFantasia,
+                            CupomFiscal = saida.PedidoGerado == null ? "" : saida.PedidoGerado,
+                            TotalAVista = (decimal)saida.TotalAvista,
+                            CodSituacaoPagamentos = saida.CodSituacaoPagamentos,
+                            TipoSaida = saida.CodTipoSaida
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -539,11 +534,14 @@ namespace Negocio
         /// <returns></returns>
         public static Saida Obter(long codSaida)
         {
-            List<Saida> saidas = GetQuery().Where(saida => saida.CodSaida == codSaida).ToList();
-            if (saidas.Count == 1)
-                return saidas[0];
-            else
-                return null;
+            using (var context = new SaceContext())
+            {
+                List<Saida> saidas = GetQuery(context).Where(saida => saida.CodSaida == codSaida).ToList();
+                if (saidas.Count == 1)
+                    return saidas[0];
+                else
+                    return null;
+            }
         }
 
 
@@ -554,7 +552,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<Saida> ObterPorTipoSaida(List<int> listaTiposSaida)
         {
-            return GetQuery().Where(saida => listaTiposSaida.Contains(saida.TipoSaida)).OrderBy(s => s.CodSaida).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(saida => listaTiposSaida.Contains(saida.TipoSaida)).OrderBy(s => s.CodSaida).ToList();
+            }
         }
 
         /// <summary>
@@ -573,7 +574,10 @@ namespace Negocio
             {
                 // não precisa fazer nada
             }
-            return GetQuery().Where(saida => saida.DataSaida >= dataConvertida).OrderBy(s => s.CodSaida).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(saida => saida.DataSaida >= dataConvertida).OrderBy(s => s.CodSaida).ToList();
+            }
         }
 
 
@@ -582,7 +586,7 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public static List<SaidaPesquisa> ObterPorCupomFiscal(String cupomFiscal)
+        public static List<SaidaPesquisa> ObterPorCupomFiscal(string cupomFiscal)
         {
             using (var context = new SaceContext())
             {
@@ -644,7 +648,7 @@ namespace Negocio
                              select saida.CodSaida).Take(20);
                 List<long> listaSaidas = query.ToList();
 
-                return GetQuery().Where(saida => listaCodSaidasExibir.Contains(saida.TipoSaida) && (saida.CodSaida >= listaSaidas.Min() || saida.CodSaida == codSaidaInicial)).OrderBy(s => s.CodSaida).ToList();
+                return GetQuery(context).Where(saida => listaCodSaidasExibir.Contains(saida.TipoSaida) && (saida.CodSaida >= listaSaidas.Min() || saida.CodSaida == codSaidaInicial)).OrderBy(s => s.CodSaida).ToList();
             }
         }
 
@@ -656,8 +660,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<Saida> ObterSaidaPorAno(int ano)
         {
-            return GetQuery().Where(saida => saida.DataSaida.Year == 2017).OrderBy(s => s.CodSaida).ToList();
-
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(saida => saida.DataSaida.Year == 2017).OrderBy(s => s.CodSaida).ToList();
+            }
         }
         /// <summary>
         /// Obter Troco por Período para todos os pagamentos
@@ -790,7 +796,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaPesquisa> ObterPorNomeCliente(string nomeCliente)
         {
-            return GetQueryPesquisa().Where(saida => saida.NomeCliente.StartsWith(nomeCliente)).OrderBy(s => s.CodSaida).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQueryPesquisa(context).Where(saida => saida.NomeCliente.StartsWith(nomeCliente)).OrderBy(s => s.CodSaida).ToList();
+            }
         }
 
         /// <summary>
@@ -800,8 +809,11 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaPesquisa> ObterPreVendasPendentes()
         {
-            return GetQueryPesquisa().Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA &&
-                saida.CupomFiscal.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA && saida.CodCliente == UtilConfig.Default.CLIENTE_PADRAO).OrderBy(s => s.CodSaida).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQueryPesquisa(context).Where(saida => saida.TipoSaida == Saida.TIPO_PRE_VENDA &&
+                    saida.CupomFiscal.Trim().Equals("") && saida.CodSituacaoPagamentos == SituacaoPagamentos.QUITADA && saida.CodCliente == UtilConfig.Default.CLIENTE_PADRAO).OrderBy(s => s.CodSaida).ToList();
+            }
         }
 
 
@@ -812,11 +824,14 @@ namespace Negocio
         /// <returns></returns>
         public static List<Saida> ObterVendasParticipacaoLucros(DateTime dataInicial, DateTime dataFinal, decimal valorVenda)
         {
-            return GetQuery().Where(saida => (saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA || saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE_PERDA || saida.TipoSaida == Saida.TIPO_USO_INTERNO) &&
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(saida => (saida.TipoSaida == Saida.TIPO_PRE_VENDA || saida.TipoSaida == Saida.TIPO_VENDA || saida.TipoSaida == Saida.TIPO_BAIXA_ESTOQUE_PERDA || saida.TipoSaida == Saida.TIPO_USO_INTERNO) &&
                 saida.CodCliente != 1324 &&
                 saida.DataSaida >= dataInicial &&
                 saida.DataSaida <= dataFinal &&
                 saida.TotalAVista >= valorVenda).ToList();
+            }
         }
 
         public static NumerosPeriodo ObterVendasMensalComparandoAnoAnterior()
@@ -1641,7 +1656,7 @@ namespace Negocio
 
 
                     Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-                    Pessoa pessoaLoja = (Pessoa) GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+                    Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
 
                     imp.Imp(imp.Comprimido);
                     imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
@@ -1661,7 +1676,7 @@ namespace Negocio
                     imp.ImpColLFCentralizado(0, 59, pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1);
                     imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
 
-                    Pessoa cliente = (Pessoa) GerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
+                    Pessoa cliente = (Pessoa)GerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
                     imp.ImpLF("Cliente: " + cliente.NomeFantasia);
                     //imp.ImpColLF(39, "CPF/CNPJ: " + cliente.CpfCnpj);
                     if (saidas.Count == 1)
@@ -1842,7 +1857,7 @@ namespace Negocio
         {
             var printer = new Printer(portaImpressora, PrinterType.Bematech);
             Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-            Pessoa pessoaLoja = (Pessoa) GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+            Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
 
             printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
 

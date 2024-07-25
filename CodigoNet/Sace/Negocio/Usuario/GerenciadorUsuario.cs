@@ -101,22 +101,19 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Usuario> GetQuery()
+        private static IQueryable<Usuario> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from usuario in context.TbUsuarios
-                            select new Usuario
-                            {
-                                CodPessoa = usuario.CodPessoa,
-                                CodPerfil = (int)usuario.CodPerfil,
-                                Login = usuario.Login,
-                                NomePerfil = usuario.CodPerfilNavigation.Nome,
-                                NomePessoa = usuario.CodPessoaNavigation.Nome,
-                                Senha = usuario.Senha
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from usuario in context.TbUsuarios
+                        select new Usuario
+                        {
+                            CodPessoa = usuario.CodPessoa,
+                            CodPerfil = (int)usuario.CodPerfil,
+                            Login = usuario.Login,
+                            NomePerfil = usuario.CodPerfilNavigation.Nome,
+                            NomePessoa = usuario.CodPessoaNavigation.Nome,
+                            Senha = usuario.Senha
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -125,7 +122,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Usuario> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -135,7 +135,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Usuario> Obter(int codPessoa)
         {
-            return GetQuery().Where(usuario => usuario.CodPessoa == codPessoa).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(usuario => usuario.CodPessoa == codPessoa).ToList();
+            }
         }
 
         /// <summary>
@@ -145,7 +148,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Usuario> ObterPorLogin(string login)
         {
-            return GetQuery().Where(usuario => usuario.Login.StartsWith(login)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(usuario => usuario.Login.StartsWith(login)).ToList();
+            }
         }
 
         /// <summary>

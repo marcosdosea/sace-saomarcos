@@ -102,25 +102,22 @@ namespace Negocio
         /// Consulta simples para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<ProdutoLoja> GetQuery()
+        private static IQueryable<ProdutoLoja> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from produtoLoja in context.TbProdutoLojas
-                            select new ProdutoLoja
-                            {
-                                CodLoja = produtoLoja.CodLoja,
-                                NomeLoja = produtoLoja.CodLojaNavigation.Nome,
-                                CodProduto = produtoLoja.CodProduto,
-                                EstoqueMaximo = produtoLoja.EstoqueMaximo,
-                                Localizacao = produtoLoja.Localizacao,
-                                Localizacao2 = produtoLoja.Localizacao2,
-                                NomeProduto = produtoLoja.CodProdutoNavigation.Nome,
-                                QtdEstoque = produtoLoja.QtdEstoque,
-                                QtdEstoqueAux = produtoLoja.QtdEstoqueAux
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from produtoLoja in context.TbProdutoLojas
+                        select new ProdutoLoja
+                        {
+                            CodLoja = produtoLoja.CodLoja,
+                            NomeLoja = produtoLoja.CodLojaNavigation.Nome,
+                            CodProduto = produtoLoja.CodProduto,
+                            EstoqueMaximo = produtoLoja.EstoqueMaximo,
+                            Localizacao = produtoLoja.Localizacao,
+                            Localizacao2 = produtoLoja.Localizacao2,
+                            NomeProduto = produtoLoja.CodProdutoNavigation.Nome,
+                            QtdEstoque = produtoLoja.QtdEstoque,
+                            QtdEstoqueAux = produtoLoja.QtdEstoqueAux
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -131,7 +128,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoLoja> Obter(long codProduto, int codLoja)
         {
-            return GetQuery().Where(pl => pl.CodProduto == codProduto && pl.CodLoja == codLoja).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pl => pl.CodProduto == codProduto && pl.CodLoja == codLoja).ToList();
+            }
         }
 
         /// <summary>
@@ -141,7 +141,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoLoja> ObterPorProduto(long codProduto)
         {
-            return GetQuery().Where(pl => pl.CodProduto == codProduto).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pl => pl.CodProduto == codProduto).ToList();
+            }
         }
 
         /// <summary>
@@ -151,7 +154,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoLoja> ObterPorLoja(int codLoja)
         {
-            return GetQuery().Where(pl => pl.CodLoja == codLoja).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pl => pl.CodLoja == codLoja).ToList();
+            }
         }
 
         /// <summary>
@@ -161,7 +167,10 @@ namespace Negocio
         /// <returns></returns>
         public static decimal ObterEstoque(long codProduto)
         {
-            return GetQuery().Where(pl => pl.CodProduto == codProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(pl => pl.CodProduto == codProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
+            }
         }
         /// <summary>
         /// Obter estoque de todos os produtos da estoque
@@ -169,7 +178,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<ProdutoLoja> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>

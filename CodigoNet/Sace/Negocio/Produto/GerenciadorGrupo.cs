@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Negocio
 {
-    public static class GerenciadorGrupo 
+    public static class GerenciadorGrupo
     {
         /// <summary>
         /// Insere um grupo e um grupo padrão
@@ -104,18 +104,15 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Grupo> GetQuery()
+        private static IQueryable<Grupo> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from grupo in context.TbGrupos
-                            select new Grupo
-                            {
-                                CodGrupo = grupo.CodGrupo,
-                                Descricao = grupo.Descricao,
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from grupo in context.TbGrupos
+                        select new Grupo
+                        {
+                            CodGrupo = grupo.CodGrupo,
+                            Descricao = grupo.Descricao,
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -124,7 +121,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Grupo> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -134,7 +134,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Grupo> Obter(int codGrupo)
         {
-            return GetQuery().Where(grupo => grupo.CodGrupo == codGrupo).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(grupo => grupo.CodGrupo == codGrupo).ToList();
+            }
         }
 
         /// <summary>
@@ -144,7 +147,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Grupo> ObterPorDescricao(string descricao)
         {
-            return GetQuery().Where(grupo => grupo.Descricao.StartsWith(descricao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(grupo => grupo.Descricao.StartsWith(descricao)).ToList();
+            }
         }
     }
 }

@@ -95,20 +95,17 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Subgrupo> GetQuery()
+        private static IQueryable<Subgrupo> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from subgrupo in context.TbSubgrupos
-                            select new Subgrupo
-                            {
-                                CodGrupo = (int)subgrupo.CodGrupo,
-                                Descricao = subgrupo.Descricao,
-                                CodSubgrupo = subgrupo.CodSubgrupo,
-                                DescricaoGrupo = subgrupo.CodGrupoNavigation.Descricao
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from subgrupo in context.TbSubgrupos
+                        select new Subgrupo
+                        {
+                            CodGrupo = (int)subgrupo.CodGrupo,
+                            Descricao = subgrupo.Descricao,
+                            CodSubgrupo = subgrupo.CodSubgrupo,
+                            DescricaoGrupo = subgrupo.CodGrupoNavigation.Descricao
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -117,7 +114,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Subgrupo> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -127,7 +127,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Subgrupo> Obter(int codSubgrupo)
         {
-            return GetQuery().Where(subgrupo => subgrupo.CodSubgrupo == codSubgrupo).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(subgrupo => subgrupo.CodSubgrupo == codSubgrupo).ToList();
+            }
         }
 
         /// <summary>
@@ -137,7 +140,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Subgrupo> ObterPorDescricao(string descricao)
         {
-            return GetQuery().Where(subgrupo => subgrupo.Descricao.StartsWith(descricao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(subgrupo => subgrupo.Descricao.StartsWith(descricao)).ToList();
+            }
         }
 
         /// <summary>
@@ -147,7 +153,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Subgrupo> ObterPorDescricaoGrupo(string descricao)
         {
-            return GetQuery().Where(subgrupo => subgrupo.DescricaoGrupo.StartsWith(descricao)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(subgrupo => subgrupo.DescricaoGrupo.StartsWith(descricao)).ToList();
+            }
         }
 
         /// <summary>
@@ -157,7 +166,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Subgrupo> ObterPorGrupo(Grupo grupo)
         {
-            return GetQuery().Where(subgrupo => subgrupo.CodGrupo == grupo.CodGrupo).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(subgrupo => subgrupo.CodGrupo == grupo.CodGrupo).ToList();
+            }
         }
     }
 }

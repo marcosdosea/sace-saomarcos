@@ -140,7 +140,7 @@ namespace Negocio
                     }
 
                     Atribuir(produto, _produto);
-                    context.Update(produto);
+                    context.Update(_produto);
                     context.SaveChanges();
                 }
             }
@@ -426,100 +426,94 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<Produto> GetQuery()
+        private static IQueryable<Produto> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from produto in context.TbProdutos
-                            orderby produto.Nome
-                            select new Produto
-                            {
-                                CodCST = produto.CodCst,
-                                CodFabricante = produto.CodFabricante,
-                                NomeFabricante = produto.CodFabricanteNavigation.NomeFantasia,
-                                CodGrupo = produto.CodGrupo,
-                                CodigoBarra = produto.CodigoBarra,
-                                CodProduto = produto.CodProduto,
-                                CodSituacaoProduto = produto.CodSituacaoProduto,
-                                CodSubgrupo = produto.CodSubgrupo,
-                                DataUltimoPedido = produto.DataUltimoPedido,
-                                Desconto = (decimal)produto.Desconto,
-                                ExibeNaListagem = (bool)produto.ExibeNaListagem,
-                                Frete = (decimal)produto.Frete,
-                                Icms = (decimal)produto.Icms,
-                                IcmsSubstituto = (decimal)produto.IcmsSubstituto,
-                                Ipi = (decimal)produto.Ipi,
-                                LucroPrecoVendaAtacado = (decimal)produto.LucroPrecoVendaAtacado,
-                                LucroPrecoVendaVarejo = (decimal)produto.LucroPrecoVendaVarejo,
-                                LucroPrecoRevenda = (decimal)produto.LucroPrecoRevenda,
-                                Ncmsh = produto.Ncmsh,
-                                Nome = produto.Nome,
-                                NomeProdutoFabricante = produto.NomeProdutoFabricante,
-                                PrecoVendaAtacado = (decimal)produto.PrecoVendaAtacado,
-                                PrecoVendaVarejo = (decimal)produto.PrecoVendaVarejo,
-                                PrecoRevenda = (decimal)produto.PrecoRevenda,
-                                QtdProdutoAtacado = (decimal)produto.QtdProdutoAtacado,
-                                QuantidadeEmbalagem = (decimal)produto.QuantidadeEmbalagem,
-                                ReferenciaFabricante = produto.ReferenciaFabricante,
-                                Simples = (decimal)produto.Simples,
-                                TemVencimento = produto.TemVencimento,
-                                EmPromocao = produto.EmPromocao,
-                                Unidade = produto.Unidade,
-                                UnidadeCompra = produto.UnidadeCompra,
-                                UltimoPrecoCompra = (decimal)produto.UltimoPrecoCompra,
-                                UltimaDataAtualizacao = produto.UltimaDataAtualizacao,
-                                DataUltimaMudancaPreco = produto.DataUltimaMudancaPreco
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from produto in context.TbProdutos
+                        orderby produto.Nome
+                        select new Produto
+                        {
+                            CodCST = produto.CodCst,
+                            CodFabricante = produto.CodFabricante,
+                            NomeFabricante = produto.CodFabricanteNavigation.NomeFantasia,
+                            CodGrupo = produto.CodGrupo,
+                            CodigoBarra = produto.CodigoBarra,
+                            CodProduto = produto.CodProduto,
+                            CodSituacaoProduto = produto.CodSituacaoProduto,
+                            CodSubgrupo = produto.CodSubgrupo,
+                            DataUltimoPedido = produto.DataUltimoPedido,
+                            Desconto = (decimal)produto.Desconto,
+                            ExibeNaListagem = (bool)produto.ExibeNaListagem,
+                            Frete = (decimal)produto.Frete,
+                            Icms = (decimal)produto.Icms,
+                            IcmsSubstituto = (decimal)produto.IcmsSubstituto,
+                            Ipi = (decimal)produto.Ipi,
+                            LucroPrecoVendaAtacado = (decimal)produto.LucroPrecoVendaAtacado,
+                            LucroPrecoVendaVarejo = (decimal)produto.LucroPrecoVendaVarejo,
+                            LucroPrecoRevenda = (decimal)produto.LucroPrecoRevenda,
+                            Ncmsh = produto.Ncmsh,
+                            Nome = produto.Nome,
+                            NomeProdutoFabricante = produto.NomeProdutoFabricante,
+                            PrecoVendaAtacado = (decimal)produto.PrecoVendaAtacado,
+                            PrecoVendaVarejo = (decimal)produto.PrecoVendaVarejo,
+                            PrecoRevenda = (decimal)produto.PrecoRevenda,
+                            QtdProdutoAtacado = (decimal)produto.QtdProdutoAtacado,
+                            QuantidadeEmbalagem = (decimal)produto.QuantidadeEmbalagem,
+                            ReferenciaFabricante = produto.ReferenciaFabricante,
+                            Simples = (decimal)produto.Simples,
+                            TemVencimento = produto.TemVencimento,
+                            EmPromocao = produto.EmPromocao,
+                            Unidade = produto.Unidade,
+                            UnidadeCompra = produto.UnidadeCompra,
+                            UltimoPrecoCompra = (decimal)produto.UltimoPrecoCompra,
+                            UltimaDataAtualizacao = produto.UltimaDataAtualizacao,
+                            DataUltimaMudancaPreco = produto.DataUltimaMudancaPreco
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
         /// Consulta simples para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<ProdutoPesquisa> GetQuerySimples()
+        private static IQueryable<ProdutoPesquisa> GetQuerySimples(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from produto in context.TbProdutos
-                            orderby produto.Nome
-                            select new ProdutoPesquisa
-                            {
-                                CodCST = produto.CodCst,
-                                CodigoBarra = produto.CodigoBarra,
-                                CodProduto = produto.CodProduto,
-                                Desconto = (decimal)produto.Desconto,
-                                ExibeNaListagem = (bool)produto.ExibeNaListagem,
-                                Frete = (decimal)produto.Frete,
-                                Icms = (decimal)produto.Icms,
-                                IcmsSubstituto = (decimal)produto.IcmsSubstituto,
-                                Ipi = (decimal)produto.Ipi,
-                                LucroPrecoVendaAtacado = (decimal)produto.LucroPrecoVendaAtacado,
-                                LucroPrecoVendaVarejo = (decimal)produto.LucroPrecoVendaVarejo,
-                                LucroPrecoRevenda = (decimal)produto.LucroPrecoRevenda,
-                                Ncmsh = produto.Ncmsh,
-                                Nome = produto.Nome,
-                                CodFabricante = produto.CodFabricante,
-                                NomeProdutoFabricante = produto.NomeProdutoFabricante,
-                                PrecoVendaAtacado = (decimal)produto.PrecoVendaAtacado,
-                                PrecoVendaVarejo = (decimal)produto.PrecoVendaVarejo,
-                                PrecoRevenda = (decimal)produto.PrecoRevenda,
-                                QtdProdutoAtacado = (decimal)produto.QtdProdutoAtacado,
-                                QuantidadeEmbalagem = (decimal)produto.QuantidadeEmbalagem,
-                                ReferenciaFabricante = produto.ReferenciaFabricante,
-                                Simples = (decimal)produto.Simples,
-                                UltimaDataAtualizacao = produto.UltimaDataAtualizacao,
-                                Unidade = produto.Unidade,
-                                TemVencimento = produto.TemVencimento,
-                                EmPromocao = produto.EmPromocao,
-                                UltimoPrecoCompra = (decimal)produto.UltimoPrecoCompra,
-                                UnidadeCompra = produto.UnidadeCompra,
-                                CodSituacaoProduto = produto.CodSituacaoProduto,
-                                DataUltimaMudancaPreco = produto.DataUltimaMudancaPreco
-                            };
-                return query.AsNoTracking();
-            }
+            var query = from produto in context.TbProdutos
+                        orderby produto.Nome
+                        select new ProdutoPesquisa
+                        {
+                            CodCST = produto.CodCst,
+                            CodigoBarra = produto.CodigoBarra,
+                            CodProduto = produto.CodProduto,
+                            Desconto = (decimal)produto.Desconto,
+                            ExibeNaListagem = (bool)produto.ExibeNaListagem,
+                            Frete = (decimal)produto.Frete,
+                            Icms = (decimal)produto.Icms,
+                            IcmsSubstituto = (decimal)produto.IcmsSubstituto,
+                            Ipi = (decimal)produto.Ipi,
+                            LucroPrecoVendaAtacado = (decimal)produto.LucroPrecoVendaAtacado,
+                            LucroPrecoVendaVarejo = (decimal)produto.LucroPrecoVendaVarejo,
+                            LucroPrecoRevenda = (decimal)produto.LucroPrecoRevenda,
+                            Ncmsh = produto.Ncmsh,
+                            Nome = produto.Nome,
+                            CodFabricante = produto.CodFabricante,
+                            NomeProdutoFabricante = produto.NomeProdutoFabricante,
+                            PrecoVendaAtacado = (decimal)produto.PrecoVendaAtacado,
+                            PrecoVendaVarejo = (decimal)produto.PrecoVendaVarejo,
+                            PrecoRevenda = (decimal)produto.PrecoRevenda,
+                            QtdProdutoAtacado = (decimal)produto.QtdProdutoAtacado,
+                            QuantidadeEmbalagem = (decimal)produto.QuantidadeEmbalagem,
+                            ReferenciaFabricante = produto.ReferenciaFabricante,
+                            Simples = (decimal)produto.Simples,
+                            UltimaDataAtualizacao = produto.UltimaDataAtualizacao,
+                            Unidade = produto.Unidade,
+                            TemVencimento = produto.TemVencimento,
+                            EmPromocao = produto.EmPromocao,
+                            UltimoPrecoCompra = (decimal)produto.UltimoPrecoCompra,
+                            UnidadeCompra = produto.UnidadeCompra,
+                            CodSituacaoProduto = produto.CodSituacaoProduto,
+                            DataUltimaMudancaPreco = produto.DataUltimaMudancaPreco
+                        };
+            return query.AsNoTracking();
         }
 
 
@@ -529,7 +523,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<Produto> ObterTodos()
         {
-            return GetQuery().ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).ToList();
+            }
         }
 
         /// <summary>
@@ -539,8 +536,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterTodosExibiveis()
         {
-
-            return GetQuerySimples().Where(p => p.ExibeNaListagem == true).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.ExibeNaListagem == true).ToList();
+            }
         }
 
         public static IEnumerable<ProdutoNome> ObterTodosNomesExibiveis()
@@ -585,7 +584,10 @@ namespace Negocio
         /// <returns></returns>
         public static Produto Obter(ProdutoPesquisa produtoPesquisa)
         {
-            return GetQuery().Where(p => p.CodProduto == produtoPesquisa.CodProduto).First();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(p => p.CodProduto == produtoPesquisa.CodProduto).First();
+            }
         }
 
         /// <summary>
@@ -595,7 +597,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> Obter(long codProduto)
         {
-            return GetQuerySimples().Where(p => p.CodProduto == codProduto).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.CodProduto == codProduto).ToList();
+            }
         }
 
         /// <summary>
@@ -605,7 +610,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorReferenciaFabricante(string referenciaFabricante)
         {
-            return GetQuerySimples().Where(p => p.ReferenciaFabricante.StartsWith(referenciaFabricante)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.ReferenciaFabricante.StartsWith(referenciaFabricante)).ToList();
+            }
         }
 
 
@@ -616,7 +624,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorCodigoBarra(string codigoBarra)
         {
-            return GetQuerySimples().Where(p => p.CodigoBarra.StartsWith(codigoBarra)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.CodigoBarra.StartsWith(codigoBarra)).ToList();
+            }
         }
 
         /// <summary>
@@ -626,7 +637,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorNcmsh(string ncmsh)
         {
-            return GetQuerySimples().Where(p => p.Ncmsh.StartsWith(ncmsh)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.Ncmsh.StartsWith(ncmsh)).ToList();
+            }
         }
 
         /// <summary>
@@ -636,7 +650,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorCodigoBarraExato(String codBarra)
         {
-            return GetQuerySimples().Where(p => p.CodigoBarra.Equals(codBarra)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.CodigoBarra.Equals(codBarra)).ToList();
+            }
         }
 
         /// <summary>
@@ -646,7 +663,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorNomeProdutoFabricante(String nomeProdutoFabricante)
         {
-            return GetQuerySimples().Where(p => p.NomeProdutoFabricante.StartsWith(nomeProdutoFabricante)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.NomeProdutoFabricante.StartsWith(nomeProdutoFabricante)).ToList();
+            }
         }
 
         /// <summary>
@@ -656,7 +676,10 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorCodigoFabricante(long codPessoa)
         {
-            return GetQuerySimples().Where(p => p.CodFabricante.Equals(codPessoa)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.CodFabricante.Equals(codPessoa)).ToList();
+            }
         }
 
         /// <summary>
@@ -666,12 +689,18 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorDataAtualizacaoMaiorIgual(DateTime dataAtualizacao)
         {
-            return GetQuerySimples().Where(p => p.UltimaDataAtualizacao >= dataAtualizacao).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.UltimaDataAtualizacao >= dataAtualizacao).ToList();
+            }
         }
 
         public static IEnumerable<ProdutoPesquisa> ObterPorDataMudancaPrecoMaiorIgual(DateTime dataMudancaPreco)
         {
-            return GetQuerySimples().Where(p => p.DataUltimaMudancaPreco >= dataMudancaPreco).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).Where(p => p.DataUltimaMudancaPreco >= dataMudancaPreco).ToList();
+            }
         }
 
         /// <summary>
@@ -681,14 +710,17 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorNome(string nome)
         {
-            var query = GetQuerySimples();
-            if ((nome.Length > 0) && (nome[0] == '%'))
+            using (var context = new SaceContext())
             {
-                return query.Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
-            }
-            else
-            {
-                return query.Where(p => p.Nome.StartsWith(nome)).ToList();
+                var query = GetQuerySimples(context);
+                if ((nome.Length > 0) && (nome[0] == '%'))
+                {
+                    return query.Where(p => p.Nome.Contains(nome.Remove(0, 1))).ToList();
+                }
+                else
+                {
+                    return query.Where(p => p.Nome.StartsWith(nome)).ToList();
+                }
             }
         }
 
@@ -751,13 +783,17 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorNomeExibiveis(string nome)
         {
-            if ((nome.Length > 0) && (nome[0] == '%'))
+            using (var context = new SaceContext())
             {
-                return GetQuerySimples().Where(p => p.Nome.Contains(nome.Remove(0, 1)) && p.ExibeNaListagem).ToList();
-            }
-            else
-            {
-                return GetQuerySimples().Where(p => p.Nome.StartsWith(nome) && p.ExibeNaListagem).ToList();
+
+                if ((nome.Length > 0) && (nome[0] == '%'))
+                {
+                    return GetQuerySimples(context).Where(p => p.Nome.Contains(nome.Remove(0, 1)) && p.ExibeNaListagem).ToList();
+                }
+                else
+                {
+                    return GetQuerySimples(context).Where(p => p.Nome.StartsWith(nome) && p.ExibeNaListagem).ToList();
+                }
             }
         }
 
@@ -785,7 +821,7 @@ namespace Negocio
         /// <returns></returns>
         public static IEnumerable<ProdutoPesquisa> ObterPorCodigosBarraInvalidos()
         {
-            var listaProdutos = GetQuerySimples().ToList();
+            var listaProdutos = ObterTodos();
             var listaProdutosEANInvalidos = new List<ProdutoPesquisa>();
 
             foreach (ProdutoPesquisa produto in listaProdutos)
@@ -802,7 +838,7 @@ namespace Negocio
         /// <returns></returns>
         public static object ObterPorCodigosBarraEmBranco()
         {
-            var listaProdutos = GetQuerySimples().ToList();
+            var listaProdutos = ObterTodos();
             var listaProdutosEANEmBranco = new List<ProdutoPesquisa>();
 
             foreach (ProdutoPesquisa produto in listaProdutos)

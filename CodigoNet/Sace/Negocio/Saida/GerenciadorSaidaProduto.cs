@@ -140,35 +140,32 @@ namespace Negocio
         /// Consulta para retornar dados da entidade
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<SaidaProduto> GetQuery()
+        private static IQueryable<SaidaProduto> GetQuery(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from saidaProduto in context.TbSaidaProdutos
-                            select new SaidaProduto
-                            {
-                                BaseCalculoICMS = (decimal)saidaProduto.BaseCalculoIcms,
-                                BaseCalculoICMSSubst = (decimal)saidaProduto.BaseCalculoIcmssubst,
-                                CodProduto = saidaProduto.CodProduto,
-                                CodSaida = saidaProduto.CodSaida,
-                                CodSaidaProduto = saidaProduto.CodSaidaProduto,
-                                CodCST = saidaProduto.CodCst,
-                                CodCfop = saidaProduto.Cfop,
-                                DataValidade = (DateTime)saidaProduto.DataValidade,
-                                Desconto = (decimal)saidaProduto.Desconto,
-                                Quantidade = (decimal)saidaProduto.Quantidade,
-                                Nome = saidaProduto.CodProdutoNavigation.Nome,
-                                SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
-                                Unidade = saidaProduto.CodProdutoNavigation.Unidade,
-                                ValorICMS = (decimal)saidaProduto.ValorIcms,
-                                ValorICMSSubst = (decimal)saidaProduto.ValorIcmssubst,
-                                ValorIPI = (decimal)saidaProduto.ValorIpi,
-                                TemVencimento = (bool)saidaProduto.CodProdutoNavigation.TemVencimento,
-                                PrecoVendaVarejo = (decimal)saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
-                                Ncmsh = saidaProduto.CodProdutoNavigation.Ncmsh
-                            };
-                return query;
-            }
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        select new SaidaProduto
+                        {
+                            BaseCalculoICMS = (decimal)saidaProduto.BaseCalculoIcms,
+                            BaseCalculoICMSSubst = (decimal)saidaProduto.BaseCalculoIcmssubst,
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            CodCST = saidaProduto.CodCst,
+                            CodCfop = saidaProduto.Cfop,
+                            DataValidade = (DateTime)saidaProduto.DataValidade,
+                            Desconto = (decimal)saidaProduto.Desconto,
+                            Quantidade = (decimal)saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorICMS = (decimal)saidaProduto.ValorIcms,
+                            ValorICMSSubst = (decimal)saidaProduto.ValorIcmssubst,
+                            ValorIPI = (decimal)saidaProduto.ValorIpi,
+                            TemVencimento = (bool)saidaProduto.CodProdutoNavigation.TemVencimento,
+                            PrecoVendaVarejo = (decimal)saidaProduto.CodProdutoNavigation.PrecoVendaVarejo,
+                            Ncmsh = saidaProduto.CodProdutoNavigation.Ncmsh
+                        };
+            return query;
         }
 
         /// <summary>
@@ -179,7 +176,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaProduto> ObterPorSaidaSemCST(Int64 codSaida, String codCST)
         {
-            return GetQuery().Where(sp => sp.CodSaida == codSaida && sp.CodCST.EndsWith(codCST) == false).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(sp => sp.CodSaida == codSaida && sp.CodCST.EndsWith(codCST) == false).ToList();
+            }
         }
 
 
@@ -191,7 +191,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaProduto> ObterPorSaida(long codSaida)
         {
-            return GetQuery().Where(sp => sp.CodSaida == codSaida).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQuery(context).Where(sp => sp.CodSaida == codSaida).ToList();
+            }
         }
 
 
@@ -437,32 +440,30 @@ namespace Negocio
         /// Consulta para retornar dados dos produtos para relatório
         /// </summary>
         /// <returns></returns>
-        private static IQueryable<SaidaProdutoRelatorio> GetQueryRelatorio()
+        private static IQueryable<SaidaProdutoRelatorio> GetQueryRelatorio(SaceContext context)
         {
-            using (var context = new SaceContext())
-            {
-                var query = from saidaProduto in context.TbSaidaProdutos
-                            select new SaidaProdutoRelatorio
-                            {
-                                CodProduto = saidaProduto.CodProduto,
-                                CodSaida = saidaProduto.CodSaida,
-                                CodSaidaProduto = saidaProduto.CodSaidaProduto,
-                                Desconto = (decimal)saidaProduto.Desconto,
-                                Quantidade = (decimal)saidaProduto.Quantidade,
-                                Nome = saidaProduto.CodProdutoNavigation.Nome,
-                                Subtotal = (decimal)saidaProduto.Subtotal,
-                                SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
-                                Unidade = saidaProduto.CodProdutoNavigation.Unidade == null ? "UN" : saidaProduto.CodProdutoNavigation.Unidade,
-                                ValorVenda = (decimal)saidaProduto.ValorVenda,
-                                ValorVendaAVista = (decimal)(saidaProduto.SubtotalAvista / saidaProduto.Quantidade),
-                                TotalSaida = (decimal)saidaProduto.CodSaidaNavigation.Total,
-                                TotalSaidaAVista = (decimal)saidaProduto.CodSaidaNavigation.TotalAvista,
-                                Pedido = saidaProduto.CodSaidaNavigation.PedidoGerado,
-                                DataSaida = saidaProduto.CodSaidaNavigation.DataSaida,
-                                CodCliente = saidaProduto.CodSaidaNavigation.CodCliente
-                            };
-                return query.AsNoTracking();
-            }
+
+            var query = from saidaProduto in context.TbSaidaProdutos
+                        select new SaidaProdutoRelatorio
+                        {
+                            CodProduto = saidaProduto.CodProduto,
+                            CodSaida = saidaProduto.CodSaida,
+                            CodSaidaProduto = saidaProduto.CodSaidaProduto,
+                            Desconto = (decimal)saidaProduto.Desconto,
+                            Quantidade = (decimal)saidaProduto.Quantidade,
+                            Nome = saidaProduto.CodProdutoNavigation.Nome,
+                            Subtotal = (decimal)saidaProduto.Subtotal,
+                            SubtotalAVista = (decimal)saidaProduto.SubtotalAvista,
+                            Unidade = saidaProduto.CodProdutoNavigation.Unidade == null ? "UN" : saidaProduto.CodProdutoNavigation.Unidade,
+                            ValorVenda = (decimal)saidaProduto.ValorVenda,
+                            ValorVendaAVista = (decimal)(saidaProduto.SubtotalAvista / saidaProduto.Quantidade),
+                            TotalSaida = (decimal)saidaProduto.CodSaidaNavigation.Total,
+                            TotalSaidaAVista = (decimal)saidaProduto.CodSaidaNavigation.TotalAvista,
+                            Pedido = saidaProduto.CodSaidaNavigation.PedidoGerado,
+                            DataSaida = saidaProduto.CodSaidaNavigation.DataSaida,
+                            CodCliente = saidaProduto.CodSaidaNavigation.CodCliente
+                        };
+            return query.AsNoTracking();
         }
 
         /// <summary>
@@ -473,7 +474,10 @@ namespace Negocio
         /// <returns></returns>
         public static List<SaidaProdutoRelatorio> ObterPorSaidasRelatorio(List<long> listaCodSaida)
         {
-            return GetQueryRelatorio().Where(sp => listaCodSaida.Contains(sp.CodSaida)).ToList();
+            using (var context = new SaceContext())
+            {
+                return GetQueryRelatorio(context).Where(sp => listaCodSaida.Contains(sp.CodSaida)).ToList();
+            }
         }
 
         /// <summary>
@@ -580,8 +584,8 @@ namespace Negocio
                 List<ProdutoVendido> listaProdutosVendidos = ObterProdutosVendidosUltimosMeses(UtilConfig.Default.NUMERO_MESES_ANALISAR_ESTOQUE);
 
                 var query2 = from produto in context.TbProdutos
-                            where produto.CodSituacaoProduto != SituacaoProduto.NAO_COMPRAR
-                            select produto;
+                             where produto.CodSituacaoProduto != SituacaoProduto.NAO_COMPRAR
+                             select produto;
 
                 foreach (TbProduto produto in query2)
                 {
