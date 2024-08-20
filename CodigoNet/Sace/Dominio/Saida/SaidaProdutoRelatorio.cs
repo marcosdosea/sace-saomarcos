@@ -18,5 +18,22 @@
         public decimal Subtotal { get; set; }
         public decimal SubtotalAVista { get; set; }
         public string Unidade { get; set; }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return CodSaidaProduto.Equals(((SaidaProduto)obj).CodSaidaProduto);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return CodSaidaProduto.GetHashCode();
+        }
     }
 }

@@ -13,5 +13,6 @@
         public int CodPerfil { get; set; }
 
         public string NomePerfil { get; set; }
+
     }
 }

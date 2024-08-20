@@ -13,5 +13,22 @@
         public string TipoConta { get; set; }
         public string DescricaoTipoConta { get; set; }
         public short DiaBase { get; set; }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodPlanoConta == ((PlanoConta)obj).CodPlanoConta;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodPlanoConta.GetHashCode();
+        }
     }
 }

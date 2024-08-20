@@ -66,5 +66,16 @@ namespace Dominio
         public decimal QuantidadeEmbalagem { get; set; }
         public sbyte CodSituacaoProduto { get; set; }
        
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            return this.CodProduto == ((ProdutoPesquisa)obj).CodProduto;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodProduto.GetHashCode();
+        }
     }
 }

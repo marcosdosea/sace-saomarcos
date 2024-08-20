@@ -73,5 +73,22 @@
             }
         }
 
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodCST.Equals(((Cst)obj).CodCST);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodCST.GetHashCode();
+        }
+
     }
 }

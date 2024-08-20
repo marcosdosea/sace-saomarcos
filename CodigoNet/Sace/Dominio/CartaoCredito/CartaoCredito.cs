@@ -21,5 +21,20 @@
         public string? MapeamentoCappta { get; set; }
         public decimal Desconto { get; set; }
         public string? TipoCartao { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodCartao.Equals(((CartaoCredito)obj).CodCartao);
+        }
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodCartao.GetHashCode();
+        }
     }
 }

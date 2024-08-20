@@ -368,9 +368,7 @@ namespace Negocio
         {
             using (var context = new SaceContext())
             {
-                var _pessoa = new TbPessoa();
-                _pessoa.CodPessoa = codPessoa;
-                _pessoa = context.TbPessoas.Find(_pessoa);
+                var _pessoa = context.TbPessoas.FirstOrDefault(p => p.CodPessoa == codPessoa);
 
                 if (_pessoa == null)
                 {

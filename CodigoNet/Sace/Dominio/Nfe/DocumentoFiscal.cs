@@ -13,5 +13,22 @@
         public DateTime DataEmissaoCupomFiscal { get; set; }
         public long CodCliente { get; set; }
         public string NomeCliente { get; set; }
+        
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodSaida.Equals(((DocumentoFiscal)obj).CodSaida);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodSaida.GetHashCode();
+        }
     }
 }

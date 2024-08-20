@@ -513,12 +513,13 @@ namespace Negocio
         /// <returns></returns>
         public static List<ProdutoVendido> ObterProdutosVendidosUltimosAnos(long codProduto, int numeroAnos)
         {
-            using (var context = new SaceContext())
+            using ( var context = new SaceContext())
             {
-                string nomeProduto = context.TbProdutos.Find(new TbProduto { CodProduto = codProduto }).Nome;
+                string nomeProduto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == codProduto).Nome;
 
                 var query = from saidaProduto in context.TbSaidaProdutos
-                            where (saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA ||
+                            where saidaProduto.CodProduto == codProduto &&
+                                  (saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA ||
                                   saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
                                   saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_USO_INTERNO) &&
                                   saidaProduto.CodSaidaNavigation.DataSaida.Year >= (DateTime.Now.Year - numeroAnos)
@@ -532,31 +533,30 @@ namespace Negocio
                                 Ano = gVendidos.Key.Year,
                                 Mes = gVendidos.Key.Month,
                                 MesAno = String.Concat(gVendidos.Key.Month, "/", gVendidos.Key.Year),
-                                QuantidadeVendida = (decimal)gVendidos.Sum(sp => sp.Quantidade)
+                                QuantidadeVendida = (decimal) gVendidos.Sum(sp => sp.Quantidade)
                             };
-            }
-            List<ProdutoVendido> listaProdutosVendidos = new List<ProdutoVendido>();
+                var listaProdutosVendidos = query.AsNoTracking().ToList();
 
-
-            // Insere zero nos meses sem vendas do produto
-            DateTime dataAtual = DateTime.Now;
-            int numeroMeses = numeroAnos * 12;
-            for (int i = 0; i < numeroMeses && i < listaProdutosVendidos.Count; i++)
-            {
-                ProdutoVendido produtoVendido = listaProdutosVendidos[i];
-                if (produtoVendido.Mes != dataAtual.Month || produtoVendido.Ano != dataAtual.Year)
+                // Insere zero nos meses sem vendas do produto
+                DateTime dataAtual = DateTime.Now;
+                int numeroMeses = numeroAnos * 12;
+                for (int i = 0; i < numeroMeses && i < listaProdutosVendidos.Count; i++)
                 {
-                    ProdutoVendido _produtoVendido = new ProdutoVendido();
-                    _produtoVendido.Ano = dataAtual.Year;
-                    _produtoVendido.Mes = dataAtual.Month;
-                    _produtoVendido.MesAno = dataAtual.Month + "/" + dataAtual.Year;
-                    _produtoVendido.Nome = produtoVendido.Nome;
-                    _produtoVendido.QuantidadeVendida = 0;
-                    listaProdutosVendidos.Insert(i, _produtoVendido);
+                    ProdutoVendido produtoVendido = listaProdutosVendidos[i];
+                    if (produtoVendido.Mes != dataAtual.Month || produtoVendido.Ano != dataAtual.Year)
+                    {
+                        ProdutoVendido _produtoVendido = new ProdutoVendido();
+                        _produtoVendido.Ano = dataAtual.Year;
+                        _produtoVendido.Mes = dataAtual.Month;
+                        _produtoVendido.MesAno = dataAtual.Month + "/" + dataAtual.Year;
+                        _produtoVendido.Nome = produtoVendido.Nome;
+                        _produtoVendido.QuantidadeVendida = 0;
+                        listaProdutosVendidos.Insert(i, _produtoVendido);
+                    }
+                    dataAtual = dataAtual.AddMonths(-1);
                 }
-                dataAtual = dataAtual.AddMonths(-1);
+                    return listaProdutosVendidos;
             }
-            return listaProdutosVendidos;
         }
 
         /// <summary>

@@ -909,7 +909,7 @@ namespace Negocio
         /// <param name="dataInicial"></param>
         /// <param name="dataFinal"></param>
         /// <returns></returns>
-        public static List<VendasGrupoProduto> ObterVendasPorGrupo(int codGrupo, DateTime dataInicial, DateTime dataFinal)
+        public static List<VendasGrupoProduto> ObterVendasPorGrupo(long codGrupo, DateTime dataInicial, DateTime dataFinal)
         {
             using (var context = new SaceContext())
             {

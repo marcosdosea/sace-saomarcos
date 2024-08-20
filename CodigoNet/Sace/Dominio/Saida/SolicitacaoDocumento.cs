@@ -15,5 +15,22 @@
         public string MotivoCartaoNegado { get; set; } = null!;
         public bool EmProcessamento { get; set; }
         public string HostSolicitante { get; set; } = null!;
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return CodSolicitacao.Equals(((SolicitacaoDocumento)obj).CodSolicitacao);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return CodSolicitacao.GetHashCode();
+        }
     }
 }

@@ -10,5 +10,22 @@
 
         public sbyte CodSituacaoProduto { get; set; }
         public string DescricaoSituacao { get; set; }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodSituacaoProduto == ((SituacaoProduto)obj).CodSituacaoProduto;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodSituacaoProduto.GetHashCode();
+        }
     }
 }

@@ -32,5 +32,20 @@
         public bool BloquearCrediario { get; set; }
         public int CodMunicipioIBGE { get; set; }
         public string NomeMunicipioIBGE { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodPessoa.Equals(((Pessoa)obj).CodPessoa);
+        }
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodPessoa.GetHashCode();
+        }
     }
 }

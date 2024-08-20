@@ -34,5 +34,22 @@
         public bool FretePagoEmitente { get; set; }
         public string Serie { get; set; }
         public string Chave { get; set; }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.CodEntrada == ((Entrada)obj).CodEntrada;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.CodEntrada.GetHashCode();
+        }
     }
 }

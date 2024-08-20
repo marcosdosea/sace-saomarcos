@@ -11,5 +11,12 @@ namespace Dominio
         public long Ncmsh { get; set; }
         public decimal? AliqNac { get; set; }
         public decimal? AliqImp { get; set; }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.Ncmsh.GetHashCode();
+        }
+
     }
 }

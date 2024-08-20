@@ -115,8 +115,8 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { cadastrosToolStripMenuItem, movimentaçãoToolStripMenuItem, contasAPagarToolStripMenuItem, utilitáriosToolStripMenuItem, relatóriosToolStripMenuItem, ajudaToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new Padding(8, 3, 0, 3);
-            menuStrip1.Size = new Size(1309, 30);
+            menuStrip1.Padding = new Padding(7, 2, 0, 2);
+            menuStrip1.Size = new Size(1145, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -124,90 +124,90 @@
             // 
             cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { produtosToolStripMenuItem, pessoasToolStripMenuItem, lojasToolStripMenuItem, bancosToolStripMenuItem, planoDeContasToolStripMenuItem, contasBancáriasToolStripMenuItem, cartõesDeCréditoToolStripMenuItem, gruposDeProdutosToolStripMenuItem, subgrupoDeProdutosToolStripMenuItem, tiposDeContasToolStripMenuItem, usuárioToolStripMenuItem, códigoFiscalDeOperaçãoCFOPToolStripMenuItem });
             cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
-            cadastrosToolStripMenuItem.Size = new Size(88, 24);
+            cadastrosToolStripMenuItem.Size = new Size(71, 20);
             cadastrosToolStripMenuItem.Text = "&Cadastros";
             // 
             // produtosToolStripMenuItem
             // 
             produtosToolStripMenuItem.Name = "produtosToolStripMenuItem";
-            produtosToolStripMenuItem.Size = new Size(320, 26);
+            produtosToolStripMenuItem.Size = new Size(256, 22);
             produtosToolStripMenuItem.Text = "Produtos";
             produtosToolStripMenuItem.Click += produtosToolStripMenuItem_Click;
             // 
             // pessoasToolStripMenuItem
             // 
             pessoasToolStripMenuItem.Name = "pessoasToolStripMenuItem";
-            pessoasToolStripMenuItem.Size = new Size(320, 26);
+            pessoasToolStripMenuItem.Size = new Size(256, 22);
             pessoasToolStripMenuItem.Text = "Pessoas";
             pessoasToolStripMenuItem.Click += pessoasToolStripMenuItem_Click;
             // 
             // lojasToolStripMenuItem
             // 
             lojasToolStripMenuItem.Name = "lojasToolStripMenuItem";
-            lojasToolStripMenuItem.Size = new Size(320, 26);
+            lojasToolStripMenuItem.Size = new Size(256, 22);
             lojasToolStripMenuItem.Text = "Lojas";
             lojasToolStripMenuItem.Click += lojasToolStripMenuItem_Click;
             // 
             // bancosToolStripMenuItem
             // 
             bancosToolStripMenuItem.Name = "bancosToolStripMenuItem";
-            bancosToolStripMenuItem.Size = new Size(320, 26);
+            bancosToolStripMenuItem.Size = new Size(256, 22);
             bancosToolStripMenuItem.Text = "Bancos";
             bancosToolStripMenuItem.Click += bancosToolStripMenuItem_Click;
             // 
             // planoDeContasToolStripMenuItem
             // 
             planoDeContasToolStripMenuItem.Name = "planoDeContasToolStripMenuItem";
-            planoDeContasToolStripMenuItem.Size = new Size(320, 26);
+            planoDeContasToolStripMenuItem.Size = new Size(256, 22);
             planoDeContasToolStripMenuItem.Text = "Plano de Contas";
             planoDeContasToolStripMenuItem.Click += planoDeContasToolStripMenuItem_Click;
             // 
             // contasBancáriasToolStripMenuItem
             // 
             contasBancáriasToolStripMenuItem.Name = "contasBancáriasToolStripMenuItem";
-            contasBancáriasToolStripMenuItem.Size = new Size(320, 26);
+            contasBancáriasToolStripMenuItem.Size = new Size(256, 22);
             contasBancáriasToolStripMenuItem.Text = "Contas Banco / Caixas";
             contasBancáriasToolStripMenuItem.Click += contasBancáriasToolStripMenuItem_Click;
             // 
             // cartõesDeCréditoToolStripMenuItem
             // 
             cartõesDeCréditoToolStripMenuItem.Name = "cartõesDeCréditoToolStripMenuItem";
-            cartõesDeCréditoToolStripMenuItem.Size = new Size(320, 26);
+            cartõesDeCréditoToolStripMenuItem.Size = new Size(256, 22);
             cartõesDeCréditoToolStripMenuItem.Text = "Cartões de Crédito";
             cartõesDeCréditoToolStripMenuItem.Click += cartõesDeCréditoToolStripMenuItem_Click;
             // 
             // gruposDeProdutosToolStripMenuItem
             // 
             gruposDeProdutosToolStripMenuItem.Name = "gruposDeProdutosToolStripMenuItem";
-            gruposDeProdutosToolStripMenuItem.Size = new Size(320, 26);
+            gruposDeProdutosToolStripMenuItem.Size = new Size(256, 22);
             gruposDeProdutosToolStripMenuItem.Text = "Grupos de Produtos";
             gruposDeProdutosToolStripMenuItem.Click += gruposDeProdutosToolStripMenuItem_Click;
             // 
             // subgrupoDeProdutosToolStripMenuItem
             // 
             subgrupoDeProdutosToolStripMenuItem.Name = "subgrupoDeProdutosToolStripMenuItem";
-            subgrupoDeProdutosToolStripMenuItem.Size = new Size(320, 26);
+            subgrupoDeProdutosToolStripMenuItem.Size = new Size(256, 22);
             subgrupoDeProdutosToolStripMenuItem.Text = "Subgrupo de Produtos";
             subgrupoDeProdutosToolStripMenuItem.Click += subgrupoDeProdutosToolStripMenuItem_Click;
             // 
             // tiposDeContasToolStripMenuItem
             // 
             tiposDeContasToolStripMenuItem.Name = "tiposDeContasToolStripMenuItem";
-            tiposDeContasToolStripMenuItem.Size = new Size(320, 26);
+            tiposDeContasToolStripMenuItem.Size = new Size(256, 22);
             tiposDeContasToolStripMenuItem.Text = "Grupo de Contas Pagar/Receber";
             tiposDeContasToolStripMenuItem.Click += tiposDeContasToolStripMenuItem_Click;
             // 
             // usuárioToolStripMenuItem
             // 
             usuárioToolStripMenuItem.Name = "usuárioToolStripMenuItem";
-            usuárioToolStripMenuItem.Size = new Size(320, 26);
+            usuárioToolStripMenuItem.Size = new Size(256, 22);
             usuárioToolStripMenuItem.Text = "Usuário";
             usuárioToolStripMenuItem.Click += usuárioToolStripMenuItem_Click;
             // 
             // códigoFiscalDeOperaçãoCFOPToolStripMenuItem
             // 
             códigoFiscalDeOperaçãoCFOPToolStripMenuItem.Name = "códigoFiscalDeOperaçãoCFOPToolStripMenuItem";
-            códigoFiscalDeOperaçãoCFOPToolStripMenuItem.Size = new Size(320, 26);
+            códigoFiscalDeOperaçãoCFOPToolStripMenuItem.Size = new Size(256, 22);
             códigoFiscalDeOperaçãoCFOPToolStripMenuItem.Text = "Código Fiscal de Operação (CFOP)";
             códigoFiscalDeOperaçãoCFOPToolStripMenuItem.Click += códigoFiscalDeOperaçãoCFOPToolStripMenuItem_Click;
             // 
@@ -215,113 +215,113 @@
             // 
             movimentaçãoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { entradaDeProdutosToolStripMenuItem, toolStripSeparator1, vendaAoConsumidorToolStripMenuItem, remessaDepositoToolStripMenuItem, toolStripSeparator4, devoluçãoDeConsumidorToolStripMenuItem, toolStripSeparator5, devoluçãoDeProdutosToolStripMenuItem, remessaParaConsertoToolStripMenuItem2, toolStripSeparator2, retornoDepositoMenuItem, toolStripSeparator3, retornoDeFornecedorvariaToolStripMenuItem, toolStripSeparator6, estatísticaPorProdutoToolStripMenuItem, pontaDeEstoqueToolStripMenuItem, solicitaçõesDeCompraToolStripMenuItem });
             movimentaçãoToolStripMenuItem.Name = "movimentaçãoToolStripMenuItem";
-            movimentaçãoToolStripMenuItem.Size = new Size(76, 24);
+            movimentaçãoToolStripMenuItem.Size = new Size(61, 20);
             movimentaçãoToolStripMenuItem.Text = "&Estoque";
             // 
             // entradaDeProdutosToolStripMenuItem
             // 
             entradaDeProdutosToolStripMenuItem.Name = "entradaDeProdutosToolStripMenuItem";
-            entradaDeProdutosToolStripMenuItem.Size = new Size(291, 26);
+            entradaDeProdutosToolStripMenuItem.Size = new Size(230, 22);
             entradaDeProdutosToolStripMenuItem.Text = "Entrada de Produtos";
             entradaDeProdutosToolStripMenuItem.Click += entradaDeProdutosToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(288, 6);
+            toolStripSeparator1.Size = new Size(227, 6);
             // 
             // vendaAoConsumidorToolStripMenuItem
             // 
             vendaAoConsumidorToolStripMenuItem.Name = "vendaAoConsumidorToolStripMenuItem";
-            vendaAoConsumidorToolStripMenuItem.Size = new Size(291, 26);
+            vendaAoConsumidorToolStripMenuItem.Size = new Size(230, 22);
             vendaAoConsumidorToolStripMenuItem.Text = "Pré-Venda ao Consumidor";
             vendaAoConsumidorToolStripMenuItem.Click += vendaAoConsumidorToolStripMenuItem_Click;
             // 
             // remessaDepositoToolStripMenuItem
             // 
             remessaDepositoToolStripMenuItem.Name = "remessaDepositoToolStripMenuItem";
-            remessaDepositoToolStripMenuItem.Size = new Size(291, 26);
+            remessaDepositoToolStripMenuItem.Size = new Size(230, 22);
             remessaDepositoToolStripMenuItem.Text = "Remessa para Depósito";
             remessaDepositoToolStripMenuItem.Click += transferênciaEntreLojasToolStripMenuItem_Click;
             // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(288, 6);
+            toolStripSeparator4.Size = new Size(227, 6);
             // 
             // devoluçãoDeConsumidorToolStripMenuItem
             // 
             devoluçãoDeConsumidorToolStripMenuItem.Name = "devoluçãoDeConsumidorToolStripMenuItem";
-            devoluçãoDeConsumidorToolStripMenuItem.Size = new Size(291, 26);
+            devoluçãoDeConsumidorToolStripMenuItem.Size = new Size(230, 22);
             devoluçãoDeConsumidorToolStripMenuItem.Text = "Devolução de Consumidor";
             devoluçãoDeConsumidorToolStripMenuItem.Click += devoluçãoDeConsumidorToolStripMenuItem_Click;
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(288, 6);
+            toolStripSeparator5.Size = new Size(227, 6);
             // 
             // devoluçãoDeProdutosToolStripMenuItem
             // 
             devoluçãoDeProdutosToolStripMenuItem.Name = "devoluçãoDeProdutosToolStripMenuItem";
-            devoluçãoDeProdutosToolStripMenuItem.Size = new Size(291, 26);
+            devoluçãoDeProdutosToolStripMenuItem.Size = new Size(230, 22);
             devoluçãoDeProdutosToolStripMenuItem.Text = "Devolução para Fornecedor";
             devoluçãoDeProdutosToolStripMenuItem.Click += devoluçãoDeProdutosToolStripMenuItem_Click;
             // 
             // remessaParaConsertoToolStripMenuItem2
             // 
             remessaParaConsertoToolStripMenuItem2.Name = "remessaParaConsertoToolStripMenuItem2";
-            remessaParaConsertoToolStripMenuItem2.Size = new Size(291, 26);
+            remessaParaConsertoToolStripMenuItem2.Size = new Size(230, 22);
             remessaParaConsertoToolStripMenuItem2.Text = "Remessa para Conserto";
             remessaParaConsertoToolStripMenuItem2.Click += remessaParaConsertoToolStripMenuItem2_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(288, 6);
+            toolStripSeparator2.Size = new Size(227, 6);
             // 
             // retornoDepositoMenuItem
             // 
             retornoDepositoMenuItem.Name = "retornoDepositoMenuItem";
-            retornoDepositoMenuItem.Size = new Size(291, 26);
+            retornoDepositoMenuItem.Size = new Size(230, 22);
             retornoDepositoMenuItem.Text = "Retorno de Depósito Fechado";
             retornoDepositoMenuItem.Click += retornoDepositoMenuItem_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(288, 6);
+            toolStripSeparator3.Size = new Size(227, 6);
             // 
             // retornoDeFornecedorvariaToolStripMenuItem
             // 
             retornoDeFornecedorvariaToolStripMenuItem.Name = "retornoDeFornecedorvariaToolStripMenuItem";
-            retornoDeFornecedorvariaToolStripMenuItem.Size = new Size(291, 26);
+            retornoDeFornecedorvariaToolStripMenuItem.Size = new Size(230, 22);
             retornoDeFornecedorvariaToolStripMenuItem.Text = "Retorno de Fornecedor";
             retornoDeFornecedorvariaToolStripMenuItem.Click += retornoDeFornecedorvariaToolStripMenuItem_Click;
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new Size(288, 6);
+            toolStripSeparator6.Size = new Size(227, 6);
             // 
             // estatísticaPorProdutoToolStripMenuItem
             // 
             estatísticaPorProdutoToolStripMenuItem.Name = "estatísticaPorProdutoToolStripMenuItem";
-            estatísticaPorProdutoToolStripMenuItem.Size = new Size(291, 26);
+            estatísticaPorProdutoToolStripMenuItem.Size = new Size(230, 22);
             estatísticaPorProdutoToolStripMenuItem.Text = "Estatística por Produto";
             estatísticaPorProdutoToolStripMenuItem.Click += estatísticaPorProdutoToolStripMenuItem_Click;
             // 
             // pontaDeEstoqueToolStripMenuItem
             // 
             pontaDeEstoqueToolStripMenuItem.Name = "pontaDeEstoqueToolStripMenuItem";
-            pontaDeEstoqueToolStripMenuItem.Size = new Size(291, 26);
+            pontaDeEstoqueToolStripMenuItem.Size = new Size(230, 22);
             pontaDeEstoqueToolStripMenuItem.Text = "Ponta de Estoque";
             pontaDeEstoqueToolStripMenuItem.Click += pontaDeEstoqueToolStripMenuItem_Click;
             // 
             // solicitaçõesDeCompraToolStripMenuItem
             // 
             solicitaçõesDeCompraToolStripMenuItem.Name = "solicitaçõesDeCompraToolStripMenuItem";
-            solicitaçõesDeCompraToolStripMenuItem.Size = new Size(291, 26);
+            solicitaçõesDeCompraToolStripMenuItem.Size = new Size(230, 22);
             solicitaçõesDeCompraToolStripMenuItem.Text = "Solicitações de Compra";
             solicitaçõesDeCompraToolStripMenuItem.Click += solicitaçõesDeCompraToolStripMenuItem_Click;
             // 
@@ -329,58 +329,58 @@
             // 
             contasAPagarToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { contasAPagarToolStripMenuItem1, receberPagamentosToolStripMenuItem, receberPagamentosCartõesDeCréditoToolStripMenuItem, toolStripMenuItem1, movimentaçãoDeCaixasContasToolStripMenuItem, tranferênciaEntreCaixasContasBancáriasToolStripMenuItem, cálculoParticipaçãoMensalToolStripMenuItem, vendasPorProfissionaisToolStripMenuItem });
             contasAPagarToolStripMenuItem.Name = "contasAPagarToolStripMenuItem";
-            contasAPagarToolStripMenuItem.Size = new Size(91, 24);
+            contasAPagarToolStripMenuItem.Size = new Size(74, 20);
             contasAPagarToolStripMenuItem.Text = "&Financeiro";
             // 
             // contasAPagarToolStripMenuItem1
             // 
             contasAPagarToolStripMenuItem1.Name = "contasAPagarToolStripMenuItem1";
-            contasAPagarToolStripMenuItem1.Size = new Size(392, 26);
+            contasAPagarToolStripMenuItem1.Size = new Size(313, 22);
             contasAPagarToolStripMenuItem1.Text = "Contas a Pagar / Receber";
             contasAPagarToolStripMenuItem1.Click += contasAPagarToolStripMenuItem1_Click;
             // 
             // receberPagamentosToolStripMenuItem
             // 
             receberPagamentosToolStripMenuItem.Name = "receberPagamentosToolStripMenuItem";
-            receberPagamentosToolStripMenuItem.Size = new Size(392, 26);
+            receberPagamentosToolStripMenuItem.Size = new Size(313, 22);
             receberPagamentosToolStripMenuItem.Text = "Receber Pagamentos Clientes";
             receberPagamentosToolStripMenuItem.Click += receberPagamentosToolStripMenuItem_Click;
             // 
             // receberPagamentosCartõesDeCréditoToolStripMenuItem
             // 
             receberPagamentosCartõesDeCréditoToolStripMenuItem.Name = "receberPagamentosCartõesDeCréditoToolStripMenuItem";
-            receberPagamentosCartõesDeCréditoToolStripMenuItem.Size = new Size(392, 26);
+            receberPagamentosCartõesDeCréditoToolStripMenuItem.Size = new Size(313, 22);
             receberPagamentosCartõesDeCréditoToolStripMenuItem.Text = "Receber Pagamentos Administradora Cartões";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(389, 6);
+            toolStripMenuItem1.Size = new Size(310, 6);
             // 
             // movimentaçãoDeCaixasContasToolStripMenuItem
             // 
             movimentaçãoDeCaixasContasToolStripMenuItem.Name = "movimentaçãoDeCaixasContasToolStripMenuItem";
-            movimentaçãoDeCaixasContasToolStripMenuItem.Size = new Size(392, 26);
+            movimentaçãoDeCaixasContasToolStripMenuItem.Size = new Size(313, 22);
             movimentaçãoDeCaixasContasToolStripMenuItem.Text = "Movimentação de Caixas / Contas Bancárias";
             movimentaçãoDeCaixasContasToolStripMenuItem.Click += movimentaçãoDeCaixasContasToolStripMenuItem_Click;
             // 
             // tranferênciaEntreCaixasContasBancáriasToolStripMenuItem
             // 
             tranferênciaEntreCaixasContasBancáriasToolStripMenuItem.Name = "tranferênciaEntreCaixasContasBancáriasToolStripMenuItem";
-            tranferênciaEntreCaixasContasBancáriasToolStripMenuItem.Size = new Size(392, 26);
+            tranferênciaEntreCaixasContasBancáriasToolStripMenuItem.Size = new Size(313, 22);
             tranferênciaEntreCaixasContasBancáriasToolStripMenuItem.Text = "Tranferência entre Caixas / Contas Bancárias";
             // 
             // cálculoParticipaçãoMensalToolStripMenuItem
             // 
             cálculoParticipaçãoMensalToolStripMenuItem.Name = "cálculoParticipaçãoMensalToolStripMenuItem";
-            cálculoParticipaçãoMensalToolStripMenuItem.Size = new Size(392, 26);
+            cálculoParticipaçãoMensalToolStripMenuItem.Size = new Size(313, 22);
             cálculoParticipaçãoMensalToolStripMenuItem.Text = "Cálculo Participação Mensal";
             cálculoParticipaçãoMensalToolStripMenuItem.Click += cálculoParticipaçãoMensalToolStripMenuItem_Click;
             // 
             // vendasPorProfissionaisToolStripMenuItem
             // 
             vendasPorProfissionaisToolStripMenuItem.Name = "vendasPorProfissionaisToolStripMenuItem";
-            vendasPorProfissionaisToolStripMenuItem.Size = new Size(392, 26);
+            vendasPorProfissionaisToolStripMenuItem.Size = new Size(313, 22);
             vendasPorProfissionaisToolStripMenuItem.Text = "Vendas por Vendedores + Curva ABC";
             vendasPorProfissionaisToolStripMenuItem.Click += vendasPorProfissionaisToolStripMenuItem_Click;
             // 
@@ -388,62 +388,62 @@
             // 
             utilitáriosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backupToolStripMenuItem, restaurarBackupToolStripMenuItem, atualizarCSOSNToolStripMenuItem, atualizarPreçoVarejoToolStripMenuItem, exclusãoDeProdutoDoSistemaToolStripMenuItem, exclusãoDePessoasDoSistemaToolStripMenuItem, enviarNFesEmitidasOffLineToolStripMenuItem, calcularImpostoNFCECtempToolStripMenuItem });
             utilitáriosToolStripMenuItem.Name = "utilitáriosToolStripMenuItem";
-            utilitáriosToolStripMenuItem.Size = new Size(87, 24);
+            utilitáriosToolStripMenuItem.Size = new Size(69, 20);
             utilitáriosToolStripMenuItem.Text = "&Utilitários";
             // 
             // backupToolStripMenuItem
             // 
             backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-            backupToolStripMenuItem.Size = new Size(412, 26);
+            backupToolStripMenuItem.Size = new Size(326, 22);
             backupToolStripMenuItem.Text = "Gravar Backup";
             backupToolStripMenuItem.Click += backupToolStripMenuItem_Click;
             // 
             // restaurarBackupToolStripMenuItem
             // 
             restaurarBackupToolStripMenuItem.Name = "restaurarBackupToolStripMenuItem";
-            restaurarBackupToolStripMenuItem.Size = new Size(412, 26);
+            restaurarBackupToolStripMenuItem.Size = new Size(326, 22);
             restaurarBackupToolStripMenuItem.Text = "Restaurar Backup";
             restaurarBackupToolStripMenuItem.Click += restaurarBackupToolStripMenuItem_Click;
             // 
             // atualizarCSOSNToolStripMenuItem
             // 
             atualizarCSOSNToolStripMenuItem.Name = "atualizarCSOSNToolStripMenuItem";
-            atualizarCSOSNToolStripMenuItem.Size = new Size(412, 26);
+            atualizarCSOSNToolStripMenuItem.Size = new Size(326, 22);
             atualizarCSOSNToolStripMenuItem.Text = "Atualizar Códigos de Barras \\ Imprimir Etiquetas";
             atualizarCSOSNToolStripMenuItem.Click += atualizarCSOSNToolStripMenuItem_Click;
             // 
             // atualizarPreçoVarejoToolStripMenuItem
             // 
             atualizarPreçoVarejoToolStripMenuItem.Name = "atualizarPreçoVarejoToolStripMenuItem";
-            atualizarPreçoVarejoToolStripMenuItem.Size = new Size(412, 26);
+            atualizarPreçoVarejoToolStripMenuItem.Size = new Size(326, 22);
             atualizarPreçoVarejoToolStripMenuItem.Text = "Atualizar Preço Varejo \\ Atacado";
             atualizarPreçoVarejoToolStripMenuItem.Click += atualizarPreçoVarejoToolStripMenuItem_Click;
             // 
             // exclusãoDeProdutoDoSistemaToolStripMenuItem
             // 
             exclusãoDeProdutoDoSistemaToolStripMenuItem.Name = "exclusãoDeProdutoDoSistemaToolStripMenuItem";
-            exclusãoDeProdutoDoSistemaToolStripMenuItem.Size = new Size(412, 26);
+            exclusãoDeProdutoDoSistemaToolStripMenuItem.Size = new Size(326, 22);
             exclusãoDeProdutoDoSistemaToolStripMenuItem.Text = "Exclusão de Produto do Sistema";
             exclusãoDeProdutoDoSistemaToolStripMenuItem.Click += exclusãoDeProdutoDoSistemaToolStripMenuItem_Click;
             // 
             // exclusãoDePessoasDoSistemaToolStripMenuItem
             // 
             exclusãoDePessoasDoSistemaToolStripMenuItem.Name = "exclusãoDePessoasDoSistemaToolStripMenuItem";
-            exclusãoDePessoasDoSistemaToolStripMenuItem.Size = new Size(412, 26);
+            exclusãoDePessoasDoSistemaToolStripMenuItem.Size = new Size(326, 22);
             exclusãoDePessoasDoSistemaToolStripMenuItem.Text = "Exclusão de Pessoas do Sistema";
             exclusãoDePessoasDoSistemaToolStripMenuItem.Click += exclusãoDePessoasDoSistemaToolStripMenuItem_Click;
             // 
             // enviarNFesEmitidasOffLineToolStripMenuItem
             // 
             enviarNFesEmitidasOffLineToolStripMenuItem.Name = "enviarNFesEmitidasOffLineToolStripMenuItem";
-            enviarNFesEmitidasOffLineToolStripMenuItem.Size = new Size(412, 26);
+            enviarNFesEmitidasOffLineToolStripMenuItem.Size = new Size(326, 22);
             enviarNFesEmitidasOffLineToolStripMenuItem.Text = "Enviar NFes Emitidas Off-Line";
             enviarNFesEmitidasOffLineToolStripMenuItem.Click += enviarNFesEmitidasOffLineToolStripMenuItem_Click;
             // 
             // calcularImpostoNFCECtempToolStripMenuItem
             // 
             calcularImpostoNFCECtempToolStripMenuItem.Name = "calcularImpostoNFCECtempToolStripMenuItem";
-            calcularImpostoNFCECtempToolStripMenuItem.Size = new Size(412, 26);
+            calcularImpostoNFCECtempToolStripMenuItem.Size = new Size(326, 22);
             calcularImpostoNFCECtempToolStripMenuItem.Text = "Calcular Totais NFCe";
             calcularImpostoNFCECtempToolStripMenuItem.Click += calcularImpostoNFCECtempToolStripMenuItem_Click;
             // 
@@ -451,27 +451,27 @@
             // 
             relatóriosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { produtosToolStripMenuItem1, produtosParaRevendaToolStripMenuItem, estatísticaPorGrupoToolStripMenuItem });
             relatóriosToolStripMenuItem.Name = "relatóriosToolStripMenuItem";
-            relatóriosToolStripMenuItem.Size = new Size(90, 24);
+            relatóriosToolStripMenuItem.Size = new Size(71, 20);
             relatóriosToolStripMenuItem.Text = "&Relatórios";
             // 
             // produtosToolStripMenuItem1
             // 
             produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
-            produtosToolStripMenuItem1.Size = new Size(246, 26);
+            produtosToolStripMenuItem1.Size = new Size(196, 22);
             produtosToolStripMenuItem1.Text = "Produtos";
             produtosToolStripMenuItem1.Click += produtosToolStripMenuItem1_Click_1;
             // 
             // produtosParaRevendaToolStripMenuItem
             // 
             produtosParaRevendaToolStripMenuItem.Name = "produtosParaRevendaToolStripMenuItem";
-            produtosParaRevendaToolStripMenuItem.Size = new Size(246, 26);
+            produtosParaRevendaToolStripMenuItem.Size = new Size(196, 22);
             produtosParaRevendaToolStripMenuItem.Text = "Produtos para Revenda";
             produtosParaRevendaToolStripMenuItem.Click += produtosParaRevendaToolStripMenuItem_Click;
             // 
             // estatísticaPorGrupoToolStripMenuItem
             // 
             estatísticaPorGrupoToolStripMenuItem.Name = "estatísticaPorGrupoToolStripMenuItem";
-            estatísticaPorGrupoToolStripMenuItem.Size = new Size(246, 26);
+            estatísticaPorGrupoToolStripMenuItem.Size = new Size(196, 22);
             estatísticaPorGrupoToolStripMenuItem.Text = "Estatística por Grupo";
             estatísticaPorGrupoToolStripMenuItem.Click += estatísticaPorGrupoToolStripMenuItem_Click;
             // 
@@ -479,13 +479,13 @@
             // 
             ajudaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sobreToolStripMenuItem });
             ajudaToolStripMenuItem.Name = "ajudaToolStripMenuItem";
-            ajudaToolStripMenuItem.Size = new Size(62, 24);
+            ajudaToolStripMenuItem.Size = new Size(50, 20);
             ajudaToolStripMenuItem.Text = "&Ajuda";
             // 
             // sobreToolStripMenuItem
             // 
             sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            sobreToolStripMenuItem.Size = new Size(131, 26);
+            sobreToolStripMenuItem.Size = new Size(104, 22);
             sobreToolStripMenuItem.Text = "Sobre";
             sobreToolStripMenuItem.Click += sobreToolStripMenuItem_Click;
             // 
@@ -493,10 +493,10 @@
             // 
             btnSair.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSair.Image = (Image)resources.GetObject("btnSair.Image");
-            btnSair.Location = new Point(832, 40);
-            btnSair.Margin = new Padding(4, 5, 4, 5);
+            btnSair.Location = new Point(728, 30);
+            btnSair.Margin = new Padding(4, 4, 4, 4);
             btnSair.Name = "btnSair";
-            btnSair.Size = new Size(140, 120);
+            btnSair.Size = new Size(122, 90);
             btnSair.TabIndex = 12;
             btnSair.Text = "Sair - ESC";
             btnSair.TextAlign = ContentAlignment.BottomCenter;
@@ -507,10 +507,10 @@
             // 
             btnEntradas.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEntradas.Image = (Image)resources.GetObject("btnEntradas.Image");
-            btnEntradas.Location = new Point(416, 40);
-            btnEntradas.Margin = new Padding(4, 5, 4, 5);
+            btnEntradas.Location = new Point(364, 30);
+            btnEntradas.Margin = new Padding(4, 4, 4, 4);
             btnEntradas.Name = "btnEntradas";
-            btnEntradas.Size = new Size(140, 120);
+            btnEntradas.Size = new Size(122, 90);
             btnEntradas.TabIndex = 8;
             btnEntradas.Text = "Entradas - F6";
             btnEntradas.TextAlign = ContentAlignment.BottomCenter;
@@ -521,10 +521,10 @@
             // 
             btnContas.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnContas.Image = (Image)resources.GetObject("btnContas.Image");
-            btnContas.Location = new Point(555, 40);
-            btnContas.Margin = new Padding(4, 5, 4, 5);
+            btnContas.Location = new Point(486, 30);
+            btnContas.Margin = new Padding(4, 4, 4, 4);
             btnContas.Name = "btnContas";
-            btnContas.Size = new Size(140, 120);
+            btnContas.Size = new Size(122, 90);
             btnContas.TabIndex = 9;
             btnContas.Text = "Contas - F7";
             btnContas.TextAlign = ContentAlignment.BottomCenter;
@@ -535,10 +535,10 @@
             // 
             btnCliente.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCliente.Image = (Image)resources.GetObject("btnCliente.Image");
-            btnCliente.Location = new Point(277, 40);
-            btnCliente.Margin = new Padding(4, 5, 4, 5);
+            btnCliente.Location = new Point(242, 30);
+            btnCliente.Margin = new Padding(4, 4, 4, 4);
             btnCliente.Name = "btnCliente";
-            btnCliente.Size = new Size(140, 120);
+            btnCliente.Size = new Size(122, 90);
             btnCliente.TabIndex = 6;
             btnCliente.Text = "Pessoas - F5";
             btnCliente.TextAlign = ContentAlignment.BottomCenter;
@@ -549,10 +549,10 @@
             // 
             btnProdutos.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnProdutos.Image = (Image)resources.GetObject("btnProdutos.Image");
-            btnProdutos.Location = new Point(139, 40);
-            btnProdutos.Margin = new Padding(4, 5, 4, 5);
+            btnProdutos.Location = new Point(122, 30);
+            btnProdutos.Margin = new Padding(4, 4, 4, 4);
             btnProdutos.Name = "btnProdutos";
-            btnProdutos.Size = new Size(140, 120);
+            btnProdutos.Size = new Size(122, 90);
             btnProdutos.TabIndex = 4;
             btnProdutos.Text = "Produtos - F4";
             btnProdutos.TextAlign = ContentAlignment.BottomCenter;
@@ -563,10 +563,10 @@
             // 
             btnVenda.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnVenda.Image = (Image)resources.GetObject("btnVenda.Image");
-            btnVenda.Location = new Point(0, 40);
-            btnVenda.Margin = new Padding(4, 5, 4, 5);
+            btnVenda.Location = new Point(0, 30);
+            btnVenda.Margin = new Padding(4, 4, 4, 4);
             btnVenda.Name = "btnVenda";
-            btnVenda.Size = new Size(140, 120);
+            btnVenda.Size = new Size(122, 90);
             btnVenda.TabIndex = 3;
             btnVenda.Text = "Pré-Venda - F3";
             btnVenda.TextAlign = ContentAlignment.BottomCenter;
@@ -577,10 +577,10 @@
             // 
             btnReceber.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnReceber.Image = (Image)resources.GetObject("btnReceber.Image");
-            btnReceber.Location = new Point(693, 40);
-            btnReceber.Margin = new Padding(4, 5, 4, 5);
+            btnReceber.Location = new Point(606, 30);
+            btnReceber.Margin = new Padding(4, 4, 4, 4);
             btnReceber.Name = "btnReceber";
-            btnReceber.Size = new Size(140, 120);
+            btnReceber.Size = new Size(122, 90);
             btnReceber.TabIndex = 10;
             btnReceber.Text = "Receber - F8";
             btnReceber.TextAlign = ContentAlignment.BottomCenter;
@@ -597,10 +597,10 @@
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(745, 728);
-            pictureBox1.Margin = new Padding(4, 5, 4, 5);
+            pictureBox1.Location = new Point(652, 546);
+            pictureBox1.Margin = new Padding(4, 4, 4, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(560, 186);
+            pictureBox1.Size = new Size(490, 140);
             pictureBox1.TabIndex = 18;
             pictureBox1.TabStop = false;
             // 
@@ -627,10 +627,10 @@
             lblNumeroVendas.AutoSize = true;
             lblNumeroVendas.BackColor = SystemColors.ButtonFace;
             lblNumeroVendas.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblNumeroVendas.Location = new Point(997, 80);
+            lblNumeroVendas.Location = new Point(872, 60);
             lblNumeroVendas.Margin = new Padding(4, 0, 4, 0);
             lblNumeroVendas.Name = "lblNumeroVendas";
-            lblNumeroVendas.Size = new Size(160, 25);
+            lblNumeroVendas.Size = new Size(128, 20);
             lblNumeroVendas.TabIndex = 19;
             lblNumeroVendas.Text = "Número Vendas:";
             // 
@@ -639,10 +639,10 @@
             lblTicketMedio.AutoSize = true;
             lblTicketMedio.BackColor = SystemColors.ButtonFace;
             lblTicketMedio.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTicketMedio.Location = new Point(997, 126);
+            lblTicketMedio.Location = new Point(872, 94);
             lblTicketMedio.Margin = new Padding(4, 0, 4, 0);
             lblTicketMedio.Name = "lblTicketMedio";
-            lblTicketMedio.Size = new Size(130, 25);
+            lblTicketMedio.Size = new Size(102, 20);
             lblTicketMedio.TabIndex = 20;
             lblTicketMedio.Text = "Ticket Médio:";
             // 
@@ -651,20 +651,20 @@
             lblAno.AutoSize = true;
             lblAno.BackColor = SystemColors.ButtonFace;
             lblAno.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblAno.Location = new Point(997, 37);
+            lblAno.Location = new Point(872, 28);
             lblAno.Margin = new Padding(4, 0, 4, 0);
             lblAno.Name = "lblAno";
-            lblAno.Size = new Size(73, 25);
+            lblAno.Size = new Size(57, 20);
             lblAno.TabIndex = 21;
             lblAno.Text = "lblAno:";
             // 
             // Principal
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveBorder;
+            BackColor = SystemColors.GradientInactiveCaption;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1309, 917);
+            ClientSize = new Size(1145, 634);
             Controls.Add(lblAno);
             Controls.Add(lblTicketMedio);
             Controls.Add(lblNumeroVendas);
@@ -680,7 +680,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             MainMenuStrip = menuStrip1;
-            Margin = new Padding(4, 5, 4, 5);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "Principal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SACE - Sistema de Apoio ao Controle de Estoque";

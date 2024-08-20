@@ -28,1128 +28,1175 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label codSaidaLabel;
-            System.Windows.Forms.Label quantidadeLabel;
-            System.Windows.Forms.Label valorVendaLabel;
-            System.Windows.Forms.Label dataSaidaLabel;
-            System.Windows.Forms.Label nomeLabel;
-            System.Windows.Forms.Label subtotalLabel;
-            System.Windows.Forms.Label totalLabel;
-            System.Windows.Forms.Label pedidoGeradoLabel;
-            System.Windows.Forms.Label label4;
-            System.Windows.Forms.Label data_validadeLabel;
-            System.Windows.Forms.Label nomeClienteLabel;
-            System.Windows.Forms.Label descricaoTipoSaidaLabel;
-            System.Windows.Forms.Label nfeLabel;
-            System.Windows.Forms.Label descricaoSituacaoPagamentosLabel;
-            System.Windows.Forms.Label label5;
-            System.Windows.Forms.Label baseCalculoICMSLabel;
-            System.Windows.Forms.Label valorICMSLabel;
-            System.Windows.Forms.Label baseCalculoICMSSubstLabel;
-            System.Windows.Forms.Label valorICMSSubstLabel;
-            System.Windows.Forms.Label valorIPILabel;
-            System.Windows.Forms.Label label1;
+            components = new System.ComponentModel.Container();
+            Label codSaidaLabel;
+            Label quantidadeLabel;
+            Label valorVendaLabel;
+            Label dataSaidaLabel;
+            Label nomeLabel;
+            Label subtotalLabel;
+            Label totalLabel;
+            Label pedidoGeradoLabel;
+            Label label4;
+            Label data_validadeLabel;
+            Label nomeClienteLabel;
+            Label descricaoTipoSaidaLabel;
+            Label nfeLabel;
+            Label descricaoSituacaoPagamentosLabel;
+            Label label5;
+            Label baseCalculoICMSLabel;
+            Label valorICMSLabel;
+            Label baseCalculoICMSSubstLabel;
+            Label valorICMSSubstLabel;
+            Label valorIPILabel;
+            Label label1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSaida));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.lblSaidaProdutos = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblFormaEntrada = new System.Windows.Forms.Label();
-            this.pedidoGeradoTextBox = new System.Windows.Forms.TextBox();
-            this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codSaidaTextBox = new System.Windows.Forms.TextBox();
-            this.dataSaidaDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
-            this.tb_saidaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.quantidadeTextBox = new System.Windows.Forms.TextBox();
-            this.precoVendaSemDescontoTextBox = new System.Windows.Forms.TextBox();
-            this.subtotalTextBox = new System.Windows.Forms.TextBox();
-            this.tb_saida_produtoDataGridView = new System.Windows.Forms.DataGridView();
-            this.codSaidaProdutoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorVendaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotalAVistaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.saidaProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.totalTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.totalAVistaTextBox = new System.Windows.Forms.TextBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.codProdutoComboBox = new System.Windows.Forms.ComboBox();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.precoVendatextBox = new System.Windows.Forms.TextBox();
-            this.data_validadeDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.nomeClienteTextBox = new System.Windows.Forms.TextBox();
-            this.descricaoTipoSaidaTextBox = new System.Windows.Forms.TextBox();
-            this.btnEncerrar = new System.Windows.Forms.Button();
-            this.nfeTextBox = new System.Windows.Forms.TextBox();
-            this.entregaRealizadaCheckBox = new System.Windows.Forms.CheckBox();
-            this.descricaoSituacaoPagamentosTextBox = new System.Windows.Forms.TextBox();
-            this.btnImprimir = new System.Windows.Forms.Button();
-            this.subtotalAVistatextBox = new System.Windows.Forms.TextBox();
-            this.lblBalcao = new System.Windows.Forms.Label();
-            this.panelBalcao = new System.Windows.Forms.Panel();
-            this.btnCfNfe = new System.Windows.Forms.Button();
-            this.baseCalculoICMSTextBox = new System.Windows.Forms.TextBox();
-            this.valorICMSTextBox = new System.Windows.Forms.TextBox();
-            this.baseCalculoICMSSubstTextBox = new System.Windows.Forms.TextBox();
-            this.valorICMSSubstTextBox = new System.Windows.Forms.TextBox();
-            this.valorIPITextBox = new System.Windows.Forms.TextBox();
-            this.lblPreco = new System.Windows.Forms.Label();
-            this.labelAtualizarPrecos = new System.Windows.Forms.Label();
-            this.VendedorTextBox = new System.Windows.Forms.TextBox();
-            codSaidaLabel = new System.Windows.Forms.Label();
-            quantidadeLabel = new System.Windows.Forms.Label();
-            valorVendaLabel = new System.Windows.Forms.Label();
-            dataSaidaLabel = new System.Windows.Forms.Label();
-            nomeLabel = new System.Windows.Forms.Label();
-            subtotalLabel = new System.Windows.Forms.Label();
-            totalLabel = new System.Windows.Forms.Label();
-            pedidoGeradoLabel = new System.Windows.Forms.Label();
-            label4 = new System.Windows.Forms.Label();
-            data_validadeLabel = new System.Windows.Forms.Label();
-            nomeClienteLabel = new System.Windows.Forms.Label();
-            descricaoTipoSaidaLabel = new System.Windows.Forms.Label();
-            nfeLabel = new System.Windows.Forms.Label();
-            descricaoSituacaoPagamentosLabel = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
-            baseCalculoICMSLabel = new System.Windows.Forms.Label();
-            valorICMSLabel = new System.Windows.Forms.Label();
-            baseCalculoICMSSubstLabel = new System.Windows.Forms.Label();
-            valorICMSSubstLabel = new System.Windows.Forms.Label();
-            valorIPILabel = new System.Windows.Forms.Label();
-            label1 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingNavigator)).BeginInit();
-            this.tb_saidaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saidaProdutoBindingSource)).BeginInit();
-            this.panelBalcao.SuspendLayout();
-            this.SuspendLayout();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            lblSaidaProdutos = new Label();
+            panel1 = new Panel();
+            lblFormaEntrada = new Label();
+            pedidoGeradoTextBox = new TextBox();
+            saidaBindingSource = new BindingSource(components);
+            codSaidaTextBox = new TextBox();
+            dataSaidaDateTimePicker = new DateTimePicker();
+            btnSalvar = new Button();
+            btnCancelar = new Button();
+            btnNovo = new Button();
+            btnExcluir = new Button();
+            tb_saidaBindingNavigator = new BindingNavigator(components);
+            bindingNavigatorCountItem = new ToolStripLabel();
+            bindingNavigatorMoveFirstItem = new ToolStripButton();
+            bindingNavigatorMovePreviousItem = new ToolStripButton();
+            bindingNavigatorSeparator = new ToolStripSeparator();
+            bindingNavigatorPositionItem = new ToolStripTextBox();
+            bindingNavigatorSeparator1 = new ToolStripSeparator();
+            bindingNavigatorMoveNextItem = new ToolStripButton();
+            bindingNavigatorMoveLastItem = new ToolStripButton();
+            bindingNavigatorSeparator2 = new ToolStripSeparator();
+            produtoBindingSource = new BindingSource(components);
+            quantidadeTextBox = new TextBox();
+            precoVendaSemDescontoTextBox = new TextBox();
+            subtotalTextBox = new TextBox();
+            tb_saida_produtoDataGridView = new DataGridView();
+            codSaidaProdutoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            Unidade = new DataGridViewTextBoxColumn();
+            quantidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            valorVendaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            subtotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            subtotalAVistaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            saidaProdutoBindingSource = new BindingSource(components);
+            totalTextBox = new TextBox();
+            label2 = new Label();
+            totalAVistaTextBox = new TextBox();
+            btnBuscar = new Button();
+            label3 = new Label();
+            label6 = new Label();
+            codProdutoComboBox = new ComboBox();
+            btnEditar = new Button();
+            precoVendatextBox = new TextBox();
+            data_validadeDateTimePicker = new DateTimePicker();
+            nomeClienteTextBox = new TextBox();
+            descricaoTipoSaidaTextBox = new TextBox();
+            btnEncerrar = new Button();
+            nfeTextBox = new TextBox();
+            entregaRealizadaCheckBox = new CheckBox();
+            descricaoSituacaoPagamentosTextBox = new TextBox();
+            btnImprimir = new Button();
+            subtotalAVistatextBox = new TextBox();
+            lblBalcao = new Label();
+            panelBalcao = new Panel();
+            btnCfNfe = new Button();
+            baseCalculoICMSTextBox = new TextBox();
+            valorICMSTextBox = new TextBox();
+            baseCalculoICMSSubstTextBox = new TextBox();
+            valorICMSSubstTextBox = new TextBox();
+            valorIPITextBox = new TextBox();
+            lblPreco = new Label();
+            labelAtualizarPrecos = new Label();
+            VendedorTextBox = new TextBox();
+            codSaidaLabel = new Label();
+            quantidadeLabel = new Label();
+            valorVendaLabel = new Label();
+            dataSaidaLabel = new Label();
+            nomeLabel = new Label();
+            subtotalLabel = new Label();
+            totalLabel = new Label();
+            pedidoGeradoLabel = new Label();
+            label4 = new Label();
+            data_validadeLabel = new Label();
+            nomeClienteLabel = new Label();
+            descricaoTipoSaidaLabel = new Label();
+            nfeLabel = new Label();
+            descricaoSituacaoPagamentosLabel = new Label();
+            label5 = new Label();
+            baseCalculoICMSLabel = new Label();
+            valorICMSLabel = new Label();
+            baseCalculoICMSSubstLabel = new Label();
+            valorICMSSubstLabel = new Label();
+            valorIPILabel = new Label();
+            label1 = new Label();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)saidaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tb_saidaBindingNavigator).BeginInit();
+            tb_saidaBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)produtoBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tb_saida_produtoDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)saidaProdutoBindingSource).BeginInit();
+            panelBalcao.SuspendLayout();
+            SuspendLayout();
             // 
             // codSaidaLabel
             // 
             codSaidaLabel.AutoSize = true;
-            codSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            codSaidaLabel.ForeColor = System.Drawing.Color.Black;
-            codSaidaLabel.Location = new System.Drawing.Point(10, 534);
+            codSaidaLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            codSaidaLabel.ForeColor = Color.Black;
+            codSaidaLabel.Location = new Point(12, 616);
+            codSaidaLabel.Margin = new Padding(4, 0, 4, 0);
             codSaidaLabel.Name = "codSaidaLabel";
-            codSaidaLabel.Size = new System.Drawing.Size(62, 20);
+            codSaidaLabel.Size = new Size(62, 20);
             codSaidaLabel.TabIndex = 21;
             codSaidaLabel.Text = "Pedido:";
             // 
             // quantidadeLabel
             // 
             quantidadeLabel.AutoSize = true;
-            quantidadeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            quantidadeLabel.Location = new System.Drawing.Point(10, 152);
+            quantidadeLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            quantidadeLabel.Location = new Point(12, 175);
+            quantidadeLabel.Margin = new Padding(4, 0, 4, 0);
             quantidadeLabel.Name = "quantidadeLabel";
-            quantidadeLabel.Size = new System.Drawing.Size(96, 20);
+            quantidadeLabel.Size = new Size(96, 20);
             quantidadeLabel.TabIndex = 23;
             quantidadeLabel.Text = "Quantidade:";
             // 
             // valorVendaLabel
             // 
             valorVendaLabel.AutoSize = true;
-            valorVendaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            valorVendaLabel.Location = new System.Drawing.Point(10, 214);
+            valorVendaLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            valorVendaLabel.Location = new Point(12, 247);
+            valorVendaLabel.Margin = new Padding(4, 0, 4, 0);
             valorVendaLabel.Name = "valorVendaLabel";
-            valorVendaLabel.Size = new System.Drawing.Size(89, 20);
+            valorVendaLabel.Size = new Size(89, 20);
             valorVendaLabel.TabIndex = 25;
             valorVendaLabel.Text = "Preço (R$):";
             // 
             // dataSaidaLabel
             // 
             dataSaidaLabel.AutoSize = true;
-            dataSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataSaidaLabel.ForeColor = System.Drawing.Color.Black;
-            dataSaidaLabel.Location = new System.Drawing.Point(104, 534);
+            dataSaidaLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataSaidaLabel.ForeColor = Color.Black;
+            dataSaidaLabel.Location = new Point(121, 616);
+            dataSaidaLabel.Margin = new Padding(4, 0, 4, 0);
             dataSaidaLabel.Name = "dataSaidaLabel";
-            dataSaidaLabel.Size = new System.Drawing.Size(48, 20);
+            dataSaidaLabel.Size = new Size(48, 20);
             dataSaidaLabel.TabIndex = 27;
             dataSaidaLabel.Text = "Data:";
             // 
             // nomeLabel
             // 
             nomeLabel.AutoSize = true;
-            nomeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            nomeLabel.Location = new System.Drawing.Point(10, 55);
+            nomeLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nomeLabel.Location = new Point(12, 63);
+            nomeLabel.Margin = new Padding(4, 0, 4, 0);
             nomeLabel.Name = "nomeLabel";
-            nomeLabel.Size = new System.Drawing.Size(69, 20);
+            nomeLabel.Size = new Size(69, 20);
             nomeLabel.TabIndex = 29;
             nomeLabel.Text = "Produto:";
             // 
             // subtotalLabel
             // 
             subtotalLabel.AutoSize = true;
-            subtotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            subtotalLabel.Location = new System.Drawing.Point(8, 273);
+            subtotalLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            subtotalLabel.Location = new Point(9, 315);
+            subtotalLabel.Margin = new Padding(4, 0, 4, 0);
             subtotalLabel.Name = "subtotalLabel";
-            subtotalLabel.Size = new System.Drawing.Size(108, 20);
+            subtotalLabel.Size = new Size(108, 20);
             subtotalLabel.TabIndex = 30;
             subtotalLabel.Text = "Subtotal (R$):";
             // 
             // totalLabel
             // 
             totalLabel.AutoSize = true;
-            totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            totalLabel.Location = new System.Drawing.Point(655, 551);
+            totalLabel.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            totalLabel.Location = new Point(764, 636);
+            totalLabel.Margin = new Padding(4, 0, 4, 0);
             totalLabel.Name = "totalLabel";
-            totalLabel.Size = new System.Drawing.Size(131, 37);
+            totalLabel.Size = new Size(131, 37);
             totalLabel.TabIndex = 36;
             totalLabel.Text = "TOTAL:";
             // 
             // pedidoGeradoLabel
             // 
             pedidoGeradoLabel.AutoSize = true;
-            pedidoGeradoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            pedidoGeradoLabel.ForeColor = System.Drawing.Color.Black;
-            pedidoGeradoLabel.Location = new System.Drawing.Point(480, 534);
+            pedidoGeradoLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            pedidoGeradoLabel.ForeColor = Color.Black;
+            pedidoGeradoLabel.Location = new Point(560, 616);
+            pedidoGeradoLabel.Margin = new Padding(4, 0, 4, 0);
             pedidoGeradoLabel.Name = "pedidoGeradoLabel";
-            pedidoGeradoLabel.Size = new System.Drawing.Size(76, 20);
+            pedidoGeradoLabel.Size = new Size(76, 20);
             pedidoGeradoLabel.TabIndex = 27;
             pedidoGeradoLabel.Text = "CF / NFe:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label4.Location = new System.Drawing.Point(10, 333);
+            label4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(12, 384);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(142, 20);
+            label4.Size = new Size(142, 20);
             label4.TabIndex = 65;
             label4.Text = "Preço à Vista (R$):";
             // 
             // data_validadeLabel
             // 
             data_validadeLabel.AutoSize = true;
-            data_validadeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            data_validadeLabel.Location = new System.Drawing.Point(10, 461);
+            data_validadeLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            data_validadeLabel.Location = new Point(12, 532);
+            data_validadeLabel.Margin = new Padding(4, 0, 4, 0);
             data_validadeLabel.Name = "data_validadeLabel";
-            data_validadeLabel.Size = new System.Drawing.Size(114, 20);
+            data_validadeLabel.Size = new Size(114, 20);
             data_validadeLabel.TabIndex = 66;
             data_validadeLabel.Text = "Data Validade:";
             // 
             // nomeClienteLabel
             // 
             nomeClienteLabel.AutoSize = true;
-            nomeClienteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            nomeClienteLabel.Location = new System.Drawing.Point(10, 598);
+            nomeClienteLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nomeClienteLabel.Location = new Point(12, 690);
+            nomeClienteLabel.Margin = new Padding(4, 0, 4, 0);
             nomeClienteLabel.Name = "nomeClienteLabel";
-            nomeClienteLabel.Size = new System.Drawing.Size(62, 20);
+            nomeClienteLabel.Size = new Size(62, 20);
             nomeClienteLabel.TabIndex = 67;
             nomeClienteLabel.Text = "Cliente:";
             // 
             // descricaoTipoSaidaLabel
             // 
             descricaoTipoSaidaLabel.AutoSize = true;
-            descricaoTipoSaidaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            descricaoTipoSaidaLabel.ForeColor = System.Drawing.Color.Black;
-            descricaoTipoSaidaLabel.Location = new System.Drawing.Point(340, 534);
+            descricaoTipoSaidaLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            descricaoTipoSaidaLabel.ForeColor = Color.Black;
+            descricaoTipoSaidaLabel.Location = new Point(397, 616);
+            descricaoTipoSaidaLabel.Margin = new Padding(4, 0, 4, 0);
             descricaoTipoSaidaLabel.Name = "descricaoTipoSaidaLabel";
-            descricaoTipoSaidaLabel.Size = new System.Drawing.Size(39, 20);
+            descricaoTipoSaidaLabel.Size = new Size(39, 20);
             descricaoTipoSaidaLabel.TabIndex = 68;
             descricaoTipoSaidaLabel.Text = "Tipo";
             // 
             // nfeLabel
             // 
             nfeLabel.AutoSize = true;
-            nfeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            nfeLabel.ForeColor = System.Drawing.Color.Black;
-            nfeLabel.Location = new System.Drawing.Point(591, 534);
+            nfeLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nfeLabel.ForeColor = Color.Black;
+            nfeLabel.Location = new Point(690, 616);
+            nfeLabel.Margin = new Padding(4, 0, 4, 0);
             nfeLabel.Name = "nfeLabel";
-            nfeLabel.Size = new System.Drawing.Size(42, 20);
+            nfeLabel.Size = new Size(42, 20);
             nfeLabel.TabIndex = 69;
             nfeLabel.Text = "Doc:";
             // 
             // descricaoSituacaoPagamentosLabel
             // 
             descricaoSituacaoPagamentosLabel.AutoSize = true;
-            descricaoSituacaoPagamentosLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            descricaoSituacaoPagamentosLabel.Location = new System.Drawing.Point(480, 598);
+            descricaoSituacaoPagamentosLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            descricaoSituacaoPagamentosLabel.Location = new Point(560, 690);
+            descricaoSituacaoPagamentosLabel.Margin = new Padding(4, 0, 4, 0);
             descricaoSituacaoPagamentosLabel.Name = "descricaoSituacaoPagamentosLabel";
-            descricaoSituacaoPagamentosLabel.Size = new System.Drawing.Size(103, 20);
+            descricaoSituacaoPagamentosLabel.Size = new Size(103, 20);
             descricaoSituacaoPagamentosLabel.TabIndex = 71;
             descricaoSituacaoPagamentosLabel.Text = "Pagamentos:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label5.Location = new System.Drawing.Point(7, 396);
+            label5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(8, 457);
+            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(157, 20);
+            label5.Size = new Size(157, 20);
             label5.TabIndex = 73;
             label5.Text = "Subtotal à Vista(R$):";
             // 
             // baseCalculoICMSLabel
             // 
             baseCalculoICMSLabel.AutoSize = true;
-            baseCalculoICMSLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            baseCalculoICMSLabel.Location = new System.Drawing.Point(197, 463);
+            baseCalculoICMSLabel.Font = new Font("Microsoft Sans Serif", 12F);
+            baseCalculoICMSLabel.Location = new Point(230, 534);
+            baseCalculoICMSLabel.Margin = new Padding(4, 0, 4, 0);
             baseCalculoICMSLabel.Name = "baseCalculoICMSLabel";
-            baseCalculoICMSLabel.Size = new System.Drawing.Size(114, 20);
+            baseCalculoICMSLabel.Size = new Size(114, 20);
             baseCalculoICMSLabel.TabIndex = 73;
             baseCalculoICMSLabel.Text = "BC ICMS (R$):";
             // 
             // valorICMSLabel
             // 
             valorICMSLabel.AutoSize = true;
-            valorICMSLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            valorICMSLabel.Location = new System.Drawing.Point(348, 461);
+            valorICMSLabel.Font = new Font("Microsoft Sans Serif", 12F);
+            valorICMSLabel.Location = new Point(406, 532);
+            valorICMSLabel.Margin = new Padding(4, 0, 4, 0);
             valorICMSLabel.Name = "valorICMSLabel";
-            valorICMSLabel.Size = new System.Drawing.Size(129, 20);
+            valorICMSLabel.Size = new Size(129, 20);
             valorICMSLabel.TabIndex = 74;
             valorICMSLabel.Text = "Valor ICMS (R$):";
             // 
             // baseCalculoICMSSubstLabel
             // 
             baseCalculoICMSSubstLabel.AutoSize = true;
-            baseCalculoICMSSubstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            baseCalculoICMSSubstLabel.Location = new System.Drawing.Point(511, 461);
+            baseCalculoICMSSubstLabel.Font = new Font("Microsoft Sans Serif", 12F);
+            baseCalculoICMSSubstLabel.Location = new Point(596, 532);
+            baseCalculoICMSSubstLabel.Margin = new Padding(4, 0, 4, 0);
             baseCalculoICMSSubstLabel.Name = "baseCalculoICMSSubstLabel";
-            baseCalculoICMSSubstLabel.Size = new System.Drawing.Size(160, 20);
+            baseCalculoICMSSubstLabel.Size = new Size(160, 20);
             baseCalculoICMSSubstLabel.TabIndex = 75;
             baseCalculoICMSSubstLabel.Text = "BC ICMS Subst (R$):";
             // 
             // valorICMSSubstLabel
             // 
             valorICMSSubstLabel.AutoSize = true;
-            valorICMSSubstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            valorICMSSubstLabel.Location = new System.Drawing.Point(673, 461);
+            valorICMSSubstLabel.Font = new Font("Microsoft Sans Serif", 12F);
+            valorICMSSubstLabel.Location = new Point(785, 532);
+            valorICMSSubstLabel.Margin = new Padding(4, 0, 4, 0);
             valorICMSSubstLabel.Name = "valorICMSSubstLabel";
-            valorICMSSubstLabel.Size = new System.Drawing.Size(175, 20);
+            valorICMSSubstLabel.Size = new Size(175, 20);
             valorICMSSubstLabel.TabIndex = 76;
             valorICMSSubstLabel.Text = "Valor ICMS Subst (R$):";
             // 
             // valorIPILabel
             // 
             valorIPILabel.AutoSize = true;
-            valorIPILabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            valorIPILabel.Location = new System.Drawing.Point(853, 461);
+            valorIPILabel.Font = new Font("Microsoft Sans Serif", 12F);
+            valorIPILabel.Location = new Point(995, 532);
+            valorIPILabel.Margin = new Padding(4, 0, 4, 0);
             valorIPILabel.Name = "valorIPILabel";
-            valorIPILabel.Size = new System.Drawing.Size(109, 20);
+            valorIPILabel.Size = new Size(109, 20);
             valorIPILabel.TabIndex = 77;
             valorIPILabel.Text = "Valor IPI (R$):";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label1.ForeColor = System.Drawing.Color.Black;
-            label1.Location = new System.Drawing.Point(220, 534);
+            label1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.Black;
+            label1.Location = new Point(257, 616);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(79, 20);
+            label1.Size = new Size(79, 20);
             label1.TabIndex = 81;
             label1.Text = "Vendedor";
             // 
             // lblSaidaProdutos
             // 
-            this.lblSaidaProdutos.AutoSize = true;
-            this.lblSaidaProdutos.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSaidaProdutos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblSaidaProdutos.Location = new System.Drawing.Point(3, 9);
-            this.lblSaidaProdutos.Name = "lblSaidaProdutos";
-            this.lblSaidaProdutos.Size = new System.Drawing.Size(230, 26);
-            this.lblSaidaProdutos.TabIndex = 0;
-            this.lblSaidaProdutos.Text = "Orçamentos / Pré-Venda";
+            lblSaidaProdutos.AutoSize = true;
+            lblSaidaProdutos.Font = new Font("Comic Sans MS", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSaidaProdutos.ForeColor = SystemColors.ControlLightLight;
+            lblSaidaProdutos.Location = new Point(4, 10);
+            lblSaidaProdutos.Margin = new Padding(4, 0, 4, 0);
+            lblSaidaProdutos.Name = "lblSaidaProdutos";
+            lblSaidaProdutos.Size = new Size(230, 26);
+            lblSaidaProdutos.TabIndex = 0;
+            lblSaidaProdutos.Text = "Orçamentos / Pré-Venda";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.Controls.Add(this.lblFormaEntrada);
-            this.panel1.Controls.Add(this.lblSaidaProdutos);
-            this.panel1.Location = new System.Drawing.Point(0, -1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1009, 48);
-            this.panel1.TabIndex = 20;
+            panel1.BackColor = Color.SteelBlue;
+            panel1.Controls.Add(lblFormaEntrada);
+            panel1.Controls.Add(lblSaidaProdutos);
+            panel1.Location = new Point(0, -1);
+            panel1.Margin = new Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1177, 55);
+            panel1.TabIndex = 20;
             // 
             // lblFormaEntrada
             // 
-            this.lblFormaEntrada.AutoSize = true;
-            this.lblFormaEntrada.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFormaEntrada.ForeColor = System.Drawing.Color.Red;
-            this.lblFormaEntrada.Location = new System.Drawing.Point(821, 22);
-            this.lblFormaEntrada.Name = "lblFormaEntrada";
-            this.lblFormaEntrada.Size = new System.Drawing.Size(136, 23);
-            this.lblFormaEntrada.TabIndex = 1;
-            this.lblFormaEntrada.Text = "F1-MANUAL";
+            lblFormaEntrada.AutoSize = true;
+            lblFormaEntrada.Font = new Font("Verdana", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFormaEntrada.ForeColor = Color.Red;
+            lblFormaEntrada.Location = new Point(958, 25);
+            lblFormaEntrada.Margin = new Padding(4, 0, 4, 0);
+            lblFormaEntrada.Name = "lblFormaEntrada";
+            lblFormaEntrada.Size = new Size(136, 23);
+            lblFormaEntrada.TabIndex = 1;
+            lblFormaEntrada.Text = "F1-MANUAL";
             // 
             // pedidoGeradoTextBox
             // 
-            this.pedidoGeradoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "CupomFiscal", true));
-            this.pedidoGeradoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pedidoGeradoTextBox.Location = new System.Drawing.Point(484, 561);
-            this.pedidoGeradoTextBox.Name = "pedidoGeradoTextBox";
-            this.pedidoGeradoTextBox.ReadOnly = true;
-            this.pedidoGeradoTextBox.Size = new System.Drawing.Size(105, 26);
-            this.pedidoGeradoTextBox.TabIndex = 60;
-            this.pedidoGeradoTextBox.TabStop = false;
+            pedidoGeradoTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "CupomFiscal", true));
+            pedidoGeradoTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            pedidoGeradoTextBox.Location = new Point(565, 647);
+            pedidoGeradoTextBox.Margin = new Padding(4, 3, 4, 3);
+            pedidoGeradoTextBox.Name = "pedidoGeradoTextBox";
+            pedidoGeradoTextBox.ReadOnly = true;
+            pedidoGeradoTextBox.Size = new Size(122, 26);
+            pedidoGeradoTextBox.TabIndex = 60;
+            pedidoGeradoTextBox.TabStop = false;
             // 
             // saidaBindingSource
             // 
-            this.saidaBindingSource.AllowNew = true;
-            this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
-            this.saidaBindingSource.Sort = "";
-            this.saidaBindingSource.CurrentItemChanged += new System.EventHandler(this.saidaBindingSource_CurrentItemChanged);
+            saidaBindingSource.AllowNew = true;
+            saidaBindingSource.DataSource = typeof(Dominio.Saida);
+            saidaBindingSource.Sort = "";
+            saidaBindingSource.CurrentItemChanged += saidaBindingSource_CurrentItemChanged;
             // 
             // codSaidaTextBox
             // 
-            this.codSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "CodSaida", true));
-            this.codSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codSaidaTextBox.ForeColor = System.Drawing.Color.Red;
-            this.codSaidaTextBox.Location = new System.Drawing.Point(12, 560);
-            this.codSaidaTextBox.Name = "codSaidaTextBox";
-            this.codSaidaTextBox.ReadOnly = true;
-            this.codSaidaTextBox.Size = new System.Drawing.Size(87, 26);
-            this.codSaidaTextBox.TabIndex = 54;
-            this.codSaidaTextBox.TabStop = false;
-            this.codSaidaTextBox.TextChanged += new System.EventHandler(this.codSaidaTextBox_TextChanged);
-            this.codSaidaTextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
-            this.codSaidaTextBox.Leave += new System.EventHandler(this.codSaidaTextBox_Leave);
+            codSaidaTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "CodSaida", true));
+            codSaidaTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            codSaidaTextBox.ForeColor = Color.Red;
+            codSaidaTextBox.Location = new Point(14, 646);
+            codSaidaTextBox.Margin = new Padding(4, 3, 4, 3);
+            codSaidaTextBox.Name = "codSaidaTextBox";
+            codSaidaTextBox.ReadOnly = true;
+            codSaidaTextBox.Size = new Size(101, 26);
+            codSaidaTextBox.TabIndex = 54;
+            codSaidaTextBox.TabStop = false;
+            codSaidaTextBox.TextChanged += codSaidaTextBox_TextChanged;
+            codSaidaTextBox.Enter += codSaidaTextBox_Enter;
+            codSaidaTextBox.Leave += codSaidaTextBox_Leave;
             // 
             // dataSaidaDateTimePicker
             // 
-            this.dataSaidaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.saidaBindingSource, "dataSaida", true));
-            this.dataSaidaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "DataSaida", true));
-            this.dataSaidaDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataSaidaDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataSaidaDateTimePicker.Location = new System.Drawing.Point(108, 560);
-            this.dataSaidaDateTimePicker.Name = "dataSaidaDateTimePicker";
-            this.dataSaidaDateTimePicker.Size = new System.Drawing.Size(109, 26);
-            this.dataSaidaDateTimePicker.TabIndex = 56;
-            this.dataSaidaDateTimePicker.TabStop = false;
+            dataSaidaDateTimePicker.DataBindings.Add(new Binding("Value", saidaBindingSource, "dataSaida", true));
+            dataSaidaDateTimePicker.DataBindings.Add(new Binding("Text", saidaBindingSource, "DataSaida", true));
+            dataSaidaDateTimePicker.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataSaidaDateTimePicker.Format = DateTimePickerFormat.Short;
+            dataSaidaDateTimePicker.Location = new Point(126, 646);
+            dataSaidaDateTimePicker.Margin = new Padding(4, 3, 4, 3);
+            dataSaidaDateTimePicker.Name = "dataSaidaDateTimePicker";
+            dataSaidaDateTimePicker.Size = new Size(126, 26);
+            dataSaidaDateTimePicker.TabIndex = 56;
+            dataSaidaDateTimePicker.TabStop = false;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(288, 661);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(70, 23);
-            this.btnSalvar.TabIndex = 5;
-            this.btnSalvar.Text = "F6 - Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            btnSalvar.Location = new Point(336, 763);
+            btnSalvar.Margin = new Padding(4, 3, 4, 3);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(82, 27);
+            btnSalvar.TabIndex = 5;
+            btnSalvar.Text = "F6 - Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(602, 661);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 10;
-            this.btnCancelar.Text = "Esc - Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            btnCancelar.Location = new Point(702, 763);
+            btnCancelar.Margin = new Padding(4, 3, 4, 3);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(98, 27);
+            btnCancelar.TabIndex = 10;
+            btnCancelar.Text = "Esc - Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(78, 661);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(70, 23);
-            this.btnNovo.TabIndex = 2;
-            this.btnNovo.Text = "F3 - Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
+            btnNovo.Location = new Point(91, 763);
+            btnNovo.Margin = new Padding(4, 3, 4, 3);
+            btnNovo.Name = "btnNovo";
+            btnNovo.Size = new Size(82, 27);
+            btnNovo.TabIndex = 2;
+            btnNovo.Text = "F3 - Novo";
+            btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(218, 661);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(70, 23);
-            this.btnExcluir.TabIndex = 4;
-            this.btnExcluir.Text = "F5 - Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
-            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            btnExcluir.Location = new Point(254, 763);
+            btnExcluir.Margin = new Padding(4, 3, 4, 3);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(82, 27);
+            btnExcluir.TabIndex = 4;
+            btnExcluir.Text = "F5 - Excluir";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // tb_saidaBindingNavigator
             // 
-            this.tb_saidaBindingNavigator.AddNewItem = null;
-            this.tb_saidaBindingNavigator.BindingSource = this.saidaBindingSource;
-            this.tb_saidaBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.tb_saidaBindingNavigator.DeleteItem = null;
-            this.tb_saidaBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
-            this.tb_saidaBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2});
-            this.tb_saidaBindingNavigator.Location = new System.Drawing.Point(806, 47);
-            this.tb_saidaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.tb_saidaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.tb_saidaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.tb_saidaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.tb_saidaBindingNavigator.Name = "tb_saidaBindingNavigator";
-            this.tb_saidaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_saidaBindingNavigator.Size = new System.Drawing.Size(211, 25);
-            this.tb_saidaBindingNavigator.TabIndex = 21;
-            this.tb_saidaBindingNavigator.Text = "bindingNavigator1";
+            tb_saidaBindingNavigator.AddNewItem = null;
+            tb_saidaBindingNavigator.BindingSource = saidaBindingSource;
+            tb_saidaBindingNavigator.CountItem = bindingNavigatorCountItem;
+            tb_saidaBindingNavigator.DeleteItem = null;
+            tb_saidaBindingNavigator.Dock = DockStyle.None;
+            tb_saidaBindingNavigator.Items.AddRange(new ToolStripItem[] { bindingNavigatorMoveFirstItem, bindingNavigatorMovePreviousItem, bindingNavigatorSeparator, bindingNavigatorPositionItem, bindingNavigatorCountItem, bindingNavigatorSeparator1, bindingNavigatorMoveNextItem, bindingNavigatorMoveLastItem, bindingNavigatorSeparator2 });
+            tb_saidaBindingNavigator.Location = new Point(940, 54);
+            tb_saidaBindingNavigator.MoveFirstItem = bindingNavigatorMoveFirstItem;
+            tb_saidaBindingNavigator.MoveLastItem = bindingNavigatorMoveLastItem;
+            tb_saidaBindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
+            tb_saidaBindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
+            tb_saidaBindingNavigator.Name = "tb_saidaBindingNavigator";
+            tb_saidaBindingNavigator.PositionItem = bindingNavigatorPositionItem;
+            tb_saidaBindingNavigator.Size = new Size(219, 25);
+            tb_saidaBindingNavigator.TabIndex = 21;
+            tb_saidaBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(37, 22);
-            this.bindingNavigatorCountItem.Text = "de {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            bindingNavigatorCountItem.Size = new Size(37, 22);
+            bindingNavigatorCountItem.Text = "de {0}";
+            bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
             // 
-            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
+            bindingNavigatorMoveFirstItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveFirstItem.Image = (Image)resources.GetObject("bindingNavigatorMoveFirstItem.Image");
+            bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveFirstItem.Size = new Size(23, 22);
+            bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
             // 
-            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
+            bindingNavigatorMovePreviousItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMovePreviousItem.Image = (Image)resources.GetObject("bindingNavigatorMovePreviousItem.Image");
+            bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMovePreviousItem.Size = new Size(23, 22);
+            bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
-            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            bindingNavigatorSeparator.Size = new Size(6, 25);
             // 
             // bindingNavigatorPositionItem
             // 
-            this.bindingNavigatorPositionItem.AccessibleName = "Position";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+            bindingNavigatorPositionItem.AccessibleName = "Position";
+            bindingNavigatorPositionItem.AutoSize = false;
+            bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            bindingNavigatorPositionItem.Size = new Size(58, 23);
+            bindingNavigatorPositionItem.Text = "0";
+            bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // bindingNavigatorSeparator1
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            bindingNavigatorSeparator1.Size = new Size(6, 25);
             // 
             // bindingNavigatorMoveNextItem
             // 
-            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
+            bindingNavigatorMoveNextItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveNextItem.Image = (Image)resources.GetObject("bindingNavigatorMoveNextItem.Image");
+            bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveNextItem.Size = new Size(23, 22);
+            bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
             // 
-            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
+            bindingNavigatorMoveLastItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveLastItem.Image = (Image)resources.GetObject("bindingNavigatorMoveLastItem.Image");
+            bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveLastItem.Size = new Size(23, 22);
+            bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            bindingNavigatorSeparator2.Size = new Size(6, 25);
             // 
             // produtoBindingSource
             // 
-            this.produtoBindingSource.AllowNew = false;
-            this.produtoBindingSource.DataSource = typeof(Dominio.ProdutoPesquisa);
-            this.produtoBindingSource.Sort = "";
+            produtoBindingSource.AllowNew = false;
+            produtoBindingSource.DataSource = typeof(Dominio.ProdutoPesquisa);
+            produtoBindingSource.Sort = "";
             // 
             // quantidadeTextBox
             // 
-            this.quantidadeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quantidadeTextBox.Location = new System.Drawing.Point(13, 177);
-            this.quantidadeTextBox.Name = "quantidadeTextBox";
-            this.quantidadeTextBox.Size = new System.Drawing.Size(169, 29);
-            this.quantidadeTextBox.TabIndex = 32;
-            this.quantidadeTextBox.Enter += new System.EventHandler(this.quantidadeTextBox_Enter);
-            this.quantidadeTextBox.Leave += new System.EventHandler(this.quantidadeTextBox_Leave);
+            quantidadeTextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            quantidadeTextBox.Location = new Point(15, 204);
+            quantidadeTextBox.Margin = new Padding(4, 3, 4, 3);
+            quantidadeTextBox.Name = "quantidadeTextBox";
+            quantidadeTextBox.Size = new Size(196, 29);
+            quantidadeTextBox.TabIndex = 32;
+            quantidadeTextBox.Enter += quantidadeTextBox_Enter;
+            quantidadeTextBox.Leave += quantidadeTextBox_Leave;
             // 
             // precoVendaSemDescontoTextBox
             // 
-            this.precoVendaSemDescontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.precoVendaSemDescontoTextBox.ForeColor = System.Drawing.Color.Red;
-            this.precoVendaSemDescontoTextBox.Location = new System.Drawing.Point(13, 239);
-            this.precoVendaSemDescontoTextBox.Name = "precoVendaSemDescontoTextBox";
-            this.precoVendaSemDescontoTextBox.ReadOnly = true;
-            this.precoVendaSemDescontoTextBox.Size = new System.Drawing.Size(169, 29);
-            this.precoVendaSemDescontoTextBox.TabIndex = 34;
-            this.precoVendaSemDescontoTextBox.TabStop = false;
+            precoVendaSemDescontoTextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            precoVendaSemDescontoTextBox.ForeColor = Color.Red;
+            precoVendaSemDescontoTextBox.Location = new Point(15, 276);
+            precoVendaSemDescontoTextBox.Margin = new Padding(4, 3, 4, 3);
+            precoVendaSemDescontoTextBox.Name = "precoVendaSemDescontoTextBox";
+            precoVendaSemDescontoTextBox.ReadOnly = true;
+            precoVendaSemDescontoTextBox.Size = new Size(196, 29);
+            precoVendaSemDescontoTextBox.TabIndex = 34;
+            precoVendaSemDescontoTextBox.TabStop = false;
             // 
             // subtotalTextBox
             // 
-            this.subtotalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.subtotalTextBox.ForeColor = System.Drawing.Color.Red;
-            this.subtotalTextBox.Location = new System.Drawing.Point(13, 298);
-            this.subtotalTextBox.Name = "subtotalTextBox";
-            this.subtotalTextBox.ReadOnly = true;
-            this.subtotalTextBox.Size = new System.Drawing.Size(169, 29);
-            this.subtotalTextBox.TabIndex = 36;
-            this.subtotalTextBox.TabStop = false;
+            subtotalTextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            subtotalTextBox.ForeColor = Color.Red;
+            subtotalTextBox.Location = new Point(15, 344);
+            subtotalTextBox.Margin = new Padding(4, 3, 4, 3);
+            subtotalTextBox.Name = "subtotalTextBox";
+            subtotalTextBox.ReadOnly = true;
+            subtotalTextBox.Size = new Size(196, 29);
+            subtotalTextBox.TabIndex = 36;
+            subtotalTextBox.TabStop = false;
             // 
             // tb_saida_produtoDataGridView
             // 
-            this.tb_saida_produtoDataGridView.AllowUserToAddRows = false;
-            this.tb_saida_produtoDataGridView.AllowUserToDeleteRows = false;
-            this.tb_saida_produtoDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.tb_saida_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_saida_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codSaidaProdutoDataGridViewTextBoxColumn,
-            this.nomeDataGridViewTextBoxColumn,
-            this.Unidade,
-            this.quantidadeDataGridViewTextBoxColumn,
-            this.valorVendaDataGridViewTextBoxColumn,
-            this.subtotalDataGridViewTextBoxColumn,
-            this.subtotalAVistaDataGridViewTextBoxColumn});
-            this.tb_saida_produtoDataGridView.DataSource = this.saidaProdutoBindingSource;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
-            this.tb_saida_produtoDataGridView.Location = new System.Drawing.Point(194, 150);
-            this.tb_saida_produtoDataGridView.MultiSelect = false;
-            this.tb_saida_produtoDataGridView.Name = "tb_saida_produtoDataGridView";
-            this.tb_saida_produtoDataGridView.ReadOnly = true;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_saida_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_saida_produtoDataGridView.Size = new System.Drawing.Size(806, 300);
-            this.tb_saida_produtoDataGridView.TabIndex = 36;
-            this.tb_saida_produtoDataGridView.TabStop = false;
-            this.tb_saida_produtoDataGridView.Leave += new System.EventHandler(this.tb_saida_produtoDataGridView_Leave);
+            tb_saida_produtoDataGridView.AllowUserToAddRows = false;
+            tb_saida_produtoDataGridView.AllowUserToDeleteRows = false;
+            tb_saida_produtoDataGridView.AutoGenerateColumns = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            tb_saida_produtoDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tb_saida_produtoDataGridView.Columns.AddRange(new DataGridViewColumn[] { codSaidaProdutoDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, Unidade, quantidadeDataGridViewTextBoxColumn, valorVendaDataGridViewTextBoxColumn, subtotalDataGridViewTextBoxColumn, subtotalAVistaDataGridViewTextBoxColumn });
+            tb_saida_produtoDataGridView.DataSource = saidaProdutoBindingSource;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            tb_saida_produtoDataGridView.Location = new Point(226, 173);
+            tb_saida_produtoDataGridView.Margin = new Padding(4, 3, 4, 3);
+            tb_saida_produtoDataGridView.MultiSelect = false;
+            tb_saida_produtoDataGridView.Name = "tb_saida_produtoDataGridView";
+            tb_saida_produtoDataGridView.ReadOnly = true;
+            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tb_saida_produtoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tb_saida_produtoDataGridView.Size = new Size(940, 346);
+            tb_saida_produtoDataGridView.TabIndex = 36;
+            tb_saida_produtoDataGridView.TabStop = false;
+            tb_saida_produtoDataGridView.Leave += tb_saida_produtoDataGridView_Leave;
             // 
             // codSaidaProdutoDataGridViewTextBoxColumn
             // 
-            this.codSaidaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodSaidaProduto";
-            this.codSaidaProdutoDataGridViewTextBoxColumn.HeaderText = "CodSaidaProduto";
-            this.codSaidaProdutoDataGridViewTextBoxColumn.Name = "codSaidaProdutoDataGridViewTextBoxColumn";
-            this.codSaidaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codSaidaProdutoDataGridViewTextBoxColumn.Visible = false;
+            codSaidaProdutoDataGridViewTextBoxColumn.DataPropertyName = "CodSaidaProduto";
+            codSaidaProdutoDataGridViewTextBoxColumn.HeaderText = "CodSaidaProduto";
+            codSaidaProdutoDataGridViewTextBoxColumn.Name = "codSaidaProdutoDataGridViewTextBoxColumn";
+            codSaidaProdutoDataGridViewTextBoxColumn.ReadOnly = true;
+            codSaidaProdutoDataGridViewTextBoxColumn.Visible = false;
             // 
             // nomeDataGridViewTextBoxColumn
             // 
-            this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
-            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
+            nomeDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
+            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            nomeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // Unidade
             // 
-            this.Unidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Unidade.DataPropertyName = "Unidade";
-            this.Unidade.FillWeight = 10F;
-            this.Unidade.HeaderText = "UN";
-            this.Unidade.Name = "Unidade";
-            this.Unidade.ReadOnly = true;
+            Unidade.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Unidade.DataPropertyName = "Unidade";
+            Unidade.FillWeight = 10F;
+            Unidade.HeaderText = "UN";
+            Unidade.Name = "Unidade";
+            Unidade.ReadOnly = true;
             // 
             // quantidadeDataGridViewTextBoxColumn
             // 
-            this.quantidadeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.FillWeight = 25F;
-            this.quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
-            this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
-            this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
+            quantidadeDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
+            quantidadeDataGridViewTextBoxColumn.FillWeight = 25F;
+            quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // valorVendaDataGridViewTextBoxColumn
             // 
-            this.valorVendaDataGridViewTextBoxColumn.DataPropertyName = "ValorVenda";
+            valorVendaDataGridViewTextBoxColumn.DataPropertyName = "ValorVenda";
             dataGridViewCellStyle2.Format = "C2";
-            this.valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.valorVendaDataGridViewTextBoxColumn.HeaderText = "Valor (UN)";
-            this.valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
-            this.valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
+            valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            valorVendaDataGridViewTextBoxColumn.HeaderText = "Valor (UN)";
+            valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
+            valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // subtotalDataGridViewTextBoxColumn
             // 
-            this.subtotalDataGridViewTextBoxColumn.DataPropertyName = "Subtotal";
+            subtotalDataGridViewTextBoxColumn.DataPropertyName = "Subtotal";
             dataGridViewCellStyle3.Format = "C2";
             dataGridViewCellStyle3.NullValue = null;
-            this.subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
-            this.subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
-            this.subtotalDataGridViewTextBoxColumn.ReadOnly = true;
+            subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
+            subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
+            subtotalDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // subtotalAVistaDataGridViewTextBoxColumn
             // 
-            this.subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "SubtotalAVista";
+            subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "SubtotalAVista";
             dataGridViewCellStyle4.Format = "C2";
-            this.subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "À Vista";
-            this.subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
-            this.subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;
+            subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "À Vista";
+            subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
+            subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // saidaProdutoBindingSource
             // 
-            this.saidaProdutoBindingSource.DataSource = typeof(Dominio.SaidaProduto);
+            saidaProdutoBindingSource.DataSource = typeof(Dominio.SaidaProduto);
             // 
             // totalTextBox
             // 
-            this.totalTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Total", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
-            this.totalTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.totalTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalTextBox.Location = new System.Drawing.Point(792, 544);
-            this.totalTextBox.Name = "totalTextBox";
-            this.totalTextBox.ReadOnly = true;
-            this.totalTextBox.Size = new System.Drawing.Size(208, 50);
-            this.totalTextBox.TabIndex = 37;
-            this.totalTextBox.TabStop = false;
+            totalTextBox.BackColor = Color.Blue;
+            totalTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "Total", true, DataSourceUpdateMode.OnValidation, null, "N2"));
+            totalTextBox.Font = new Font("Microsoft Sans Serif", 28F);
+            totalTextBox.ForeColor = Color.Yellow;
+            totalTextBox.Location = new Point(924, 628);
+            totalTextBox.Margin = new Padding(4, 3, 4, 3);
+            totalTextBox.Name = "totalTextBox";
+            totalTextBox.ReadOnly = true;
+            totalTextBox.Size = new Size(242, 50);
+            totalTextBox.TabIndex = 37;
+            totalTextBox.TabStop = false;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(657, 618);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 37);
-            this.label2.TabIndex = 38;
-            this.label2.Text = "À Vista:";
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(766, 713);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(129, 37);
+            label2.TabIndex = 38;
+            label2.Text = "À Vista:";
             // 
             // totalAVistaTextBox
             // 
-            this.totalAVistaTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalAVistaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "TotalAVista", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
-            this.totalAVistaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.totalAVistaTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalAVistaTextBox.Location = new System.Drawing.Point(792, 611);
-            this.totalAVistaTextBox.Name = "totalAVistaTextBox";
-            this.totalAVistaTextBox.ReadOnly = true;
-            this.totalAVistaTextBox.Size = new System.Drawing.Size(208, 50);
-            this.totalAVistaTextBox.TabIndex = 39;
-            this.totalAVistaTextBox.TabStop = false;
+            totalAVistaTextBox.BackColor = Color.Blue;
+            totalAVistaTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "TotalAVista", true, DataSourceUpdateMode.OnValidation, null, "N2"));
+            totalAVistaTextBox.Font = new Font("Microsoft Sans Serif", 28F);
+            totalAVistaTextBox.ForeColor = Color.Yellow;
+            totalAVistaTextBox.Location = new Point(924, 705);
+            totalAVistaTextBox.Margin = new Padding(4, 3, 4, 3);
+            totalAVistaTextBox.Name = "totalAVistaTextBox";
+            totalAVistaTextBox.ReadOnly = true;
+            totalAVistaTextBox.Size = new Size(242, 50);
+            totalAVistaTextBox.TabIndex = 39;
+            totalAVistaTextBox.TabStop = false;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(7, 661);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(70, 23);
-            this.btnBuscar.TabIndex = 10;
-            this.btnBuscar.Text = "F2 - Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            btnBuscar.Location = new Point(8, 763);
+            btnBuscar.Margin = new Padding(4, 3, 4, 3);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(82, 27);
+            btnBuscar.TabIndex = 10;
+            btnBuscar.Text = "F2 - Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(905, 130);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(94, 18);
-            this.label3.TabIndex = 63;
-            this.label3.Text = "DEL - Excluir";
+            label3.AutoSize = true;
+            label3.Font = new Font("Microsoft Sans Serif", 11F);
+            label3.ForeColor = Color.Red;
+            label3.Location = new Point(1056, 150);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(94, 18);
+            label3.TabIndex = 63;
+            label3.Text = "DEL - Excluir";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(792, 130);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 18);
-            this.label6.TabIndex = 62;
-            this.label6.Text = "F12 - Navegar";
+            label6.AutoSize = true;
+            label6.Font = new Font("Microsoft Sans Serif", 11F);
+            label6.ForeColor = Color.Red;
+            label6.Location = new Point(924, 150);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(101, 18);
+            label6.TabIndex = 62;
+            label6.Text = "F12 - Navegar";
             // 
             // codProdutoComboBox
             // 
-            this.codProdutoComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codProdutoComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codProdutoComboBox.BackColor = System.Drawing.SystemColors.Window;
-            this.codProdutoComboBox.CausesValidation = false;
-            this.codProdutoComboBox.DataSource = this.produtoBindingSource;
-            this.codProdutoComboBox.DisplayMember = "nome";
-            this.codProdutoComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.codProdutoComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codProdutoComboBox.FormattingEnabled = true;
-            this.codProdutoComboBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.codProdutoComboBox.IntegralHeight = false;
-            this.codProdutoComboBox.ItemHeight = 31;
-            this.codProdutoComboBox.Location = new System.Drawing.Point(12, 77);
-            this.codProdutoComboBox.MaxDropDownItems = 5;
-            this.codProdutoComboBox.Name = "codProdutoComboBox";
-            this.codProdutoComboBox.Size = new System.Drawing.Size(987, 39);
-            this.codProdutoComboBox.TabIndex = 30;
-            this.codProdutoComboBox.ValueMember = "codProduto";
-            this.codProdutoComboBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
-            this.codProdutoComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codProdutoComboBox_KeyPress);
-            this.codProdutoComboBox.Leave += new System.EventHandler(this.codProdutoComboBox_Leave);
+            codProdutoComboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+            codProdutoComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            codProdutoComboBox.BackColor = SystemColors.Window;
+            codProdutoComboBox.CausesValidation = false;
+            codProdutoComboBox.DataSource = produtoBindingSource;
+            codProdutoComboBox.DisplayMember = "nome";
+            codProdutoComboBox.FlatStyle = FlatStyle.System;
+            codProdutoComboBox.Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            codProdutoComboBox.FormattingEnabled = true;
+            codProdutoComboBox.ImeMode = ImeMode.NoControl;
+            codProdutoComboBox.IntegralHeight = false;
+            codProdutoComboBox.ItemHeight = 31;
+            codProdutoComboBox.Location = new Point(14, 89);
+            codProdutoComboBox.Margin = new Padding(4, 3, 4, 3);
+            codProdutoComboBox.MaxDropDownItems = 5;
+            codProdutoComboBox.Name = "codProdutoComboBox";
+            codProdutoComboBox.Size = new Size(1151, 39);
+            codProdutoComboBox.TabIndex = 30;
+            codProdutoComboBox.ValueMember = "codProduto";
+            codProdutoComboBox.Enter += codSaidaTextBox_Enter;
+            codProdutoComboBox.KeyPress += codProdutoComboBox_KeyPress;
+            codProdutoComboBox.Leave += codProdutoComboBox_Leave;
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(148, 661);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(70, 23);
-            this.btnEditar.TabIndex = 3;
-            this.btnEditar.Text = "F4 - Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            btnEditar.Location = new Point(173, 763);
+            btnEditar.Margin = new Padding(4, 3, 4, 3);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(82, 27);
+            btnEditar.TabIndex = 3;
+            btnEditar.Text = "F4 - Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // precoVendatextBox
             // 
-            this.precoVendatextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.precoVendatextBox.Location = new System.Drawing.Point(13, 358);
-            this.precoVendatextBox.Name = "precoVendatextBox";
-            this.precoVendatextBox.Size = new System.Drawing.Size(169, 29);
-            this.precoVendatextBox.TabIndex = 38;
-            this.precoVendatextBox.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
-            this.precoVendatextBox.Leave += new System.EventHandler(this.precoVendatextBox_Leave);
+            precoVendatextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            precoVendatextBox.Location = new Point(15, 413);
+            precoVendatextBox.Margin = new Padding(4, 3, 4, 3);
+            precoVendatextBox.Name = "precoVendatextBox";
+            precoVendatextBox.Size = new Size(196, 29);
+            precoVendatextBox.TabIndex = 38;
+            precoVendatextBox.Enter += codSaidaTextBox_Enter;
+            precoVendatextBox.Leave += precoVendatextBox_Leave;
             // 
             // data_validadeDateTimePicker
             // 
-            this.data_validadeDateTimePicker.Enabled = false;
-            this.data_validadeDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.data_validadeDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.data_validadeDateTimePicker.Location = new System.Drawing.Point(13, 486);
-            this.data_validadeDateTimePicker.Name = "data_validadeDateTimePicker";
-            this.data_validadeDateTimePicker.Size = new System.Drawing.Size(169, 29);
-            this.data_validadeDateTimePicker.TabIndex = 42;
-            this.data_validadeDateTimePicker.Enter += new System.EventHandler(this.codSaidaTextBox_Enter);
-            this.data_validadeDateTimePicker.Leave += new System.EventHandler(this.data_validadeDateTimePicker_Leave);
+            data_validadeDateTimePicker.Enabled = false;
+            data_validadeDateTimePicker.Font = new Font("Microsoft Sans Serif", 14F);
+            data_validadeDateTimePicker.Format = DateTimePickerFormat.Short;
+            data_validadeDateTimePicker.Location = new Point(15, 561);
+            data_validadeDateTimePicker.Margin = new Padding(4, 3, 4, 3);
+            data_validadeDateTimePicker.Name = "data_validadeDateTimePicker";
+            data_validadeDateTimePicker.Size = new Size(196, 29);
+            data_validadeDateTimePicker.TabIndex = 42;
+            data_validadeDateTimePicker.Enter += codSaidaTextBox_Enter;
+            data_validadeDateTimePicker.Leave += data_validadeDateTimePicker_Leave;
             // 
             // nomeClienteTextBox
             // 
-            this.nomeClienteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "NomeCliente", true));
-            this.nomeClienteTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nomeClienteTextBox.Location = new System.Drawing.Point(14, 622);
-            this.nomeClienteTextBox.Name = "nomeClienteTextBox";
-            this.nomeClienteTextBox.ReadOnly = true;
-            this.nomeClienteTextBox.Size = new System.Drawing.Size(460, 26);
-            this.nomeClienteTextBox.TabIndex = 64;
-            this.nomeClienteTextBox.TabStop = false;
+            nomeClienteTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "NomeCliente", true));
+            nomeClienteTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nomeClienteTextBox.Location = new Point(16, 718);
+            nomeClienteTextBox.Margin = new Padding(4, 3, 4, 3);
+            nomeClienteTextBox.Name = "nomeClienteTextBox";
+            nomeClienteTextBox.ReadOnly = true;
+            nomeClienteTextBox.Size = new Size(536, 26);
+            nomeClienteTextBox.TabIndex = 64;
+            nomeClienteTextBox.TabStop = false;
             // 
             // descricaoTipoSaidaTextBox
             // 
-            this.descricaoTipoSaidaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "DescricaoTipoSaida", true));
-            this.descricaoTipoSaidaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descricaoTipoSaidaTextBox.Location = new System.Drawing.Point(344, 560);
-            this.descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
-            this.descricaoTipoSaidaTextBox.ReadOnly = true;
-            this.descricaoTipoSaidaTextBox.Size = new System.Drawing.Size(130, 26);
-            this.descricaoTipoSaidaTextBox.TabIndex = 58;
-            this.descricaoTipoSaidaTextBox.TabStop = false;
+            descricaoTipoSaidaTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "DescricaoTipoSaida", true));
+            descricaoTipoSaidaTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            descricaoTipoSaidaTextBox.Location = new Point(401, 646);
+            descricaoTipoSaidaTextBox.Margin = new Padding(4, 3, 4, 3);
+            descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
+            descricaoTipoSaidaTextBox.ReadOnly = true;
+            descricaoTipoSaidaTextBox.Size = new Size(151, 26);
+            descricaoTipoSaidaTextBox.TabIndex = 58;
+            descricaoTipoSaidaTextBox.TabStop = false;
             // 
             // btnEncerrar
             // 
-            this.btnEncerrar.Location = new System.Drawing.Point(358, 661);
-            this.btnEncerrar.Name = "btnEncerrar";
-            this.btnEncerrar.Size = new System.Drawing.Size(78, 23);
-            this.btnEncerrar.TabIndex = 6;
-            this.btnEncerrar.Text = "F7 - Encerrar";
-            this.btnEncerrar.UseVisualStyleBackColor = true;
-            this.btnEncerrar.Click += new System.EventHandler(this.btnEncerrar_Click);
+            btnEncerrar.Location = new Point(418, 763);
+            btnEncerrar.Margin = new Padding(4, 3, 4, 3);
+            btnEncerrar.Name = "btnEncerrar";
+            btnEncerrar.Size = new Size(91, 27);
+            btnEncerrar.TabIndex = 6;
+            btnEncerrar.Text = "F7 - Encerrar";
+            btnEncerrar.UseVisualStyleBackColor = true;
+            btnEncerrar.Click += btnEncerrar_Click;
             // 
             // nfeTextBox
             // 
-            this.nfeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "Nfe", true));
-            this.nfeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nfeTextBox.Location = new System.Drawing.Point(595, 562);
-            this.nfeTextBox.Name = "nfeTextBox";
-            this.nfeTextBox.ReadOnly = true;
-            this.nfeTextBox.Size = new System.Drawing.Size(50, 26);
-            this.nfeTextBox.TabIndex = 62;
-            this.nfeTextBox.TabStop = false;
+            nfeTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "Nfe", true));
+            nfeTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nfeTextBox.Location = new Point(694, 648);
+            nfeTextBox.Margin = new Padding(4, 3, 4, 3);
+            nfeTextBox.Name = "nfeTextBox";
+            nfeTextBox.ReadOnly = true;
+            nfeTextBox.Size = new Size(58, 26);
+            nfeTextBox.TabIndex = 62;
+            nfeTextBox.TabStop = false;
             // 
             // entregaRealizadaCheckBox
             // 
-            this.entregaRealizadaCheckBox.Checked = true;
-            this.entregaRealizadaCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.entregaRealizadaCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.saidaBindingSource, "entregaRealizada", true));
-            this.entregaRealizadaCheckBox.Location = new System.Drawing.Point(194, 125);
-            this.entregaRealizadaCheckBox.Name = "entregaRealizadaCheckBox";
-            this.entregaRealizadaCheckBox.Size = new System.Drawing.Size(104, 24);
-            this.entregaRealizadaCheckBox.TabIndex = 71;
-            this.entregaRealizadaCheckBox.TabStop = false;
-            this.entregaRealizadaCheckBox.Text = "Entregue";
-            this.entregaRealizadaCheckBox.UseVisualStyleBackColor = true;
+            entregaRealizadaCheckBox.Checked = true;
+            entregaRealizadaCheckBox.CheckState = CheckState.Checked;
+            entregaRealizadaCheckBox.DataBindings.Add(new Binding("CheckState", saidaBindingSource, "entregaRealizada", true));
+            entregaRealizadaCheckBox.Location = new Point(226, 144);
+            entregaRealizadaCheckBox.Margin = new Padding(4, 3, 4, 3);
+            entregaRealizadaCheckBox.Name = "entregaRealizadaCheckBox";
+            entregaRealizadaCheckBox.Size = new Size(121, 28);
+            entregaRealizadaCheckBox.TabIndex = 71;
+            entregaRealizadaCheckBox.TabStop = false;
+            entregaRealizadaCheckBox.Text = "Entregue";
+            entregaRealizadaCheckBox.UseVisualStyleBackColor = true;
             // 
             // descricaoSituacaoPagamentosTextBox
             // 
-            this.descricaoSituacaoPagamentosTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "DescricaoSituacaoPagamentos", true));
-            this.descricaoSituacaoPagamentosTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descricaoSituacaoPagamentosTextBox.Location = new System.Drawing.Point(484, 622);
-            this.descricaoSituacaoPagamentosTextBox.Name = "descricaoSituacaoPagamentosTextBox";
-            this.descricaoSituacaoPagamentosTextBox.ReadOnly = true;
-            this.descricaoSituacaoPagamentosTextBox.Size = new System.Drawing.Size(164, 26);
-            this.descricaoSituacaoPagamentosTextBox.TabIndex = 66;
-            this.descricaoSituacaoPagamentosTextBox.TabStop = false;
+            descricaoSituacaoPagamentosTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "DescricaoSituacaoPagamentos", true));
+            descricaoSituacaoPagamentosTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            descricaoSituacaoPagamentosTextBox.Location = new Point(565, 718);
+            descricaoSituacaoPagamentosTextBox.Margin = new Padding(4, 3, 4, 3);
+            descricaoSituacaoPagamentosTextBox.Name = "descricaoSituacaoPagamentosTextBox";
+            descricaoSituacaoPagamentosTextBox.ReadOnly = true;
+            descricaoSituacaoPagamentosTextBox.Size = new Size(191, 26);
+            descricaoSituacaoPagamentosTextBox.TabIndex = 66;
+            descricaoSituacaoPagamentosTextBox.TabStop = false;
             // 
             // btnImprimir
             // 
-            this.btnImprimir.Location = new System.Drawing.Point(436, 661);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(78, 23);
-            this.btnImprimir.TabIndex = 7;
-            this.btnImprimir.Text = "F8 - Imprimir";
-            this.btnImprimir.UseVisualStyleBackColor = true;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            btnImprimir.Location = new Point(509, 763);
+            btnImprimir.Margin = new Padding(4, 3, 4, 3);
+            btnImprimir.Name = "btnImprimir";
+            btnImprimir.Size = new Size(91, 27);
+            btnImprimir.TabIndex = 7;
+            btnImprimir.Text = "F8 - Imprimir";
+            btnImprimir.UseVisualStyleBackColor = true;
+            btnImprimir.Click += btnImprimir_Click;
             // 
             // subtotalAVistatextBox
             // 
-            this.subtotalAVistatextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.subtotalAVistatextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.subtotalAVistatextBox.Location = new System.Drawing.Point(12, 421);
-            this.subtotalAVistatextBox.Name = "subtotalAVistatextBox";
-            this.subtotalAVistatextBox.ReadOnly = true;
-            this.subtotalAVistatextBox.Size = new System.Drawing.Size(169, 29);
-            this.subtotalAVistatextBox.TabIndex = 40;
-            this.subtotalAVistatextBox.TabStop = false;
+            subtotalAVistatextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            subtotalAVistatextBox.ForeColor = Color.FromArgb(192, 0, 0);
+            subtotalAVistatextBox.Location = new Point(14, 486);
+            subtotalAVistatextBox.Margin = new Padding(4, 3, 4, 3);
+            subtotalAVistatextBox.Name = "subtotalAVistatextBox";
+            subtotalAVistatextBox.ReadOnly = true;
+            subtotalAVistatextBox.Size = new Size(196, 29);
+            subtotalAVistatextBox.TabIndex = 40;
+            subtotalAVistatextBox.TabStop = false;
             // 
             // lblBalcao
             // 
-            this.lblBalcao.AutoSize = true;
-            this.lblBalcao.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBalcao.ForeColor = System.Drawing.Color.Red;
-            this.lblBalcao.Location = new System.Drawing.Point(303, 8);
-            this.lblBalcao.Name = "lblBalcao";
-            this.lblBalcao.Size = new System.Drawing.Size(397, 73);
-            this.lblBalcao.TabIndex = 0;
-            this.lblBalcao.Text = "Balcão Livre";
+            lblBalcao.AutoSize = true;
+            lblBalcao.Font = new Font("Microsoft Sans Serif", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblBalcao.ForeColor = Color.Red;
+            lblBalcao.Location = new Point(354, 9);
+            lblBalcao.Margin = new Padding(4, 0, 4, 0);
+            lblBalcao.Name = "lblBalcao";
+            lblBalcao.Size = new Size(397, 73);
+            lblBalcao.TabIndex = 0;
+            lblBalcao.Text = "Balcão Livre";
             // 
             // panelBalcao
             // 
-            this.panelBalcao.Controls.Add(this.lblBalcao);
-            this.panelBalcao.Location = new System.Drawing.Point(-1, 47);
-            this.panelBalcao.Name = "panelBalcao";
-            this.panelBalcao.Size = new System.Drawing.Size(1009, 102);
-            this.panelBalcao.TabIndex = 72;
+            panelBalcao.Controls.Add(lblBalcao);
+            panelBalcao.Location = new Point(-1, 54);
+            panelBalcao.Margin = new Padding(4, 3, 4, 3);
+            panelBalcao.Name = "panelBalcao";
+            panelBalcao.Size = new Size(1177, 118);
+            panelBalcao.TabIndex = 72;
             // 
             // btnCfNfe
             // 
-            this.btnCfNfe.Location = new System.Drawing.Point(514, 661);
-            this.btnCfNfe.Name = "btnCfNfe";
-            this.btnCfNfe.Size = new System.Drawing.Size(88, 23);
-            this.btnCfNfe.TabIndex = 8;
-            this.btnCfNfe.Text = "F9 -NFe/NFCe";
-            this.btnCfNfe.UseVisualStyleBackColor = true;
-            this.btnCfNfe.Click += new System.EventHandler(this.btnCfNfe_Click);
+            btnCfNfe.Location = new Point(600, 763);
+            btnCfNfe.Margin = new Padding(4, 3, 4, 3);
+            btnCfNfe.Name = "btnCfNfe";
+            btnCfNfe.Size = new Size(103, 27);
+            btnCfNfe.TabIndex = 8;
+            btnCfNfe.Text = "F9 -NFe/NFCe";
+            btnCfNfe.UseVisualStyleBackColor = true;
+            btnCfNfe.Click += btnCfNfe_Click;
             // 
             // baseCalculoICMSTextBox
             // 
-            this.baseCalculoICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.baseCalculoICMSTextBox.Location = new System.Drawing.Point(201, 487);
-            this.baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
-            this.baseCalculoICMSTextBox.ReadOnly = true;
-            this.baseCalculoICMSTextBox.Size = new System.Drawing.Size(135, 29);
-            this.baseCalculoICMSTextBox.TabIndex = 44;
-            this.baseCalculoICMSTextBox.TabStop = false;
-            this.baseCalculoICMSTextBox.Leave += new System.EventHandler(this.baseCalculoICMSTextBox_Leave);
+            baseCalculoICMSTextBox.Font = new Font("Microsoft Sans Serif", 14F);
+            baseCalculoICMSTextBox.Location = new Point(234, 562);
+            baseCalculoICMSTextBox.Margin = new Padding(4, 3, 4, 3);
+            baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
+            baseCalculoICMSTextBox.ReadOnly = true;
+            baseCalculoICMSTextBox.Size = new Size(157, 29);
+            baseCalculoICMSTextBox.TabIndex = 44;
+            baseCalculoICMSTextBox.TabStop = false;
+            baseCalculoICMSTextBox.Leave += baseCalculoICMSTextBox_Leave;
             // 
             // valorICMSTextBox
             // 
-            this.valorICMSTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.valorICMSTextBox.Location = new System.Drawing.Point(352, 487);
-            this.valorICMSTextBox.Name = "valorICMSTextBox";
-            this.valorICMSTextBox.ReadOnly = true;
-            this.valorICMSTextBox.Size = new System.Drawing.Size(157, 29);
-            this.valorICMSTextBox.TabIndex = 46;
-            this.valorICMSTextBox.TabStop = false;
-            this.valorICMSTextBox.Leave += new System.EventHandler(this.valorICMSSubstTextBox_Leave);
+            valorICMSTextBox.Font = new Font("Microsoft Sans Serif", 14F);
+            valorICMSTextBox.Location = new Point(411, 562);
+            valorICMSTextBox.Margin = new Padding(4, 3, 4, 3);
+            valorICMSTextBox.Name = "valorICMSTextBox";
+            valorICMSTextBox.ReadOnly = true;
+            valorICMSTextBox.Size = new Size(182, 29);
+            valorICMSTextBox.TabIndex = 46;
+            valorICMSTextBox.TabStop = false;
+            valorICMSTextBox.Leave += valorICMSSubstTextBox_Leave;
             // 
             // baseCalculoICMSSubstTextBox
             // 
-            this.baseCalculoICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.baseCalculoICMSSubstTextBox.Location = new System.Drawing.Point(515, 487);
-            this.baseCalculoICMSSubstTextBox.Name = "baseCalculoICMSSubstTextBox";
-            this.baseCalculoICMSSubstTextBox.ReadOnly = true;
-            this.baseCalculoICMSSubstTextBox.Size = new System.Drawing.Size(156, 29);
-            this.baseCalculoICMSSubstTextBox.TabIndex = 48;
-            this.baseCalculoICMSSubstTextBox.TabStop = false;
-            this.baseCalculoICMSSubstTextBox.Leave += new System.EventHandler(this.valorICMSSubstTextBox_Leave);
+            baseCalculoICMSSubstTextBox.Font = new Font("Microsoft Sans Serif", 14F);
+            baseCalculoICMSSubstTextBox.Location = new Point(601, 562);
+            baseCalculoICMSSubstTextBox.Margin = new Padding(4, 3, 4, 3);
+            baseCalculoICMSSubstTextBox.Name = "baseCalculoICMSSubstTextBox";
+            baseCalculoICMSSubstTextBox.ReadOnly = true;
+            baseCalculoICMSSubstTextBox.Size = new Size(181, 29);
+            baseCalculoICMSSubstTextBox.TabIndex = 48;
+            baseCalculoICMSSubstTextBox.TabStop = false;
+            baseCalculoICMSSubstTextBox.Leave += valorICMSSubstTextBox_Leave;
             // 
             // valorICMSSubstTextBox
             // 
-            this.valorICMSSubstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.valorICMSSubstTextBox.Location = new System.Drawing.Point(677, 487);
-            this.valorICMSSubstTextBox.Name = "valorICMSSubstTextBox";
-            this.valorICMSSubstTextBox.ReadOnly = true;
-            this.valorICMSSubstTextBox.Size = new System.Drawing.Size(171, 29);
-            this.valorICMSSubstTextBox.TabIndex = 50;
-            this.valorICMSSubstTextBox.TabStop = false;
-            this.valorICMSSubstTextBox.Leave += new System.EventHandler(this.valorICMSSubstTextBox_Leave);
+            valorICMSSubstTextBox.Font = new Font("Microsoft Sans Serif", 14F);
+            valorICMSSubstTextBox.Location = new Point(790, 562);
+            valorICMSSubstTextBox.Margin = new Padding(4, 3, 4, 3);
+            valorICMSSubstTextBox.Name = "valorICMSSubstTextBox";
+            valorICMSSubstTextBox.ReadOnly = true;
+            valorICMSSubstTextBox.Size = new Size(199, 29);
+            valorICMSSubstTextBox.TabIndex = 50;
+            valorICMSSubstTextBox.TabStop = false;
+            valorICMSSubstTextBox.Leave += valorICMSSubstTextBox_Leave;
             // 
             // valorIPITextBox
             // 
-            this.valorIPITextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.valorIPITextBox.Location = new System.Drawing.Point(855, 487);
-            this.valorIPITextBox.Name = "valorIPITextBox";
-            this.valorIPITextBox.ReadOnly = true;
-            this.valorIPITextBox.Size = new System.Drawing.Size(142, 29);
-            this.valorIPITextBox.TabIndex = 52;
-            this.valorIPITextBox.TabStop = false;
-            this.valorIPITextBox.Leave += new System.EventHandler(this.valorICMSSubstTextBox_Leave);
+            valorIPITextBox.Font = new Font("Microsoft Sans Serif", 14F);
+            valorIPITextBox.Location = new Point(997, 562);
+            valorIPITextBox.Margin = new Padding(4, 3, 4, 3);
+            valorIPITextBox.Name = "valorIPITextBox";
+            valorIPITextBox.ReadOnly = true;
+            valorIPITextBox.Size = new Size(165, 29);
+            valorIPITextBox.TabIndex = 52;
+            valorIPITextBox.TabStop = false;
+            valorIPITextBox.Leave += valorICMSSubstTextBox_Leave;
             // 
             // lblPreco
             // 
-            this.lblPreco.AutoSize = true;
-            this.lblPreco.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.lblPreco.ForeColor = System.Drawing.Color.Red;
-            this.lblPreco.Location = new System.Drawing.Point(610, 130);
-            this.lblPreco.Name = "lblPreco";
-            this.lblPreco.Size = new System.Drawing.Size(165, 18);
-            this.lblPreco.TabIndex = 78;
-            this.lblPreco.Text = "CTRL+P - Preço Varejo";
+            lblPreco.AutoSize = true;
+            lblPreco.Font = new Font("Microsoft Sans Serif", 11F);
+            lblPreco.ForeColor = Color.Red;
+            lblPreco.Location = new Point(712, 150);
+            lblPreco.Margin = new Padding(4, 0, 4, 0);
+            lblPreco.Name = "lblPreco";
+            lblPreco.Size = new Size(165, 18);
+            lblPreco.TabIndex = 78;
+            lblPreco.Text = "CTRL+P - Preço Varejo";
             // 
             // labelAtualizarPrecos
             // 
-            this.labelAtualizarPrecos.AutoSize = true;
-            this.labelAtualizarPrecos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.labelAtualizarPrecos.ForeColor = System.Drawing.Color.Red;
-            this.labelAtualizarPrecos.Location = new System.Drawing.Point(335, 131);
-            this.labelAtualizarPrecos.Name = "labelAtualizarPrecos";
-            this.labelAtualizarPrecos.Size = new System.Drawing.Size(267, 18);
-            this.labelAtualizarPrecos.TabIndex = 79;
-            this.labelAtualizarPrecos.Text = "CTRL+A - Atualizar com Preços do Dia";
+            labelAtualizarPrecos.AutoSize = true;
+            labelAtualizarPrecos.Font = new Font("Microsoft Sans Serif", 11F);
+            labelAtualizarPrecos.ForeColor = Color.Red;
+            labelAtualizarPrecos.Location = new Point(391, 151);
+            labelAtualizarPrecos.Margin = new Padding(4, 0, 4, 0);
+            labelAtualizarPrecos.Name = "labelAtualizarPrecos";
+            labelAtualizarPrecos.Size = new Size(267, 18);
+            labelAtualizarPrecos.TabIndex = 79;
+            labelAtualizarPrecos.Text = "CTRL+A - Atualizar com Preços do Dia";
             // 
             // VendedorTextBox
             // 
-            this.VendedorTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.saidaBindingSource, "LoginVendedor", true));
-            this.VendedorTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VendedorTextBox.Location = new System.Drawing.Point(223, 560);
-            this.VendedorTextBox.Name = "VendedorTextBox";
-            this.VendedorTextBox.ReadOnly = true;
-            this.VendedorTextBox.Size = new System.Drawing.Size(113, 26);
-            this.VendedorTextBox.TabIndex = 80;
-            this.VendedorTextBox.TabStop = false;
+            VendedorTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "LoginVendedor", true));
+            VendedorTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            VendedorTextBox.Location = new Point(260, 646);
+            VendedorTextBox.Margin = new Padding(4, 3, 4, 3);
+            VendedorTextBox.Name = "VendedorTextBox";
+            VendedorTextBox.ReadOnly = true;
+            VendedorTextBox.Size = new Size(131, 26);
+            VendedorTextBox.TabIndex = 80;
+            VendedorTextBox.TabStop = false;
             // 
             // FrmSaida
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1009, 686);
-            this.ControlBox = false;
-            this.Controls.Add(label1);
-            this.Controls.Add(this.VendedorTextBox);
-            this.Controls.Add(this.tb_saida_produtoDataGridView);
-            this.Controls.Add(valorIPILabel);
-            this.Controls.Add(this.valorIPITextBox);
-            this.Controls.Add(valorICMSSubstLabel);
-            this.Controls.Add(this.valorICMSSubstTextBox);
-            this.Controls.Add(baseCalculoICMSSubstLabel);
-            this.Controls.Add(this.baseCalculoICMSSubstTextBox);
-            this.Controls.Add(valorICMSLabel);
-            this.Controls.Add(this.valorICMSTextBox);
-            this.Controls.Add(baseCalculoICMSLabel);
-            this.Controls.Add(this.baseCalculoICMSTextBox);
-            this.Controls.Add(this.btnCfNfe);
-            this.Controls.Add(this.panelBalcao);
-            this.Controls.Add(label5);
-            this.Controls.Add(this.subtotalAVistatextBox);
-            this.Controls.Add(this.btnImprimir);
-            this.Controls.Add(descricaoSituacaoPagamentosLabel);
-            this.Controls.Add(this.descricaoSituacaoPagamentosTextBox);
-            this.Controls.Add(nfeLabel);
-            this.Controls.Add(this.nfeTextBox);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnEncerrar);
-            this.Controls.Add(descricaoTipoSaidaLabel);
-            this.Controls.Add(this.descricaoTipoSaidaTextBox);
-            this.Controls.Add(nomeClienteLabel);
-            this.Controls.Add(this.nomeClienteTextBox);
-            this.Controls.Add(data_validadeLabel);
-            this.Controls.Add(this.data_validadeDateTimePicker);
-            this.Controls.Add(pedidoGeradoLabel);
-            this.Controls.Add(label4);
-            this.Controls.Add(this.pedidoGeradoTextBox);
-            this.Controls.Add(this.precoVendatextBox);
-            this.Controls.Add(this.codSaidaTextBox);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(codSaidaLabel);
-            this.Controls.Add(this.dataSaidaDateTimePicker);
-            this.Controls.Add(dataSaidaLabel);
-            this.Controls.Add(this.codProdutoComboBox);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.totalAVistaTextBox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(totalLabel);
-            this.Controls.Add(this.totalTextBox);
-            this.Controls.Add(subtotalLabel);
-            this.Controls.Add(this.subtotalTextBox);
-            this.Controls.Add(nomeLabel);
-            this.Controls.Add(valorVendaLabel);
-            this.Controls.Add(this.precoVendaSemDescontoTextBox);
-            this.Controls.Add(quantidadeLabel);
-            this.Controls.Add(this.quantidadeTextBox);
-            this.Controls.Add(this.tb_saidaBindingNavigator);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnNovo);
-            this.Controls.Add(this.btnExcluir);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.entregaRealizadaCheckBox);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.lblPreco);
-            this.Controls.Add(this.labelAtualizarPrecos);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.KeyPreview = true;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FrmSaida";
-            this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Saída de Produtos";
-            this.Load += new System.EventHandler(this.FrmSaida_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaida_KeyDown);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saidaBindingNavigator)).EndInit();
-            this.tb_saidaBindingNavigator.ResumeLayout(false);
-            this.tb_saidaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saida_produtoDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saidaProdutoBindingSource)).EndInit();
-            this.panelBalcao.ResumeLayout(false);
-            this.panelBalcao.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1192, 815);
+            ControlBox = false;
+            Controls.Add(label1);
+            Controls.Add(VendedorTextBox);
+            Controls.Add(tb_saida_produtoDataGridView);
+            Controls.Add(valorIPILabel);
+            Controls.Add(valorIPITextBox);
+            Controls.Add(valorICMSSubstLabel);
+            Controls.Add(valorICMSSubstTextBox);
+            Controls.Add(baseCalculoICMSSubstLabel);
+            Controls.Add(baseCalculoICMSSubstTextBox);
+            Controls.Add(valorICMSLabel);
+            Controls.Add(valorICMSTextBox);
+            Controls.Add(baseCalculoICMSLabel);
+            Controls.Add(baseCalculoICMSTextBox);
+            Controls.Add(btnCfNfe);
+            Controls.Add(panelBalcao);
+            Controls.Add(label5);
+            Controls.Add(subtotalAVistatextBox);
+            Controls.Add(btnImprimir);
+            Controls.Add(descricaoSituacaoPagamentosLabel);
+            Controls.Add(descricaoSituacaoPagamentosTextBox);
+            Controls.Add(nfeLabel);
+            Controls.Add(nfeTextBox);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnEncerrar);
+            Controls.Add(descricaoTipoSaidaLabel);
+            Controls.Add(descricaoTipoSaidaTextBox);
+            Controls.Add(nomeClienteLabel);
+            Controls.Add(nomeClienteTextBox);
+            Controls.Add(data_validadeLabel);
+            Controls.Add(data_validadeDateTimePicker);
+            Controls.Add(pedidoGeradoLabel);
+            Controls.Add(label4);
+            Controls.Add(pedidoGeradoTextBox);
+            Controls.Add(precoVendatextBox);
+            Controls.Add(codSaidaTextBox);
+            Controls.Add(btnEditar);
+            Controls.Add(codSaidaLabel);
+            Controls.Add(dataSaidaDateTimePicker);
+            Controls.Add(dataSaidaLabel);
+            Controls.Add(codProdutoComboBox);
+            Controls.Add(btnBuscar);
+            Controls.Add(totalAVistaTextBox);
+            Controls.Add(label2);
+            Controls.Add(totalLabel);
+            Controls.Add(totalTextBox);
+            Controls.Add(subtotalLabel);
+            Controls.Add(subtotalTextBox);
+            Controls.Add(nomeLabel);
+            Controls.Add(valorVendaLabel);
+            Controls.Add(precoVendaSemDescontoTextBox);
+            Controls.Add(quantidadeLabel);
+            Controls.Add(quantidadeTextBox);
+            Controls.Add(tb_saidaBindingNavigator);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnNovo);
+            Controls.Add(btnExcluir);
+            Controls.Add(panel1);
+            Controls.Add(entregaRealizadaCheckBox);
+            Controls.Add(label6);
+            Controls.Add(label3);
+            Controls.Add(lblPreco);
+            Controls.Add(labelAtualizarPrecos);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FrmSaida";
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Saída de Produtos";
+            Load += FrmSaida_Load;
+            KeyDown += FrmSaida_KeyDown;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)saidaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tb_saidaBindingNavigator).EndInit();
+            tb_saidaBindingNavigator.ResumeLayout(false);
+            tb_saidaBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)produtoBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tb_saida_produtoDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)saidaProdutoBindingSource).EndInit();
+            panelBalcao.ResumeLayout(false);
+            panelBalcao.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

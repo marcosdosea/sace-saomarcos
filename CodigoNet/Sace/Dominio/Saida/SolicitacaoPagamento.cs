@@ -11,5 +11,22 @@
         public string CupomCliente { get; set; } = null!;
         public string CupomEstabelecimento { get; set; } = null!;
         public string CupomReduzido { get; set; } = null!;
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return CodSolicitacaoPagamento.Equals(((SolicitacaoPagamento)obj).CodSolicitacaoPagamento);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return CodSolicitacaoPagamento.GetHashCode();
+        }
     }
 }
