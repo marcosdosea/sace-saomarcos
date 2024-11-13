@@ -829,7 +829,5 @@ namespace Negocio
             _entradaProduto.ValorTotal = entradaProduto.ValorTotal;
             _entradaProduto.ValorUnitario = entradaProduto.ValorUnitario;
         }
-
-
     }
 }

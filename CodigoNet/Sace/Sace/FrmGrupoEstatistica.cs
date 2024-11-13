@@ -1,6 +1,4 @@
-﻿using Dados;
-using Microsoft.EntityFrameworkCore;
-using Negocio;
+﻿using Negocio;
 
 namespace Sace
 {
@@ -39,7 +37,7 @@ namespace Sace
             }
         }
 
-      
+
         private void codProdutoComboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
@@ -52,23 +50,16 @@ namespace Sace
             if (codGrupoComboBox.SelectedValue != null)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                long codGrupo = (long) codGrupoComboBox.SelectedValue;
+                long codGrupo = (long)codGrupoComboBox.SelectedValue;
 
                 var vendasPorGrupo = GerenciadorSaida.ObterVendasPorGrupo(codGrupo, dataInicial, dataFinal);
-
-                //saceDataSetConsultas.VendasPorGrupoDataTable vendasgrupoDataTable = new saceDataSetConsultas.VendasPorGrupoDataTable();
-                //Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter vendasGrupoTA = new Dados.saceDataSetConsultasTableAdapters.VendasPorGrupoTableAdapter();
-                //vendasGrupoTA.FillValorVendidoPorGrupoAnoMes(vendasgrupoDataTable, codGrupo, dataInicial, dataFinal);
 
                 vendasPorGrupoBindingSource.DataSource = vendasPorGrupo;
 
                 chart1.Series[0].Name = "Qtd Vendidos";
                 chart1.Series[0].XValueMember = "MesAno";
-                //chart1.EndInit();
                 chart1.Series[0].YValueMembers = "TotalVendas";
-                
                 chart1.DataBind();
-                chart1.Visible = true;
                 Cursor.Current = Cursors.Default;
             }
         }

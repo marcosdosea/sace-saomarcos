@@ -513,7 +513,7 @@ namespace Negocio
         /// <returns></returns>
         public static List<ProdutoVendido> ObterProdutosVendidosUltimosAnos(long codProduto, int numeroAnos)
         {
-            using ( var context = new SaceContext())
+            using (var context = new SaceContext())
             {
                 string nomeProduto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == codProduto).Nome;
 
@@ -522,8 +522,8 @@ namespace Negocio
                                   (saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA ||
                                   saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
                                   saidaProduto.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_USO_INTERNO) &&
-                                  saidaProduto.CodSaidaNavigation.DataSaida.Year >= (DateTime.Now.Year - numeroAnos)
-                            orderby saidaProduto.CodSaidaNavigation.DataSaida.Year descending, saidaProduto.CodSaidaNavigation.DataSaida.Month descending
+                                  saidaProduto.CodSaidaNavigation.DataSaida.Year > (DateTime.Now.Year - numeroAnos)
+                            //orderby saidaProduto.CodSaidaNavigation.DataSaida.Year, saidaProduto.CodSaidaNavigation.DataSaida.Month 
                             group saidaProduto by
                                 new { saidaProduto.CodSaidaNavigation.DataSaida.Year, saidaProduto.CodSaidaNavigation.DataSaida.Month } into gVendidos
                             select new ProdutoVendido
@@ -535,7 +535,8 @@ namespace Negocio
                                 MesAno = String.Concat(gVendidos.Key.Month, "/", gVendidos.Key.Year),
                                 QuantidadeVendida = (decimal) gVendidos.Sum(sp => sp.Quantidade)
                             };
-                var listaProdutosVendidos = query.AsNoTracking().ToList();
+                var listaProdutosVendidos = query.AsNoTracking()
+                    .OrderByDescending(pv => pv.Ano).ThenByDescending(pv => pv.Mes).ToList();
 
                 // Insere zero nos meses sem vendas do produto
                 DateTime dataAtual = DateTime.Now;
@@ -555,7 +556,7 @@ namespace Negocio
                     }
                     dataAtual = dataAtual.AddMonths(-1);
                 }
-                    return listaProdutosVendidos;
+                return listaProdutosVendidos;
             }
         }
 
@@ -587,11 +588,15 @@ namespace Negocio
                              where produto.CodSituacaoProduto != SituacaoProduto.NAO_COMPRAR
                              select produto;
 
+                
                 foreach (TbProduto produto in query2)
                 {
                     ProdutoVendido produtoVendido = listaProdutosVendidos.Where(pv => pv.CodProduto == produto.CodProduto).FirstOrDefault();
-                    decimal estoqueAtual = context.TbProdutoLojas.Where(pl => pl.CodProduto == produto.CodProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
-
+                    decimal estoqueAtual = 0;
+                    using (var context2 = new SaceContext())
+                    {
+                        estoqueAtual = context2.TbProdutoLojas.Where(p => p.CodProduto == produto.CodProduto).Sum(p => p.QtdEstoque + p.QtdEstoqueAux);
+                    }
                     // necessário deixar os itens como disponível antes da análise por conta das mudanças no estoque
                     if (produto.CodSituacaoProduto != SituacaoProduto.COMPRADO)
                         produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;

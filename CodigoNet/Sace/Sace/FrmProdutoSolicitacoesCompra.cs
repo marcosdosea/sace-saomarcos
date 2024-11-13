@@ -116,27 +116,21 @@ namespace Sace
             precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString("N2");
 
             produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
-            //this.entradasPorProdutoTableAdapter.FillEntradasByProduto(this.saceDataSetConsultas.EntradasPorProduto, produto.CodProduto);
-            //this.produtosVendidosTableAdapter.FillQuantidadeProdutosVendidosMesAnoAsc(saceDataSetConsultas.ProdutosVendidos, produto.CodProduto);
+            entradasPorProdutoBindingSource.DataSource = GerenciadorEntradaProduto.ObterPorProdutoTipoEntrada(produto.CodProduto, Entrada.TIPO_ENTRADA);
+            var listaProdutosVendidos = GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 3);
+            produtoVendidoBindingSource.DataSource = listaProdutosVendidos.OrderBy(pv => pv.Ano).ThenBy(pv => pv.Mes).ToList();
 
-            //Dados.saceDataSetConsultas.ProdutosVendidosDataTable pVendidosTable = new Dados.saceDataSetConsultas.ProdutosVendidosDataTable();
-            //pVendidosTable = this.saceDataSetConsultas.ProdutosVendidos;
-
-            chart1.DataSource = GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 5); // produtosVendidosTableAdapterBindingSource;
-
-            chart1.Series[0].Name = "Qtd Vendidos";
-            chart1.Series[0].XValueMember = "MesAno"; //pVendidosTable.mesanoColumn.ToString();
-            chart1.EndInit();
-            //chart1.Series[0].
-            chart1.Series[0].YValueMembers = "QuantidadeVendido";//pVendidosTable.quantidadeVendidaColumn.ToString();
-
+            // Configurações adicionais do gráfico (opcional)
+            chart1.ChartAreas[0].AxisX.Title = "Mês/Ano";
+            chart1.ChartAreas[0].AxisY.Title = "Quantidade Vendida";
+            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = 45;
+            chart1.Series[0].BorderWidth = 1;
+            chart1.Series[0].BorderColor = Color.Black;
             chart1.DataBind();
             chart1.Visible = true;
 
-            List<ProdutoVendido> produtosVendidos = GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 2);
-
             decimal somaVendidos = 0;
-            if (produtosVendidos.Count == 0)
+            if (listaProdutosVendidos.Count == 0)
             {
                 vendidos3textBox.Text = "0,00";
                 vendidos6textBox.Text = "0,00";
@@ -144,9 +138,9 @@ namespace Sace
                 vendidos18textBox.Text = "0,00";
             }
             
-            for (int i = 0; i < produtosVendidos.Count && i < 18; i++)
+            for (int i = 0; i < listaProdutosVendidos.Count && i < 18; i++)
             {
-                ProdutoVendido produtoVendido = produtosVendidos[i];
+                ProdutoVendido produtoVendido = listaProdutosVendidos[i];
                 somaVendidos += produtoVendido.QuantidadeVendida;
                 if (i < 3)
                 {

@@ -21,8 +21,8 @@
 
  <ItemGroup>
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
-    <PackageReference Include="MySql.Data" Version="8.4.0" />
-    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.21" />
+    <PackageReference Include="MySql.Data" Version="9.1.0" />
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.23" />
     <PackageReference Include="WinForms.DataVisualization" Version="1.9.2" />
   </ItemGroup>
 

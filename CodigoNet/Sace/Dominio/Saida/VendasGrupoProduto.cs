@@ -4,6 +4,6 @@
     {
         public long CodGrupo { get; set; }
         public string MesAno { get; set; }
-        public decimal? TotalVendas {  get; set; }
+        public double TotalVendas {  get; set; }
     }
 }

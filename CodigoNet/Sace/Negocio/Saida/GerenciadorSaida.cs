@@ -930,7 +930,7 @@ namespace Negocio
                             {
                                 CodGrupo = codGrupo,
                                 MesAno = groupSaidaProduto.Key.Mes + "/" + groupSaidaProduto.Key.Ano,
-                                TotalVendas = groupSaidaProduto.Sum(p => p.SubtotalAvista)
+                                TotalVendas = decimal.ToDouble((decimal)groupSaidaProduto.Sum(p => p.SubtotalAvista))
                             };
                 return query.ToList();
             }

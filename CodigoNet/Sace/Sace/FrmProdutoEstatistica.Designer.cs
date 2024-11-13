@@ -38,7 +38,6 @@
             Label preco_custoLabel;
             Label codProdutoLabel;
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             label1 = new Label();
@@ -57,7 +56,7 @@
             lucroPrecoVendaAtacadoTextBox = new TextBox();
             valorUnitarioTextBox = new TextBox();
             chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            produtosVendidosTableAdapterBindingSource = new BindingSource(components);
+            produtoVendidoBindingSource = new BindingSource(components);
             label5 = new Label();
             label8 = new Label();
             label9 = new Label();
@@ -95,7 +94,7 @@
             ProdutosGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)produtoBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)produtosVendidosTableAdapterBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)produtoVendidoBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)entradasPorProdutoBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)entradasPorProdutoDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)produtoLojaBindingSource).BeginInit();
@@ -376,23 +375,23 @@
             chart1.BackSecondaryColor = Color.FromArgb(224, 224, 224);
             chartArea1.Name = "ChartArea1";
             chart1.ChartAreas.Add(chartArea1);
-            chart1.DataSource = produtosVendidosTableAdapterBindingSource;
-            legend1.Name = "Legend1";
-            chart1.Legends.Add(legend1);
+            chart1.DataSource = produtoVendidoBindingSource;
             chart1.Location = new Point(2, 342);
             chart1.Margin = new Padding(4, 3, 4, 3);
             chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
+            series1.IsXValueIndexed = true;
             series1.Name = "Series1";
+            series1.XValueMember = "MesAno";
+            series1.YValueMembers = "QuantidadeVendida";
             chart1.Series.Add(series1);
             chart1.Size = new Size(1001, 165);
             chart1.TabIndex = 113;
             chart1.Text = "chart1";
             // 
-            // produtosVendidosTableAdapterBindingSource
+            // produtoVendidoBindingSource
             // 
-            produtosVendidosTableAdapterBindingSource.DataMember = "ProdutosVendidos";
+            produtoVendidoBindingSource.DataSource = typeof(Dominio.ProdutoVendido);
             // 
             // label5
             // 
@@ -695,7 +694,7 @@
             ProdutosGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)produtoBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)chart1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)produtosVendidosTableAdapterBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)produtoVendidoBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)entradasPorProdutoBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)entradasPorProdutoDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)produtoLojaBindingSource).EndInit();
@@ -730,7 +729,6 @@
         private System.Windows.Forms.TextBox vendidos3textBox;
         private System.Windows.Forms.TextBox vendidos6textBox;
         private System.Windows.Forms.TextBox vendidos12textBox;
-        private System.Windows.Forms.BindingSource produtosVendidosTableAdapterBindingSource;
         private System.Windows.Forms.TextBox vendidos18textBox;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.BindingSource entradasPorProdutoBindingSource;
@@ -754,5 +752,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.BindingSource pessoaBindingSource;
+        private BindingSource produtoVendidoBindingSource;
     }
 }

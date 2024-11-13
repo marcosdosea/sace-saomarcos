@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             Label codProdutoLabel;
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             label1 = new Label();
             panel1 = new Panel();
@@ -93,18 +92,20 @@
             chartArea1.Name = "ChartArea1";
             chart1.ChartAreas.Add(chartArea1);
             chart1.DataSource = vendasPorGrupoBindingSource;
-            legend1.Name = "Legend1";
-            chart1.Legends.Add(legend1);
             chart1.Location = new Point(5, 164);
             chart1.Margin = new Padding(4, 3, 4, 3);
             chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
+            series1.IsXValueIndexed = true;
             series1.Name = "Series1";
             chart1.Series.Add(series1);
             chart1.Size = new Size(1161, 414);
             chart1.TabIndex = 113;
             chart1.Text = "chart1";
+            // 
+            // vendasPorGrupoBindingSource
+            // 
+            vendasPorGrupoBindingSource.DataSource = typeof(Dominio.VendasGrupoProduto);
             // 
             // label5
             // 
