@@ -738,7 +738,7 @@ namespace Negocio
                 {
                     var query = from produto in context.TbProdutos
                                 orderby produto.Nome
-                                where listaCodSituacoes.Contains(produto.CodSituacaoProduto)
+                                where produto.CodProduto != 1 && listaCodSituacoes.Contains(produto.CodSituacaoProduto)
                                 select new SolicitacoesCompra
                                 {
                                     CodProduto = produto.CodProduto,
@@ -758,7 +758,7 @@ namespace Negocio
 
                     var query = from produto in context.TbProdutos
                                 orderby produto.Nome
-                                where listaCodSituacoes.Contains(produto.CodSituacaoProduto) &&
+                                where produto.CodProduto != 1 && listaCodSituacoes.Contains(produto.CodSituacaoProduto) &&
                                     (listaCodigoProdutosFornecedor.Contains(produto.CodProduto) || produto.CodFabricante.Equals(codFornecedor))
                                 select new SolicitacoesCompra
                                 {
@@ -770,7 +770,7 @@ namespace Negocio
                                     DataSolicitacaoCompra = produto.DataSolicitacaoCompra,
                                     DataPedidoCompra = produto.DataPedidoCompra
                                 };
-                    return query.ToList();
+                    return query.AsNoTracking().ToList();
                 }
             }
         }

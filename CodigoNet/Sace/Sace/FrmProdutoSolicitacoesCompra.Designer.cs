@@ -38,17 +38,17 @@
             Label preco_custoLabel;
             Label codProdutoLabel;
             Label label6;
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             label1 = new Label();
             panel1 = new Panel();
             ProdutosGroupBox = new GroupBox();
             preco_custoTextBox = new TextBox();
+            produtoBindingSource = new BindingSource(components);
             label3 = new Label();
             precoVendaAtacadoTextBox = new TextBox();
-            produtoBindingSource = new BindingSource(components);
             precoAtacadoSugestaoTextBox = new TextBox();
             qtdProdutoAtacadoTextBox = new TextBox();
             precoVarejoSugestaoTextBox = new TextBox();
@@ -57,7 +57,6 @@
             lucroPrecoVendaVarejoTextBox = new TextBox();
             lucroPrecoVendaAtacadoTextBox = new TextBox();
             valorUnitarioTextBox = new TextBox();
-            chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             produtoVendidoBindingSource = new BindingSource(components);
             label5 = new Label();
             label8 = new Label();
@@ -68,8 +67,6 @@
             vendidos12textBox = new TextBox();
             vendidos18textBox = new TextBox();
             label12 = new Label();
-            entradasPorProdutoBindingSource = new BindingSource(components);
-            entradasPorProdutoDataGridView = new DataGridView();
             label11 = new Label();
             produtoLojaBindingSource = new BindingSource(components);
             tb_produto_lojaDataGridView = new DataGridView();
@@ -94,12 +91,16 @@
             checkBoxCompraUrgente = new CheckBox();
             checkBoxNaoComprar = new CheckBox();
             checkBoxSolicitacaoCompra = new CheckBox();
-            dataEntrada = new DataGridViewTextBoxColumn();
+            entradaProdutoPesquisaBindingSource = new BindingSource(components);
+            entradasPorProdutoDataGridView = new DataGridView();
             codEntradaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            unidadeCompraDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataEntradaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nomeFornecedorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            codCSTDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             quantidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            valorTotalDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            codFornecedorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            valorUnitarioDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            precoCustoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             valorUnitarioLabel = new Label();
             lucroPrecoVendaAtacadoLabel = new Label();
             lucroPrecoVendaVarejoLabel = new Label();
@@ -112,15 +113,15 @@
             panel1.SuspendLayout();
             ProdutosGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)produtoBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)produtoVendidoBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)entradasPorProdutoBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)entradasPorProdutoDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)produtoLojaBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tb_produto_lojaDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)solicitacoesCompraBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)solicitacoesCompraDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)entradaProdutoPesquisaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)entradasPorProdutoDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             SuspendLayout();
             // 
             // valorUnitarioLabel
@@ -234,7 +235,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1017, 45);
+            panel1.Size = new Size(1013, 45);
             panel1.TabIndex = 20;
             // 
             // ProdutosGroupBox
@@ -257,17 +258,18 @@
             ProdutosGroupBox.Controls.Add(lucroPrecoVendaAtacadoTextBox);
             ProdutosGroupBox.Controls.Add(valorUnitarioLabel);
             ProdutosGroupBox.Controls.Add(valorUnitarioTextBox);
-            ProdutosGroupBox.Location = new Point(2, 322);
+            ProdutosGroupBox.Location = new Point(2, 270);
             ProdutosGroupBox.Margin = new Padding(4, 3, 4, 3);
             ProdutosGroupBox.Name = "ProdutosGroupBox";
             ProdutosGroupBox.Padding = new Padding(4, 3, 4, 3);
-            ProdutosGroupBox.Size = new Size(1001, 97);
+            ProdutosGroupBox.Size = new Size(1001, 70);
             ProdutosGroupBox.TabIndex = 76;
             ProdutosGroupBox.TabStop = false;
             ProdutosGroupBox.Text = "Dados do Produto";
             // 
             // preco_custoTextBox
             // 
+            preco_custoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoCusto", true));
             preco_custoTextBox.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             preco_custoTextBox.Location = new Point(126, 40);
             preco_custoTextBox.Margin = new Padding(4, 3, 4, 3);
@@ -276,6 +278,11 @@
             preco_custoTextBox.Size = new Size(90, 22);
             preco_custoTextBox.TabIndex = 76;
             preco_custoTextBox.TabStop = false;
+            // 
+            // produtoBindingSource
+            // 
+            produtoBindingSource.DataSource = typeof(Dominio.Produto);
+            produtoBindingSource.Sort = "nome";
             // 
             // label3
             // 
@@ -289,7 +296,7 @@
             // 
             // precoVendaAtacadoTextBox
             // 
-            precoVendaAtacadoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "precoVendaAtacado", true));
+            precoVendaAtacadoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoVendaAtacado", true));
             precoVendaAtacadoTextBox.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             precoVendaAtacadoTextBox.ForeColor = Color.Red;
             precoVendaAtacadoTextBox.Location = new Point(850, 40);
@@ -300,13 +307,9 @@
             precoVendaAtacadoTextBox.TabIndex = 102;
             precoVendaAtacadoTextBox.TabStop = false;
             // 
-            // produtoBindingSource
-            // 
-            produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            produtoBindingSource.Sort = "nome";
-            // 
             // precoAtacadoSugestaoTextBox
             // 
+            precoAtacadoSugestaoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoVendaAtacadoSugestao", true));
             precoAtacadoSugestaoTextBox.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             precoAtacadoSugestaoTextBox.Location = new Point(726, 40);
             precoAtacadoSugestaoTextBox.Margin = new Padding(4, 3, 4, 3);
@@ -318,7 +321,7 @@
             // 
             // qtdProdutoAtacadoTextBox
             // 
-            qtdProdutoAtacadoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "qtdProdutoAtacado", true));
+            qtdProdutoAtacadoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "QtdProdutoAtacado", true));
             qtdProdutoAtacadoTextBox.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             qtdProdutoAtacadoTextBox.Location = new Point(551, 40);
             qtdProdutoAtacadoTextBox.Margin = new Padding(4, 3, 4, 3);
@@ -330,6 +333,7 @@
             // 
             // precoVarejoSugestaoTextBox
             // 
+            precoVarejoSugestaoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoVendaVarejoSugestao", true));
             precoVarejoSugestaoTextBox.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             precoVarejoSugestaoTextBox.ForeColor = Color.Black;
             precoVarejoSugestaoTextBox.Location = new Point(302, 40);
@@ -342,7 +346,7 @@
             // 
             // precoVendaVarejoTextBox
             // 
-            precoVendaVarejoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "precoVendaVarejo", true));
+            precoVendaVarejoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoVendaVarejo", true));
             precoVendaVarejoTextBox.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             precoVendaVarejoTextBox.ForeColor = Color.Red;
             precoVendaVarejoTextBox.Location = new Point(420, 40);
@@ -365,7 +369,7 @@
             // 
             // lucroPrecoVendaVarejoTextBox
             // 
-            lucroPrecoVendaVarejoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "lucroPrecoVendaVarejo", true));
+            lucroPrecoVendaVarejoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "LucroPrecoVendaVarejo", true));
             lucroPrecoVendaVarejoTextBox.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lucroPrecoVendaVarejoTextBox.Location = new Point(223, 40);
             lucroPrecoVendaVarejoTextBox.Margin = new Padding(4, 3, 4, 3);
@@ -377,7 +381,7 @@
             // 
             // lucroPrecoVendaAtacadoTextBox
             // 
-            lucroPrecoVendaAtacadoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "lucroPrecoVendaAtacado", true));
+            lucroPrecoVendaAtacadoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "LucroPrecoVendaAtacado", true));
             lucroPrecoVendaAtacadoTextBox.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lucroPrecoVendaAtacadoTextBox.Location = new Point(636, 40);
             lucroPrecoVendaAtacadoTextBox.Margin = new Padding(4, 3, 4, 3);
@@ -389,7 +393,7 @@
             // 
             // valorUnitarioTextBox
             // 
-            valorUnitarioTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "ultimoPrecoCompra", true));
+            valorUnitarioTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "UltimoPrecoCompra", true));
             valorUnitarioTextBox.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             valorUnitarioTextBox.Location = new Point(8, 40);
             valorUnitarioTextBox.Margin = new Padding(4, 3, 4, 3);
@@ -399,26 +403,6 @@
             valorUnitarioTextBox.TabIndex = 60;
             valorUnitarioTextBox.TabStop = false;
             // 
-            // chart1
-            // 
-            chart1.BackColor = Color.LightGray;
-            chart1.BackHatchStyle = System.Windows.Forms.DataVisualization.Charting.ChartHatchStyle.DarkDownwardDiagonal;
-            chart1.BackImageTransparentColor = Color.FromArgb(224, 224, 224);
-            chart1.BackSecondaryColor = Color.FromArgb(224, 224, 224);
-            chartArea1.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea1);
-            chart1.DataSource = produtoVendidoBindingSource;
-            chart1.Location = new Point(2, 532);
-            chart1.Margin = new Padding(4, 3, 4, 3);
-            chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.IsXValueIndexed = true;
-            series1.Name = "Series1";
-            chart1.Series.Add(series1);
-            chart1.Size = new Size(1001, 150);
-            chart1.TabIndex = 113;
-            chart1.Text = "chart1";
-            // 
             // produtoVendidoBindingSource
             // 
             produtoVendidoBindingSource.DataSource = typeof(Dominio.ProdutoVendido);
@@ -427,7 +411,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(5, 505);
+            label5.Location = new Point(5, 433);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(186, 18);
@@ -439,7 +423,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.Red;
-            label8.Location = new Point(12, 428);
+            label8.Location = new Point(12, 372);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new Size(65, 15);
@@ -451,7 +435,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = Color.Red;
-            label9.Location = new Point(12, 473);
+            label9.Location = new Point(12, 403);
             label9.Margin = new Padding(4, 0, 4, 0);
             label9.Name = "label9";
             label9.Size = new Size(65, 15);
@@ -463,7 +447,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.Red;
-            label10.Location = new Point(252, 429);
+            label10.Location = new Point(252, 373);
             label10.Margin = new Padding(4, 0, 4, 0);
             label10.Name = "label10";
             label10.Size = new Size(73, 15);
@@ -472,7 +456,7 @@
             // 
             // vendidos3textBox
             // 
-            vendidos3textBox.Location = new Point(94, 428);
+            vendidos3textBox.Location = new Point(94, 372);
             vendidos3textBox.Margin = new Padding(4, 3, 4, 3);
             vendidos3textBox.Name = "vendidos3textBox";
             vendidos3textBox.ReadOnly = true;
@@ -482,7 +466,7 @@
             // 
             // vendidos6textBox
             // 
-            vendidos6textBox.Location = new Point(94, 474);
+            vendidos6textBox.Location = new Point(94, 404);
             vendidos6textBox.Margin = new Padding(4, 3, 4, 3);
             vendidos6textBox.Name = "vendidos6textBox";
             vendidos6textBox.ReadOnly = true;
@@ -492,7 +476,7 @@
             // 
             // vendidos12textBox
             // 
-            vendidos12textBox.Location = new Point(344, 427);
+            vendidos12textBox.Location = new Point(344, 371);
             vendidos12textBox.Margin = new Padding(4, 3, 4, 3);
             vendidos12textBox.Name = "vendidos12textBox";
             vendidos12textBox.ReadOnly = true;
@@ -502,7 +486,7 @@
             // 
             // vendidos18textBox
             // 
-            vendidos18textBox.Location = new Point(344, 474);
+            vendidos18textBox.Location = new Point(344, 404);
             vendidos18textBox.Margin = new Padding(4, 3, 4, 3);
             vendidos18textBox.Name = "vendidos18textBox";
             vendidos18textBox.ReadOnly = true;
@@ -515,40 +499,18 @@
             label12.AutoSize = true;
             label12.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label12.ForeColor = Color.Red;
-            label12.Location = new Point(252, 474);
+            label12.Location = new Point(252, 404);
             label12.Margin = new Padding(4, 0, 4, 0);
             label12.Name = "label12";
             label12.Size = new Size(73, 15);
             label12.TabIndex = 124;
             label12.Text = "18 meses:";
             // 
-            // entradasPorProdutoBindingSource
-            // 
-            entradasPorProdutoBindingSource.DataSource = typeof(Dominio.EntradaProduto);
-            // 
-            // entradasPorProdutoDataGridView
-            // 
-            entradasPorProdutoDataGridView.AllowUserToAddRows = false;
-            entradasPorProdutoDataGridView.AllowUserToDeleteRows = false;
-            entradasPorProdutoDataGridView.AutoGenerateColumns = false;
-            entradasPorProdutoDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            entradasPorProdutoDataGridView.Columns.AddRange(new DataGridViewColumn[] { dataEntrada, codEntradaDataGridViewTextBoxColumn, unidadeCompraDataGridViewTextBoxColumn, quantidadeDataGridViewTextBoxColumn, valorTotalDataGridViewTextBoxColumn, codFornecedorDataGridViewTextBoxColumn });
-            entradasPorProdutoDataGridView.DataSource = entradasPorProdutoBindingSource;
-            entradasPorProdutoDataGridView.Location = new Point(4, 708);
-            entradasPorProdutoDataGridView.Margin = new Padding(4, 3, 4, 3);
-            entradasPorProdutoDataGridView.MultiSelect = false;
-            entradasPorProdutoDataGridView.Name = "entradasPorProdutoDataGridView";
-            entradasPorProdutoDataGridView.ReadOnly = true;
-            entradasPorProdutoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            entradasPorProdutoDataGridView.Size = new Size(997, 87);
-            entradasPorProdutoDataGridView.TabIndex = 124;
-            entradasPorProdutoDataGridView.TabStop = false;
-            // 
             // label11
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new Point(-1, 685);
+            label11.Location = new Point(-1, 587);
             label11.Margin = new Padding(4, 0, 4, 0);
             label11.Name = "label11";
             label11.Size = new Size(179, 18);
@@ -567,13 +529,13 @@
             tb_produto_lojaDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tb_produto_lojaDataGridView.Columns.AddRange(new DataGridViewColumn[] { codLojaDataGridViewTextBoxColumn, nomeLojaDataGridViewTextBoxColumn, qtdEstoqueDataGridViewTextBoxColumn, qtdEstoqueAuxDataGridViewTextBoxColumn });
             tb_produto_lojaDataGridView.DataSource = produtoLojaBindingSource;
-            tb_produto_lojaDataGridView.Location = new Point(531, 427);
+            tb_produto_lojaDataGridView.Location = new Point(531, 371);
             tb_produto_lojaDataGridView.Margin = new Padding(4, 3, 4, 3);
             tb_produto_lojaDataGridView.MultiSelect = false;
             tb_produto_lojaDataGridView.Name = "tb_produto_lojaDataGridView";
             tb_produto_lojaDataGridView.ReadOnly = true;
             tb_produto_lojaDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tb_produto_lojaDataGridView.Size = new Size(472, 99);
+            tb_produto_lojaDataGridView.Size = new Size(472, 80);
             tb_produto_lojaDataGridView.TabIndex = 124;
             tb_produto_lojaDataGridView.TabStop = false;
             // 
@@ -611,7 +573,7 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Microsoft Sans Serif", 10F);
-            label13.Location = new Point(527, 402);
+            label13.Location = new Point(527, 346);
             label13.Margin = new Padding(4, 0, 4, 0);
             label13.Name = "label13";
             label13.Size = new Size(60, 17);
@@ -622,7 +584,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(4, 399);
+            label2.Location = new Point(4, 343);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(175, 18);
@@ -641,7 +603,7 @@
             comboBoxFornecedor.Location = new Point(8, 80);
             comboBoxFornecedor.Margin = new Padding(4, 3, 4, 3);
             comboBoxFornecedor.Name = "comboBoxFornecedor";
-            comboBoxFornecedor.Size = new Size(524, 28);
+            comboBoxFornecedor.Size = new Size(579, 28);
             comboBoxFornecedor.TabIndex = 2;
             comboBoxFornecedor.ValueMember = "CodPessoa";
             comboBoxFornecedor.SelectedIndexChanged += comboBoxFornecedor_SelectedIndexChanged;
@@ -663,7 +625,7 @@
             solicitacoesCompraDataGridView.AutoGenerateColumns = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9F);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -685,7 +647,7 @@
             solicitacoesCompraDataGridView.Name = "solicitacoesCompraDataGridView";
             solicitacoesCompraDataGridView.ReadOnly = true;
             solicitacoesCompraDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            solicitacoesCompraDataGridView.Size = new Size(993, 168);
+            solicitacoesCompraDataGridView.Size = new Size(993, 119);
             solicitacoesCompraDataGridView.TabIndex = 1;
             solicitacoesCompraDataGridView.CurrentCellChanged += solicitacoesCompraDataGridView_CurrentCellChanged;
             solicitacoesCompraDataGridView.DataBindingComplete += solicitacoesCompraDataGridView_DataBindingComplete;
@@ -694,7 +656,7 @@
             // 
             dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn1.DataPropertyName = "CodProduto";
-            dataGridViewTextBoxColumn1.FillWeight = 15F;
+            dataGridViewTextBoxColumn1.FillWeight = 8F;
             dataGridViewTextBoxColumn1.HeaderText = "Código";
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -703,7 +665,7 @@
             // 
             dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn4.DataPropertyName = "Nome";
-            dataGridViewTextBoxColumn4.FillWeight = 80F;
+            dataGridViewTextBoxColumn4.FillWeight = 50F;
             dataGridViewTextBoxColumn4.HeaderText = "Produto";
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -712,7 +674,7 @@
             // 
             dataGridViewTextBoxColumn5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn5.DataPropertyName = "ReferenciaFabricante";
-            dataGridViewTextBoxColumn5.FillWeight = 25F;
+            dataGridViewTextBoxColumn5.FillWeight = 15F;
             dataGridViewTextBoxColumn5.HeaderText = "Ref Fabricante";
             dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -721,7 +683,7 @@
             // 
             dataGridViewTextBoxColumn7.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn7.DataPropertyName = "DataSolicitacaoCompra";
-            dataGridViewTextBoxColumn7.FillWeight = 18F;
+            dataGridViewTextBoxColumn7.FillWeight = 16F;
             dataGridViewTextBoxColumn7.HeaderText = "Data Solicitação";
             dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             dataGridViewTextBoxColumn7.ReadOnly = true;
@@ -730,7 +692,7 @@
             // 
             dataGridViewTextBoxColumn8.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn8.DataPropertyName = "DataPedidoCompra";
-            dataGridViewTextBoxColumn8.FillWeight = 18F;
+            dataGridViewTextBoxColumn8.FillWeight = 16F;
             dataGridViewTextBoxColumn8.HeaderText = "Data Pedido";
             dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             dataGridViewTextBoxColumn8.ReadOnly = true;
@@ -748,7 +710,7 @@
             checkBoxDisponivel.AutoSize = true;
             checkBoxDisponivel.BackColor = Color.White;
             checkBoxDisponivel.Font = new Font("Microsoft Sans Serif", 12F);
-            checkBoxDisponivel.Location = new Point(545, 83);
+            checkBoxDisponivel.Location = new Point(594, 83);
             checkBoxDisponivel.Margin = new Padding(4, 3, 4, 3);
             checkBoxDisponivel.Name = "checkBoxDisponivel";
             checkBoxDisponivel.Size = new Size(196, 24);
@@ -762,7 +724,7 @@
             checkBoxComprado.AutoSize = true;
             checkBoxComprado.BackColor = Color.FromArgb(0, 192, 0);
             checkBoxComprado.Font = new Font("Microsoft Sans Serif", 12F);
-            checkBoxComprado.Location = new Point(788, 83);
+            checkBoxComprado.Location = new Point(810, 83);
             checkBoxComprado.Margin = new Padding(4, 3, 4, 3);
             checkBoxComprado.Name = "checkBoxComprado";
             checkBoxComprado.Size = new Size(187, 24);
@@ -778,7 +740,7 @@
             checkBoxCompraUrgente.Checked = true;
             checkBoxCompraUrgente.CheckState = CheckState.Checked;
             checkBoxCompraUrgente.Font = new Font("Microsoft Sans Serif", 12F);
-            checkBoxCompraUrgente.Location = new Point(788, 48);
+            checkBoxCompraUrgente.Location = new Point(810, 48);
             checkBoxCompraUrgente.Margin = new Padding(4, 3, 4, 3);
             checkBoxCompraUrgente.Name = "checkBoxCompraUrgente";
             checkBoxCompraUrgente.Size = new Size(187, 24);
@@ -793,7 +755,7 @@
             checkBoxNaoComprar.BackColor = Color.Black;
             checkBoxNaoComprar.Font = new Font("Microsoft Sans Serif", 12F);
             checkBoxNaoComprar.ForeColor = Color.White;
-            checkBoxNaoComprar.Location = new Point(545, 50);
+            checkBoxNaoComprar.Location = new Point(594, 50);
             checkBoxNaoComprar.Margin = new Padding(4, 3, 4, 3);
             checkBoxNaoComprar.Name = "checkBoxNaoComprar";
             checkBoxNaoComprar.Size = new Size(194, 24);
@@ -809,7 +771,7 @@
             checkBoxSolicitacaoCompra.Checked = true;
             checkBoxSolicitacaoCompra.CheckState = CheckState.Checked;
             checkBoxSolicitacaoCompra.Font = new Font("Microsoft Sans Serif", 12F);
-            checkBoxSolicitacaoCompra.Location = new Point(542, 115);
+            checkBoxSolicitacaoCompra.Location = new Point(591, 115);
             checkBoxSolicitacaoCompra.Margin = new Padding(4, 3, 4, 3);
             checkBoxSolicitacaoCompra.Name = "checkBoxSolicitacaoCompra";
             checkBoxSolicitacaoCompra.Size = new Size(198, 24);
@@ -818,28 +780,65 @@
             checkBoxSolicitacaoCompra.UseVisualStyleBackColor = false;
             checkBoxSolicitacaoCompra.CheckStateChanged += comboBoxFornecedor_SelectedIndexChanged;
             // 
-            // dataEntrada
+            // entradaProdutoPesquisaBindingSource
             // 
-            dataEntrada.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataEntrada.DataPropertyName = "dataEntrada";
-            dataEntrada.HeaderText = "Data";
-            dataEntrada.Name = "dataEntrada";
-            dataEntrada.ReadOnly = true;
-            dataEntrada.Width = 56;
+            entradaProdutoPesquisaBindingSource.AllowNew = false;
+            entradaProdutoPesquisaBindingSource.DataSource = typeof(Dominio.EntradaProdutoPesquisa);
+            // 
+            // entradasPorProdutoDataGridView
+            // 
+            entradasPorProdutoDataGridView.AllowUserToAddRows = false;
+            entradasPorProdutoDataGridView.AllowUserToDeleteRows = false;
+            entradasPorProdutoDataGridView.AutoGenerateColumns = false;
+            entradasPorProdutoDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            entradasPorProdutoDataGridView.Columns.AddRange(new DataGridViewColumn[] { codEntradaDataGridViewTextBoxColumn, dataEntradaDataGridViewTextBoxColumn, nomeFornecedorDataGridViewTextBoxColumn, codCSTDataGridViewTextBoxColumn, quantidadeDataGridViewTextBoxColumn, valorUnitarioDataGridViewTextBoxColumn, precoCustoDataGridViewTextBoxColumn });
+            entradasPorProdutoDataGridView.DataSource = entradaProdutoPesquisaBindingSource;
+            entradasPorProdutoDataGridView.Location = new Point(6, 608);
+            entradasPorProdutoDataGridView.Margin = new Padding(4, 3, 4, 3);
+            entradasPorProdutoDataGridView.MultiSelect = false;
+            entradasPorProdutoDataGridView.Name = "entradasPorProdutoDataGridView";
+            entradasPorProdutoDataGridView.ReadOnly = true;
+            entradasPorProdutoDataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            entradasPorProdutoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            entradasPorProdutoDataGridView.Size = new Size(997, 67);
+            entradasPorProdutoDataGridView.TabIndex = 132;
+            entradasPorProdutoDataGridView.TabStop = false;
             // 
             // codEntradaDataGridViewTextBoxColumn
             // 
+            codEntradaDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             codEntradaDataGridViewTextBoxColumn.DataPropertyName = "CodEntrada";
-            codEntradaDataGridViewTextBoxColumn.HeaderText = "CodEntrada";
+            codEntradaDataGridViewTextBoxColumn.FillWeight = 5F;
+            codEntradaDataGridViewTextBoxColumn.HeaderText = "Entrada";
             codEntradaDataGridViewTextBoxColumn.Name = "codEntradaDataGridViewTextBoxColumn";
             codEntradaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // unidadeCompraDataGridViewTextBoxColumn
+            // dataEntradaDataGridViewTextBoxColumn
             // 
-            unidadeCompraDataGridViewTextBoxColumn.DataPropertyName = "UnidadeCompra";
-            unidadeCompraDataGridViewTextBoxColumn.HeaderText = "UnidadeCompra";
-            unidadeCompraDataGridViewTextBoxColumn.Name = "unidadeCompraDataGridViewTextBoxColumn";
-            unidadeCompraDataGridViewTextBoxColumn.ReadOnly = true;
+            dataEntradaDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataEntrada";
+            dataEntradaDataGridViewTextBoxColumn.FillWeight = 6F;
+            dataEntradaDataGridViewTextBoxColumn.HeaderText = "Data";
+            dataEntradaDataGridViewTextBoxColumn.Name = "dataEntradaDataGridViewTextBoxColumn";
+            dataEntradaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nomeFornecedorDataGridViewTextBoxColumn
+            // 
+            nomeFornecedorDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            nomeFornecedorDataGridViewTextBoxColumn.DataPropertyName = "NomeFornecedor";
+            nomeFornecedorDataGridViewTextBoxColumn.FillWeight = 30F;
+            nomeFornecedorDataGridViewTextBoxColumn.HeaderText = "Fornecedor";
+            nomeFornecedorDataGridViewTextBoxColumn.Name = "nomeFornecedorDataGridViewTextBoxColumn";
+            nomeFornecedorDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codCSTDataGridViewTextBoxColumn
+            // 
+            codCSTDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            codCSTDataGridViewTextBoxColumn.DataPropertyName = "CodCST";
+            codCSTDataGridViewTextBoxColumn.HeaderText = "CST";
+            codCSTDataGridViewTextBoxColumn.Name = "codCSTDataGridViewTextBoxColumn";
+            codCSTDataGridViewTextBoxColumn.ReadOnly = true;
+            codCSTDataGridViewTextBoxColumn.Width = 52;
             // 
             // quantidadeDataGridViewTextBoxColumn
             // 
@@ -848,26 +847,53 @@
             quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
             quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // valorTotalDataGridViewTextBoxColumn
+            // valorUnitarioDataGridViewTextBoxColumn
             // 
-            valorTotalDataGridViewTextBoxColumn.DataPropertyName = "ValorTotal";
-            valorTotalDataGridViewTextBoxColumn.HeaderText = "ValorTotal";
-            valorTotalDataGridViewTextBoxColumn.Name = "valorTotalDataGridViewTextBoxColumn";
-            valorTotalDataGridViewTextBoxColumn.ReadOnly = true;
+            valorUnitarioDataGridViewTextBoxColumn.DataPropertyName = "ValorUnitario";
+            valorUnitarioDataGridViewTextBoxColumn.HeaderText = "Valor (R$)";
+            valorUnitarioDataGridViewTextBoxColumn.Name = "valorUnitarioDataGridViewTextBoxColumn";
+            valorUnitarioDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // codFornecedorDataGridViewTextBoxColumn
+            // precoCustoDataGridViewTextBoxColumn
             // 
-            codFornecedorDataGridViewTextBoxColumn.DataPropertyName = "CodFornecedor";
-            codFornecedorDataGridViewTextBoxColumn.HeaderText = "CodFornecedor";
-            codFornecedorDataGridViewTextBoxColumn.Name = "codFornecedorDataGridViewTextBoxColumn";
-            codFornecedorDataGridViewTextBoxColumn.ReadOnly = true;
+            precoCustoDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            precoCustoDataGridViewTextBoxColumn.DataPropertyName = "PrecoCusto";
+            precoCustoDataGridViewTextBoxColumn.FillWeight = 11F;
+            precoCustoDataGridViewTextBoxColumn.HeaderText = "Preco Custo (R$)";
+            precoCustoDataGridViewTextBoxColumn.Name = "precoCustoDataGridViewTextBoxColumn";
+            precoCustoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // chart1
+            // 
+            chart1.BackColor = Color.LightGray;
+            chart1.BackHatchStyle = System.Windows.Forms.DataVisualization.Charting.ChartHatchStyle.DarkDownwardDiagonal;
+            chart1.BackImageTransparentColor = Color.FromArgb(224, 224, 224);
+            chart1.BackSecondaryColor = Color.FromArgb(224, 224, 224);
+            chartArea1.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea1);
+            chart1.DataSource = produtoVendidoBindingSource;
+            chart1.Location = new Point(9, 456);
+            chart1.Margin = new Padding(4, 3, 4, 3);
+            chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Name = "Series1";
+            series1.XValueMember = "MesAno";
+            series1.YValueMembers = "QuantidadeVendida";
+            chart1.Series.Add(series1);
+            chart1.Size = new Size(993, 128);
+            chart1.TabIndex = 133;
+            chart1.Text = "chart1";
             // 
             // FrmProdutoSolicitacoesCompra
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1016, 802);
+            ClientSize = new Size(1027, 725);
             ControlBox = false;
+            Controls.Add(chart1);
+            Controls.Add(entradasPorProdutoDataGridView);
             Controls.Add(checkBoxNaoComprar);
             Controls.Add(checkBoxCompraUrgente);
             Controls.Add(checkBoxComprado);
@@ -879,7 +905,6 @@
             Controls.Add(label2);
             Controls.Add(codProdutoLabel);
             Controls.Add(tb_produto_lojaDataGridView);
-            Controls.Add(entradasPorProdutoDataGridView);
             Controls.Add(vendidos18textBox);
             Controls.Add(label12);
             Controls.Add(label11);
@@ -890,7 +915,6 @@
             Controls.Add(label9);
             Controls.Add(label8);
             Controls.Add(label5);
-            Controls.Add(chart1);
             Controls.Add(panel1);
             Controls.Add(ProdutosGroupBox);
             Controls.Add(label13);
@@ -909,15 +933,15 @@
             ProdutosGroupBox.ResumeLayout(false);
             ProdutosGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)produtoBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)chart1).EndInit();
             ((System.ComponentModel.ISupportInitialize)produtoVendidoBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)entradasPorProdutoBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)entradasPorProdutoDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)produtoLojaBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)tb_produto_lojaDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)solicitacoesCompraBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)solicitacoesCompraDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)entradaProdutoPesquisaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)entradasPorProdutoDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chart1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -939,7 +963,6 @@
         private System.Windows.Forms.TextBox precoVarejoSugestaoTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox preco_custoTextBox;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
@@ -950,8 +973,6 @@
         private System.Windows.Forms.BindingSource produtoVendidoBindingSource;
         private System.Windows.Forms.TextBox vendidos18textBox;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.BindingSource entradasPorProdutoBindingSource;
-        private System.Windows.Forms.DataGridView entradasPorProdutoDataGridView;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.BindingSource produtoLojaBindingSource;
         private System.Windows.Forms.DataGridView tb_produto_lojaDataGridView;
@@ -975,17 +996,21 @@
         private System.Windows.Forms.CheckBox checkBoxCompraUrgente;
         private System.Windows.Forms.CheckBox checkBoxNaoComprar;
         private System.Windows.Forms.CheckBox checkBoxSolicitacaoCompra;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private DataGridViewTextBoxColumn dataEntrada;
+        private BindingSource entradaProdutoPesquisaBindingSource;
+        private DataGridView entradasPorProdutoDataGridView;
         private DataGridViewTextBoxColumn codEntradaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn unidadeCompraDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataEntradaDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nomeFornecedorDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn codCSTDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn valorTotalDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn codFornecedorDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn valorUnitarioDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn precoCustoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }

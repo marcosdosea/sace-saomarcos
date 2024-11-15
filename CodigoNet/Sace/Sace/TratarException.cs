@@ -24,9 +24,9 @@ namespace Sace
                 if (t.Exception is ArgumentOutOfRangeException)
                     erro = "O valor está fora dos limites do indice " + t.Exception.TargetSite;
                 else if (t.Exception is ArgumentNullException)
-                    erro = "Objeto não pode ser nulo " + t.Exception.TargetSite;
+                    erro = "Objeto não pode ser nulo " + t.Exception.Message;
                 else if (t.Exception is ArgumentException)
-                    erro = "Argumento inválido " + t.Exception.TargetSite;
+                    erro = "Argumento inválido " + t.Exception.Message;
                 if (t.Exception is DuplicateWaitObjectException)
                     erro = "... " + t.Exception.TargetSite;
                 else if (t.Exception is InvalidOperationException)

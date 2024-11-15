@@ -542,32 +542,30 @@ namespace Negocio
             return DateTime.Now;
         }
 
-        public static IEnumerable<EntradaProduto> ObterPorProdutoTipoEntrada(long codProduto, int tipoEntrada)
+        /// <summary>
+        /// Obter dados das entradas de um produto
+        /// </summary>
+        /// <param name="codProduto"></param>
+        /// <returns></returns>
+        public static IEnumerable<EntradaProdutoPesquisa> ObterPorProdutoTipoEntradaFornecedor(long codProduto)
         {
             using (var context = new SaceContext())
             {
                 var query = from entradaProduto in context.TbEntradaProdutos
-                            where entradaProduto.CodEntradaNavigation.CodTipoEntrada == tipoEntrada && entradaProduto.CodProduto == codProduto
-                            select new EntradaProduto
+                            where entradaProduto.CodProduto == codProduto && entradaProduto.CodEntradaNavigation.CodTipoEntrada == Entrada.TIPO_ENTRADA
+                            orderby entradaProduto.CodEntradaNavigation.DataEntrada descending
+                            select new EntradaProdutoPesquisa
                             {
-                                BaseCalculoICMS = (decimal)entradaProduto.BaseCalculoIcms,
-                                BaseCalculoICMSST = (decimal)entradaProduto.BaseCalculoIcmsst,
-                                Cfop = entradaProduto.Cfop,
-                                CodCST = entradaProduto.CodCst,
-                                CodEntrada = entradaProduto.CodEntrada,
                                 CodEntradaProduto = entradaProduto.CodEntradaProduto,
-                                CodProduto = entradaProduto.CodProduto,
-                                DataValidade = (DateTime)entradaProduto.DataValidade,
-                                Desconto = (decimal)entradaProduto.Desconto,
-                                DataEntrada = (DateTime)entradaProduto.CodEntradaNavigation.DataEntrada,
-                                PrecoCusto = (decimal)entradaProduto.PrecoCusto,
-                                Quantidade = (decimal)entradaProduto.Quantidade,
-                                QuantidadeDisponivel = (decimal)entradaProduto.QuantidadeDisponivel,
-                                QuantidadeEmbalagem = (decimal)entradaProduto.QuantidadeEmbalagem,
-                                UnidadeCompra = entradaProduto.UnidadeCompra,
-                                ValorUnitario = (decimal)entradaProduto.ValorUnitario
+                                CodEntrada = entradaProduto.CodEntrada,
+                                DataEntrada = (DateTime) entradaProduto.CodEntradaNavigation.DataEntrada.Value.Date,
+                                CodCST = entradaProduto.CodCst,
+                                NomeFornecedor = entradaProduto.CodEntradaNavigation.CodFornecedorNavigation.Nome,
+                                PrecoCusto = (decimal) entradaProduto.PrecoCusto,
+                                Quantidade = (decimal) entradaProduto.Quantidade,
+                                ValorUnitario = (decimal) entradaProduto.ValorUnitario
                             };
-                return query.ToList();
+                return query.AsNoTracking().ToList();
             }
         }
 

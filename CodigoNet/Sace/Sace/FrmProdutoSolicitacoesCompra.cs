@@ -24,7 +24,6 @@ namespace Sace
                 Cursor.Current = Cursors.Default;
             }
             comboBoxFornecedor_SelectedIndexChanged(sender, e);
-            //solicitacoesCompraDataGridView_SelectionChanged(sender, e);
         }
 
 
@@ -116,14 +115,14 @@ namespace Sace
             precoAtacadoSugestaoTextBox.Text = produto.PrecoVendaAtacadoSugestao.ToString("N2");
 
             produtoLojaBindingSource.DataSource = GerenciadorProdutoLoja.ObterPorProduto(produto.CodProduto);
-            entradasPorProdutoBindingSource.DataSource = GerenciadorEntradaProduto.ObterPorProdutoTipoEntrada(produto.CodProduto, Entrada.TIPO_ENTRADA);
-            var listaProdutosVendidos = GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 3);
+            entradaProdutoPesquisaBindingSource.DataSource = GerenciadorEntradaProduto.ObterPorProdutoTipoEntradaFornecedor(produto.CodProduto);
+            var listaProdutosVendidos = GerenciadorSaidaProduto.ObterProdutosVendidosUltimosAnos(produto.CodProduto, 2);
             produtoVendidoBindingSource.DataSource = listaProdutosVendidos.OrderBy(pv => pv.Ano).ThenBy(pv => pv.Mes).ToList();
 
             // Configurações adicionais do gráfico (opcional)
             chart1.ChartAreas[0].AxisX.Title = "Mês/Ano";
             chart1.ChartAreas[0].AxisY.Title = "Quantidade Vendida";
-            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = 45;
+            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = 20;
             chart1.Series[0].BorderWidth = 1;
             chart1.Series[0].BorderColor = Color.Black;
             chart1.DataBind();
