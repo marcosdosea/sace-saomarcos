@@ -242,30 +242,26 @@ namespace Negocio
             {
                 try
                 {
-                    var query = from produtoSet in context.TbProdutos
-                                where produtoSet.CodProduto == solicitacaoCompra.CodProduto
-                                select produtoSet;
-                    DirectoryInfo pastaProdutosAtualizados = new DirectoryInfo(UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS);
                     var transaction = context.Database.BeginTransaction();
-                    foreach (TbProduto _produto in query)
+
+                    TbProduto _produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == solicitacaoCompra.CodProduto);
+                    DirectoryInfo pastaProdutosAtualizados = new DirectoryInfo(UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS);
+                    _produto.CodSituacaoProduto = solicitacaoCompra.CodSituacaoProduto;
+                    _produto.DataSolicitacaoCompra = solicitacaoCompra.DataSolicitacaoCompra;
+                    _produto.DataPedidoCompra = solicitacaoCompra.DataPedidoCompra;
+                    var nomeComputador = SystemInformation.ComputerName.ToUpper();
+                    if (pastaProdutosAtualizados.Exists && !nomeComputador.Equals(nomeServidor.ToUpper()))
                     {
-                        _produto.CodSituacaoProduto = solicitacaoCompra.CodSituacaoProduto;
-                        _produto.DataSolicitacaoCompra = solicitacaoCompra.DataSolicitacaoCompra;
-                        _produto.DataPedidoCompra = solicitacaoCompra.DataPedidoCompra;
-                        var nomeComputador = SystemInformation.ComputerName.ToUpper();
-                        if (pastaProdutosAtualizados.Exists && !nomeComputador.Equals(nomeServidor.ToUpper()))
-                        {
-                            string nomeArquivo = UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS + solicitacaoCompra.CodProduto + ".txt";
-                            StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
-                            arquivo.WriteLine("[CodProduto]" + solicitacaoCompra.CodProduto);
-                            arquivo.WriteLine("[CodSituacaoProduto]" + solicitacaoCompra.CodSituacaoProduto);
-                            arquivo.WriteLine("[DataSolicitacaoCompra]" + solicitacaoCompra.DataSolicitacaoCompra);
-                            arquivo.WriteLine("[DataPedidoCompra]" + solicitacaoCompra.DataPedidoCompra);
-                            arquivo.Close();
-                        }
-                        context.Update(_produto);
-                        context.SaveChanges();
+                        string nomeArquivo = UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS + solicitacaoCompra.CodProduto + ".txt";
+                        StreamWriter arquivo = new StreamWriter(nomeArquivo, false, Encoding.ASCII);
+                        arquivo.WriteLine("[CodProduto]" + solicitacaoCompra.CodProduto);
+                        arquivo.WriteLine("[CodSituacaoProduto]" + solicitacaoCompra.CodSituacaoProduto);
+                        arquivo.WriteLine("[DataSolicitacaoCompra]" + solicitacaoCompra.DataSolicitacaoCompra);
+                        arquivo.WriteLine("[DataPedidoCompra]" + solicitacaoCompra.DataPedidoCompra);
+                        arquivo.Close();
                     }
+                    context.Update(_produto);
+                    context.SaveChanges();
                     context.Database.CommitTransaction();
                 }
                 catch (Exception e)

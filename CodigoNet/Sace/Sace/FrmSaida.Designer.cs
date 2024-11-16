@@ -156,7 +156,7 @@
             codSaidaLabel.AutoSize = true;
             codSaidaLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             codSaidaLabel.ForeColor = Color.Black;
-            codSaidaLabel.Location = new Point(12, 616);
+            codSaidaLabel.Location = new Point(22, 541);
             codSaidaLabel.Margin = new Padding(4, 0, 4, 0);
             codSaidaLabel.Name = "codSaidaLabel";
             codSaidaLabel.Size = new Size(62, 20);
@@ -167,7 +167,7 @@
             // 
             quantidadeLabel.AutoSize = true;
             quantidadeLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            quantidadeLabel.Location = new Point(12, 175);
+            quantidadeLabel.Location = new Point(10, 158);
             quantidadeLabel.Margin = new Padding(4, 0, 4, 0);
             quantidadeLabel.Name = "quantidadeLabel";
             quantidadeLabel.Size = new Size(96, 20);
@@ -178,7 +178,7 @@
             // 
             valorVendaLabel.AutoSize = true;
             valorVendaLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            valorVendaLabel.Location = new Point(12, 247);
+            valorVendaLabel.Location = new Point(6, 222);
             valorVendaLabel.Margin = new Padding(4, 0, 4, 0);
             valorVendaLabel.Name = "valorVendaLabel";
             valorVendaLabel.Size = new Size(89, 20);
@@ -190,7 +190,7 @@
             dataSaidaLabel.AutoSize = true;
             dataSaidaLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataSaidaLabel.ForeColor = Color.Black;
-            dataSaidaLabel.Location = new Point(121, 616);
+            dataSaidaLabel.Location = new Point(131, 541);
             dataSaidaLabel.Margin = new Padding(4, 0, 4, 0);
             dataSaidaLabel.Name = "dataSaidaLabel";
             dataSaidaLabel.Size = new Size(48, 20);
@@ -212,7 +212,7 @@
             // 
             subtotalLabel.AutoSize = true;
             subtotalLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            subtotalLabel.Location = new Point(9, 315);
+            subtotalLabel.Location = new Point(10, 287);
             subtotalLabel.Margin = new Padding(4, 0, 4, 0);
             subtotalLabel.Name = "subtotalLabel";
             subtotalLabel.Size = new Size(108, 20);
@@ -223,7 +223,7 @@
             // 
             totalLabel.AutoSize = true;
             totalLabel.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            totalLabel.Location = new Point(764, 636);
+            totalLabel.Location = new Point(774, 561);
             totalLabel.Margin = new Padding(4, 0, 4, 0);
             totalLabel.Name = "totalLabel";
             totalLabel.Size = new Size(131, 37);
@@ -235,7 +235,7 @@
             pedidoGeradoLabel.AutoSize = true;
             pedidoGeradoLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             pedidoGeradoLabel.ForeColor = Color.Black;
-            pedidoGeradoLabel.Location = new Point(560, 616);
+            pedidoGeradoLabel.Location = new Point(570, 541);
             pedidoGeradoLabel.Margin = new Padding(4, 0, 4, 0);
             pedidoGeradoLabel.Name = "pedidoGeradoLabel";
             pedidoGeradoLabel.Size = new Size(76, 20);
@@ -246,7 +246,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(12, 384);
+            label4.Location = new Point(10, 351);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(142, 20);
@@ -257,7 +257,7 @@
             // 
             data_validadeLabel.AutoSize = true;
             data_validadeLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            data_validadeLabel.Location = new Point(12, 532);
+            data_validadeLabel.Location = new Point(20, 475);
             data_validadeLabel.Margin = new Padding(4, 0, 4, 0);
             data_validadeLabel.Name = "data_validadeLabel";
             data_validadeLabel.Size = new Size(114, 20);
@@ -268,7 +268,7 @@
             // 
             nomeClienteLabel.AutoSize = true;
             nomeClienteLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nomeClienteLabel.Location = new Point(12, 690);
+            nomeClienteLabel.Location = new Point(22, 602);
             nomeClienteLabel.Margin = new Padding(4, 0, 4, 0);
             nomeClienteLabel.Name = "nomeClienteLabel";
             nomeClienteLabel.Size = new Size(62, 20);
@@ -280,7 +280,7 @@
             descricaoTipoSaidaLabel.AutoSize = true;
             descricaoTipoSaidaLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             descricaoTipoSaidaLabel.ForeColor = Color.Black;
-            descricaoTipoSaidaLabel.Location = new Point(397, 616);
+            descricaoTipoSaidaLabel.Location = new Point(407, 541);
             descricaoTipoSaidaLabel.Margin = new Padding(4, 0, 4, 0);
             descricaoTipoSaidaLabel.Name = "descricaoTipoSaidaLabel";
             descricaoTipoSaidaLabel.Size = new Size(39, 20);
@@ -292,7 +292,7 @@
             nfeLabel.AutoSize = true;
             nfeLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             nfeLabel.ForeColor = Color.Black;
-            nfeLabel.Location = new Point(690, 616);
+            nfeLabel.Location = new Point(700, 541);
             nfeLabel.Margin = new Padding(4, 0, 4, 0);
             nfeLabel.Name = "nfeLabel";
             nfeLabel.Size = new Size(42, 20);
@@ -303,7 +303,7 @@
             // 
             descricaoSituacaoPagamentosLabel.AutoSize = true;
             descricaoSituacaoPagamentosLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            descricaoSituacaoPagamentosLabel.Location = new Point(560, 690);
+            descricaoSituacaoPagamentosLabel.Location = new Point(570, 602);
             descricaoSituacaoPagamentosLabel.Margin = new Padding(4, 0, 4, 0);
             descricaoSituacaoPagamentosLabel.Name = "descricaoSituacaoPagamentosLabel";
             descricaoSituacaoPagamentosLabel.Size = new Size(103, 20);
@@ -314,7 +314,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(8, 457);
+            label5.Location = new Point(14, 416);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(157, 20);
@@ -325,7 +325,7 @@
             // 
             baseCalculoICMSLabel.AutoSize = true;
             baseCalculoICMSLabel.Font = new Font("Microsoft Sans Serif", 12F);
-            baseCalculoICMSLabel.Location = new Point(230, 534);
+            baseCalculoICMSLabel.Location = new Point(224, 482);
             baseCalculoICMSLabel.Margin = new Padding(4, 0, 4, 0);
             baseCalculoICMSLabel.Name = "baseCalculoICMSLabel";
             baseCalculoICMSLabel.Size = new Size(114, 20);
@@ -336,7 +336,7 @@
             // 
             valorICMSLabel.AutoSize = true;
             valorICMSLabel.Font = new Font("Microsoft Sans Serif", 12F);
-            valorICMSLabel.Location = new Point(406, 532);
+            valorICMSLabel.Location = new Point(405, 482);
             valorICMSLabel.Margin = new Padding(4, 0, 4, 0);
             valorICMSLabel.Name = "valorICMSLabel";
             valorICMSLabel.Size = new Size(129, 20);
@@ -347,7 +347,7 @@
             // 
             baseCalculoICMSSubstLabel.AutoSize = true;
             baseCalculoICMSSubstLabel.Font = new Font("Microsoft Sans Serif", 12F);
-            baseCalculoICMSSubstLabel.Location = new Point(596, 532);
+            baseCalculoICMSSubstLabel.Location = new Point(604, 482);
             baseCalculoICMSSubstLabel.Margin = new Padding(4, 0, 4, 0);
             baseCalculoICMSSubstLabel.Name = "baseCalculoICMSSubstLabel";
             baseCalculoICMSSubstLabel.Size = new Size(160, 20);
@@ -358,7 +358,7 @@
             // 
             valorICMSSubstLabel.AutoSize = true;
             valorICMSSubstLabel.Font = new Font("Microsoft Sans Serif", 12F);
-            valorICMSSubstLabel.Location = new Point(785, 532);
+            valorICMSSubstLabel.Location = new Point(793, 482);
             valorICMSSubstLabel.Margin = new Padding(4, 0, 4, 0);
             valorICMSSubstLabel.Name = "valorICMSSubstLabel";
             valorICMSSubstLabel.Size = new Size(175, 20);
@@ -369,7 +369,7 @@
             // 
             valorIPILabel.AutoSize = true;
             valorIPILabel.Font = new Font("Microsoft Sans Serif", 12F);
-            valorIPILabel.Location = new Point(995, 532);
+            valorIPILabel.Location = new Point(998, 482);
             valorIPILabel.Margin = new Padding(4, 0, 4, 0);
             valorIPILabel.Name = "valorIPILabel";
             valorIPILabel.Size = new Size(109, 20);
@@ -381,7 +381,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(257, 616);
+            label1.Location = new Point(267, 541);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(79, 20);
@@ -427,7 +427,7 @@
             // 
             pedidoGeradoTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "CupomFiscal", true));
             pedidoGeradoTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            pedidoGeradoTextBox.Location = new Point(565, 647);
+            pedidoGeradoTextBox.Location = new Point(575, 572);
             pedidoGeradoTextBox.Margin = new Padding(4, 3, 4, 3);
             pedidoGeradoTextBox.Name = "pedidoGeradoTextBox";
             pedidoGeradoTextBox.ReadOnly = true;
@@ -447,7 +447,7 @@
             codSaidaTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "CodSaida", true));
             codSaidaTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             codSaidaTextBox.ForeColor = Color.Red;
-            codSaidaTextBox.Location = new Point(14, 646);
+            codSaidaTextBox.Location = new Point(24, 571);
             codSaidaTextBox.Margin = new Padding(4, 3, 4, 3);
             codSaidaTextBox.Name = "codSaidaTextBox";
             codSaidaTextBox.ReadOnly = true;
@@ -464,7 +464,7 @@
             dataSaidaDateTimePicker.DataBindings.Add(new Binding("Text", saidaBindingSource, "DataSaida", true));
             dataSaidaDateTimePicker.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataSaidaDateTimePicker.Format = DateTimePickerFormat.Short;
-            dataSaidaDateTimePicker.Location = new Point(126, 646);
+            dataSaidaDateTimePicker.Location = new Point(136, 571);
             dataSaidaDateTimePicker.Margin = new Padding(4, 3, 4, 3);
             dataSaidaDateTimePicker.Name = "dataSaidaDateTimePicker";
             dataSaidaDateTimePicker.Size = new Size(126, 26);
@@ -473,7 +473,7 @@
             // 
             // btnSalvar
             // 
-            btnSalvar.Location = new Point(336, 763);
+            btnSalvar.Location = new Point(346, 675);
             btnSalvar.Margin = new Padding(4, 3, 4, 3);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.Size = new Size(82, 27);
@@ -484,7 +484,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(702, 763);
+            btnCancelar.Location = new Point(712, 675);
             btnCancelar.Margin = new Padding(4, 3, 4, 3);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(98, 27);
@@ -495,7 +495,7 @@
             // 
             // btnNovo
             // 
-            btnNovo.Location = new Point(91, 763);
+            btnNovo.Location = new Point(101, 675);
             btnNovo.Margin = new Padding(4, 3, 4, 3);
             btnNovo.Name = "btnNovo";
             btnNovo.Size = new Size(82, 27);
@@ -506,7 +506,7 @@
             // 
             // btnExcluir
             // 
-            btnExcluir.Location = new Point(254, 763);
+            btnExcluir.Location = new Point(264, 675);
             btnExcluir.Margin = new Padding(4, 3, 4, 3);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(82, 27);
@@ -610,7 +610,7 @@
             // quantidadeTextBox
             // 
             quantidadeTextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            quantidadeTextBox.Location = new Point(15, 204);
+            quantidadeTextBox.Location = new Point(11, 181);
             quantidadeTextBox.Margin = new Padding(4, 3, 4, 3);
             quantidadeTextBox.Name = "quantidadeTextBox";
             quantidadeTextBox.Size = new Size(196, 29);
@@ -622,7 +622,7 @@
             // 
             precoVendaSemDescontoTextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             precoVendaSemDescontoTextBox.ForeColor = Color.Red;
-            precoVendaSemDescontoTextBox.Location = new Point(15, 276);
+            precoVendaSemDescontoTextBox.Location = new Point(11, 245);
             precoVendaSemDescontoTextBox.Margin = new Padding(4, 3, 4, 3);
             precoVendaSemDescontoTextBox.Name = "precoVendaSemDescontoTextBox";
             precoVendaSemDescontoTextBox.ReadOnly = true;
@@ -634,7 +634,7 @@
             // 
             subtotalTextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             subtotalTextBox.ForeColor = Color.Red;
-            subtotalTextBox.Location = new Point(15, 344);
+            subtotalTextBox.Location = new Point(11, 310);
             subtotalTextBox.Margin = new Padding(4, 3, 4, 3);
             subtotalTextBox.Name = "subtotalTextBox";
             subtotalTextBox.ReadOnly = true;
@@ -666,7 +666,7 @@
             dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
             tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
-            tb_saida_produtoDataGridView.Location = new Point(226, 173);
+            tb_saida_produtoDataGridView.Location = new Point(224, 156);
             tb_saida_produtoDataGridView.Margin = new Padding(4, 3, 4, 3);
             tb_saida_produtoDataGridView.MultiSelect = false;
             tb_saida_produtoDataGridView.Name = "tb_saida_produtoDataGridView";
@@ -675,7 +675,7 @@
             tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tb_saida_produtoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tb_saida_produtoDataGridView.Size = new Size(940, 346);
+            tb_saida_produtoDataGridView.Size = new Size(952, 378);
             tb_saida_produtoDataGridView.TabIndex = 36;
             tb_saida_produtoDataGridView.TabStop = false;
             tb_saida_produtoDataGridView.Leave += tb_saida_produtoDataGridView_Leave;
@@ -752,7 +752,7 @@
             totalTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "Total", true, DataSourceUpdateMode.OnValidation, null, "N2"));
             totalTextBox.Font = new Font("Microsoft Sans Serif", 28F);
             totalTextBox.ForeColor = Color.Yellow;
-            totalTextBox.Location = new Point(924, 628);
+            totalTextBox.Location = new Point(934, 553);
             totalTextBox.Margin = new Padding(4, 3, 4, 3);
             totalTextBox.Name = "totalTextBox";
             totalTextBox.ReadOnly = true;
@@ -764,7 +764,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(766, 713);
+            label2.Location = new Point(776, 625);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(129, 37);
@@ -777,7 +777,7 @@
             totalAVistaTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "TotalAVista", true, DataSourceUpdateMode.OnValidation, null, "N2"));
             totalAVistaTextBox.Font = new Font("Microsoft Sans Serif", 28F);
             totalAVistaTextBox.ForeColor = Color.Yellow;
-            totalAVistaTextBox.Location = new Point(924, 705);
+            totalAVistaTextBox.Location = new Point(934, 617);
             totalAVistaTextBox.Margin = new Padding(4, 3, 4, 3);
             totalAVistaTextBox.Name = "totalAVistaTextBox";
             totalAVistaTextBox.ReadOnly = true;
@@ -787,7 +787,7 @@
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(8, 763);
+            btnBuscar.Location = new Point(18, 675);
             btnBuscar.Margin = new Padding(4, 3, 4, 3);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(82, 27);
@@ -801,7 +801,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 11F);
             label3.ForeColor = Color.Red;
-            label3.Location = new Point(1056, 150);
+            label3.Location = new Point(1054, 135);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(94, 18);
@@ -813,7 +813,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft Sans Serif", 11F);
             label6.ForeColor = Color.Red;
-            label6.Location = new Point(924, 150);
+            label6.Location = new Point(922, 135);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(101, 18);
@@ -847,7 +847,7 @@
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(173, 763);
+            btnEditar.Location = new Point(183, 675);
             btnEditar.Margin = new Padding(4, 3, 4, 3);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(82, 27);
@@ -859,7 +859,7 @@
             // precoVendatextBox
             // 
             precoVendatextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            precoVendatextBox.Location = new Point(15, 413);
+            precoVendatextBox.Location = new Point(11, 374);
             precoVendatextBox.Margin = new Padding(4, 3, 4, 3);
             precoVendatextBox.Name = "precoVendatextBox";
             precoVendatextBox.Size = new Size(196, 29);
@@ -872,10 +872,10 @@
             data_validadeDateTimePicker.Enabled = false;
             data_validadeDateTimePicker.Font = new Font("Microsoft Sans Serif", 14F);
             data_validadeDateTimePicker.Format = DateTimePickerFormat.Short;
-            data_validadeDateTimePicker.Location = new Point(15, 561);
+            data_validadeDateTimePicker.Location = new Point(23, 504);
             data_validadeDateTimePicker.Margin = new Padding(4, 3, 4, 3);
             data_validadeDateTimePicker.Name = "data_validadeDateTimePicker";
-            data_validadeDateTimePicker.Size = new Size(196, 29);
+            data_validadeDateTimePicker.Size = new Size(187, 29);
             data_validadeDateTimePicker.TabIndex = 42;
             data_validadeDateTimePicker.Enter += codSaidaTextBox_Enter;
             data_validadeDateTimePicker.Leave += data_validadeDateTimePicker_Leave;
@@ -884,7 +884,7 @@
             // 
             nomeClienteTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "NomeCliente", true));
             nomeClienteTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nomeClienteTextBox.Location = new Point(16, 718);
+            nomeClienteTextBox.Location = new Point(26, 630);
             nomeClienteTextBox.Margin = new Padding(4, 3, 4, 3);
             nomeClienteTextBox.Name = "nomeClienteTextBox";
             nomeClienteTextBox.ReadOnly = true;
@@ -896,7 +896,7 @@
             // 
             descricaoTipoSaidaTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "DescricaoTipoSaida", true));
             descricaoTipoSaidaTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            descricaoTipoSaidaTextBox.Location = new Point(401, 646);
+            descricaoTipoSaidaTextBox.Location = new Point(411, 571);
             descricaoTipoSaidaTextBox.Margin = new Padding(4, 3, 4, 3);
             descricaoTipoSaidaTextBox.Name = "descricaoTipoSaidaTextBox";
             descricaoTipoSaidaTextBox.ReadOnly = true;
@@ -906,7 +906,7 @@
             // 
             // btnEncerrar
             // 
-            btnEncerrar.Location = new Point(418, 763);
+            btnEncerrar.Location = new Point(428, 675);
             btnEncerrar.Margin = new Padding(4, 3, 4, 3);
             btnEncerrar.Name = "btnEncerrar";
             btnEncerrar.Size = new Size(91, 27);
@@ -919,7 +919,7 @@
             // 
             nfeTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "Nfe", true));
             nfeTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nfeTextBox.Location = new Point(694, 648);
+            nfeTextBox.Location = new Point(704, 573);
             nfeTextBox.Margin = new Padding(4, 3, 4, 3);
             nfeTextBox.Name = "nfeTextBox";
             nfeTextBox.ReadOnly = true;
@@ -932,7 +932,7 @@
             entregaRealizadaCheckBox.Checked = true;
             entregaRealizadaCheckBox.CheckState = CheckState.Checked;
             entregaRealizadaCheckBox.DataBindings.Add(new Binding("CheckState", saidaBindingSource, "entregaRealizada", true));
-            entregaRealizadaCheckBox.Location = new Point(226, 144);
+            entregaRealizadaCheckBox.Location = new Point(224, 129);
             entregaRealizadaCheckBox.Margin = new Padding(4, 3, 4, 3);
             entregaRealizadaCheckBox.Name = "entregaRealizadaCheckBox";
             entregaRealizadaCheckBox.Size = new Size(121, 28);
@@ -945,7 +945,7 @@
             // 
             descricaoSituacaoPagamentosTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "DescricaoSituacaoPagamentos", true));
             descricaoSituacaoPagamentosTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            descricaoSituacaoPagamentosTextBox.Location = new Point(565, 718);
+            descricaoSituacaoPagamentosTextBox.Location = new Point(575, 630);
             descricaoSituacaoPagamentosTextBox.Margin = new Padding(4, 3, 4, 3);
             descricaoSituacaoPagamentosTextBox.Name = "descricaoSituacaoPagamentosTextBox";
             descricaoSituacaoPagamentosTextBox.ReadOnly = true;
@@ -955,7 +955,7 @@
             // 
             // btnImprimir
             // 
-            btnImprimir.Location = new Point(509, 763);
+            btnImprimir.Location = new Point(519, 675);
             btnImprimir.Margin = new Padding(4, 3, 4, 3);
             btnImprimir.Name = "btnImprimir";
             btnImprimir.Size = new Size(91, 27);
@@ -968,7 +968,7 @@
             // 
             subtotalAVistatextBox.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             subtotalAVistatextBox.ForeColor = Color.FromArgb(192, 0, 0);
-            subtotalAVistatextBox.Location = new Point(14, 486);
+            subtotalAVistatextBox.Location = new Point(14, 439);
             subtotalAVistatextBox.Margin = new Padding(4, 3, 4, 3);
             subtotalAVistatextBox.Name = "subtotalAVistatextBox";
             subtotalAVistatextBox.ReadOnly = true;
@@ -994,12 +994,12 @@
             panelBalcao.Location = new Point(-1, 54);
             panelBalcao.Margin = new Padding(4, 3, 4, 3);
             panelBalcao.Name = "panelBalcao";
-            panelBalcao.Size = new Size(1177, 118);
+            panelBalcao.Size = new Size(1177, 103);
             panelBalcao.TabIndex = 72;
             // 
             // btnCfNfe
             // 
-            btnCfNfe.Location = new Point(600, 763);
+            btnCfNfe.Location = new Point(610, 675);
             btnCfNfe.Margin = new Padding(4, 3, 4, 3);
             btnCfNfe.Name = "btnCfNfe";
             btnCfNfe.Size = new Size(103, 27);
@@ -1011,7 +1011,7 @@
             // baseCalculoICMSTextBox
             // 
             baseCalculoICMSTextBox.Font = new Font("Microsoft Sans Serif", 14F);
-            baseCalculoICMSTextBox.Location = new Point(234, 562);
+            baseCalculoICMSTextBox.Location = new Point(224, 505);
             baseCalculoICMSTextBox.Margin = new Padding(4, 3, 4, 3);
             baseCalculoICMSTextBox.Name = "baseCalculoICMSTextBox";
             baseCalculoICMSTextBox.ReadOnly = true;
@@ -1023,7 +1023,7 @@
             // valorICMSTextBox
             // 
             valorICMSTextBox.Font = new Font("Microsoft Sans Serif", 14F);
-            valorICMSTextBox.Location = new Point(411, 562);
+            valorICMSTextBox.Location = new Point(405, 505);
             valorICMSTextBox.Margin = new Padding(4, 3, 4, 3);
             valorICMSTextBox.Name = "valorICMSTextBox";
             valorICMSTextBox.ReadOnly = true;
@@ -1035,11 +1035,11 @@
             // baseCalculoICMSSubstTextBox
             // 
             baseCalculoICMSSubstTextBox.Font = new Font("Microsoft Sans Serif", 14F);
-            baseCalculoICMSSubstTextBox.Location = new Point(601, 562);
+            baseCalculoICMSSubstTextBox.Location = new Point(604, 504);
             baseCalculoICMSSubstTextBox.Margin = new Padding(4, 3, 4, 3);
             baseCalculoICMSSubstTextBox.Name = "baseCalculoICMSSubstTextBox";
             baseCalculoICMSSubstTextBox.ReadOnly = true;
-            baseCalculoICMSSubstTextBox.Size = new Size(181, 29);
+            baseCalculoICMSSubstTextBox.Size = new Size(160, 29);
             baseCalculoICMSSubstTextBox.TabIndex = 48;
             baseCalculoICMSSubstTextBox.TabStop = false;
             baseCalculoICMSSubstTextBox.Leave += valorICMSSubstTextBox_Leave;
@@ -1047,11 +1047,11 @@
             // valorICMSSubstTextBox
             // 
             valorICMSSubstTextBox.Font = new Font("Microsoft Sans Serif", 14F);
-            valorICMSSubstTextBox.Location = new Point(790, 562);
+            valorICMSSubstTextBox.Location = new Point(798, 504);
             valorICMSSubstTextBox.Margin = new Padding(4, 3, 4, 3);
             valorICMSSubstTextBox.Name = "valorICMSSubstTextBox";
             valorICMSSubstTextBox.ReadOnly = true;
-            valorICMSSubstTextBox.Size = new Size(199, 29);
+            valorICMSSubstTextBox.Size = new Size(170, 29);
             valorICMSSubstTextBox.TabIndex = 50;
             valorICMSSubstTextBox.TabStop = false;
             valorICMSSubstTextBox.Leave += valorICMSSubstTextBox_Leave;
@@ -1059,7 +1059,7 @@
             // valorIPITextBox
             // 
             valorIPITextBox.Font = new Font("Microsoft Sans Serif", 14F);
-            valorIPITextBox.Location = new Point(997, 562);
+            valorIPITextBox.Location = new Point(998, 505);
             valorIPITextBox.Margin = new Padding(4, 3, 4, 3);
             valorIPITextBox.Name = "valorIPITextBox";
             valorIPITextBox.ReadOnly = true;
@@ -1073,7 +1073,7 @@
             lblPreco.AutoSize = true;
             lblPreco.Font = new Font("Microsoft Sans Serif", 11F);
             lblPreco.ForeColor = Color.Red;
-            lblPreco.Location = new Point(712, 150);
+            lblPreco.Location = new Point(710, 135);
             lblPreco.Margin = new Padding(4, 0, 4, 0);
             lblPreco.Name = "lblPreco";
             lblPreco.Size = new Size(165, 18);
@@ -1085,7 +1085,7 @@
             labelAtualizarPrecos.AutoSize = true;
             labelAtualizarPrecos.Font = new Font("Microsoft Sans Serif", 11F);
             labelAtualizarPrecos.ForeColor = Color.Red;
-            labelAtualizarPrecos.Location = new Point(391, 151);
+            labelAtualizarPrecos.Location = new Point(389, 136);
             labelAtualizarPrecos.Margin = new Padding(4, 0, 4, 0);
             labelAtualizarPrecos.Name = "labelAtualizarPrecos";
             labelAtualizarPrecos.Size = new Size(267, 18);
@@ -1096,7 +1096,7 @@
             // 
             VendedorTextBox.DataBindings.Add(new Binding("Text", saidaBindingSource, "LoginVendedor", true));
             VendedorTextBox.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            VendedorTextBox.Location = new Point(260, 646);
+            VendedorTextBox.Location = new Point(270, 571);
             VendedorTextBox.Margin = new Padding(4, 3, 4, 3);
             VendedorTextBox.Name = "VendedorTextBox";
             VendedorTextBox.ReadOnly = true;
@@ -1108,7 +1108,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1192, 815);
+            ClientSize = new Size(1200, 753);
             ControlBox = false;
             Controls.Add(label1);
             Controls.Add(VendedorTextBox);

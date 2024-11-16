@@ -116,7 +116,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 2, 0, 2);
-            menuStrip1.Size = new Size(1145, 24);
+            menuStrip1.Size = new Size(1000, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -494,7 +494,7 @@
             btnSair.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSair.Image = (Image)resources.GetObject("btnSair.Image");
             btnSair.Location = new Point(728, 30);
-            btnSair.Margin = new Padding(4, 4, 4, 4);
+            btnSair.Margin = new Padding(4);
             btnSair.Name = "btnSair";
             btnSair.Size = new Size(122, 90);
             btnSair.TabIndex = 12;
@@ -508,7 +508,7 @@
             btnEntradas.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEntradas.Image = (Image)resources.GetObject("btnEntradas.Image");
             btnEntradas.Location = new Point(364, 30);
-            btnEntradas.Margin = new Padding(4, 4, 4, 4);
+            btnEntradas.Margin = new Padding(4);
             btnEntradas.Name = "btnEntradas";
             btnEntradas.Size = new Size(122, 90);
             btnEntradas.TabIndex = 8;
@@ -522,7 +522,7 @@
             btnContas.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnContas.Image = (Image)resources.GetObject("btnContas.Image");
             btnContas.Location = new Point(486, 30);
-            btnContas.Margin = new Padding(4, 4, 4, 4);
+            btnContas.Margin = new Padding(4);
             btnContas.Name = "btnContas";
             btnContas.Size = new Size(122, 90);
             btnContas.TabIndex = 9;
@@ -536,7 +536,7 @@
             btnCliente.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCliente.Image = (Image)resources.GetObject("btnCliente.Image");
             btnCliente.Location = new Point(242, 30);
-            btnCliente.Margin = new Padding(4, 4, 4, 4);
+            btnCliente.Margin = new Padding(4);
             btnCliente.Name = "btnCliente";
             btnCliente.Size = new Size(122, 90);
             btnCliente.TabIndex = 6;
@@ -550,7 +550,7 @@
             btnProdutos.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnProdutos.Image = (Image)resources.GetObject("btnProdutos.Image");
             btnProdutos.Location = new Point(122, 30);
-            btnProdutos.Margin = new Padding(4, 4, 4, 4);
+            btnProdutos.Margin = new Padding(4);
             btnProdutos.Name = "btnProdutos";
             btnProdutos.Size = new Size(122, 90);
             btnProdutos.TabIndex = 4;
@@ -564,7 +564,7 @@
             btnVenda.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnVenda.Image = (Image)resources.GetObject("btnVenda.Image");
             btnVenda.Location = new Point(0, 30);
-            btnVenda.Margin = new Padding(4, 4, 4, 4);
+            btnVenda.Margin = new Padding(4);
             btnVenda.Name = "btnVenda";
             btnVenda.Size = new Size(122, 90);
             btnVenda.TabIndex = 3;
@@ -578,7 +578,7 @@
             btnReceber.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnReceber.Image = (Image)resources.GetObject("btnReceber.Image");
             btnReceber.Location = new Point(606, 30);
-            btnReceber.Margin = new Padding(4, 4, 4, 4);
+            btnReceber.Margin = new Padding(4);
             btnReceber.Name = "btnReceber";
             btnReceber.Size = new Size(122, 90);
             btnReceber.TabIndex = 10;
@@ -597,8 +597,8 @@
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(652, 546);
-            pictureBox1.Margin = new Padding(4, 4, 4, 4);
+            pictureBox1.Location = new Point(523, 607);
+            pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(490, 140);
             pictureBox1.TabIndex = 18;
@@ -660,11 +660,13 @@
             // 
             // Principal
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.GradientInactiveCaption;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScroll = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BackColor = SystemColors.GradientActiveCaption;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1145, 634);
+            ClientSize = new Size(984, 729);
             Controls.Add(lblAno);
             Controls.Add(lblTicketMedio);
             Controls.Add(lblNumeroVendas);
@@ -680,7 +682,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             MainMenuStrip = menuStrip1;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "Principal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SACE - Sistema de Apoio ao Controle de Estoque";
