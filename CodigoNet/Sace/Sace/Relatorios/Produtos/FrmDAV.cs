@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Microsoft.Reporting.WinForms;
 using Negocio;
 using System.Data;
@@ -44,6 +42,7 @@ namespace Sace.Relatorios.Produtos
                 parameterCollection.Add(new ReportParameter("TotalSaidas", total.ToString("N2")));
                 parameterCollection.Add(new ReportParameter("Desconto", desconto.ToString("N2")));
                 parameterCollection.Add(new ReportParameter("TotalPagar", totalPagar.ToString("N2")));
+                
                 this.reportViewer1.LocalReport.SetParameters(parameterCollection);
                 
                 this.reportViewer1.RefreshReport();

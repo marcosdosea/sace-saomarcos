@@ -26,8 +26,9 @@
             {
                 return false;
             }
+            var saidaProduto = (SaidaProdutoRelatorio)obj;
 
-            return CodSaidaProduto.Equals(((SaidaProduto)obj).CodSaidaProduto);
+            return CodSaidaProduto.Equals(saidaProduto.CodSaidaProduto);
         }
 
         // override object.GetHashCode

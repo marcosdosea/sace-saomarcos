@@ -59,7 +59,7 @@ namespace Negocio
 
                         // Atualiza os dados do produto se não foi na entrada padrão
                         if (entradaProduto.CodEntrada != UtilConfig.Default.ENTRADA_PADRAO)
-                            GerenciadorProduto.Atualizar(produto);
+                            GerenciadorProduto.Atualizar(produto, context);
                     }
                     context.Database.CommitTransaction();
                     return _entradaProduto.CodEntrada;

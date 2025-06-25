@@ -54,6 +54,8 @@ namespace Sace
                 entradaProduto.PrecoVendaAtacado = produtoPesquisa.PrecoVendaAtacado;
                 entradaProduto.PrecoRevenda = produtoPesquisa.PrecoRevenda;
                 entradaProdutoBindingSource.ResumeBinding();
+                entradaProdutoPesquisaBindingSource.DataSource = 
+                    GerenciadorEntradaProduto.ObterPorProdutoTipoEntradaFornecedor(produtoPesquisa.CodProduto);
             }
         }
 

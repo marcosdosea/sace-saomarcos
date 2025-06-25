@@ -28,66 +28,69 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource7 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource8 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource9 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.PessoaLojaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.SaidaProdutoRelatorioBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.PessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            ((System.ComponentModel.ISupportInitialize)(this.PessoaLojaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SaidaProdutoRelatorioBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PessoaBindingSource)).BeginInit();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource3 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            PessoaLojaBindingSource = new BindingSource(components);
+            SaidaProdutoRelatorioBindingSource = new BindingSource(components);
+            PessoaBindingSource = new BindingSource(components);
+            reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            ((System.ComponentModel.ISupportInitialize)PessoaLojaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)SaidaProdutoRelatorioBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PessoaBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // PessoaLojaBindingSource
             // 
-            this.PessoaLojaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            PessoaLojaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // SaidaProdutoRelatorioBindingSource
             // 
-            this.SaidaProdutoRelatorioBindingSource.DataSource = typeof(Dominio.SaidaProdutoRelatorio);
+            SaidaProdutoRelatorioBindingSource.DataSource = typeof(Dominio.SaidaProdutoRelatorio);
             // 
             // PessoaBindingSource
             // 
-            this.PessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            PessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // reportViewer1
             // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource7.Name = "DataSetPessoaLoja";
-            reportDataSource7.Value = this.PessoaLojaBindingSource;
-            reportDataSource8.Name = "DataSetSaidaProdutoRelatorio";
-            reportDataSource8.Value = this.SaidaProdutoRelatorioBindingSource;
-            reportDataSource9.Name = "DataSetCliente";
-            reportDataSource9.Value = this.PessoaBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource7);
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource8);
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource9);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Relatorios.Produtos.ReportDAV.rdlc";
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.Size = new System.Drawing.Size(944, 490);
-            this.reportViewer1.TabIndex = 0;
+            reportViewer1.Dock = DockStyle.Fill;
+            reportDataSource1.Name = "DataSetPessoaLoja";
+            reportDataSource1.Value = PessoaLojaBindingSource;
+            reportDataSource2.Name = "DataSetSaidaProdutoRelatorio";
+            reportDataSource2.Value = SaidaProdutoRelatorioBindingSource;
+            reportDataSource3.Name = "DataSetCliente";
+            reportDataSource3.Value = PessoaBindingSource;
+            reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
+            reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
+            reportViewer1.LocalReport.DataSources.Add(reportDataSource3);
+            reportViewer1.LocalReport.ReportEmbeddedResource = "Relatorios.Produtos.ReportDAV.rdlc";
+            reportViewer1.LocalReport.ReportPath = "D:\\Projetos\\sace-saomarcos\\CodigoNet\\Sace\\Sace\\Relatorios\\Produtos\\ReportDAV.rdlc";
+            reportViewer1.Location = new Point(0, 0);
+            reportViewer1.Margin = new Padding(4, 3, 4, 3);
+            reportViewer1.Name = "reportViewer1";
+            reportViewer1.ServerReport.BearerToken = null;
+            reportViewer1.Size = new Size(1101, 565);
+            reportViewer1.TabIndex = 0;
             // 
             // FrmDAV
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 490);
-            this.Controls.Add(this.reportViewer1);
-            this.KeyPreview = true;
-            this.Name = "FrmDAV";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Documento Auxiliar de Venda";
-            this.Load += new System.EventHandler(this.FrmDAV_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmDAV_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.PessoaLojaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SaidaProdutoRelatorioBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PessoaBindingSource)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1101, 565);
+            Controls.Add(reportViewer1);
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "FrmDAV";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Documento Auxiliar de Venda";
+            Load += FrmDAV_Load;
+            KeyDown += FrmDAV_KeyDown;
+            ((System.ComponentModel.ISupportInitialize)PessoaLojaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)SaidaProdutoRelatorioBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PessoaBindingSource).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion

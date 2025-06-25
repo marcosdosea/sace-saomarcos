@@ -28,43 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
-            this.SuspendLayout();
+            produtoBindingSource = new BindingSource(components);
+            reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            ((System.ComponentModel.ISupportInitialize)produtoBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // produtoBindingSource
             // 
-            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
-            this.produtoBindingSource.Sort = "nome";
+            produtoBindingSource.DataSource = typeof(Dominio.Produto);
+            produtoBindingSource.Sort = "nome";
             // 
             // reportViewer1
             // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            reportViewer1.Dock = DockStyle.Fill;
             reportDataSource1.Name = "DataSetProduto";
-            reportDataSource1.Value = this.produtoBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Relatorios.Produtos.RptProdutos.rdlc";
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.Size = new System.Drawing.Size(472, 262);
-            this.reportViewer1.TabIndex = 0;
+            reportDataSource1.Value = produtoBindingSource;
+            reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
+            reportViewer1.LocalReport.ReportEmbeddedResource = "Relatorios.Produtos.RptProdutos.rdlc";
+            reportViewer1.LocalReport.ReportPath = "D:\\Projetos\\sace-saomarcos\\CodigoNet\\Sace\\Sace\\Relatorios\\Produtos\\RptProdutos.rdlc";
+            reportViewer1.Location = new Point(0, 0);
+            reportViewer1.Margin = new Padding(4, 3, 4, 3);
+            reportViewer1.Name = "reportViewer1";
+            reportViewer1.ServerReport.BearerToken = null;
+            reportViewer1.Size = new Size(551, 302);
+            reportViewer1.TabIndex = 0;
             // 
             // FrmRelProdutos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 262);
-            this.Controls.Add(this.reportViewer1);
-            this.Name = "FrmRelProdutos";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FrmRelProdutos";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.FrmRelProdutos_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(551, 302);
+            Controls.Add(reportViewer1);
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "FrmRelProdutos";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "FrmRelProdutos";
+            WindowState = FormWindowState.Maximized;
+            Load += FrmRelProdutos_Load;
+            ((System.ComponentModel.ISupportInitialize)produtoBindingSource).EndInit();
+            ResumeLayout(false);
 
         }
 

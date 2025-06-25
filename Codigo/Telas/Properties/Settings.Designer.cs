@@ -12,7 +12,7 @@ namespace Telas.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SM_VENDAS01")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDORBKP")]
         public string ServidorImprimirReduzido1 {
             get {
                 return ((string)(this["ServidorImprimirReduzido1"]));
@@ -52,7 +52,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDORBKP")]
         public string ServidorImprimirReduzido2 {
             get {
                 return ((string)(this["ServidorImprimirReduzido2"]));
@@ -61,7 +61,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
+        [global::System.Configuration.DefaultSettingValueAttribute("DOSEADELL")]
         public string ServidorNfe {
             get {
                 return ((string)(this["ServidorNfe"]));
@@ -106,7 +106,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\sm-vendas01\\daruma")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\SERVIDORBKP\\mp-4200 th")]
         public string PORTA_IMPRESSORA_REDUZIDA1 {
             get {
                 return ((string)(this["PORTA_IMPRESSORA_REDUZIDA1"]));
@@ -115,7 +115,7 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\PC-BANESE\\mp-4200 th")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\SERVIDORBKP\\mp-4200 th")]
         public string PORTA_IMPRESSORA_REDUZIDA2 {
             get {
                 return ((string)(this["PORTA_IMPRESSORA_REDUZIDA2"]));

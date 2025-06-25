@@ -99,10 +99,22 @@ namespace Negocio
         }
 
         /// <summary>
-        /// Atualiza os dados do produto
+        /// Atualiza os dados do produto criando um novo contexto
         /// </summary>
         /// <param name="produto"></param>
         public static void Atualizar(Produto produto)
+        {
+            using(var context = new SaceContext())
+            {
+                Atualizar(produto, context);
+            }
+        }
+
+        /// <summary>
+        /// Atualiza os dados do produto
+        /// </summary>
+        /// <param name="produto"></param>
+        public static void Atualizar(Produto produto, SaceContext context)
         {
             if (produto.CodProduto == 1)
                 throw new NegocioException("Esse produto não pode ser alterado ou removido.");
@@ -121,28 +133,26 @@ namespace Negocio
 
             try
             {
-                using (var context = new SaceContext())
+                var _produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == produto.CodProduto);
+
+                // Atualiza data da ultima atualizacao
+                if ((produto.PrecoVendaVarejo != _produto.PrecoVendaVarejo) || (produto.PrecoVendaAtacado != _produto.PrecoVendaAtacado)
+                    || (produto.PrecoRevenda != _produto.PrecoRevenda))
                 {
-                    var _produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == produto.CodProduto);
-
-                    // Atualiza data da ultima atualizacao
-                    if ((produto.PrecoVendaVarejo != _produto.PrecoVendaVarejo) || (produto.PrecoVendaAtacado != _produto.PrecoVendaAtacado)
-                        || (produto.PrecoRevenda != _produto.PrecoRevenda))
-                    {
-                        produto.UltimaDataAtualizacao = DateTime.Now;
-                        produto.DataUltimaMudancaPreco = DateTime.Now;
-                    }
-
-                    // Atualiza data para mudança da pasta e das etiquetas
-                    if (produto.PrecoVendaVarejo != _produto.PrecoVendaVarejo)
-                    {
-                        produto.DataUltimaMudancaPreco = DateTime.Now;
-                    }
-
-                    Atribuir(produto, _produto);
-                    context.Update(_produto);
-                    context.SaveChanges();
+                    produto.UltimaDataAtualizacao = DateTime.Now;
+                    produto.DataUltimaMudancaPreco = DateTime.Now;
                 }
+
+                // Atualiza data para mudança da pasta e das etiquetas
+                if (produto.PrecoVendaVarejo != _produto.PrecoVendaVarejo)
+                {
+                    produto.DataUltimaMudancaPreco = DateTime.Now;
+                }
+
+                Atribuir(produto, _produto);
+                context.Update(_produto);
+                context.SaveChanges();
+
             }
             catch (Exception e)
             {

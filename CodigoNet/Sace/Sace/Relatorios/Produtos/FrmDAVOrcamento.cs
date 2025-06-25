@@ -1,6 +1,4 @@
-﻿using Dados;
-using Dominio;
-using Microsoft.EntityFrameworkCore;
+﻿using Dominio;
 using Microsoft.Reporting.WinForms;
 using Negocio;
 using System.Data;

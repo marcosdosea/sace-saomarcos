@@ -77,7 +77,7 @@ namespace Negocio
                 if (_saida != null)
                 {
                     Atribuir(saida, _saida);
-                    context.Update(saida);
+                    context.Update(_saida);
                     context.SaveChanges();
                 }
                 else
@@ -960,7 +960,7 @@ namespace Negocio
                 {
                     item.PercentualVendas = item.TotalVendas / somaTotalAVista * 100;
                     item.PercentualLucro = item.TotalLucro / somaLucro * 100;
-                    item.Login = context.TbUsuarios.Find(new TbUsuario() { CodPessoa = item.CodProfissional }).Login;
+                    item.Login = context.TbUsuarios.Find(item.CodProfissional).Login;
                 }
                 return listaInicial.OrderBy(v => v.Login).ToList();
             }

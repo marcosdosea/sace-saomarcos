@@ -28,55 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.ProdutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.PessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            ((System.ComponentModel.ISupportInitialize)(this.ProdutoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PessoaBindingSource)).BeginInit();
-            this.SuspendLayout();
+            ProdutoBindingSource = new BindingSource(components);
+            PessoaBindingSource = new BindingSource(components);
+            reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            ((System.ComponentModel.ISupportInitialize)ProdutoBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PessoaBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // ProdutoBindingSource
             // 
-            this.ProdutoBindingSource.DataSource = typeof(Dominio.Produto);
+            ProdutoBindingSource.DataSource = typeof(Dominio.Produto);
             // 
             // PessoaBindingSource
             // 
-            this.PessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            PessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // reportViewer1
             // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            reportViewer1.Dock = DockStyle.Fill;
             reportDataSource1.Name = "DataSetProdutos";
-            reportDataSource1.Value = this.ProdutoBindingSource;
+            reportDataSource1.Value = ProdutoBindingSource;
             reportDataSource2.Name = "DataSetPessoaLoja";
-            reportDataSource2.Value = this.PessoaBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Relatorios.Produtos.ReportProdutosRevenda.rdlc";
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.Size = new System.Drawing.Size(753, 318);
-            this.reportViewer1.TabIndex = 0;
-            this.reportViewer1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.reportViewer1_KeyDown);
+            reportDataSource2.Value = PessoaBindingSource;
+            reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
+            reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
+            reportViewer1.LocalReport.ReportEmbeddedResource = "Relatorios.Produtos.ReportProdutosRevenda.rdlc";
+            reportViewer1.LocalReport.ReportPath = "D:\\Projetos\\sace-saomarcos\\CodigoNet\\Sace\\Sace\\Relatorios\\Produtos\\ReportProdutosRevenda.rdlc";
+            reportViewer1.Location = new Point(0, 0);
+            reportViewer1.Margin = new Padding(4, 3, 4, 3);
+            reportViewer1.Name = "reportViewer1";
+            reportViewer1.ServerReport.BearerToken = null;
+            reportViewer1.Size = new Size(878, 367);
+            reportViewer1.TabIndex = 0;
+            reportViewer1.KeyDown += reportViewer1_KeyDown;
             // 
             // FrmRelProdutosRevenda
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 318);
-            this.Controls.Add(this.reportViewer1);
-            this.KeyPreview = true;
-            this.Name = "FrmRelProdutosRevenda";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmRelProdutosRevenda";
-            this.Load += new System.EventHandler(this.FrmRelProdutosRevenda_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.reportViewer1_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.ProdutoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PessoaBindingSource)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(878, 367);
+            Controls.Add(reportViewer1);
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "FrmRelProdutosRevenda";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "FrmRelProdutosRevenda";
+            Load += FrmRelProdutosRevenda_Load;
+            KeyDown += reportViewer1_KeyDown;
+            ((System.ComponentModel.ISupportInitialize)ProdutoBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PessoaBindingSource).EndInit();
+            ResumeLayout(false);
 
         }
 

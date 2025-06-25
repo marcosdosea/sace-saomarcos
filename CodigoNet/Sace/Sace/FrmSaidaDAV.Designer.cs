@@ -28,91 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnNotmal = new System.Windows.Forms.Button();
-            this.btnReduzido = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnReduzido2 = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            label1 = new Label();
+            btnNotmal = new Button();
+            btnReduzido = new Button();
+            btnCancelar = new Button();
+            btnReduzido2 = new Button();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
-            this.label1.Location = new System.Drawing.Point(4, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(232, 22);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Confirma Emissão do DAV?";
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 13.25F);
+            label1.Location = new Point(5, 31);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(232, 22);
+            label1.TabIndex = 0;
+            label1.Text = "Confirma Emissão do DAV?";
             // 
             // btnNotmal
             // 
-            this.btnNotmal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnNotmal.Location = new System.Drawing.Point(8, 73);
-            this.btnNotmal.Name = "btnNotmal";
-            this.btnNotmal.Size = new System.Drawing.Size(92, 26);
-            this.btnNotmal.TabIndex = 1;
-            this.btnNotmal.Text = "Normal";
-            this.btnNotmal.UseVisualStyleBackColor = true;
-            this.btnNotmal.Click += new System.EventHandler(this.btnNotmal_Click);
+            btnNotmal.Font = new Font("Microsoft Sans Serif", 10F);
+            btnNotmal.Location = new Point(9, 84);
+            btnNotmal.Margin = new Padding(4, 3, 4, 3);
+            btnNotmal.Name = "btnNotmal";
+            btnNotmal.Size = new Size(107, 30);
+            btnNotmal.TabIndex = 1;
+            btnNotmal.Text = "Normal";
+            btnNotmal.UseVisualStyleBackColor = true;
+            btnNotmal.Click += btnNotmal_Click;
             // 
             // btnReduzido
             // 
-            this.btnReduzido.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnReduzido.Location = new System.Drawing.Point(102, 73);
-            this.btnReduzido.Name = "btnReduzido";
-            this.btnReduzido.Size = new System.Drawing.Size(101, 26);
-            this.btnReduzido.TabIndex = 2;
-            this.btnReduzido.Text = "Reduzido";
-            this.btnReduzido.UseVisualStyleBackColor = true;
-            this.btnReduzido.Click += new System.EventHandler(this.btnReduzido_Click);
+            btnReduzido.Font = new Font("Microsoft Sans Serif", 10F);
+            btnReduzido.Location = new Point(119, 84);
+            btnReduzido.Margin = new Padding(4, 3, 4, 3);
+            btnReduzido.Name = "btnReduzido";
+            btnReduzido.Size = new Size(118, 30);
+            btnReduzido.TabIndex = 2;
+            btnReduzido.Text = "Reduzido";
+            btnReduzido.UseVisualStyleBackColor = true;
+            btnReduzido.Click += btnReduzido_Click;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCancelar.Location = new System.Drawing.Point(304, 73);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(83, 26);
-            this.btnCancelar.TabIndex = 4;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            btnCancelar.Font = new Font("Microsoft Sans Serif", 10F);
+            btnCancelar.Location = new Point(355, 84);
+            btnCancelar.Margin = new Padding(4, 3, 4, 3);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(97, 30);
+            btnCancelar.TabIndex = 4;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnReduzido2
             // 
-            this.btnReduzido2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnReduzido2.Location = new System.Drawing.Point(203, 73);
-            this.btnReduzido2.Name = "btnReduzido2";
-            this.btnReduzido2.Size = new System.Drawing.Size(101, 26);
-            this.btnReduzido2.TabIndex = 3;
-            this.btnReduzido2.Text = "Reduzido 2";
-            this.btnReduzido2.UseVisualStyleBackColor = true;
-            this.btnReduzido2.Click += new System.EventHandler(this.btnReduzido2_Click);
+            btnReduzido2.Font = new Font("Microsoft Sans Serif", 10F);
+            btnReduzido2.Location = new Point(237, 84);
+            btnReduzido2.Margin = new Padding(4, 3, 4, 3);
+            btnReduzido2.Name = "btnReduzido2";
+            btnReduzido2.Size = new Size(118, 30);
+            btnReduzido2.TabIndex = 3;
+            btnReduzido2.Text = "Reduzido 2";
+            btnReduzido2.UseVisualStyleBackColor = true;
+            btnReduzido2.Click += btnReduzido2_Click;
             // 
             // FrmSaidaDAV
             // 
-            this.AccessibleRole = System.Windows.Forms.AccessibleRole.Alert;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 106);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnReduzido2);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnReduzido);
-            this.Controls.Add(this.btnNotmal);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.KeyPreview = true;
-            this.MaximizeBox = false;
-            this.Name = "FrmSaidaDAV";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Confirma Emissão do DAV";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaDAV_KeyDown);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AccessibleRole = AccessibleRole.Alert;
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(484, 173);
+            ControlBox = false;
+            Controls.Add(btnReduzido2);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnReduzido);
+            Controls.Add(btnNotmal);
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "FrmSaidaDAV";
+            ShowIcon = false;
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Confirma Emissão do DAV";
+            KeyDown += FrmSaidaDAV_KeyDown;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

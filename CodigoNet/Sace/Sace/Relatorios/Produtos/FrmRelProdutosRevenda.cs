@@ -28,6 +28,7 @@ namespace Sace.Relatorios.Produtos
 
             string parametroLucro = (1 + lucro / 100).ToString();
 
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Relatorios.Produtos.ReportProdutosRevenda.rdlc";
             ReportParameter p1 = new ReportParameter("PorcentagemLucro", parametroLucro);
             this.reportViewer1.LocalReport.SetParameters(p1);
             this.reportViewer1.RefreshReport();

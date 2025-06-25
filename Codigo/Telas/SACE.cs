@@ -362,11 +362,18 @@ namespace Telas
             }
             if (nomeComputador.ToUpper().Equals(SERVIDOR_NFE.ToUpper()))
             {
-                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE);
-                GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_NFE);
-                GerenciadorNFe.GetInstance().ProcessarSolicitacoesCancelamento();
-                GerenciadorNFe.GetInstance().ProcessaSolicitacaoConsultaNfe();
-                GerenciadorProduto.GetInstance().AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
+                try
+                {
+                    GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFe(SERVIDOR_NFE);
+                    GerenciadorSolicitacaoDocumento.GetInstance().EnviarProximoNFCe(SERVIDOR_NFE);
+                    GerenciadorNFe.GetInstance().ProcessarSolicitacoesCancelamento();
+                    GerenciadorNFe.GetInstance().ProcessaSolicitacaoConsultaNfe();
+                    GerenciadorProduto.GetInstance().AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(DateTime.Now + ex.Message.ToString());
+                }
             }
         }
 

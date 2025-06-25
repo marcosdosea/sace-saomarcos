@@ -675,7 +675,7 @@
             tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tb_saida_produtoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tb_saida_produtoDataGridView.Size = new Size(952, 378);
+            tb_saida_produtoDataGridView.Size = new Size(952, 377);
             tb_saida_produtoDataGridView.TabIndex = 36;
             tb_saida_produtoDataGridView.TabStop = false;
             tb_saida_produtoDataGridView.Leave += tb_saida_produtoDataGridView_Leave;

@@ -180,54 +180,66 @@ namespace Negocio
         /// <param name="loja"></param>
         public static int IncrementarNumeroNFe(int codLoja, string modelo)
         {
-            using (var context = new SaceContext())
+            object lockObj = 0;
+            bool lockWasTaken = false;
+            try
             {
-                var transaction = context.Database.BeginTransaction();
-                try
+                Monitor.Enter(lockObj, ref lockWasTaken);
+                using (var context = new SaceContext())
                 {
-                    DateTime ontem = DateTime.Now.AddDays(-1);
-                    var query = from nfe in context.TbNves
-                                where (nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA) || nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA)) &&
-                                      (nfe.DataEmissao.Value <= ontem) && nfe.Modelo.Equals(modelo)
-                                select nfe;
-                    List<TbNfe> nfes = query.ToList();
-                    if (nfes.Count > 0)
+                    var transaction = context.Database.BeginTransaction();
+                    try
                     {
-                        var nfe = nfes.First();
-                        int codigo = nfe.NumeroSequenciaNfe;
-                        context.Remove(nfe);
-                        context.SaveChanges();
-                        return codigo;
+                        DateTime ontem = DateTime.Now.AddDays(-1);
+                        var query = from nfe in context.TbNves
+                                    where (nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_NAO_VALIDADA) || nfe.SituacaoNfe.Equals(NfeControle.SITUACAO_SOLICITADA)) &&
+                                          (nfe.DataEmissao.Value <= ontem) && nfe.Modelo.Equals(modelo)
+                                    select nfe;
+                        List<TbNfe> nfes = query.ToList();
+                        if (nfes.Count > 0)
+                        {
+                            var nfe = nfes.First();
+                            int codigo = nfe.NumeroSequenciaNfe;
+                            context.Remove(nfe);
+                            context.SaveChanges();
+                            return codigo;
+                        }
+                        if (modelo.Equals(NfeControle.MODELO_NFCE))
+                        {
+                            var _loja = new TbLoja();
+                            _loja.CodLoja = codLoja;
+                            _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == _loja.CodLoja);
+                            _loja.NumeroSequencialNfceAtual += 1;
+                            context.Update(_loja);
+                            context.SaveChanges();
+                            transaction.Commit();
+                            return _loja.NumeroSequencialNfceAtual;
+                        }
+                        else
+                        {
+                            var _loja = new TbLoja();
+                            _loja.CodLoja = codLoja;
+                            _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == _loja.CodLoja);
+                            _loja.NumeroSequenciaNfeAtual += 1;
+                            context.Update(_loja);
+                            context.SaveChanges();
+                            transaction.Commit();
+                            return _loja.NumeroSequenciaNfeAtual;
+                        }
                     }
-                    if (modelo.Equals(NfeControle.MODELO_NFCE))
+                    catch (Exception e)
                     {
-                        var _loja = new TbLoja();
-                        _loja.CodLoja = codLoja;
-                        _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == _loja.CodLoja);
-                        _loja.NumeroSequencialNfceAtual += 1;
-                        context.Update(_loja);
-                        context.SaveChanges();
-                        transaction.Commit();
-                        return _loja.NumeroSequencialNfceAtual;
+                        transaction.Rollback();
+                        throw new DadosException("Loja", e.Message, e);
                     }
-                    else
-                    {
-                        var _loja = new TbLoja();
-                        _loja.CodLoja = codLoja;
-                        _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == _loja.CodLoja);
-                        _loja.NumeroSequenciaNfeAtual += 1;
-                        context.Update(_loja);
-                        context.SaveChanges();
-                        transaction.Commit();
-                        return _loja.NumeroSequenciaNfeAtual;
-                    }
-                }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    throw new DadosException("Loja", e.Message, e);
                 }
             }
+            finally
+            {
+                if (lockWasTaken) Monitor.Exit(lockObj);
+            }
+
+            
         }
 
         private static void Atribuir(Loja loja, TbLoja _loja)
