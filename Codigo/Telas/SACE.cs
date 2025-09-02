@@ -39,8 +39,8 @@ namespace Telas
         {
             InitializeComponent();
             lblAno.Text = DateTime.Now.AddYears(-1).Year + " x " + DateTime.Now.Year;
-            NumerosPeriodo numeros = GerenciadorSaida.GetInstance(null).ObterVendasMensalComparandoAnoAnterior();
-
+            //NumerosPeriodo numeros = GerenciadorSaida.GetInstance(null).ObterVendasMensalComparandoAnoAnterior();
+            /*
             if (numeros.NumeroVendas > 0)
                 lblNumeroVendas.ForeColor = Color.Green;
             else
@@ -52,7 +52,7 @@ namespace Telas
                 lblTicketMedio.ForeColor = Color.Red;
 
             lblTicketMedio.Text = "Total Vendas (R$): " + numeros.TotalVendas.ToString("N2") + "%";
-
+            */
         }
 
         private static bool IsAppAlreadyRunning()
