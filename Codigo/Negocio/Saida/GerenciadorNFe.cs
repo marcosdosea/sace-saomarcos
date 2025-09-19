@@ -1519,6 +1519,8 @@ namespace Negocio
                     TNFeInfNFePagDetPag infNfePag = new TNFeInfNFePagDetPag();
                     infNfePag.tPag = "90"; // 90-Sem pagamento
                     infNfePag.vPag = formataValorNFe(0);
+                    infNfePag.CNPJPag = loja.Cnpj.Trim();
+                    infNfePag.UFPag = (TUfEmi)Enum.Parse(typeof(TUfEmi), pessoaloja.Uf);
                     nfe.infNFe.pag.detPag[0] = infNfePag;
                 }
 
