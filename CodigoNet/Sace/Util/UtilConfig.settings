@@ -61,9 +61,6 @@
     <Setting Name="C_ORGAO_IBGE_SERGIPE" Type="System.String" Scope="Application">
       <Value Profile="(Default)">28</Value>
     </Setting>
-    <Setting Name="SERVIDOR_NFE" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">SERVIDOR</Value>
-    </Setting>
     <Setting Name="SERVIDOR_IMPRIMIR_REDUZIDO1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">SM_VENDAS01</Value>
     </Setting>
@@ -102,6 +99,9 @@
     </Setting>
     <Setting Name="PESSOA_BAIXA_ESTOQUE" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">2048</Value>
+    </Setting>
+    <Setting Name="SERVIDOR_NFE" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DOSEADELL</Value>
     </Setting>
   </Settings>
 </SettingsFile>

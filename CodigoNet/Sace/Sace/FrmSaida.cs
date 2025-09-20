@@ -161,15 +161,21 @@ namespace Sace
         private void btnEditar_Click(object sender, EventArgs e)
         {
             long codSaida = Convert.ToInt64(codSaidaTextBox.Text);
-            saida = GerenciadorSaida.Obter(codSaida);
+            var saida = GerenciadorSaida.Obter(codSaida);
+            if (saida != null)
+            {
+                GerenciadorSaida.PrepararEdicaoSaida(saida);
 
-            GerenciadorSaida.PrepararEdicaoSaida(saida);
-
-            codSaidaTextBox_TextChanged(sender, e);
-            codProdutoComboBox.Focus();
-            codProdutoComboBox.Text = "";
-            habilitaBotoes(false);
-            estado = EstadoFormulario.INSERIR_DETALHE;
+                codSaidaTextBox_TextChanged(sender, e);
+                codProdutoComboBox.Focus();
+                codProdutoComboBox.Text = "";
+                habilitaBotoes(false);
+                estado = EstadoFormulario.INSERIR_DETALHE;
+            }
+            else
+            {
+                throw new TelaException("Saída não encontrada na base de dados");
+            }
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -416,7 +422,7 @@ namespace Sace
             else
             {
                 saidaBindingSource.DataSource = GerenciadorSaida.ObterSaidaConsumidor(codSaidaInicial);
-                tb_saida_produtoDataGridView.Height = 370;
+                tb_saida_produtoDataGridView.Height = 500;
             }
             saidaBindingSource.MoveLast();
         }

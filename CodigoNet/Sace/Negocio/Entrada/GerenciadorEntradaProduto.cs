@@ -80,10 +80,8 @@ namespace Negocio
         {
             try
             {
-                var _entradaProduto = new TbEntradaProduto();
-                _entradaProduto.CodEntradaProduto = entradaProduto.CodEntradaProduto;
-
-                _entradaProduto = context.TbEntradaProdutos.Find(_entradaProduto);
+                var _entradaProduto = context.TbEntradaProdutos.
+                    Where(ep => ep.CodEntradaProduto == entradaProduto.CodEntradaProduto).FirstOrDefault();
                 if (_entradaProduto != null)
                 {
                     Atribuir(entradaProduto, _entradaProduto);
@@ -91,7 +89,7 @@ namespace Negocio
                 }
                 else
                 {
-                    throw new NegocioException("Entrada de produto não encontrada para atualização.");
+                    throw new DadosException("Entrada de produto não encontrada para atualização.");
                 }
             }
             catch (Exception e)
@@ -148,7 +146,7 @@ namespace Negocio
                 IEnumerable<Entrada> entradas = GerenciadorEntrada.ObterPorNumeroNotaFiscalFornecedor(numeroNF, cpf_cnpjFornecedor);
                 if (entradas.Count() == 0)
                 {
-                    throw new NegocioException("A entrada não foi encontrada para realizar o cadastro de produtos");
+                    throw new DadosException("A entrada não foi encontrada para realizar o cadastro de produtos");
                 }
                 Entrada entrada = entradas.ElementAtOrDefault(0);
                 List<EntradaProduto> listaProtutos = new List<EntradaProduto>();

@@ -530,15 +530,15 @@
             tb_saidaBindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
             tb_saidaBindingNavigator.Name = "tb_saidaBindingNavigator";
             tb_saidaBindingNavigator.PositionItem = bindingNavigatorPositionItem;
-            tb_saidaBindingNavigator.Size = new Size(219, 25);
+            tb_saidaBindingNavigator.Size = new Size(217, 25);
             tb_saidaBindingNavigator.TabIndex = 21;
             tb_saidaBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
             bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            bindingNavigatorCountItem.Size = new Size(37, 22);
-            bindingNavigatorCountItem.Text = "de {0}";
+            bindingNavigatorCountItem.Size = new Size(35, 22);
+            bindingNavigatorCountItem.Text = "of {0}";
             bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
@@ -675,7 +675,7 @@
             tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tb_saida_produtoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tb_saida_produtoDataGridView.Size = new Size(952, 377);
+            tb_saida_produtoDataGridView.Size = new Size(952, 312);
             tb_saida_produtoDataGridView.TabIndex = 36;
             tb_saida_produtoDataGridView.TabStop = false;
             tb_saida_produtoDataGridView.Leave += tb_saida_produtoDataGridView_Leave;

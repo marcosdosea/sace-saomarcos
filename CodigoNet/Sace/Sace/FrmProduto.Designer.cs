@@ -188,330 +188,330 @@
             // codProdutoLabel
             // 
             codProdutoLabel.AutoSize = true;
-            codProdutoLabel.Location = new Point(5, 111);
+            codProdutoLabel.Location = new Point(4, 83);
             codProdutoLabel.Margin = new Padding(4, 0, 4, 0);
             codProdutoLabel.Name = "codProdutoLabel";
-            codProdutoLabel.Size = new Size(61, 20);
+            codProdutoLabel.Size = new Size(49, 15);
             codProdutoLabel.TabIndex = 21;
             codProdutoLabel.Text = "Código:";
             // 
             // nomeLabel
             // 
             nomeLabel.AutoSize = true;
-            nomeLabel.Location = new Point(196, 105);
+            nomeLabel.Location = new Point(172, 79);
             nomeLabel.Margin = new Padding(4, 0, 4, 0);
             nomeLabel.Name = "nomeLabel";
-            nomeLabel.Size = new Size(53, 20);
+            nomeLabel.Size = new Size(43, 15);
             nomeLabel.TabIndex = 23;
             nomeLabel.Text = "Nome:";
             // 
             // unidadeLabel
             // 
             unidadeLabel.AutoSize = true;
-            unidadeLabel.Location = new Point(8, 172);
+            unidadeLabel.Location = new Point(7, 129);
             unidadeLabel.Margin = new Padding(4, 0, 4, 0);
             unidadeLabel.Name = "unidadeLabel";
-            unidadeLabel.Size = new Size(110, 20);
+            unidadeLabel.Size = new Size(86, 15);
             unidadeLabel.TabIndex = 25;
             unidadeLabel.Text = "Unidade Venda";
             // 
             // codigoBarraLabel
             // 
             codigoBarraLabel.AutoSize = true;
-            codigoBarraLabel.Location = new Point(9, 302);
+            codigoBarraLabel.Location = new Point(8, 226);
             codigoBarraLabel.Margin = new Padding(4, 0, 4, 0);
             codigoBarraLabel.Name = "codigoBarraLabel";
-            codigoBarraLabel.Size = new Size(97, 20);
+            codigoBarraLabel.Size = new Size(76, 15);
             codigoBarraLabel.TabIndex = 27;
             codigoBarraLabel.Text = "Código Barra";
             // 
             // codGrupoLabel
             // 
             codGrupoLabel.AutoSize = true;
-            codGrupoLabel.Location = new Point(11, 368);
+            codGrupoLabel.Location = new Point(10, 276);
             codGrupoLabel.Margin = new Padding(4, 0, 4, 0);
             codGrupoLabel.Name = "codGrupoLabel";
-            codGrupoLabel.Size = new Size(53, 20);
+            codGrupoLabel.Size = new Size(43, 15);
             codGrupoLabel.TabIndex = 29;
             codGrupoLabel.Text = "Grupo:";
             // 
             // codigoFabricanteLabel
             // 
             codigoFabricanteLabel.AutoSize = true;
-            codigoFabricanteLabel.Location = new Point(196, 234);
+            codigoFabricanteLabel.Location = new Point(172, 176);
             codigoFabricanteLabel.Margin = new Padding(4, 0, 4, 0);
             codigoFabricanteLabel.Name = "codigoFabricanteLabel";
-            codigoFabricanteLabel.Size = new Size(80, 20);
+            codigoFabricanteLabel.Size = new Size(65, 15);
             codigoFabricanteLabel.TabIndex = 31;
             codigoFabricanteLabel.Text = "Fabricante:";
             // 
             // nomeFabricanteLabel
             // 
             nomeFabricanteLabel.AutoSize = true;
-            nomeFabricanteLabel.Location = new Point(200, 172);
+            nomeFabricanteLabel.Location = new Point(175, 129);
             nomeFabricanteLabel.Margin = new Padding(4, 0, 4, 0);
             nomeFabricanteLabel.Name = "nomeFabricanteLabel";
-            nomeFabricanteLabel.Size = new Size(250, 20);
+            nomeFabricanteLabel.Size = new Size(202, 15);
             nomeFabricanteLabel.TabIndex = 57;
             nomeFabricanteLabel.Text = "Nome Produto conforme Fabricante:";
             // 
             // codSituacaoProdutoLabel
             // 
             codSituacaoProdutoLabel.AutoSize = true;
-            codSituacaoProdutoLabel.Location = new Point(445, 300);
+            codSituacaoProdutoLabel.Location = new Point(389, 225);
             codSituacaoProdutoLabel.Margin = new Padding(4, 0, 4, 0);
             codSituacaoProdutoLabel.Name = "codSituacaoProdutoLabel";
-            codSituacaoProdutoLabel.Size = new Size(126, 20);
+            codSituacaoProdutoLabel.Size = new Size(101, 15);
             codSituacaoProdutoLabel.TabIndex = 86;
             codSituacaoProdutoLabel.Text = "Situação Produto:";
             // 
             // referenciaFabricanteLabel
             // 
             referenciaFabricanteLabel.AutoSize = true;
-            referenciaFabricanteLabel.Location = new Point(5, 237);
+            referenciaFabricanteLabel.Location = new Point(4, 178);
             referenciaFabricanteLabel.Margin = new Padding(4, 0, 4, 0);
             referenciaFabricanteLabel.Name = "referenciaFabricanteLabel";
-            referenciaFabricanteLabel.Size = new Size(154, 20);
+            referenciaFabricanteLabel.Size = new Size(123, 15);
             referenciaFabricanteLabel.TabIndex = 86;
             referenciaFabricanteLabel.Text = "Referência Fabricante:";
             // 
             // ncmshLabel
             // 
             ncmshLabel.AutoSize = true;
-            ncmshLabel.Location = new Point(11, 435);
+            ncmshLabel.Location = new Point(10, 326);
             ncmshLabel.Margin = new Padding(4, 0, 4, 0);
             ncmshLabel.Name = "ncmshLabel";
-            ncmshLabel.Size = new Size(70, 20);
+            ncmshLabel.Size = new Size(58, 15);
             ncmshLabel.TabIndex = 87;
             ncmshLabel.Text = "NCM/SH:";
             // 
             // codCSTLabel
             // 
             codCSTLabel.AutoSize = true;
-            codCSTLabel.Location = new Point(291, 435);
+            codCSTLabel.Location = new Point(255, 326);
             codCSTLabel.Margin = new Padding(4, 0, 4, 0);
             codCSTLabel.Name = "codCSTLabel";
-            codCSTLabel.Size = new Size(106, 20);
+            codCSTLabel.Size = new Size(85, 15);
             codCSTLabel.TabIndex = 88;
             codCSTLabel.Text = "Descrição CST:";
             // 
             // precoVendaAtacadoLabel
             // 
             precoVendaAtacadoLabel.AutoSize = true;
-            precoVendaAtacadoLabel.Location = new Point(796, 651);
+            precoVendaAtacadoLabel.Location = new Point(696, 488);
             precoVendaAtacadoLabel.Margin = new Padding(4, 0, 4, 0);
             precoVendaAtacadoLabel.Name = "precoVendaAtacadoLabel";
-            precoVendaAtacadoLabel.Size = new Size(109, 20);
+            precoVendaAtacadoLabel.Size = new Size(87, 15);
             precoVendaAtacadoLabel.TabIndex = 65;
             precoVendaAtacadoLabel.Text = "Preço Atacado:";
             // 
             // lucroPrecoVendaAtacadoLabel
             // 
             lucroPrecoVendaAtacadoLabel.AutoSize = true;
-            lucroPrecoVendaAtacadoLabel.Location = new Point(456, 654);
+            lucroPrecoVendaAtacadoLabel.Location = new Point(399, 490);
             lucroPrecoVendaAtacadoLabel.Margin = new Padding(4, 0, 4, 0);
             lucroPrecoVendaAtacadoLabel.Name = "lucroPrecoVendaAtacadoLabel";
-            lucroPrecoVendaAtacadoLabel.Size = new Size(124, 20);
+            lucroPrecoVendaAtacadoLabel.Size = new Size(100, 15);
             lucroPrecoVendaAtacadoLabel.TabIndex = 63;
             lucroPrecoVendaAtacadoLabel.Text = "% Lucro Atacado:";
             // 
             // precoVendaVarejoLabel
             // 
             precoVendaVarejoLabel.AutoSize = true;
-            precoVendaVarejoLabel.Location = new Point(796, 582);
+            precoVendaVarejoLabel.Location = new Point(696, 436);
             precoVendaVarejoLabel.Margin = new Padding(4, 0, 4, 0);
             precoVendaVarejoLabel.Name = "precoVendaVarejoLabel";
-            precoVendaVarejoLabel.Size = new Size(95, 20);
+            precoVendaVarejoLabel.Size = new Size(75, 15);
             precoVendaVarejoLabel.TabIndex = 61;
             precoVendaVarejoLabel.Text = "Preço Varejo:";
             // 
             // lucroPrecoVendaVarejoLabel
             // 
             lucroPrecoVendaVarejoLabel.AutoSize = true;
-            lucroPrecoVendaVarejoLabel.Location = new Point(457, 588);
+            lucroPrecoVendaVarejoLabel.Location = new Point(400, 441);
             lucroPrecoVendaVarejoLabel.Margin = new Padding(4, 0, 4, 0);
             lucroPrecoVendaVarejoLabel.Name = "lucroPrecoVendaVarejoLabel";
-            lucroPrecoVendaVarejoLabel.Size = new Size(110, 20);
+            lucroPrecoVendaVarejoLabel.Size = new Size(88, 15);
             lucroPrecoVendaVarejoLabel.TabIndex = 59;
             lucroPrecoVendaVarejoLabel.Text = "% Lucro Varejo:";
             // 
             // ultimaDataAtualizacaoLabel
             // 
             ultimaDataAtualizacaoLabel.AutoSize = true;
-            ultimaDataAtualizacaoLabel.Location = new Point(9, 649);
+            ultimaDataAtualizacaoLabel.Location = new Point(8, 487);
             ultimaDataAtualizacaoLabel.Margin = new Padding(4, 0, 4, 0);
             ultimaDataAtualizacaoLabel.Name = "ultimaDataAtualizacaoLabel";
-            ultimaDataAtualizacaoLabel.Size = new Size(138, 20);
+            ultimaDataAtualizacaoLabel.Size = new Size(109, 15);
             ultimaDataAtualizacaoLabel.TabIndex = 53;
             ultimaDataAtualizacaoLabel.Text = "Última Atualizacao:";
             // 
             // custoVendaLabel
             // 
             custoVendaLabel.AutoSize = true;
-            custoVendaLabel.Location = new Point(9, 586);
+            custoVendaLabel.Location = new Point(8, 440);
             custoVendaLabel.Margin = new Padding(4, 0, 4, 0);
             custoVendaLabel.Name = "custoVendaLabel";
-            custoVendaLabel.Size = new Size(155, 20);
+            custoVendaLabel.Size = new Size(125, 15);
             custoVendaLabel.TabIndex = 45;
             custoVendaLabel.Text = "Último Preço Compra:";
             // 
             // freteLabel
             // 
             freteLabel.AutoSize = true;
-            freteLabel.Location = new Point(751, 511);
+            freteLabel.Location = new Point(657, 383);
             freteLabel.Margin = new Padding(4, 0, 4, 0);
             freteLabel.Name = "freteLabel";
-            freteLabel.Size = new Size(61, 20);
+            freteLabel.Size = new Size(49, 15);
             freteLabel.TabIndex = 43;
             freteLabel.Text = "% Frete:";
             // 
             // ipiLabel
             // 
             ipiLabel.AutoSize = true;
-            ipiLabel.Location = new Point(640, 506);
+            ipiLabel.Location = new Point(560, 380);
             ipiLabel.Margin = new Padding(4, 0, 4, 0);
             ipiLabel.Name = "ipiLabel";
-            ipiLabel.Size = new Size(44, 20);
+            ipiLabel.Size = new Size(36, 15);
             ipiLabel.TabIndex = 41;
             ipiLabel.Text = "% IPI:";
             // 
             // simplesLabel
             // 
             simplesLabel.AutoSize = true;
-            simplesLabel.Location = new Point(501, 511);
+            simplesLabel.Location = new Point(438, 383);
             simplesLabel.Margin = new Padding(4, 0, 4, 0);
             simplesLabel.Name = "simplesLabel";
-            simplesLabel.Size = new Size(80, 20);
+            simplesLabel.Size = new Size(64, 15);
             simplesLabel.TabIndex = 39;
             simplesLabel.Text = "% Simples:";
             // 
             // icmsLabel
             // 
             icmsLabel.AutoSize = true;
-            icmsLabel.Location = new Point(204, 509);
+            icmsLabel.Location = new Point(178, 382);
             icmsLabel.Margin = new Padding(4, 0, 4, 0);
             icmsLabel.Name = "icmsLabel";
-            icmsLabel.Size = new Size(97, 20);
+            icmsLabel.Size = new Size(79, 15);
             icmsLabel.TabIndex = 37;
             icmsLabel.Text = "%Cred  ICMS:";
             // 
             // qtdProdutoAtacadoLabel
             // 
             qtdProdutoAtacadoLabel.AutoSize = true;
-            qtdProdutoAtacadoLabel.Location = new Point(181, 649);
+            qtdProdutoAtacadoLabel.Location = new Point(158, 487);
             qtdProdutoAtacadoLabel.Margin = new Padding(4, 0, 4, 0);
             qtdProdutoAtacadoLabel.Name = "qtdProdutoAtacadoLabel";
-            qtdProdutoAtacadoLabel.Size = new Size(138, 20);
+            qtdProdutoAtacadoLabel.Size = new Size(110, 15);
             qtdProdutoAtacadoLabel.TabIndex = 72;
             qtdProdutoAtacadoLabel.Text = "Qtd Preço Atacado:";
             // 
             // icms_substitutoLabel
             // 
             icms_substitutoLabel.AutoSize = true;
-            icms_substitutoLabel.Location = new Point(360, 511);
+            icms_substitutoLabel.Location = new Point(315, 383);
             icms_substitutoLabel.Margin = new Padding(4, 0, 4, 0);
             icms_substitutoLabel.Name = "icms_substitutoLabel";
-            icms_substitutoLabel.Size = new Size(102, 20);
+            icms_substitutoLabel.Size = new Size(83, 15);
             icms_substitutoLabel.TabIndex = 76;
             icms_substitutoLabel.Text = "% ICMS Subst:";
             // 
             // dataUltimoPedidoLabel
             // 
             dataUltimoPedidoLabel.AutoSize = true;
-            dataUltimoPedidoLabel.Location = new Point(9, 506);
+            dataUltimoPedidoLabel.Location = new Point(8, 380);
             dataUltimoPedidoLabel.Margin = new Padding(4, 0, 4, 0);
             dataUltimoPedidoLabel.Name = "dataUltimoPedidoLabel";
-            dataUltimoPedidoLabel.Size = new Size(143, 20);
+            dataUltimoPedidoLabel.Size = new Size(113, 15);
             dataUltimoPedidoLabel.TabIndex = 84;
             dataUltimoPedidoLabel.Text = "Data Último Pedido:";
             // 
             // codSubgrupoLabel
             // 
             codSubgrupoLabel.AutoSize = true;
-            codSubgrupoLabel.Location = new Point(481, 368);
+            codSubgrupoLabel.Location = new Point(421, 276);
             codSubgrupoLabel.Margin = new Padding(4, 0, 4, 0);
             codSubgrupoLabel.Name = "codSubgrupoLabel";
-            codSubgrupoLabel.Size = new Size(77, 20);
+            codSubgrupoLabel.Size = new Size(62, 15);
             codSubgrupoLabel.TabIndex = 89;
             codSubgrupoLabel.Text = "Subgrupo:";
             // 
             // descontoLabel
             // 
             descontoLabel.AutoSize = true;
-            descontoLabel.Location = new Point(857, 508);
+            descontoLabel.Location = new Point(750, 381);
             descontoLabel.Margin = new Padding(4, 0, 4, 0);
             descontoLabel.Name = "descontoLabel";
-            descontoLabel.Size = new Size(91, 20);
+            descontoLabel.Size = new Size(73, 15);
             descontoLabel.TabIndex = 91;
             descontoLabel.Text = "% Desconto:";
             // 
             // unidadeCompraLabel
             // 
             unidadeCompraLabel.AutoSize = true;
-            unidadeCompraLabel.Location = new Point(200, 302);
+            unidadeCompraLabel.Location = new Point(175, 226);
             unidadeCompraLabel.Margin = new Padding(4, 0, 4, 0);
             unidadeCompraLabel.Name = "unidadeCompraLabel";
-            unidadeCompraLabel.Size = new Size(125, 20);
+            unidadeCompraLabel.Size = new Size(100, 15);
             unidadeCompraLabel.TabIndex = 91;
             unidadeCompraLabel.Text = "Unidade Compra:";
             // 
             // quantidadeEmbalagemLabel
             // 
             quantidadeEmbalagemLabel.AutoSize = true;
-            quantidadeEmbalagemLabel.Location = new Point(320, 300);
+            quantidadeEmbalagemLabel.Location = new Point(280, 225);
             quantidadeEmbalagemLabel.Margin = new Padding(4, 0, 4, 0);
             quantidadeEmbalagemLabel.Name = "quantidadeEmbalagemLabel";
-            quantidadeEmbalagemLabel.Size = new Size(121, 20);
+            quantidadeEmbalagemLabel.Size = new Size(96, 15);
             quantidadeEmbalagemLabel.TabIndex = 92;
             quantidadeEmbalagemLabel.Text = "Qtd Embalagem:";
             // 
             // lucroPrecoRevendaLabel
             // 
             lucroPrecoRevendaLabel.AutoSize = true;
-            lucroPrecoRevendaLabel.Location = new Point(456, 712);
+            lucroPrecoRevendaLabel.Location = new Point(399, 534);
             lucroPrecoRevendaLabel.Margin = new Padding(4, 0, 4, 0);
             lucroPrecoRevendaLabel.Name = "lucroPrecoRevendaLabel";
-            lucroPrecoRevendaLabel.Size = new Size(125, 20);
+            lucroPrecoRevendaLabel.Size = new Size(101, 15);
             lucroPrecoRevendaLabel.TabIndex = 92;
             lucroPrecoRevendaLabel.Text = "% Lucro Revenda:";
             // 
             // precoRevendaSugestaoLabel
             // 
             precoRevendaSugestaoLabel.AutoSize = true;
-            precoRevendaSugestaoLabel.Location = new Point(592, 712);
+            precoRevendaSugestaoLabel.Location = new Point(518, 534);
             precoRevendaSugestaoLabel.Margin = new Padding(4, 0, 4, 0);
             precoRevendaSugestaoLabel.Name = "precoRevendaSugestaoLabel";
-            precoRevendaSugestaoLabel.Size = new Size(175, 20);
+            precoRevendaSugestaoLabel.Size = new Size(139, 15);
             precoRevendaSugestaoLabel.TabIndex = 93;
             precoRevendaSugestaoLabel.Text = "Preco Revenda Sugestão:";
             // 
             // precoRevendaLabel
             // 
             precoRevendaLabel.AutoSize = true;
-            precoRevendaLabel.Location = new Point(792, 712);
+            precoRevendaLabel.Location = new Point(693, 534);
             precoRevendaLabel.Margin = new Padding(4, 0, 4, 0);
             precoRevendaLabel.Name = "precoRevendaLabel";
-            precoRevendaLabel.Size = new Size(110, 20);
+            precoRevendaLabel.Size = new Size(88, 15);
             precoRevendaLabel.TabIndex = 94;
             precoRevendaLabel.Text = "Preço Revenda:";
             // 
             // codCSTLabel1
             // 
             codCSTLabel1.AutoSize = true;
-            codCSTLabel1.Location = new Point(164, 434);
+            codCSTLabel1.Location = new Point(144, 326);
             codCSTLabel1.Margin = new Padding(4, 0, 4, 0);
             codCSTLabel1.Name = "codCSTLabel1";
-            codCSTLabel1.Size = new Size(37, 20);
+            codCSTLabel1.Size = new Size(31, 15);
             codCSTLabel1.TabIndex = 94;
             codCSTLabel1.Text = "CST:";
             // 
             // dataUltimaMudancaPrecoLabel
             // 
             dataUltimaMudancaPrecoLabel.AutoSize = true;
-            dataUltimaMudancaPrecoLabel.Location = new Point(11, 715);
+            dataUltimaMudancaPrecoLabel.Location = new Point(10, 536);
             dataUltimaMudancaPrecoLabel.Margin = new Padding(4, 0, 4, 0);
             dataUltimaMudancaPrecoLabel.Name = "dataUltimaMudancaPrecoLabel";
-            dataUltimaMudancaPrecoLabel.Size = new Size(173, 20);
+            dataUltimaMudancaPrecoLabel.Size = new Size(139, 15);
             dataUltimaMudancaPrecoLabel.TabIndex = 95;
             dataUltimaMudancaPrecoLabel.Text = "Mudanca Preço Etiqueta:";
             // 
@@ -520,10 +520,10 @@
             label1.AutoSize = true;
             label1.Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(4, 14);
+            label1.Location = new Point(4, 10);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(212, 28);
+            label1.Size = new Size(165, 23);
             label1.TabIndex = 0;
             label1.Text = "Cadastro de Produtos";
             // 
@@ -532,17 +532,17 @@
             panel1.BackColor = Color.SteelBlue;
             panel1.Controls.Add(label1);
             panel1.Location = new Point(0, -2);
-            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(981, 63);
+            panel1.Size = new Size(858, 47);
             panel1.TabIndex = 20;
             // 
             // btnSalvar
             // 
-            btnSalvar.Location = new Point(413, 914);
-            btnSalvar.Margin = new Padding(4, 5, 4, 5);
+            btnSalvar.Location = new Point(361, 686);
+            btnSalvar.Margin = new Padding(4);
             btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(108, 35);
+            btnSalvar.Size = new Size(94, 26);
             btnSalvar.TabIndex = 4;
             btnSalvar.Text = "F6 - Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
@@ -550,10 +550,10 @@
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(13, 914);
-            btnBuscar.Margin = new Padding(4, 5, 4, 5);
+            btnBuscar.Location = new Point(11, 686);
+            btnBuscar.Margin = new Padding(4);
             btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(100, 35);
+            btnBuscar.Size = new Size(88, 26);
             btnBuscar.TabIndex = 0;
             btnBuscar.Text = "F2 - Buscar";
             btnBuscar.TextAlign = ContentAlignment.MiddleLeft;
@@ -562,10 +562,10 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(857, 914);
-            btnCancelar.Margin = new Padding(4, 5, 4, 5);
+            btnCancelar.Location = new Point(750, 686);
+            btnCancelar.Margin = new Padding(4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(112, 35);
+            btnCancelar.Size = new Size(98, 26);
             btnCancelar.TabIndex = 8;
             btnCancelar.Text = "Esc - Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
@@ -573,10 +573,10 @@
             // 
             // btnNovo
             // 
-            btnNovo.Location = new Point(113, 914);
-            btnNovo.Margin = new Padding(4, 5, 4, 5);
+            btnNovo.Location = new Point(99, 686);
+            btnNovo.Margin = new Padding(4);
             btnNovo.Name = "btnNovo";
-            btnNovo.Size = new Size(100, 35);
+            btnNovo.Size = new Size(88, 26);
             btnNovo.TabIndex = 1;
             btnNovo.Text = "F3 - Novo";
             btnNovo.UseVisualStyleBackColor = true;
@@ -584,10 +584,10 @@
             // 
             // btnExcluir
             // 
-            btnExcluir.Location = new Point(313, 914);
-            btnExcluir.Margin = new Padding(4, 5, 4, 5);
+            btnExcluir.Location = new Point(274, 686);
+            btnExcluir.Margin = new Padding(4);
             btnExcluir.Name = "btnExcluir";
-            btnExcluir.Size = new Size(100, 35);
+            btnExcluir.Size = new Size(88, 26);
             btnExcluir.TabIndex = 3;
             btnExcluir.Text = "F5 - Excluir";
             btnExcluir.UseVisualStyleBackColor = true;
@@ -595,10 +595,10 @@
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(213, 914);
-            btnEditar.Margin = new Padding(4, 5, 4, 5);
+            btnEditar.Location = new Point(186, 686);
+            btnEditar.Margin = new Padding(4);
             btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(100, 35);
+            btnEditar.Size = new Size(88, 26);
             btnEditar.TabIndex = 2;
             btnEditar.Text = "F4 - Editar";
             btnEditar.UseVisualStyleBackColor = true;
@@ -608,10 +608,10 @@
             // 
             codProdutoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "CodProduto", true));
             codProdutoTextBox.Enabled = false;
-            codProdutoTextBox.Location = new Point(9, 137);
-            codProdutoTextBox.Margin = new Padding(4, 5, 4, 5);
+            codProdutoTextBox.Location = new Point(8, 103);
+            codProdutoTextBox.Margin = new Padding(4);
             codProdutoTextBox.Name = "codProdutoTextBox";
-            codProdutoTextBox.Size = new Size(177, 27);
+            codProdutoTextBox.Size = new Size(155, 23);
             codProdutoTextBox.TabIndex = 7;
             codProdutoTextBox.TextChanged += codProdutoTextBox_TextChanged;
             codProdutoTextBox.Enter += codProdutoTextBox_Enter;
@@ -626,11 +626,11 @@
             // 
             nomeTextBox.CharacterCasing = CharacterCasing.Upper;
             nomeTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "Nome", true, DataSourceUpdateMode.OnPropertyChanged));
-            nomeTextBox.Location = new Point(200, 138);
-            nomeTextBox.Margin = new Padding(4, 5, 4, 5);
+            nomeTextBox.Location = new Point(175, 104);
+            nomeTextBox.Margin = new Padding(4);
             nomeTextBox.MaxLength = 50;
             nomeTextBox.Name = "nomeTextBox";
-            nomeTextBox.Size = new Size(761, 27);
+            nomeTextBox.Size = new Size(666, 23);
             nomeTextBox.TabIndex = 9;
             nomeTextBox.Enter += codProdutoTextBox_Enter;
             nomeTextBox.Leave += nomeTextBox_Leave;
@@ -639,11 +639,11 @@
             // 
             unidadeTextBox.CharacterCasing = CharacterCasing.Upper;
             unidadeTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "Unidade", true));
-            unidadeTextBox.Location = new Point(9, 198);
-            unidadeTextBox.Margin = new Padding(4, 5, 4, 5);
+            unidadeTextBox.Location = new Point(8, 148);
+            unidadeTextBox.Margin = new Padding(4);
             unidadeTextBox.MaxLength = 2;
             unidadeTextBox.Name = "unidadeTextBox";
-            unidadeTextBox.Size = new Size(177, 27);
+            unidadeTextBox.Size = new Size(155, 23);
             unidadeTextBox.TabIndex = 11;
             unidadeTextBox.Enter += codProdutoTextBox_Enter;
             unidadeTextBox.Leave += codProdutoTextBox_Leave;
@@ -652,11 +652,11 @@
             // 
             codigoBarraTextBox.CharacterCasing = CharacterCasing.Upper;
             codigoBarraTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "CodigoBarra", true));
-            codigoBarraTextBox.Location = new Point(13, 328);
-            codigoBarraTextBox.Margin = new Padding(4, 5, 4, 5);
+            codigoBarraTextBox.Location = new Point(11, 246);
+            codigoBarraTextBox.Margin = new Padding(4);
             codigoBarraTextBox.MaxLength = 40;
             codigoBarraTextBox.Name = "codigoBarraTextBox";
-            codigoBarraTextBox.Size = new Size(177, 27);
+            codigoBarraTextBox.Size = new Size(155, 23);
             codigoBarraTextBox.TabIndex = 21;
             codigoBarraTextBox.Enter += codProdutoTextBox_Enter;
             codigoBarraTextBox.Leave += codProdutoTextBox_Leave;
@@ -671,10 +671,10 @@
             codGrupoComboBox.DisplayMember = "descricao";
             codGrupoComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             codGrupoComboBox.FormattingEnabled = true;
-            codGrupoComboBox.Location = new Point(9, 397);
-            codGrupoComboBox.Margin = new Padding(4, 5, 4, 5);
+            codGrupoComboBox.Location = new Point(8, 298);
+            codGrupoComboBox.Margin = new Padding(4);
             codGrupoComboBox.Name = "codGrupoComboBox";
-            codGrupoComboBox.Size = new Size(467, 28);
+            codGrupoComboBox.Size = new Size(409, 23);
             codGrupoComboBox.TabIndex = 29;
             codGrupoComboBox.ValueMember = "codGrupo";
             codGrupoComboBox.SelectedIndexChanged += codGrupoComboBox_SelectedIndexChanged;
@@ -696,10 +696,10 @@
             codigoFabricanteComboBox.DataSource = fabricanteBindingSource;
             codigoFabricanteComboBox.DisplayMember = "NomeFantasia";
             codigoFabricanteComboBox.FormattingEnabled = true;
-            codigoFabricanteComboBox.Location = new Point(200, 262);
-            codigoFabricanteComboBox.Margin = new Padding(4, 5, 4, 5);
+            codigoFabricanteComboBox.Location = new Point(175, 196);
+            codigoFabricanteComboBox.Margin = new Padding(4);
             codigoFabricanteComboBox.Name = "codigoFabricanteComboBox";
-            codigoFabricanteComboBox.Size = new Size(761, 28);
+            codigoFabricanteComboBox.Size = new Size(666, 23);
             codigoFabricanteComboBox.TabIndex = 17;
             codigoFabricanteComboBox.ValueMember = "CodPessoa";
             codigoFabricanteComboBox.Enter += codProdutoTextBox_Enter;
@@ -714,10 +714,10 @@
             // temVencimentoCheckBox
             // 
             temVencimentoCheckBox.DataBindings.Add(new Binding("Checked", produtoBindingSource, "TemVencimento", true));
-            temVencimentoCheckBox.Location = new Point(311, 731);
-            temVencimentoCheckBox.Margin = new Padding(4, 5, 4, 5);
+            temVencimentoCheckBox.Location = new Point(272, 548);
+            temVencimentoCheckBox.Margin = new Padding(4);
             temVencimentoCheckBox.Name = "temVencimentoCheckBox";
-            temVencimentoCheckBox.Size = new Size(153, 37);
+            temVencimentoCheckBox.Size = new Size(134, 28);
             temVencimentoCheckBox.TabIndex = 78;
             temVencimentoCheckBox.Text = "Tem Vencimento?";
             temVencimentoCheckBox.UseVisualStyleBackColor = true;
@@ -727,10 +727,10 @@
             exibeNaListagemCheckBox.Checked = true;
             exibeNaListagemCheckBox.CheckState = CheckState.Checked;
             exibeNaListagemCheckBox.DataBindings.Add(new Binding("Checked", produtoBindingSource, "ExibeNaListagem", true));
-            exibeNaListagemCheckBox.Location = new Point(176, 731);
-            exibeNaListagemCheckBox.Margin = new Padding(4, 5, 4, 5);
+            exibeNaListagemCheckBox.Location = new Point(154, 548);
+            exibeNaListagemCheckBox.Margin = new Padding(4);
             exibeNaListagemCheckBox.Name = "exibeNaListagemCheckBox";
-            exibeNaListagemCheckBox.Size = new Size(141, 37);
+            exibeNaListagemCheckBox.Size = new Size(123, 28);
             exibeNaListagemCheckBox.TabIndex = 76;
             exibeNaListagemCheckBox.Text = "Exibir Listagem";
             exibeNaListagemCheckBox.UseVisualStyleBackColor = true;
@@ -739,21 +739,21 @@
             // 
             nomeFabricanteTextBox.CharacterCasing = CharacterCasing.Upper;
             nomeFabricanteTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "NomeProdutoFabricante", true));
-            nomeFabricanteTextBox.Location = new Point(200, 198);
-            nomeFabricanteTextBox.Margin = new Padding(4, 5, 4, 5);
+            nomeFabricanteTextBox.Location = new Point(175, 148);
+            nomeFabricanteTextBox.Margin = new Padding(4);
             nomeFabricanteTextBox.MaxLength = 50;
             nomeFabricanteTextBox.Name = "nomeFabricanteTextBox";
-            nomeFabricanteTextBox.Size = new Size(761, 27);
+            nomeFabricanteTextBox.Size = new Size(666, 23);
             nomeFabricanteTextBox.TabIndex = 13;
             nomeFabricanteTextBox.Enter += codProdutoTextBox_Enter;
             nomeFabricanteTextBox.Leave += nomeFabricanteTextBox_Leave;
             // 
             // btnEstoque
             // 
-            btnEstoque.Location = new Point(521, 914);
-            btnEstoque.Margin = new Padding(4, 5, 4, 5);
+            btnEstoque.Location = new Point(456, 686);
+            btnEstoque.Margin = new Padding(4);
             btnEstoque.Name = "btnEstoque";
-            btnEstoque.Size = new Size(108, 35);
+            btnEstoque.Size = new Size(94, 26);
             btnEstoque.TabIndex = 5;
             btnEstoque.Text = "F7 - Estoque";
             btnEstoque.UseVisualStyleBackColor = true;
@@ -766,10 +766,10 @@
             codSituacaoProdutoComboBox.DisplayMember = "DescricaoSituacao";
             codSituacaoProdutoComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             codSituacaoProdutoComboBox.FormattingEnabled = true;
-            codSituacaoProdutoComboBox.Location = new Point(443, 326);
-            codSituacaoProdutoComboBox.Margin = new Padding(4, 5, 4, 5);
+            codSituacaoProdutoComboBox.Location = new Point(388, 244);
+            codSituacaoProdutoComboBox.Margin = new Padding(4);
             codSituacaoProdutoComboBox.Name = "codSituacaoProdutoComboBox";
-            codSituacaoProdutoComboBox.Size = new Size(375, 28);
+            codSituacaoProdutoComboBox.Size = new Size(329, 23);
             codSituacaoProdutoComboBox.TabIndex = 27;
             codSituacaoProdutoComboBox.ValueMember = "CodSituacaoProduto";
             codSituacaoProdutoComboBox.Enter += codProdutoTextBox_Enter;
@@ -784,10 +784,10 @@
             // 
             precoVendaAtacadoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoVendaAtacado", true, DataSourceUpdateMode.OnValidation, null, "N3"));
             precoVendaAtacadoTextBox.ForeColor = Color.Red;
-            precoVendaAtacadoTextBox.Location = new Point(796, 677);
-            precoVendaAtacadoTextBox.Margin = new Padding(4, 5, 4, 5);
+            precoVendaAtacadoTextBox.Location = new Point(696, 508);
+            precoVendaAtacadoTextBox.Margin = new Padding(4);
             precoVendaAtacadoTextBox.Name = "precoVendaAtacadoTextBox";
-            precoVendaAtacadoTextBox.Size = new Size(165, 27);
+            precoVendaAtacadoTextBox.Size = new Size(145, 23);
             precoVendaAtacadoTextBox.TabIndex = 74;
             precoVendaAtacadoTextBox.Enter += codProdutoTextBox_Enter;
             precoVendaAtacadoTextBox.Leave += precoVendaAtacadoTextBox_Leave;
@@ -795,10 +795,10 @@
             // lucroPrecoVendaAtacadoTextBox
             // 
             lucroPrecoVendaAtacadoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "LucroPrecoVendaAtacado", true));
-            lucroPrecoVendaAtacadoTextBox.Location = new Point(460, 680);
-            lucroPrecoVendaAtacadoTextBox.Margin = new Padding(4, 5, 4, 5);
+            lucroPrecoVendaAtacadoTextBox.Location = new Point(402, 510);
+            lucroPrecoVendaAtacadoTextBox.Margin = new Padding(4);
             lucroPrecoVendaAtacadoTextBox.Name = "lucroPrecoVendaAtacadoTextBox";
-            lucroPrecoVendaAtacadoTextBox.Size = new Size(108, 27);
+            lucroPrecoVendaAtacadoTextBox.Size = new Size(95, 23);
             lucroPrecoVendaAtacadoTextBox.TabIndex = 70;
             lucroPrecoVendaAtacadoTextBox.Enter += codProdutoTextBox_Enter;
             lucroPrecoVendaAtacadoTextBox.Leave += icmsTextBox_Leave_1;
@@ -807,10 +807,10 @@
             // 
             precoVendaVarejoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoVendaVarejo", true, DataSourceUpdateMode.OnValidation, null, "N3"));
             precoVendaVarejoTextBox.ForeColor = Color.Red;
-            precoVendaVarejoTextBox.Location = new Point(800, 611);
-            precoVendaVarejoTextBox.Margin = new Padding(4, 5, 4, 5);
+            precoVendaVarejoTextBox.Location = new Point(700, 458);
+            precoVendaVarejoTextBox.Margin = new Padding(4);
             precoVendaVarejoTextBox.Name = "precoVendaVarejoTextBox";
-            precoVendaVarejoTextBox.Size = new Size(161, 27);
+            precoVendaVarejoTextBox.Size = new Size(141, 23);
             precoVendaVarejoTextBox.TabIndex = 64;
             precoVendaVarejoTextBox.Enter += codProdutoTextBox_Enter;
             precoVendaVarejoTextBox.Leave += precoVendaVarejoTextBox_Leave;
@@ -818,10 +818,10 @@
             // lucroPrecoVendaVarejoTextBox
             // 
             lucroPrecoVendaVarejoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "LucroPrecoVendaVarejo", true));
-            lucroPrecoVendaVarejoTextBox.Location = new Point(460, 614);
-            lucroPrecoVendaVarejoTextBox.Margin = new Padding(4, 5, 4, 5);
+            lucroPrecoVendaVarejoTextBox.Location = new Point(402, 460);
+            lucroPrecoVendaVarejoTextBox.Margin = new Padding(4);
             lucroPrecoVendaVarejoTextBox.Name = "lucroPrecoVendaVarejoTextBox";
-            lucroPrecoVendaVarejoTextBox.Size = new Size(109, 27);
+            lucroPrecoVendaVarejoTextBox.Size = new Size(96, 23);
             lucroPrecoVendaVarejoTextBox.TabIndex = 60;
             lucroPrecoVendaVarejoTextBox.Enter += codProdutoTextBox_Enter;
             lucroPrecoVendaVarejoTextBox.Leave += icmsTextBox_Leave_1;
@@ -831,10 +831,10 @@
             ultimaDataAtualizacaoDateTimePicker.DataBindings.Add(new Binding("Text", produtoBindingSource, "UltimaDataAtualizacao", true));
             ultimaDataAtualizacaoDateTimePicker.Enabled = false;
             ultimaDataAtualizacaoDateTimePicker.Format = DateTimePickerFormat.Short;
-            ultimaDataAtualizacaoDateTimePicker.Location = new Point(13, 677);
-            ultimaDataAtualizacaoDateTimePicker.Margin = new Padding(4, 5, 4, 5);
+            ultimaDataAtualizacaoDateTimePicker.Location = new Point(11, 508);
+            ultimaDataAtualizacaoDateTimePicker.Margin = new Padding(4);
             ultimaDataAtualizacaoDateTimePicker.Name = "ultimaDataAtualizacaoDateTimePicker";
-            ultimaDataAtualizacaoDateTimePicker.Size = new Size(153, 27);
+            ultimaDataAtualizacaoDateTimePicker.Size = new Size(134, 23);
             ultimaDataAtualizacaoDateTimePicker.TabIndex = 66;
             ultimaDataAtualizacaoDateTimePicker.TabStop = false;
             ultimaDataAtualizacaoDateTimePicker.Value = new DateTime(2012, 6, 1, 15, 42, 0, 0);
@@ -844,10 +844,10 @@
             // ultimoPrecoCompraTextBox
             // 
             ultimoPrecoCompraTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "UltimoPrecoCompra", true, DataSourceUpdateMode.OnValidation, null, "N3"));
-            ultimoPrecoCompraTextBox.Location = new Point(13, 611);
-            ultimoPrecoCompraTextBox.Margin = new Padding(4, 5, 4, 5);
+            ultimoPrecoCompraTextBox.Location = new Point(11, 458);
+            ultimoPrecoCompraTextBox.Margin = new Padding(4);
             ultimoPrecoCompraTextBox.Name = "ultimoPrecoCompraTextBox";
-            ultimoPrecoCompraTextBox.Size = new Size(153, 27);
+            ultimoPrecoCompraTextBox.Size = new Size(134, 23);
             ultimoPrecoCompraTextBox.TabIndex = 56;
             ultimoPrecoCompraTextBox.Enter += codProdutoTextBox_Enter;
             ultimoPrecoCompraTextBox.Leave += icmsTextBox_Leave_1;
@@ -855,10 +855,10 @@
             // freteTextBox
             // 
             freteTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "Frete", true));
-            freteTextBox.Location = new Point(755, 535);
-            freteTextBox.Margin = new Padding(4, 5, 4, 5);
+            freteTextBox.Location = new Point(661, 401);
+            freteTextBox.Margin = new Padding(4);
             freteTextBox.Name = "freteTextBox";
-            freteTextBox.Size = new Size(93, 27);
+            freteTextBox.Size = new Size(82, 23);
             freteTextBox.TabIndex = 52;
             freteTextBox.Enter += codProdutoTextBox_Enter;
             freteTextBox.Leave += icmsTextBox_Leave_1;
@@ -866,10 +866,10 @@
             // ipiTextBox
             // 
             ipiTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "Ipi", true));
-            ipiTextBox.Location = new Point(644, 532);
-            ipiTextBox.Margin = new Padding(4, 5, 4, 5);
+            ipiTextBox.Location = new Point(564, 399);
+            ipiTextBox.Margin = new Padding(4);
             ipiTextBox.Name = "ipiTextBox";
-            ipiTextBox.Size = new Size(93, 27);
+            ipiTextBox.Size = new Size(82, 23);
             ipiTextBox.TabIndex = 50;
             ipiTextBox.Enter += codProdutoTextBox_Enter;
             ipiTextBox.Leave += icmsTextBox_Leave_1;
@@ -877,10 +877,10 @@
             // simplesTextBox
             // 
             simplesTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "Simples", true));
-            simplesTextBox.Location = new Point(505, 535);
-            simplesTextBox.Margin = new Padding(4, 5, 4, 5);
+            simplesTextBox.Location = new Point(442, 401);
+            simplesTextBox.Margin = new Padding(4);
             simplesTextBox.Name = "simplesTextBox";
-            simplesTextBox.Size = new Size(111, 27);
+            simplesTextBox.Size = new Size(98, 23);
             simplesTextBox.TabIndex = 48;
             simplesTextBox.Enter += codProdutoTextBox_Enter;
             simplesTextBox.Leave += icmsTextBox_Leave_1;
@@ -888,10 +888,10 @@
             // icmsTextBox
             // 
             icmsTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "Icms", true));
-            icmsTextBox.Location = new Point(207, 535);
-            icmsTextBox.Margin = new Padding(4, 5, 4, 5);
+            icmsTextBox.Location = new Point(181, 401);
+            icmsTextBox.Margin = new Padding(4);
             icmsTextBox.Name = "icmsTextBox";
-            icmsTextBox.Size = new Size(127, 27);
+            icmsTextBox.Size = new Size(112, 23);
             icmsTextBox.TabIndex = 44;
             icmsTextBox.Enter += codProdutoTextBox_Enter;
             icmsTextBox.Leave += icmsTextBox_Leave_1;
@@ -899,11 +899,11 @@
             // qtdProdutoAtacadoTextBox
             // 
             qtdProdutoAtacadoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "QtdProdutoAtacado", true));
-            qtdProdutoAtacadoTextBox.Location = new Point(176, 677);
-            qtdProdutoAtacadoTextBox.Margin = new Padding(4, 5, 4, 5);
+            qtdProdutoAtacadoTextBox.Location = new Point(154, 508);
+            qtdProdutoAtacadoTextBox.Margin = new Padding(4);
             qtdProdutoAtacadoTextBox.MaxLength = 8;
             qtdProdutoAtacadoTextBox.Name = "qtdProdutoAtacadoTextBox";
-            qtdProdutoAtacadoTextBox.Size = new Size(251, 27);
+            qtdProdutoAtacadoTextBox.Size = new Size(220, 23);
             qtdProdutoAtacadoTextBox.TabIndex = 68;
             qtdProdutoAtacadoTextBox.Enter += codProdutoTextBox_Enter;
             qtdProdutoAtacadoTextBox.Leave += icmsTextBox_Leave_1;
@@ -911,10 +911,10 @@
             // icms_substitutoTextBox
             // 
             icms_substitutoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "IcmsSubstituto", true));
-            icms_substitutoTextBox.Location = new Point(364, 535);
-            icms_substitutoTextBox.Margin = new Padding(4, 5, 4, 5);
+            icms_substitutoTextBox.Location = new Point(318, 401);
+            icms_substitutoTextBox.Margin = new Padding(4);
             icms_substitutoTextBox.Name = "icms_substitutoTextBox";
-            icms_substitutoTextBox.Size = new Size(112, 27);
+            icms_substitutoTextBox.Size = new Size(98, 23);
             icms_substitutoTextBox.TabIndex = 46;
             icms_substitutoTextBox.Enter += codProdutoTextBox_Enter;
             icms_substitutoTextBox.Leave += icmsTextBox_Leave_1;
@@ -922,21 +922,21 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(591, 582);
+            label2.Location = new Point(517, 436);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(160, 20);
+            label2.Size = new Size(126, 15);
             label2.TabIndex = 78;
             label2.Text = "Preço Varejo Sugestão:";
             // 
             // precoVarejoSugestaoTextBox
             // 
             precoVarejoSugestaoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoVendaVarejoSugestao", true, DataSourceUpdateMode.OnValidation, null, "N3"));
-            precoVarejoSugestaoTextBox.Location = new Point(592, 611);
-            precoVarejoSugestaoTextBox.Margin = new Padding(4, 5, 4, 5);
+            precoVarejoSugestaoTextBox.Location = new Point(518, 458);
+            precoVarejoSugestaoTextBox.Margin = new Padding(4);
             precoVarejoSugestaoTextBox.Name = "precoVarejoSugestaoTextBox";
             precoVarejoSugestaoTextBox.ReadOnly = true;
-            precoVarejoSugestaoTextBox.Size = new Size(176, 27);
+            precoVarejoSugestaoTextBox.Size = new Size(154, 23);
             precoVarejoSugestaoTextBox.TabIndex = 62;
             precoVarejoSugestaoTextBox.TabStop = false;
             precoVarejoSugestaoTextBox.Enter += codProdutoTextBox_Enter;
@@ -945,11 +945,11 @@
             // precoAtacadoSugestaoTextBox
             // 
             precoAtacadoSugestaoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoVendaAtacadoSugestao", true, DataSourceUpdateMode.OnValidation, null, "N3"));
-            precoAtacadoSugestaoTextBox.Location = new Point(592, 677);
-            precoAtacadoSugestaoTextBox.Margin = new Padding(4, 5, 4, 5);
+            precoAtacadoSugestaoTextBox.Location = new Point(518, 508);
+            precoAtacadoSugestaoTextBox.Margin = new Padding(4);
             precoAtacadoSugestaoTextBox.Name = "precoAtacadoSugestaoTextBox";
             precoAtacadoSugestaoTextBox.ReadOnly = true;
-            precoAtacadoSugestaoTextBox.Size = new Size(176, 27);
+            precoAtacadoSugestaoTextBox.Size = new Size(154, 23);
             precoAtacadoSugestaoTextBox.TabIndex = 72;
             precoAtacadoSugestaoTextBox.TabStop = false;
             precoAtacadoSugestaoTextBox.Enter += codProdutoTextBox_Enter;
@@ -958,10 +958,10 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(592, 651);
+            label3.Location = new Point(518, 488);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(174, 20);
+            label3.Size = new Size(138, 15);
             label3.TabIndex = 81;
             label3.Text = "Preço Atacado Sugestão:";
             // 
@@ -973,15 +973,15 @@
             tb_produto_lojaDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tb_produto_lojaDataGridView.Columns.AddRange(new DataGridViewColumn[] { nomeLoja, qtdEstoqueDataGridViewTextBoxColumn, qtdEstoqueAuxDataGridViewTextBoxColumn, localizacaoDataGridViewTextBoxColumn, localizacao2DataGridViewTextBoxColumn });
             tb_produto_lojaDataGridView.DataSource = produtoLojaBindingSource;
-            tb_produto_lojaDataGridView.Location = new Point(16, 777);
-            tb_produto_lojaDataGridView.Margin = new Padding(4, 5, 4, 5);
+            tb_produto_lojaDataGridView.Location = new Point(14, 583);
+            tb_produto_lojaDataGridView.Margin = new Padding(4);
             tb_produto_lojaDataGridView.MultiSelect = false;
             tb_produto_lojaDataGridView.Name = "tb_produto_lojaDataGridView";
             tb_produto_lojaDataGridView.ReadOnly = true;
             tb_produto_lojaDataGridView.RowHeadersWidth = 51;
             tb_produto_lojaDataGridView.ScrollBars = ScrollBars.Vertical;
             tb_produto_lojaDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tb_produto_lojaDataGridView.Size = new Size(947, 128);
+            tb_produto_lojaDataGridView.Size = new Size(829, 96);
             tb_produto_lojaDataGridView.TabIndex = 86;
             tb_produto_lojaDataGridView.TabStop = false;
             // 
@@ -1039,10 +1039,10 @@
             dataUltimoPedidoDateTimePicker.DataBindings.Add(new Binding("Value", produtoBindingSource, "DataUltimoPedido", true));
             dataUltimoPedidoDateTimePicker.Enabled = false;
             dataUltimoPedidoDateTimePicker.Format = DateTimePickerFormat.Short;
-            dataUltimoPedidoDateTimePicker.Location = new Point(12, 532);
-            dataUltimoPedidoDateTimePicker.Margin = new Padding(4, 5, 4, 5);
+            dataUltimoPedidoDateTimePicker.Location = new Point(10, 399);
+            dataUltimoPedidoDateTimePicker.Margin = new Padding(4);
             dataUltimoPedidoDateTimePicker.Name = "dataUltimoPedidoDateTimePicker";
-            dataUltimoPedidoDateTimePicker.Size = new Size(175, 27);
+            dataUltimoPedidoDateTimePicker.Size = new Size(154, 23);
             dataUltimoPedidoDateTimePicker.TabIndex = 42;
             dataUltimoPedidoDateTimePicker.TabStop = false;
             dataUltimoPedidoDateTimePicker.Enter += codProdutoTextBox_Enter;
@@ -1052,11 +1052,11 @@
             // 
             referenciaFabricanteTextBox.CharacterCasing = CharacterCasing.Upper;
             referenciaFabricanteTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "ReferenciaFabricante", true));
-            referenciaFabricanteTextBox.Location = new Point(9, 263);
-            referenciaFabricanteTextBox.Margin = new Padding(4, 5, 4, 5);
+            referenciaFabricanteTextBox.Location = new Point(8, 197);
+            referenciaFabricanteTextBox.Margin = new Padding(4);
             referenciaFabricanteTextBox.MaxLength = 20;
             referenciaFabricanteTextBox.Name = "referenciaFabricanteTextBox";
-            referenciaFabricanteTextBox.Size = new Size(177, 27);
+            referenciaFabricanteTextBox.Size = new Size(155, 23);
             referenciaFabricanteTextBox.TabIndex = 15;
             referenciaFabricanteTextBox.Enter += codProdutoTextBox_Enter;
             referenciaFabricanteTextBox.Leave += codProdutoTextBox_Leave;
@@ -1065,11 +1065,11 @@
             // 
             ncmshTextBox.CharacterCasing = CharacterCasing.Upper;
             ncmshTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "Ncmsh", true));
-            ncmshTextBox.Location = new Point(9, 462);
-            ncmshTextBox.Margin = new Padding(4, 5, 4, 5);
+            ncmshTextBox.Location = new Point(8, 346);
+            ncmshTextBox.Margin = new Padding(4);
             ncmshTextBox.MaxLength = 8;
             ncmshTextBox.Name = "ncmshTextBox";
-            ncmshTextBox.Size = new Size(144, 27);
+            ncmshTextBox.Size = new Size(126, 23);
             ncmshTextBox.TabIndex = 38;
             ncmshTextBox.Enter += codProdutoTextBox_Enter;
             ncmshTextBox.Leave += codProdutoTextBox_Leave;
@@ -1083,10 +1083,10 @@
             codCSTComboBox.DisplayMember = "Descricao";
             codCSTComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             codCSTComboBox.FormattingEnabled = true;
-            codCSTComboBox.Location = new Point(287, 460);
-            codCSTComboBox.Margin = new Padding(4, 5, 4, 5);
+            codCSTComboBox.Location = new Point(251, 345);
+            codCSTComboBox.Margin = new Padding(4);
             codCSTComboBox.Name = "codCSTComboBox";
-            codCSTComboBox.Size = new Size(675, 28);
+            codCSTComboBox.Size = new Size(591, 23);
             codCSTComboBox.TabIndex = 40;
             codCSTComboBox.ValueMember = "CodCST";
             codCSTComboBox.Enter += codProdutoTextBox_Enter;
@@ -1106,22 +1106,22 @@
             tb_produtoBindingNavigator.Dock = DockStyle.None;
             tb_produtoBindingNavigator.ImageScalingSize = new Size(20, 20);
             tb_produtoBindingNavigator.Items.AddRange(new ToolStripItem[] { bindingNavigatorMoveFirstItem, bindingNavigatorMovePreviousItem, bindingNavigatorSeparator, bindingNavigatorPositionItem, bindingNavigatorCountItem, bindingNavigatorSeparator1, bindingNavigatorMoveNextItem, bindingNavigatorMoveLastItem, bindingNavigatorSeparator2 });
-            tb_produtoBindingNavigator.Location = new Point(701, 66);
+            tb_produtoBindingNavigator.Location = new Point(613, 50);
             tb_produtoBindingNavigator.MoveFirstItem = bindingNavigatorMoveFirstItem;
             tb_produtoBindingNavigator.MoveLastItem = bindingNavigatorMoveLastItem;
             tb_produtoBindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
             tb_produtoBindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
             tb_produtoBindingNavigator.Name = "tb_produtoBindingNavigator";
             tb_produtoBindingNavigator.PositionItem = bindingNavigatorPositionItem;
-            tb_produtoBindingNavigator.Size = new Size(262, 27);
+            tb_produtoBindingNavigator.Size = new Size(220, 27);
             tb_produtoBindingNavigator.TabIndex = 89;
             tb_produtoBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
             bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            bindingNavigatorCountItem.Size = new Size(48, 24);
-            bindingNavigatorCountItem.Text = "de {0}";
+            bindingNavigatorCountItem.Size = new Size(35, 24);
+            bindingNavigatorCountItem.Text = "of {0}";
             bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
@@ -1130,7 +1130,7 @@
             bindingNavigatorMoveFirstItem.Image = (Image)resources.GetObject("bindingNavigatorMoveFirstItem.Image");
             bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            bindingNavigatorMoveFirstItem.Size = new Size(29, 24);
+            bindingNavigatorMoveFirstItem.Size = new Size(24, 24);
             bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -1139,7 +1139,7 @@
             bindingNavigatorMovePreviousItem.Image = (Image)resources.GetObject("bindingNavigatorMovePreviousItem.Image");
             bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            bindingNavigatorMovePreviousItem.Size = new Size(29, 24);
+            bindingNavigatorMovePreviousItem.Size = new Size(24, 24);
             bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
@@ -1152,7 +1152,7 @@
             bindingNavigatorPositionItem.AccessibleName = "Position";
             bindingNavigatorPositionItem.AutoSize = false;
             bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            bindingNavigatorPositionItem.Size = new Size(65, 27);
+            bindingNavigatorPositionItem.Size = new Size(57, 23);
             bindingNavigatorPositionItem.Text = "0";
             bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
@@ -1167,7 +1167,7 @@
             bindingNavigatorMoveNextItem.Image = (Image)resources.GetObject("bindingNavigatorMoveNextItem.Image");
             bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            bindingNavigatorMoveNextItem.Size = new Size(29, 24);
+            bindingNavigatorMoveNextItem.Size = new Size(24, 24);
             bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -1176,7 +1176,7 @@
             bindingNavigatorMoveLastItem.Image = (Image)resources.GetObject("bindingNavigatorMoveLastItem.Image");
             bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            bindingNavigatorMoveLastItem.Size = new Size(29, 24);
+            bindingNavigatorMoveLastItem.Size = new Size(24, 24);
             bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
@@ -1197,10 +1197,10 @@
             codSubgrupoComboBox.DisplayMember = "descricao";
             codSubgrupoComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             codSubgrupoComboBox.FormattingEnabled = true;
-            codSubgrupoComboBox.Location = new Point(485, 397);
-            codSubgrupoComboBox.Margin = new Padding(4, 5, 4, 5);
+            codSubgrupoComboBox.Location = new Point(424, 298);
+            codSubgrupoComboBox.Margin = new Padding(4);
             codSubgrupoComboBox.Name = "codSubgrupoComboBox";
-            codSubgrupoComboBox.Size = new Size(476, 28);
+            codSubgrupoComboBox.Size = new Size(417, 23);
             codSubgrupoComboBox.TabIndex = 31;
             codSubgrupoComboBox.ValueMember = "codSubgrupo";
             codSubgrupoComboBox.Enter += codProdutoTextBox_Enter;
@@ -1209,11 +1209,11 @@
             // precoCustoTextBox
             // 
             precoCustoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoCusto", true, DataSourceUpdateMode.OnValidation, null, "N3"));
-            precoCustoTextBox.Location = new Point(176, 609);
-            precoCustoTextBox.Margin = new Padding(4, 5, 4, 5);
+            precoCustoTextBox.Location = new Point(154, 457);
+            precoCustoTextBox.Margin = new Padding(4);
             precoCustoTextBox.Name = "precoCustoTextBox";
             precoCustoTextBox.ReadOnly = true;
-            precoCustoTextBox.Size = new Size(256, 27);
+            precoCustoTextBox.Size = new Size(224, 23);
             precoCustoTextBox.TabIndex = 58;
             precoCustoTextBox.TabStop = false;
             precoCustoTextBox.Enter += codProdutoTextBox_Enter;
@@ -1222,20 +1222,20 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(180, 585);
+            label4.Location = new Point(158, 439);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(90, 20);
+            label4.Size = new Size(74, 15);
             label4.TabIndex = 91;
             label4.Text = "Preço Custo:";
             // 
             // descontoTextBox
             // 
             descontoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "Desconto", true));
-            descontoTextBox.Location = new Point(861, 535);
-            descontoTextBox.Margin = new Padding(4, 5, 4, 5);
+            descontoTextBox.Location = new Point(753, 401);
+            descontoTextBox.Margin = new Padding(4);
             descontoTextBox.Name = "descontoTextBox";
-            descontoTextBox.Size = new Size(100, 27);
+            descontoTextBox.Size = new Size(88, 23);
             descontoTextBox.TabIndex = 54;
             descontoTextBox.Enter += codProdutoTextBox_Enter;
             descontoTextBox.Leave += icmsTextBox_Leave_1;
@@ -1244,30 +1244,30 @@
             // 
             unidadeCompraTextBox.CharacterCasing = CharacterCasing.Upper;
             unidadeCompraTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "UnidadeCompra", true));
-            unidadeCompraTextBox.Location = new Point(200, 328);
-            unidadeCompraTextBox.Margin = new Padding(4, 5, 4, 5);
+            unidadeCompraTextBox.Location = new Point(175, 246);
+            unidadeCompraTextBox.Margin = new Padding(4);
             unidadeCompraTextBox.MaxLength = 2;
             unidadeCompraTextBox.Name = "unidadeCompraTextBox";
-            unidadeCompraTextBox.Size = new Size(117, 27);
+            unidadeCompraTextBox.Size = new Size(103, 23);
             unidadeCompraTextBox.TabIndex = 23;
             // 
             // quantidadeEmbalagemTextBox
             // 
             quantidadeEmbalagemTextBox.CharacterCasing = CharacterCasing.Upper;
             quantidadeEmbalagemTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "QuantidadeEmbalagem", true));
-            quantidadeEmbalagemTextBox.Location = new Point(325, 326);
-            quantidadeEmbalagemTextBox.Margin = new Padding(4, 5, 4, 5);
+            quantidadeEmbalagemTextBox.Location = new Point(284, 244);
+            quantidadeEmbalagemTextBox.Margin = new Padding(4);
             quantidadeEmbalagemTextBox.Name = "quantidadeEmbalagemTextBox";
-            quantidadeEmbalagemTextBox.Size = new Size(107, 27);
+            quantidadeEmbalagemTextBox.Size = new Size(94, 23);
             quantidadeEmbalagemTextBox.TabIndex = 25;
             // 
             // lucroPrecoRevendaTextBox
             // 
             lucroPrecoRevendaTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "LucroPrecoRevenda", true));
-            lucroPrecoRevendaTextBox.Location = new Point(460, 737);
-            lucroPrecoRevendaTextBox.Margin = new Padding(4, 5, 4, 5);
+            lucroPrecoRevendaTextBox.Location = new Point(402, 553);
+            lucroPrecoRevendaTextBox.Margin = new Padding(4);
             lucroPrecoRevendaTextBox.Name = "lucroPrecoRevendaTextBox";
-            lucroPrecoRevendaTextBox.Size = new Size(116, 27);
+            lucroPrecoRevendaTextBox.Size = new Size(102, 23);
             lucroPrecoRevendaTextBox.TabIndex = 80;
             lucroPrecoRevendaTextBox.Enter += codProdutoTextBox_Enter;
             lucroPrecoRevendaTextBox.Leave += icmsTextBox_Leave_1;
@@ -1275,11 +1275,11 @@
             // precoRevendaSugestaoTextBox
             // 
             precoRevendaSugestaoTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoRevendaSugestao", true, DataSourceUpdateMode.OnValidation, null, "N3"));
-            precoRevendaSugestaoTextBox.Location = new Point(596, 737);
-            precoRevendaSugestaoTextBox.Margin = new Padding(4, 5, 4, 5);
+            precoRevendaSugestaoTextBox.Location = new Point(522, 553);
+            precoRevendaSugestaoTextBox.Margin = new Padding(4);
             precoRevendaSugestaoTextBox.Name = "precoRevendaSugestaoTextBox";
             precoRevendaSugestaoTextBox.ReadOnly = true;
-            precoRevendaSugestaoTextBox.Size = new Size(172, 27);
+            precoRevendaSugestaoTextBox.Size = new Size(151, 23);
             precoRevendaSugestaoTextBox.TabIndex = 82;
             precoRevendaSugestaoTextBox.TabStop = false;
             // 
@@ -1287,10 +1287,10 @@
             // 
             precoRevendaTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "PrecoRevenda", true, DataSourceUpdateMode.OnValidation, null, "N3"));
             precoRevendaTextBox.ForeColor = Color.Red;
-            precoRevendaTextBox.Location = new Point(795, 737);
-            precoRevendaTextBox.Margin = new Padding(4, 5, 4, 5);
+            precoRevendaTextBox.Location = new Point(696, 553);
+            precoRevendaTextBox.Margin = new Padding(4);
             precoRevendaTextBox.Name = "precoRevendaTextBox";
-            precoRevendaTextBox.Size = new Size(167, 27);
+            precoRevendaTextBox.Size = new Size(147, 23);
             precoRevendaTextBox.TabIndex = 84;
             precoRevendaTextBox.Enter += codProdutoTextBox_Enter;
             precoRevendaTextBox.Leave += icmsTextBox_Leave_1;
@@ -1299,30 +1299,30 @@
             // 
             codCSTTextBox.DataBindings.Add(new Binding("Text", produtoBindingSource, "CodCST", true));
             codCSTTextBox.Enabled = false;
-            codCSTTextBox.Location = new Point(165, 462);
-            codCSTTextBox.Margin = new Padding(4, 5, 4, 5);
+            codCSTTextBox.Location = new Point(144, 346);
+            codCSTTextBox.Margin = new Padding(4);
             codCSTTextBox.Name = "codCSTTextBox";
-            codCSTTextBox.Size = new Size(112, 27);
+            codCSTTextBox.Size = new Size(98, 23);
             codCSTTextBox.TabIndex = 95;
             codCSTTextBox.TabStop = false;
             // 
             // emPromocaoCheckBox
             // 
             emPromocaoCheckBox.DataBindings.Add(new Binding("CheckState", produtoBindingSource, "EmPromocao", true));
-            emPromocaoCheckBox.Location = new Point(836, 320);
-            emPromocaoCheckBox.Margin = new Padding(4, 5, 4, 5);
+            emPromocaoCheckBox.Location = new Point(732, 240);
+            emPromocaoCheckBox.Margin = new Padding(4);
             emPromocaoCheckBox.Name = "emPromocaoCheckBox";
-            emPromocaoCheckBox.Size = new Size(127, 37);
+            emPromocaoCheckBox.Size = new Size(111, 28);
             emPromocaoCheckBox.TabIndex = 28;
             emPromocaoCheckBox.Text = "Em Promoção";
             emPromocaoCheckBox.UseVisualStyleBackColor = true;
             // 
             // btnPontaEstoque
             // 
-            btnPontaEstoque.Location = new Point(631, 914);
-            btnPontaEstoque.Margin = new Padding(4, 5, 4, 5);
+            btnPontaEstoque.Location = new Point(552, 686);
+            btnPontaEstoque.Margin = new Padding(4);
             btnPontaEstoque.Name = "btnPontaEstoque";
-            btnPontaEstoque.Size = new Size(108, 35);
+            btnPontaEstoque.Size = new Size(94, 26);
             btnPontaEstoque.TabIndex = 6;
             btnPontaEstoque.Text = "F8 - Ponta";
             btnPontaEstoque.UseVisualStyleBackColor = true;
@@ -1330,10 +1330,10 @@
             // 
             // btnEstatistica
             // 
-            btnEstatistica.Location = new Point(739, 914);
-            btnEstatistica.Margin = new Padding(4, 5, 4, 5);
+            btnEstatistica.Location = new Point(647, 686);
+            btnEstatistica.Margin = new Padding(4);
             btnEstatistica.Name = "btnEstatistica";
-            btnEstatistica.Size = new Size(117, 35);
+            btnEstatistica.Size = new Size(102, 26);
             btnEstatistica.TabIndex = 7;
             btnEstatistica.Text = "F9 - Estatística";
             btnEstatistica.UseVisualStyleBackColor = true;
@@ -1344,18 +1344,18 @@
             dataUltimaMudancaPrecoDateTimePicker.DataBindings.Add(new Binding("Text", produtoBindingSource, "DataUltimaMudancaPreco", true));
             dataUltimaMudancaPrecoDateTimePicker.Enabled = false;
             dataUltimaMudancaPrecoDateTimePicker.Format = DateTimePickerFormat.Short;
-            dataUltimaMudancaPrecoDateTimePicker.Location = new Point(12, 740);
-            dataUltimaMudancaPrecoDateTimePicker.Margin = new Padding(4, 5, 4, 5);
+            dataUltimaMudancaPrecoDateTimePicker.Location = new Point(10, 555);
+            dataUltimaMudancaPrecoDateTimePicker.Margin = new Padding(4);
             dataUltimaMudancaPrecoDateTimePicker.Name = "dataUltimaMudancaPrecoDateTimePicker";
-            dataUltimaMudancaPrecoDateTimePicker.Size = new Size(155, 27);
+            dataUltimaMudancaPrecoDateTimePicker.Size = new Size(136, 23);
             dataUltimaMudancaPrecoDateTimePicker.TabIndex = 96;
             dataUltimaMudancaPrecoDateTimePicker.TabStop = false;
             // 
             // FrmProduto
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(967, 962);
+            ClientSize = new Size(875, 771);
             ControlBox = false;
             Controls.Add(lucroPrecoRevendaTextBox);
             Controls.Add(temVencimentoCheckBox);
@@ -1446,7 +1446,7 @@
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             KeyPreview = true;
-            Margin = new Padding(4, 5, 4, 5);
+            Margin = new Padding(4);
             Name = "FrmProduto";
             ShowInTaskbar = false;
             SizeGripStyle = SizeGripStyle.Hide;

@@ -298,8 +298,9 @@ namespace Negocio
                         GerenciadorSolicitacaoDocumento.Remover(saida.CodSaida);
                         foreach (Conta conta in listaContas)
                         {
-                            GerenciadorConta.Remover(conta.CodConta);
+                            context.Remove(new TbContum() { CodConta = conta.CodConta });
                         }
+                        context.SaveChanges();
                     }
 
                     if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) || saida.TipoSaida.Equals(Saida.TIPO_PRE_DEVOLUCAO_FORNECEDOR) ||
@@ -439,7 +440,7 @@ namespace Negocio
                     saida.CodSituacaoPagamentos = SituacaoPagamentos.ABERTA;
                     saida.CupomFiscal = "";
                     saida.TotalPago = 0;
-                    Atualizar(saida);
+                    Atualizar(saida, context);
                     context.Database.CommitTransaction();
                 }
                 catch (Exception e)
@@ -532,15 +533,12 @@ namespace Negocio
         /// </summary>
         /// <param name="codSaida"></param>
         /// <returns></returns>
-        public static Saida Obter(long codSaida)
+        public static Saida? Obter(long codSaida)
         {
             using (var context = new SaceContext())
             {
-                List<Saida> saidas = GetQuery(context).Where(saida => saida.CodSaida == codSaida).ToList();
-                if (saidas.Count == 1)
-                    return saidas[0];
-                else
-                    return null;
+                var saida = GetQuery(context).Where(saida => saida.CodSaida == codSaida).FirstOrDefault();
+                return saida;
             }
         }
 
@@ -984,7 +982,7 @@ namespace Negocio
                     if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && tipo_encerramento.Equals(Saida.TIPO_ORCAMENTO))
                     {
                         saida.TipoSaida = Saida.TIPO_ORCAMENTO;
-                        Atualizar(saida);
+                        Atualizar(saida, context);
                     }
                     else if (saida.TipoSaida.Equals(Saida.TIPO_ORCAMENTO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA)))
                     {
@@ -1003,7 +1001,7 @@ namespace Negocio
                         Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos, context);
 
                         saida.TotalLucro = saida.TotalAVista - somaPrecosCusto;
-                        Atualizar(saida);
+                        Atualizar(saida, context);
 
                         RegistrarPagamentosSaida(saidaPagamentos, saida, context);
                     }
@@ -1016,7 +1014,7 @@ namespace Negocio
                         Decimal somaPrecosCusto = RegistrarBaixaEstoque(saidaProdutos, context);
                         saida.TotalLucro = 0;
                         saida.TotalLucro -= somaPrecosCusto;
-                        Atualizar(saida);
+                        Atualizar(saida, context);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_DEPOSITO))
                     {
@@ -1029,7 +1027,7 @@ namespace Negocio
                         }
 
                         List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
-                        Atualizar(saida);
+                        Atualizar(saida, context);
                         RegistrarTransferenciaEstoque(saidaProdutos, UtilConfig.Default.LOJA_PADRAO, lojaDestino.CodLoja, context);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_RETORNO_DEPOSITO))
@@ -1039,14 +1037,14 @@ namespace Negocio
                         {
                             throw new NegocioException("Não pode ser feita transferência de produtos para a mesma loja.");
                         }
-                        Atualizar(saida);
+                        Atualizar(saida, context);
                         List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         RegistrarTransferenciaEstoque(saidaProdutos, saida.CodLojaOrigem, UtilConfig.Default.LOJA_PADRAO, context);
                     }
                     else if (tipo_encerramento.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
                     {
                         saida.TipoSaida = Saida.TIPO_DEVOLUCAO_FORNECEDOR;
-                        Atualizar(saida);
+                        Atualizar(saida, context);
                         List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         RegistrarBaixaEstoque(saidaProdutos, context);
                         AtualizarCfopProdutosDevolucao(saidaProdutos, saida, context);
@@ -1054,7 +1052,7 @@ namespace Negocio
                     else if (tipo_encerramento.Equals(Saida.TIPO_REMESSA_CONSERTO))
                     {
                         saida.TipoSaida = Saida.TIPO_REMESSA_CONSERTO;
-                        Atualizar(saida);
+                        Atualizar(saida, context);
                         List<SaidaProduto> saidaProdutos = GerenciadorSaidaProduto.ObterPorSaida(saida.CodSaida);
                         RegistrarBaixaEstoque(saidaProdutos, context);
                         //AtualizarCfopProdutosDevolucao(saidaProdutos, saida);

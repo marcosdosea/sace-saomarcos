@@ -143,15 +143,19 @@ namespace Negocio
                 {
                     var query = from solicitacaoSaida in context.TbSolicitacaoSaida
                                 where solicitacaoSaida.CodSaida == codSaida
-                                select solicitacaoSaida;
-                    var solicitacao_saida = query.ToList().FirstOrDefault();
-                    if (solicitacao_saida != null)
+                                select new
+                                {
+                                    CodSolicitacao = solicitacaoSaida.CodSolicitacao,
+                                    EmProcessamento = solicitacaoSaida.CodSolicitacaoNavigation.EmProcessamento
+                                };
+                    var solicitacaoSaidaProcessamento = query.FirstOrDefault();
+                    if (solicitacaoSaidaProcessamento != null)
                     {
-                        if (solicitacao_saida.CodSolicitacaoNavigation.EmProcessamento)
+                        if (solicitacaoSaidaProcessamento.EmProcessamento)
                         {
                             throw new NegocioException("Não é possível editar/remover esse pedido. Documento sendo autorizado/impresso. Favor aguardar até a conclusão do processamento.");
                         }
-                        var solicitacaoDocumento = new TbSolicitacaoDocumento() { CodSolicitacao = solicitacao_saida.CodSolicitacao };
+                        var solicitacaoDocumento = new TbSolicitacaoDocumento() { CodSolicitacao = solicitacaoSaidaProcessamento.CodSolicitacao };
                         context.Remove(solicitacaoDocumento);
                         context.SaveChanges();
                     }

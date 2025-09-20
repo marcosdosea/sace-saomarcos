@@ -1413,6 +1413,16 @@ namespace Negocio
                     transp.transporta = new TNFeInfNFeTranspTransporta();
                     Pessoa transportadora = GerenciadorPessoa.Obter(saida.CodEmpresaFrete).FirstOrDefault();
                     transporta.IE = transportadora.Ie;
+                    if (transportadora.CpfCnpj.Length > 11)
+                    {
+                        transporta.Item = transportadora.CpfCnpj;
+                        transporta.ItemElementName = ItemChoiceType8.CNPJ;
+                    }
+                    else if (transportadora.CpfCnpj.Length == 11)
+                    {
+                        transporta.Item = transportadora.CpfCnpj;
+                        transporta.ItemElementName = ItemChoiceType8.CPF;
+                    }
                     transporta.UF = (TUf)Enum.Parse(typeof(TUf), transportadora.Uf);
                     transporta.UFSpecified = true;
                     transporta.xEnder = transportadora.Endereco.Trim();
@@ -1477,23 +1487,53 @@ namespace Negocio
                     foreach (SolicitacaoPagamento pagamento in listaSaidaPagamentos)
                     {
                         TNFeInfNFePagDetPag infNfePag = new TNFeInfNFePagDetPag();
-                        //infNfePag.card = new TNFeInfNFePagCard() { cAut = "XX", CNPJ = "xxx", tBand = TNFeInfNFePagCardTBand.Item99 }; //01-Visa 02-Master 03-American 04-Sorocred 99-Outros
-                        if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
+
+                        infNfePag.vPag = formataValorNFe(pagamento.Valor);
+                        infNfePag.dPag = DateTime.Now.ToString("yyyy-MM-dd");
+                        infNfePag.CNPJPag = loja.Cnpj.Trim();
+                        infNfePag.UFPag = (TUfEmi)Enum.Parse(typeof(TUfEmi), pessoaloja.Uf);
+
+                        // Melhoria: Simplificação do bloco condicional para atribuição de indPag
+                        if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO || pagamento.CodFormaPagamento == FormaPagamento.DEPOSITO_PIX)
                         {
-                            infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item01; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
-                            infNfePag.vPag = formataValorNFe(pagamento.Valor);
-                        }
-                        else if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
-                        {
-                            infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item03; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
-                            infNfePag.vPag = formataValorNFe(pagamento.Valor);
+                            infNfePag.indPag = TNFeInfNFePagDetPagIndPag.Item0; // 0-Pagamento à vista
                         }
                         else
                         {
-                            infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item04; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 99-Outros
-                            infNfePag.vPag = formataValorNFe(pagamento.Valor);
+                            infNfePag.indPag = TNFeInfNFePagDetPagIndPag.Item1; // 1-Pagamento à prazo
                         }
 
+                        var cartaoCredito = GerenciadorCartaoCredito.Obter(pagamento.CodCartao).ElementAtOrDefault(0);
+
+                        if (pagamento.CodFormaPagamento == FormaPagamento.DINHEIRO)
+                        {
+                            infNfePag.tPag = "01"; //01-DINHEIRO
+                        }
+                        else if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO && cartaoCredito.TipoCartao.Equals("CREDITO"))
+                        {
+                            infNfePag.tPag = "03"; //03-Cartao Credito
+                        }
+                        else if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO && cartaoCredito.TipoCartao.Equals("DEBITO"))
+                        {
+                            infNfePag.tPag = "04"; //04-Cartao DEbito
+                        }
+                        else if (pagamento.CodFormaPagamento == FormaPagamento.BOLETO)
+                        {
+                            infNfePag.tPag = "15"; //15-Boleto Bancario    
+                        }
+                        else if (pagamento.CodFormaPagamento == FormaPagamento.DEPOSITO_PIX)
+                        {
+                            infNfePag.tPag = "17"; //17-PIX
+                        }
+                        if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
+                        {
+                            infNfePag.card = new TNFeInfNFePagDetPagCard();
+                            infNfePag.card.tpIntegra = TNFeInfNFePagDetPagCardTpIntegra.Item2; // 2= Pagamento não integrado com o sistema de automação
+                            var pessoa = GerenciadorPessoa.Obter(cartaoCredito.CodPessoa).ElementAtOrDefault(0);
+                            infNfePag.card.CNPJ = pessoa.CpfCnpj.Trim();
+                            infNfePag.card.tBand = cartaoCredito.Mapeamento;
+                            //infNfePag.card.cAut = ""; // código de autorização da operadora do cartão, com no máximo 20 caracteres
+                        }
                         nfe.infNFe.pag.detPag[countPag] = infNfePag;
                         countPag++;
                     }
@@ -1504,8 +1544,10 @@ namespace Negocio
                     nfe.infNFe.pag.detPag = new TNFeInfNFePagDetPag[1];
 
                     TNFeInfNFePagDetPag infNfePag = new TNFeInfNFePagDetPag();
-                    infNfePag.tPag = TNFeInfNFePagDetPagTPag.Item90; //01-DINHEIRO 02-cheque 03-Cartao Credito 04-Cartao DEbito 05-Credito Loja 90-Sem pagamento
+                    infNfePag.tPag = "90"; // 90-Sem pagamento
                     infNfePag.vPag = formataValorNFe(0);
+                    infNfePag.CNPJPag = loja.Cnpj.Trim();
+                    infNfePag.UFPag = (TUfEmi)Enum.Parse(typeof(TUfEmi), pessoaloja.Uf);
                     nfe.infNFe.pag.detPag[0] = infNfePag;
                 }
 
@@ -2300,7 +2342,7 @@ namespace Negocio
 
                         string chave = files[i].Name.Substring(0, 44);
                         NfeControle nfeControle = ObterPorChave(chave).ElementAtOrDefault(0);
-                        if (nfeControle != null)
+                        if (nfeControle == null)
                         {
                             XmlSerializer serializer = new XmlSerializer(typeof(TRetConsSitNFe));
                             TRetConsSitNFe retConsulta = (TRetConsSitNFe)serializer.Deserialize(xmlReaderRetorno);

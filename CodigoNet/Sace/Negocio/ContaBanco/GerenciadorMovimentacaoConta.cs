@@ -91,43 +91,37 @@ namespace Negocio
         /// Remover todas as movimentacoes de uma conta
         /// </summary>
         /// <param name="conta"></param>
-        public static void RemoverPorConta(long codConta)
+        public static void RemoverPorConta(long codConta, SaceContext context)
         {
-            using (var context = new SaceContext())
+            try
             {
-                var transaction = context.Database.BeginTransaction();
-                try
+                var query = from movimentacaoSet in context.TbMovimentacaoConta.Include(m => m.CodContaNavigation)
+                            where movimentacaoSet.CodConta == codConta
+                            select movimentacaoSet;
+                var movimentacoes = query.ToList();
+                foreach (TbMovimentacaoContum _movimentacaoConta in movimentacoes)
                 {
-                    var query = from movimentacaoSet in context.TbMovimentacaoConta
-                                where movimentacaoSet.CodConta == codConta
-                                select movimentacaoSet;
-                    foreach (TbMovimentacaoContum _movimentacaoConta in query)
-                    {
-                        // Atualiza status da conta, entrada e saída 
-                        var query2 = from conta in context.TbConta
-                                     where conta.CodConta == _movimentacaoConta.CodConta
-                                     select conta;
-                        var _conta = query2.FirstOrDefault();
+                    var _conta = _movimentacaoConta.CodContaNavigation;
 
-                        context.Remove(_movimentacaoConta);
+                    if (_conta != null)
+                    {
+                        context.Remove(_conta);
                         context.SaveChanges();
 
-                        if (_conta != null)
-                        {
-                            AtualizaSituacaoConta(_conta, _movimentacaoConta, true, context);
-                            AtualizaSituacaoPagamentosEntrada(_conta, context);
-                            AtualizaSituacaoPagamentosSaida(_conta, _movimentacaoConta, true, context);
-                        }
+                        AtualizaSituacaoConta(_conta, _movimentacaoConta, true, context);
+                        AtualizaSituacaoPagamentosEntrada(_conta, context);
+                        AtualizaSituacaoPagamentosSaida(_conta, _movimentacaoConta, true, context);
                     }
-                    transaction.Commit();
                 }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    throw new DadosException("Movimentação de Conta", e.Message, e);
-                }
+
+            }
+            catch (Exception e)
+            {
+                throw new DadosException("Movimentação de Conta", e.Message, e);
             }
         }
+
+
 
         /// <summary>
         /// Query Geral para obter dados das movimentacoes
@@ -224,7 +218,7 @@ namespace Negocio
         /// <returns></returns>
         public static IQueryable<MovimentacaoPeriodo> ObterMovimentacaoContaPeriodo(DateTime dataInicio, DateTime dataFim)
         {
-           DateTime dataBuscaInicio = dataInicio.Date;
+            DateTime dataBuscaInicio = dataInicio.Date;
             DateTime dataBuscaFim = dataFim.Date.AddDays(1).AddMinutes(-1);
 
             using (var context = new SaceContext())

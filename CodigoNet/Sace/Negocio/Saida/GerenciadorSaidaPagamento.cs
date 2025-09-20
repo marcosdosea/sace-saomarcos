@@ -119,8 +119,8 @@ namespace Negocio
 
                             foreach (Conta conta in contas)
                             {
-                                GerenciadorMovimentacaoConta.RemoverPorConta(conta.CodConta);
-                                GerenciadorConta.Remover(conta.CodConta);
+                                GerenciadorMovimentacaoConta.RemoverPorConta(conta.CodConta, context);
+                                context.Remove(new TbContum() { CodConta = conta.CodConta });
                             }
                         }
                         var query = from saidaPagamentoSet in context.TbSaidaFormaPagamentos
