@@ -1395,6 +1395,16 @@ namespace Negocio
                     transp.transporta = new TNFeInfNFeTranspTransporta();
                     Pessoa transportadora = GerenciadorPessoa.GetInstance().Obter(saida.CodEmpresaFrete).ElementAtOrDefault(0);
                     transporta.IE = transportadora.Ie;
+                    if (transportadora.CpfCnpj.Length > 11)
+                    {
+                        transporta.Item = transportadora.CpfCnpj;
+                        transporta.ItemElementName = ItemChoiceType8.CNPJ;
+                    }
+                    else if (transportadora.CpfCnpj.Length == 11)
+                    {
+                        transporta.Item = transportadora.CpfCnpj;
+                        transporta.ItemElementName = ItemChoiceType8.CPF;
+                    }
                     transporta.UF = (TUf)Enum.Parse(typeof(TUf), transportadora.Uf);
                     transporta.UFSpecified = true;
                     transporta.xEnder = transportadora.Endereco.Trim();
@@ -2331,6 +2341,7 @@ namespace Negocio
                                 nfeControle.SituacaoProtocoloUso = retConsulta.cStat;
                                 nfeControle.SituacaoNfe = NfeControle.SITUACAO_CANCELADA;
                             }
+
                             else
                             {
                                 TProtNFeInfProt protocoloNfe = retConsulta.protNFe.infProt;
