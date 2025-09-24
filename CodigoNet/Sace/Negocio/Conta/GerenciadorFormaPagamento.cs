@@ -43,7 +43,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _formaPagamento = context.TbFormaPagamentos.FirstOrDefault(fp => fp.CodFormaPagamento == formaPagamento.CodFormaPagamento);
+                    var _formaPagamento = context.TbFormaPagamentos.Find(formaPagamento.CodFormaPagamento);
                     if (_formaPagamento != null)
                     {
                         Atribuir(formaPagamento, _formaPagamento);
@@ -72,7 +72,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _formaPagamento = context.TbFormaPagamentos.FirstOrDefault(fp => fp.CodFormaPagamento == codFormaPagamento);
+                    var _formaPagamento = context.TbFormaPagamentos.Find(codFormaPagamento);
                     if (_formaPagamento != null)
                     {
                         context.Remove(_formaPagamento);

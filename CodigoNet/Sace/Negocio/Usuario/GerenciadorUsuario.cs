@@ -45,7 +45,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _usuario = context.TbUsuarios.FirstOrDefault(u => u.CodPessoa == usuario.CodPessoa);
+                    var _usuario = context.TbUsuarios.Find(usuario.CodPessoa);
                     if (_usuario != null)
                     {
                         _usuario.CodPerfil = usuario.CodPerfil;
@@ -57,7 +57,7 @@ namespace Negocio
                     }
                     else
                     {
-                        throw new NegocioException("Usuário não encontrado para alteração.");
+                        throw new NegocioException("Pessoa associada a esse usuário não pode ser trocada. Exclua o usuário caso ele não esteja mais ativo e cadastre um novo.");
                     }
                 }
             }

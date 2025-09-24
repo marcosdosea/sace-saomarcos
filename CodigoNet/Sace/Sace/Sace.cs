@@ -8,7 +8,7 @@ using Util;
 
 namespace Sace
 {
-    public partial class Principal : Form
+    public partial class Sace : Form
     {
 
 
@@ -20,7 +20,7 @@ namespace Sace
         private readonly Loja lojaMatriz;
         private readonly Loja lojaDeposito;
 
-        public Principal()
+        public Sace()
         {
             InitializeComponent();
             
@@ -329,8 +329,8 @@ namespace Sace
             {
                 GerenciadorSolicitacaoDocumento.EnviarProximoNF(SERVIDOR_NFE, DocumentoFiscal.TipoSolicitacao.NFE);
                 GerenciadorSolicitacaoDocumento.EnviarProximoNF(SERVIDOR_NFE, DocumentoFiscal.TipoSolicitacao.NFCE);
-                GerenciadorNFe.ProcessarSolicitacoesCancelamento();
-                GerenciadorNFe.ProcessaSolicitacaoConsultaNfe();
+                GerenciadorNFe.EnivarSolicitacoesCancelamento();
+                GerenciadorNFe.EnviarSolicitacaoConsultaNfe();
                 GerenciadorProduto.AtualizarSituacaoProdutoServidor(SERVIDOR_NFE);
             }
         }

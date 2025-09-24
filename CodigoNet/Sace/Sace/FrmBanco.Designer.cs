@@ -138,7 +138,7 @@ namespace Sace
             // 
             // btnNovo
             // 
-            btnNovo.Location = new Point(92, 144);
+            btnNovo.Location = new Point(93, 144);
             btnNovo.Margin = new Padding(4, 3, 4, 3);
             btnNovo.Name = "btnNovo";
             btnNovo.Size = new Size(88, 27);
@@ -276,7 +276,7 @@ namespace Sace
             tb_bancoBindingNavigator.Dock = DockStyle.None;
             tb_bancoBindingNavigator.ImageScalingSize = new Size(20, 20);
             tb_bancoBindingNavigator.Items.AddRange(new ToolStripItem[] { bindingNavigatorMoveFirstItem, bindingNavigatorMovePreviousItem, bindingNavigatorSeparator, bindingNavigatorPositionItem, bindingNavigatorCountItem, bindingNavigatorSeparator1, bindingNavigatorMoveNextItem, bindingNavigatorMoveLastItem, bindingNavigatorSeparator2 });
-            tb_bancoBindingNavigator.Location = new Point(317, 46);
+            tb_bancoBindingNavigator.Location = new Point(327, 47);
             tb_bancoBindingNavigator.MoveFirstItem = bindingNavigatorMoveFirstItem;
             tb_bancoBindingNavigator.MoveLastItem = bindingNavigatorMoveLastItem;
             tb_bancoBindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
@@ -291,7 +291,7 @@ namespace Sace
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(552, 182);
+            ClientSize = new Size(555, 182);
             Controls.Add(nomeLabel);
             Controls.Add(tb_bancoBindingNavigator);
             Controls.Add(nomeTextBox);

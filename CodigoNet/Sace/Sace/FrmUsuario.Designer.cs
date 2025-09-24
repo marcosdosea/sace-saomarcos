@@ -28,389 +28,399 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label senhaLabel;
-            System.Windows.Forms.Label senhaLabel1;
-            System.Windows.Forms.Label perfilLabel;
-            System.Windows.Forms.Label codPessoaLabel;
-            System.Windows.Forms.Label loginLabel;
+            components = new System.ComponentModel.Container();
+            Label senhaLabel;
+            Label senhaLabel1;
+            Label perfilLabel;
+            Label codPessoaLabel;
+            Label loginLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmUsuario));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.usuarioLabel = new System.Windows.Forms.Label();
-            this.usuarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_usuarioBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.confirmarSenhaTextBox = new System.Windows.Forms.TextBox();
-            this.senhaTextBox = new System.Windows.Forms.TextBox();
-            this.perfilComboBox = new System.Windows.Forms.ComboBox();
-            this.perfilBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.codPessoaComboBox = new System.Windows.Forms.ComboBox();
-            this.loginTextBox = new System.Windows.Forms.TextBox();
-            senhaLabel = new System.Windows.Forms.Label();
-            senhaLabel1 = new System.Windows.Forms.Label();
-            perfilLabel = new System.Windows.Forms.Label();
-            codPessoaLabel = new System.Windows.Forms.Label();
-            loginLabel = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.usuarioBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_usuarioBindingNavigator)).BeginInit();
-            this.tb_usuarioBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.perfilBindingSource)).BeginInit();
-            this.SuspendLayout();
+            panel1 = new Panel();
+            usuarioLabel = new Label();
+            usuarioBindingSource = new BindingSource(components);
+            tb_usuarioBindingNavigator = new BindingNavigator(components);
+            bindingNavigatorCountItem = new ToolStripLabel();
+            bindingNavigatorMoveFirstItem = new ToolStripButton();
+            bindingNavigatorMovePreviousItem = new ToolStripButton();
+            bindingNavigatorSeparator = new ToolStripSeparator();
+            bindingNavigatorPositionItem = new ToolStripTextBox();
+            bindingNavigatorSeparator1 = new ToolStripSeparator();
+            bindingNavigatorMoveNextItem = new ToolStripButton();
+            bindingNavigatorMoveLastItem = new ToolStripButton();
+            bindingNavigatorSeparator2 = new ToolStripSeparator();
+            btnSalvar = new Button();
+            btnBuscar = new Button();
+            btnCancelar = new Button();
+            btnNovo = new Button();
+            btnExcluir = new Button();
+            btnEditar = new Button();
+            pessoaBindingSource = new BindingSource(components);
+            confirmarSenhaTextBox = new TextBox();
+            senhaTextBox = new TextBox();
+            perfilComboBox = new ComboBox();
+            perfilBindingSource = new BindingSource(components);
+            codPessoaComboBox = new ComboBox();
+            loginTextBox = new TextBox();
+            senhaLabel = new Label();
+            senhaLabel1 = new Label();
+            perfilLabel = new Label();
+            codPessoaLabel = new Label();
+            loginLabel = new Label();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tb_usuarioBindingNavigator).BeginInit();
+            tb_usuarioBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)perfilBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // senhaLabel
             // 
             senhaLabel.AutoSize = true;
-            senhaLabel.Location = new System.Drawing.Point(239, 164);
+            senhaLabel.Location = new Point(279, 189);
+            senhaLabel.Margin = new Padding(4, 0, 4, 0);
             senhaLabel.Name = "senhaLabel";
-            senhaLabel.Size = new System.Drawing.Size(88, 13);
+            senhaLabel.Size = new Size(99, 15);
             senhaLabel.TabIndex = 33;
             senhaLabel.Text = "Confirmar Senha:";
             // 
             // senhaLabel1
             // 
             senhaLabel1.AutoSize = true;
-            senhaLabel1.Location = new System.Drawing.Point(7, 164);
+            senhaLabel1.Location = new Point(8, 189);
+            senhaLabel1.Margin = new Padding(4, 0, 4, 0);
             senhaLabel1.Name = "senhaLabel1";
-            senhaLabel1.Size = new System.Drawing.Size(41, 13);
+            senhaLabel1.Size = new Size(42, 15);
             senhaLabel1.TabIndex = 37;
             senhaLabel1.Text = "Senha:";
             // 
             // perfilLabel
             // 
             perfilLabel.AutoSize = true;
-            perfilLabel.Location = new System.Drawing.Point(7, 123);
+            perfilLabel.Location = new Point(8, 142);
+            perfilLabel.Margin = new Padding(4, 0, 4, 0);
             perfilLabel.Name = "perfilLabel";
-            perfilLabel.Size = new System.Drawing.Size(33, 13);
+            perfilLabel.Size = new Size(37, 15);
             perfilLabel.TabIndex = 40;
             perfilLabel.Text = "Perfil:";
             // 
             // codPessoaLabel
             // 
             codPessoaLabel.AutoSize = true;
-            codPessoaLabel.Location = new System.Drawing.Point(7, 73);
+            codPessoaLabel.Location = new Point(8, 84);
+            codPessoaLabel.Margin = new Padding(4, 0, 4, 0);
             codPessoaLabel.Name = "codPessoaLabel";
-            codPessoaLabel.Size = new System.Drawing.Size(45, 13);
+            codPessoaLabel.Size = new Size(46, 15);
             codPessoaLabel.TabIndex = 40;
             codPessoaLabel.Text = "Pessoa:";
             // 
             // loginLabel
             // 
             loginLabel.AutoSize = true;
-            loginLabel.Location = new System.Drawing.Point(331, 123);
+            loginLabel.Location = new Point(386, 142);
+            loginLabel.Margin = new Padding(4, 0, 4, 0);
             loginLabel.Name = "loginLabel";
-            loginLabel.Size = new System.Drawing.Size(36, 13);
+            loginLabel.Size = new Size(40, 15);
             loginLabel.TabIndex = 41;
             loginLabel.Text = "Login:";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.Controls.Add(this.usuarioLabel);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(477, 41);
-            this.panel1.TabIndex = 21;
+            panel1.BackColor = Color.SteelBlue;
+            panel1.Controls.Add(usuarioLabel);
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(556, 47);
+            panel1.TabIndex = 21;
             // 
             // usuarioLabel
             // 
-            this.usuarioLabel.AutoSize = true;
-            this.usuarioLabel.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usuarioLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.usuarioLabel.Location = new System.Drawing.Point(3, 9);
-            this.usuarioLabel.Name = "usuarioLabel";
-            this.usuarioLabel.Size = new System.Drawing.Size(165, 23);
-            this.usuarioLabel.TabIndex = 0;
-            this.usuarioLabel.Text = "Cadastro de Usuários";
+            usuarioLabel.AutoSize = true;
+            usuarioLabel.Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            usuarioLabel.ForeColor = SystemColors.ControlLightLight;
+            usuarioLabel.Location = new Point(4, 10);
+            usuarioLabel.Margin = new Padding(4, 0, 4, 0);
+            usuarioLabel.Name = "usuarioLabel";
+            usuarioLabel.Size = new Size(165, 23);
+            usuarioLabel.TabIndex = 0;
+            usuarioLabel.Text = "Cadastro de Usuários";
             // 
             // usuarioBindingSource
             // 
-            this.usuarioBindingSource.DataSource = typeof(Dominio.Usuario);
+            usuarioBindingSource.DataSource = typeof(Dominio.Usuario);
             // 
             // tb_usuarioBindingNavigator
             // 
-            this.tb_usuarioBindingNavigator.AddNewItem = null;
-            this.tb_usuarioBindingNavigator.BindingSource = this.usuarioBindingSource;
-            this.tb_usuarioBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.tb_usuarioBindingNavigator.DeleteItem = null;
-            this.tb_usuarioBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
-            this.tb_usuarioBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2});
-            this.tb_usuarioBindingNavigator.Location = new System.Drawing.Point(274, 42);
-            this.tb_usuarioBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.tb_usuarioBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.tb_usuarioBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.tb_usuarioBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.tb_usuarioBindingNavigator.Name = "tb_usuarioBindingNavigator";
-            this.tb_usuarioBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_usuarioBindingNavigator.Size = new System.Drawing.Size(209, 25);
-            this.tb_usuarioBindingNavigator.TabIndex = 22;
-            this.tb_usuarioBindingNavigator.Text = "bindingNavigator1";
+            tb_usuarioBindingNavigator.AddNewItem = null;
+            tb_usuarioBindingNavigator.BindingSource = usuarioBindingSource;
+            tb_usuarioBindingNavigator.CountItem = bindingNavigatorCountItem;
+            tb_usuarioBindingNavigator.DeleteItem = null;
+            tb_usuarioBindingNavigator.Dock = DockStyle.None;
+            tb_usuarioBindingNavigator.Items.AddRange(new ToolStripItem[] { bindingNavigatorMoveFirstItem, bindingNavigatorMovePreviousItem, bindingNavigatorSeparator, bindingNavigatorPositionItem, bindingNavigatorCountItem, bindingNavigatorSeparator1, bindingNavigatorMoveNextItem, bindingNavigatorMoveLastItem, bindingNavigatorSeparator2 });
+            tb_usuarioBindingNavigator.Location = new Point(320, 48);
+            tb_usuarioBindingNavigator.MoveFirstItem = bindingNavigatorMoveFirstItem;
+            tb_usuarioBindingNavigator.MoveLastItem = bindingNavigatorMoveLastItem;
+            tb_usuarioBindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
+            tb_usuarioBindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
+            tb_usuarioBindingNavigator.Name = "tb_usuarioBindingNavigator";
+            tb_usuarioBindingNavigator.PositionItem = bindingNavigatorPositionItem;
+            tb_usuarioBindingNavigator.Size = new Size(217, 25);
+            tb_usuarioBindingNavigator.TabIndex = 22;
+            tb_usuarioBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            bindingNavigatorCountItem.Size = new Size(35, 22);
+            bindingNavigatorCountItem.Text = "of {0}";
+            bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
             // 
-            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
+            bindingNavigatorMoveFirstItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveFirstItem.Image = (Image)resources.GetObject("bindingNavigatorMoveFirstItem.Image");
+            bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveFirstItem.Size = new Size(23, 22);
+            bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
             // 
-            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
+            bindingNavigatorMovePreviousItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMovePreviousItem.Image = (Image)resources.GetObject("bindingNavigatorMovePreviousItem.Image");
+            bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMovePreviousItem.Size = new Size(23, 22);
+            bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
-            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            bindingNavigatorSeparator.Size = new Size(6, 25);
             // 
             // bindingNavigatorPositionItem
             // 
-            this.bindingNavigatorPositionItem.AccessibleName = "Position";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+            bindingNavigatorPositionItem.AccessibleName = "Position";
+            bindingNavigatorPositionItem.AutoSize = false;
+            bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            bindingNavigatorPositionItem.Size = new Size(58, 23);
+            bindingNavigatorPositionItem.Text = "0";
+            bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // bindingNavigatorSeparator1
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            bindingNavigatorSeparator1.Size = new Size(6, 25);
             // 
             // bindingNavigatorMoveNextItem
             // 
-            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
+            bindingNavigatorMoveNextItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveNextItem.Image = (Image)resources.GetObject("bindingNavigatorMoveNextItem.Image");
+            bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveNextItem.Size = new Size(23, 22);
+            bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
             // 
-            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
+            bindingNavigatorMoveLastItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveLastItem.Image = (Image)resources.GetObject("bindingNavigatorMoveLastItem.Image");
+            bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveLastItem.Size = new Size(23, 22);
+            bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            bindingNavigatorSeparator2.Size = new Size(6, 25);
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(306, 210);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-            this.btnSalvar.TabIndex = 27;
-            this.btnSalvar.Text = "F6 - Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            btnSalvar.Location = new Point(358, 242);
+            btnSalvar.Margin = new Padding(4, 3, 4, 3);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(94, 27);
+            btnSalvar.TabIndex = 27;
+            btnSalvar.Text = "F6 - Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(6, 210);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 23;
-            this.btnBuscar.Text = "F2 - Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            btnBuscar.Location = new Point(7, 242);
+            btnBuscar.Margin = new Padding(4, 3, 4, 3);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(88, 27);
+            btnBuscar.TabIndex = 23;
+            btnBuscar.Text = "F2 - Buscar";
+            btnBuscar.TextAlign = ContentAlignment.MiddleLeft;
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(387, 210);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 28;
-            this.btnCancelar.Text = "Esc - Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            btnCancelar.Location = new Point(452, 242);
+            btnCancelar.Margin = new Padding(4, 3, 4, 3);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(98, 27);
+            btnCancelar.TabIndex = 28;
+            btnCancelar.Text = "Esc - Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(81, 210);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 23);
-            this.btnNovo.TabIndex = 24;
-            this.btnNovo.Text = "F3 - Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
+            btnNovo.Location = new Point(95, 242);
+            btnNovo.Margin = new Padding(4, 3, 4, 3);
+            btnNovo.Name = "btnNovo";
+            btnNovo.Size = new Size(88, 27);
+            btnNovo.TabIndex = 24;
+            btnNovo.Text = "F3 - Novo";
+            btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(231, 210);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
-            this.btnExcluir.TabIndex = 26;
-            this.btnExcluir.Text = "F5 - Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
-            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            btnExcluir.Location = new Point(271, 242);
+            btnExcluir.Margin = new Padding(4, 3, 4, 3);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(88, 27);
+            btnExcluir.TabIndex = 26;
+            btnExcluir.Text = "F5 - Excluir";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(156, 210);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 25;
-            this.btnEditar.Text = "F4 - Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            btnEditar.Location = new Point(183, 242);
+            btnEditar.Margin = new Padding(4, 3, 4, 3);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(88, 27);
+            btnEditar.TabIndex = 25;
+            btnEditar.Text = "F4 - Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // pessoaBindingSource
             // 
-            this.pessoaBindingSource.AllowNew = false;
-            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
-            this.pessoaBindingSource.Sort = "codPessoa";
+            pessoaBindingSource.AllowNew = false;
+            pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            pessoaBindingSource.Sort = "codPessoa";
             // 
             // confirmarSenhaTextBox
             // 
-            this.confirmarSenhaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.confirmarSenhaTextBox.Location = new System.Drawing.Point(242, 181);
-            this.confirmarSenhaTextBox.MaxLength = 20;
-            this.confirmarSenhaTextBox.Name = "confirmarSenhaTextBox";
-            this.confirmarSenhaTextBox.Size = new System.Drawing.Size(223, 20);
-            this.confirmarSenhaTextBox.TabIndex = 38;
-            this.confirmarSenhaTextBox.UseSystemPasswordChar = true;
+            confirmarSenhaTextBox.CharacterCasing = CharacterCasing.Upper;
+            confirmarSenhaTextBox.Location = new Point(282, 209);
+            confirmarSenhaTextBox.Margin = new Padding(4, 3, 4, 3);
+            confirmarSenhaTextBox.MaxLength = 20;
+            confirmarSenhaTextBox.Name = "confirmarSenhaTextBox";
+            confirmarSenhaTextBox.Size = new Size(259, 23);
+            confirmarSenhaTextBox.TabIndex = 38;
+            confirmarSenhaTextBox.UseSystemPasswordChar = true;
             // 
             // senhaTextBox
             // 
-            this.senhaTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.senhaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.usuarioBindingSource, "senha", true));
-            this.senhaTextBox.Location = new System.Drawing.Point(9, 181);
-            this.senhaTextBox.MaxLength = 20;
-            this.senhaTextBox.Name = "senhaTextBox";
-            this.senhaTextBox.Size = new System.Drawing.Size(222, 20);
-            this.senhaTextBox.TabIndex = 36;
-            this.senhaTextBox.UseSystemPasswordChar = true;
+            senhaTextBox.CharacterCasing = CharacterCasing.Upper;
+            senhaTextBox.DataBindings.Add(new Binding("Text", usuarioBindingSource, "senha", true));
+            senhaTextBox.Location = new Point(10, 209);
+            senhaTextBox.Margin = new Padding(4, 3, 4, 3);
+            senhaTextBox.MaxLength = 20;
+            senhaTextBox.Name = "senhaTextBox";
+            senhaTextBox.Size = new Size(258, 23);
+            senhaTextBox.TabIndex = 36;
+            senhaTextBox.UseSystemPasswordChar = true;
             // 
             // perfilComboBox
             // 
-            this.perfilComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.usuarioBindingSource, "CodPerfil", true));
-            this.perfilComboBox.DataSource = this.perfilBindingSource;
-            this.perfilComboBox.DisplayMember = "NomePerfil";
-            this.perfilComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.perfilComboBox.FormattingEnabled = true;
-            this.perfilComboBox.Location = new System.Drawing.Point(10, 140);
-            this.perfilComboBox.Name = "perfilComboBox";
-            this.perfilComboBox.Size = new System.Drawing.Size(316, 21);
-            this.perfilComboBox.TabIndex = 32;
-            this.perfilComboBox.ValueMember = "IdPerfil";
-            this.perfilComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
+            perfilComboBox.DataBindings.Add(new Binding("SelectedValue", usuarioBindingSource, "CodPerfil", true));
+            perfilComboBox.DataSource = perfilBindingSource;
+            perfilComboBox.DisplayMember = "NomePerfil";
+            perfilComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            perfilComboBox.FormattingEnabled = true;
+            perfilComboBox.Location = new Point(12, 162);
+            perfilComboBox.Margin = new Padding(4, 3, 4, 3);
+            perfilComboBox.Name = "perfilComboBox";
+            perfilComboBox.Size = new Size(368, 23);
+            perfilComboBox.TabIndex = 32;
+            perfilComboBox.ValueMember = "IdPerfil";
+            perfilComboBox.KeyPress += codPessoaComboBox_KeyPress;
             // 
             // perfilBindingSource
             // 
-            this.perfilBindingSource.AllowNew = false;
-            this.perfilBindingSource.DataSource = typeof(Dominio.Perfil);
+            perfilBindingSource.AllowNew = false;
+            perfilBindingSource.DataSource = typeof(Dominio.Perfil);
             // 
             // codPessoaComboBox
             // 
-            this.codPessoaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codPessoaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codPessoaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.usuarioBindingSource, "CodPessoa", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.codPessoaComboBox.DataSource = this.pessoaBindingSource;
-            this.codPessoaComboBox.DisplayMember = "Nome";
-            this.codPessoaComboBox.FormattingEnabled = true;
-            this.codPessoaComboBox.Location = new System.Drawing.Point(10, 90);
-            this.codPessoaComboBox.Name = "codPessoaComboBox";
-            this.codPessoaComboBox.Size = new System.Drawing.Size(455, 21);
-            this.codPessoaComboBox.TabIndex = 30;
-            this.codPessoaComboBox.ValueMember = "CodPessoa";
-            this.codPessoaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codPessoaComboBox_KeyPress);
+            codPessoaComboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+            codPessoaComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            codPessoaComboBox.DataBindings.Add(new Binding("SelectedValue", usuarioBindingSource, "CodPessoa", true, DataSourceUpdateMode.OnPropertyChanged));
+            codPessoaComboBox.DataSource = pessoaBindingSource;
+            codPessoaComboBox.DisplayMember = "Nome";
+            codPessoaComboBox.FormattingEnabled = true;
+            codPessoaComboBox.Location = new Point(12, 104);
+            codPessoaComboBox.Margin = new Padding(4, 3, 4, 3);
+            codPessoaComboBox.Name = "codPessoaComboBox";
+            codPessoaComboBox.Size = new Size(530, 23);
+            codPessoaComboBox.TabIndex = 30;
+            codPessoaComboBox.ValueMember = "CodPessoa";
+            codPessoaComboBox.KeyPress += codPessoaComboBox_KeyPress;
             // 
             // loginTextBox
             // 
-            this.loginTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.loginTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.usuarioBindingSource, "login", true));
-            this.loginTextBox.Location = new System.Drawing.Point(332, 140);
-            this.loginTextBox.Name = "loginTextBox";
-            this.loginTextBox.Size = new System.Drawing.Size(133, 20);
-            this.loginTextBox.TabIndex = 34;
-            this.loginTextBox.Leave += new System.EventHandler(this.loginTextBox_Leave);
+            loginTextBox.CharacterCasing = CharacterCasing.Upper;
+            loginTextBox.DataBindings.Add(new Binding("Text", usuarioBindingSource, "login", true));
+            loginTextBox.Location = new Point(387, 162);
+            loginTextBox.Margin = new Padding(4, 3, 4, 3);
+            loginTextBox.Name = "loginTextBox";
+            loginTextBox.Size = new Size(154, 23);
+            loginTextBox.TabIndex = 34;
+            loginTextBox.Leave += loginTextBox_Leave;
             // 
             // FrmUsuario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 237);
-            this.Controls.Add(loginLabel);
-            this.Controls.Add(this.loginTextBox);
-            this.Controls.Add(codPessoaLabel);
-            this.Controls.Add(this.codPessoaComboBox);
-            this.Controls.Add(perfilLabel);
-            this.Controls.Add(this.perfilComboBox);
-            this.Controls.Add(senhaLabel1);
-            this.Controls.Add(this.senhaTextBox);
-            this.Controls.Add(senhaLabel);
-            this.Controls.Add(this.confirmarSenhaTextBox);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnNovo);
-            this.Controls.Add(this.btnExcluir);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.tb_usuarioBindingNavigator);
-            this.Controls.Add(this.panel1);
-            this.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.KeyPreview = true;
-            this.Name = "FrmUsuario";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Cadastro Usuário";
-            this.Load += new System.EventHandler(this.FrmUsuario_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmUsuario_KeyDown);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.usuarioBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_usuarioBindingNavigator)).EndInit();
-            this.tb_usuarioBindingNavigator.ResumeLayout(false);
-            this.tb_usuarioBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.perfilBindingSource)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(557, 273);
+            Controls.Add(loginLabel);
+            Controls.Add(loginTextBox);
+            Controls.Add(codPessoaLabel);
+            Controls.Add(codPessoaComboBox);
+            Controls.Add(perfilLabel);
+            Controls.Add(perfilComboBox);
+            Controls.Add(senhaLabel1);
+            Controls.Add(senhaTextBox);
+            Controls.Add(senhaLabel);
+            Controls.Add(confirmarSenhaTextBox);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnBuscar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnNovo);
+            Controls.Add(btnExcluir);
+            Controls.Add(btnEditar);
+            Controls.Add(tb_usuarioBindingNavigator);
+            Controls.Add(panel1);
+            ImeMode = ImeMode.On;
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "FrmUsuario";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Cadastro Usuário";
+            Load += FrmUsuario_Load;
+            KeyDown += FrmUsuario_KeyDown;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)usuarioBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tb_usuarioBindingNavigator).EndInit();
+            tb_usuarioBindingNavigator.ResumeLayout(false);
+            tb_usuarioBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)perfilBindingSource).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

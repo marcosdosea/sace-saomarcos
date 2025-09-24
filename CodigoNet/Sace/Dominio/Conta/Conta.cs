@@ -2,8 +2,8 @@
 {
     public class Conta
     {
-        public const Char CONTA_PAGAR = 'P';
-        public const Char CONTA_RECEBER = 'R';
+        public const string CONTA_PAGAR = "P";
+        public const string CONTA_RECEBER = "R";
 
         public const string FORMATO_CONTA_FICHA = "FICHA";
         public const string FORMATO_CONTA_BOLETO = "BOLETO";

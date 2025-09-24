@@ -42,7 +42,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _banco = context.TbBancos.FirstOrDefault(b => b.CodBanco == banco.CodBanco);
+                    var _banco = context.TbBancos.Find(banco.CodBanco);
                     if (_banco != null)
                     {
                         _banco.CodBanco = banco.CodBanco;

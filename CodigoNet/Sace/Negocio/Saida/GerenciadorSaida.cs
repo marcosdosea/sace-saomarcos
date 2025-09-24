@@ -49,7 +49,7 @@ namespace Negocio
                     if (_saida != null)
                     {
                         Atribuir(saida, _saida);
-                        context.Update(saida);
+                        context.Update(_saida);
                         context.SaveChanges();
                     }
                     else
@@ -1162,9 +1162,9 @@ namespace Negocio
         /// <param name="_saida"></param>
         private static void AtualizarCfopProdutosDevolucao(List<SaidaProduto> saidaProdutos, Saida saida, SaceContext context)
         {
-            Pessoa fornecedor = GerenciadorPessoa.Obter(saida.CodCliente).ElementAtOrDefault(0);
+            Pessoa? fornecedor = GerenciadorPessoa.Obter(saida.CodCliente);
             Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAtOrDefault(0);
-            Pessoa pessoaLoja = GerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
+            Pessoa? pessoaLoja = GerenciadorPessoa.Obter(loja.CodPessoa);
 
             bool ehMesmoUF = false;
             if (pessoaLoja != null && fornecedor != null)
@@ -1485,7 +1485,7 @@ namespace Negocio
                     saida.TipoSaida = Saida.TIPO_CREDITO;
                     saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
 
-                    Atualizar(saida);
+                    Atualizar(saida, context);
 
                     var listaCodContas = listaContaSaida.Select(conta => conta.CodConta);
                     var queryContas = from conta in context.TbConta
@@ -1654,7 +1654,7 @@ namespace Negocio
 
 
                     Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-                    Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+                    Pessoa? pessoaLoja = GerenciadorPessoa.Obter(loja.CodPessoa);
 
                     imp.Imp(imp.Comprimido);
                     imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
@@ -1674,7 +1674,7 @@ namespace Negocio
                     imp.ImpColLFCentralizado(0, 59, pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1);
                     imp.ImpLF(UtilConfig.Default.LINHA_COMPRIMIDA);
 
-                    Pessoa cliente = (Pessoa)GerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
+                    Pessoa? cliente = GerenciadorPessoa.Obter(saidas[0].CodCliente);
                     imp.ImpLF("Cliente: " + cliente.NomeFantasia);
                     //imp.ImpColLF(39, "CPF/CNPJ: " + cliente.CpfCnpj);
                     if (saidas.Count == 1)
@@ -1753,7 +1753,7 @@ namespace Negocio
                 var printer = new Printer(porta, PrinterType.Bematech);
 
                 Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-                Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+                Pessoa? pessoaLoja = GerenciadorPessoa.Obter(loja.CodPessoa);
 
                 //chamando a função para impressão do texto
                 printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
@@ -1771,7 +1771,7 @@ namespace Negocio
                 printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
 
 
-                Pessoa cliente = (Pessoa)GerenciadorPessoa.Obter(saidas[0].CodCliente).ElementAt(0);
+                Pessoa? cliente = GerenciadorPessoa.Obter(saidas[0].CodCliente);
 
                 if (cliente.NomeFantasia.Length > 32)
                     printer.WriteLine("Cliente: " + cliente.NomeFantasia.Substring(1, 32));
@@ -1855,7 +1855,7 @@ namespace Negocio
         {
             var printer = new Printer(portaImpressora, PrinterType.Bematech);
             Loja loja = GerenciadorLoja.Obter(UtilConfig.Default.LOJA_PADRAO).ElementAt(0);
-            Pessoa pessoaLoja = (Pessoa)GerenciadorPessoa.Obter(loja.CodPessoa).ElementAt(0);
+            Pessoa? pessoaLoja = GerenciadorPessoa.Obter(loja.CodPessoa);
 
             printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
 
@@ -1867,7 +1867,7 @@ namespace Negocio
             printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Nome, 42));
             printer.WriteLine(StringUtil.PadBoth(pessoaLoja.Endereco + "  Fone: " + pessoaLoja.Fone1, 42));
             printer.WriteLine(UtilConfig.Default.LINHA_COMPRIMIDA);
-            Pessoa cliente = GerenciadorPessoa.Obter(saidaCredito.CodCliente).ElementAt(0);
+            Pessoa? cliente = GerenciadorPessoa.Obter(saidaCredito.CodCliente);
 
             printer.WriteLine("Cliente: " + cliente.NomeFantasia);
             printer.WriteLine("Data/Hora: " + saidaCredito.DataSaida);

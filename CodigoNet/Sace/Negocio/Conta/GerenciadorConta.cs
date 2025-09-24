@@ -45,10 +45,7 @@ namespace Negocio
 
                 try
                 {
-                    var _conta = new TbContum();
-                    _conta.CodConta = conta.CodConta;
-
-                    _conta = context.TbConta.Find(_conta);
+                    var _conta = context.TbConta.Find(conta.CodConta);
                     if (_conta != null)
                     {
                         Atribuir(conta, _conta);
@@ -75,11 +72,9 @@ namespace Negocio
                 var transaction = context.Database.BeginTransaction();
                 try
                 {
-                    var query = from contaSet in context.TbConta
-                                where contaSet.CodConta == codConta
-                                select contaSet;
-
-                    TbContum _conta = query.First();
+                    var _conta = context.TbConta.Find(codConta);
+                    if (_conta == null)
+                        throw new NegocioException("Conta não encontrada");
                     _conta.CodSituacao = codSituacao;
                     _conta.Desconto = desconto;
                     context.Update(_conta);
@@ -117,11 +112,9 @@ namespace Negocio
             {
                 try
                 {
-                    var query = from contaSet in context.TbConta
-                                where contaSet.CodConta == codConta
-                                select contaSet;
-
-                    var _conta = context.TbConta.FirstOrDefault(c => c.CodConta == codConta);
+                    var _conta = context.TbConta.Find(codConta);
+                    if (_conta == null)
+                        throw new NegocioException("Conta não encontrada");
                     _conta.CodPessoa = codPessoa;
                     _conta.DataVencimento = dataVencimento;
                     _conta.FormatoConta = formatoConta;
@@ -150,36 +143,10 @@ namespace Negocio
             {
                 try
                 {
-                    var _conta = context.TbConta.FirstOrDefault(c => c.CodConta == codConta);
+                    var _conta = context.TbConta.Find(codConta);
                     _conta.CodSituacao = codSituacao;
                     context.Update(_conta);
                     context.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    throw new DadosException("Conta", e.Message, e);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Atualizar dados da conta no banco de dados.
-        /// </summary>
-        /// <param name="codSituacao">nova situação da conta</param>
-        /// <param name="codConta">conta pesquisada</param>
-        public static void AtualizarDadosCartaoCredito(Conta conta)
-        {
-            using (var context = new SaceContext())
-            {
-                try
-                {
-                    var _conta = context.TbConta.FirstOrDefault(c => c.CodPessoa == conta.CodPessoa);
-                    if (_conta != null)
-                    {
-                        Atribuir(conta, _conta);
-                        context.Update(_conta);
-                        context.SaveChanges();
-                    }
                 }
                 catch (Exception e)
                 {
@@ -198,8 +165,9 @@ namespace Negocio
             {
                 try
                 {
-                    var conta = new TbContum();
-                    conta.CodConta = codConta;
+                    var conta = context.TbConta.Find(codConta);
+                    if (conta == null)
+                        throw new NegocioException("Conta não encontrada");
 
                     context.Remove(conta);
                     context.SaveChanges();

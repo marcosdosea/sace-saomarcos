@@ -51,7 +51,7 @@ namespace Negocio
             {
                 try
                 {
-                    var _grupo = context.TbGrupos.FirstOrDefault(g => g.CodGrupo == grupo.CodGrupo);
+                    var _grupo = context.TbGrupos.Find(grupo.CodGrupo);
                     if (_grupo != null)
                     {
                         _grupo.Descricao = grupo.Descricao;
@@ -82,7 +82,7 @@ namespace Negocio
             {
                 try
                 {
-                    var grupo = context.TbGrupos.FirstOrDefault(g => g.CodGrupo == codGrupo);
+                    var grupo = context.TbGrupos.Find(codGrupo);
                     if (grupo != null)
                     {
                         context.Remove(grupo);

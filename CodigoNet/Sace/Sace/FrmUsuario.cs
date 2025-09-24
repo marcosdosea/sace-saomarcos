@@ -13,14 +13,14 @@ namespace Sace
         public FrmUsuario()
         {
             InitializeComponent();
-            
+
         }
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
             //GerenciadorSeguranca.getInstance().verificaPermissao(this, Global.USUARIOS, Principal.Autenticacao.CodUsuario);
 
-            pessoaBindingSource.DataSource = GerenciadorPessoa.ObterTodos();
+            pessoaBindingSource.DataSource = GerenciadorPessoa.ObterPorTipoPessoa(Pessoa.PESSOA_FISICA);
             usuarioBindingSource.DataSource = GerenciadorUsuario.ObterTodos();
             perfilBindingSource.DataSource = GerenciadorUsuario.ObterPerfis();
             habilitaBotoes(true);
@@ -72,6 +72,7 @@ namespace Sace
                 usuarioBindingSource.EndEdit();
             }
             habilitaBotoes(true);
+            codPessoaComboBox.Enabled = true;
             btnBuscar.Focus();
         }
 
@@ -79,7 +80,7 @@ namespace Sace
         {
             codPessoaComboBox.Focus();
             usuarioBindingSource.AddNew();
-            
+
             estado = EstadoFormulario.INSERIR;
             codPessoaComboBox.SelectedIndex = 0;
             codPessoaComboBox.SelectAll();
@@ -99,7 +100,8 @@ namespace Sace
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            loginTextBox.Focus();
+            codPessoaComboBox.Enabled = false;
+            perfilComboBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.ATUALIZAR;
         }

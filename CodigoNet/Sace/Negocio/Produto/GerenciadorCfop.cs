@@ -46,7 +46,7 @@ namespace Negocio
                 using (var context = new SaceContext())
                 {
 
-                    var _cfop = context.TbCfops.FirstOrDefault(c => c.Cfop == cfop.CodCfop);
+                    var _cfop = context.TbCfops.Find(cfop.CodCfop);
 
                     if (_cfop != null)
                     {
@@ -77,7 +77,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var cfop = context.TbCfops.FirstOrDefault(c => c.Cfop == codCfop);
+                    var cfop = context.TbCfops.Find(codCfop);
                     if (cfop != null)
                     {
                         context.Remove(cfop);

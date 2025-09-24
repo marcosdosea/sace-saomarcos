@@ -273,12 +273,11 @@ namespace Negocio
                                     NfeProcessada = solicitacaoDocumento.NfeProcessada,
                                     TipoSolicitacao = solicitacaoDocumento.TipoSolicitacao
                                 };
-                    var solicitacoes = query.AsNoTracking().ToList();
-                    if (solicitacoes.Any())
+                    var _solicitacaoDocumento = query.FirstOrDefault();
+                    if (_solicitacaoDocumento != null)
                     {
-                        var solicitacaoDocumento = solicitacoes.FirstOrDefault();
                         var query2 = from solicitacaoSaida in context.TbSolicitacaoSaida
-                                     where solicitacaoSaida.CodSolicitacao == solicitacaoDocumento.CodSolicitacao
+                                     where solicitacaoSaida.CodSolicitacao == _solicitacaoDocumento.CodSolicitacao
                                      select new SolicitacaoSaida
                                      {
                                          CodSaida = solicitacaoSaida.CodSaida,
@@ -293,7 +292,7 @@ namespace Negocio
                         {
                             int codLoja = listaSolicitacaoSaida.FirstOrDefault().CodLojaOrigem;
                             var query3 = from solicitacaoPagamento in context.TbSolicitacaoPagamentos
-                                         where solicitacaoPagamento.CodSolicitacao == solicitacaoDocumento.CodSolicitacao
+                                         where solicitacaoPagamento.CodSolicitacao == _solicitacaoDocumento.CodSolicitacao
                                          select new SolicitacaoPagamento
                                          {
                                              CodCartao = solicitacaoPagamento.CodCartao,
@@ -308,14 +307,14 @@ namespace Negocio
                                          };
                             var listaSolicitacaoPagamentos = query3.AsNoTracking().ToList();
 
-                            context.Remove(solicitacaoDocumento);
+                            context.Remove(new TbSolicitacaoDocumento() {  CodSolicitacao = _solicitacaoDocumento.CodSolicitacao});
                             context.SaveChanges();
-                            GerenciadorNFe.EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, tipoDocumento, solicitacaoDocumento);
+                            GerenciadorNFe.EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, tipoDocumento, _solicitacaoDocumento);
 
                         }
                         else
                         {
-                            context.Remove(solicitacaoDocumento);
+                            context.Remove(new TbSolicitacaoDocumento() { CodSolicitacao = _solicitacaoDocumento.CodSolicitacao });
                             context.SaveChanges();
                         }
                     }

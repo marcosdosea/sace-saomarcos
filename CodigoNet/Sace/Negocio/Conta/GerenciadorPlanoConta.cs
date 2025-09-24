@@ -45,7 +45,7 @@ namespace Negocio
                 using (var context = new SaceContext())
                 {
 
-                    var _planoConta = context.TbPlanoConta.FirstOrDefault(p => p.CodPlanoConta == planoConta.CodPlanoConta);
+                    var _planoConta = context.TbPlanoConta.Find(planoConta.CodPlanoConta);
                     if (_planoConta != null)
                     {
                         Atribuir(planoConta, _planoConta);
@@ -75,17 +75,14 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _planoConta = context.TbPlanoConta.FirstOrDefault(p => p.CodPlanoConta == codPlanoConta);
+                    var _planoConta = context.TbPlanoConta.Find(codPlanoConta);
+                    if (_planoConta == null)
+                    {
+                        throw new NegocioException("O plano de conta não foi encontrado para ser removido.");
+                    }
 
-                    if (_planoConta != null)
-                    {
-                        context.Remove(_planoConta);
-                        context.SaveChanges();
-                    }
-                    else
-                    {
-                        throw new NegocioException("Plano de conta não encontrado para remoção.");
-                    }
+                    context.Remove(_planoConta);
+                    context.SaveChanges();
                 }
             }
             catch (Exception e)
@@ -108,7 +105,7 @@ namespace Negocio
                             Descricao = planoConta.Descricao,
                             DiaBase = planoConta.DiaBase == null ? (short)1 : (short)planoConta.DiaBase,
                             TipoConta = planoConta.CodTipoConta,
-                            DescricaoTipoConta = planoConta.CodTipoContaNavigation.DescricaoTipoConta
+                            DescricaoTipoConta = planoConta.CodTipoContaNavigation.DescricaoTipoConta ?? string.Empty
                         };
             return query.AsNoTracking();
         }
@@ -162,6 +159,7 @@ namespace Negocio
             _planoConta.CodTipoConta = planoConta.TipoConta;
             _planoConta.Descricao = planoConta.Descricao;
             _planoConta.DiaBase = planoConta.DiaBase;
+            _planoConta.CodGrupoConta = planoConta.CodGrupoConta;
         }
     }
 }

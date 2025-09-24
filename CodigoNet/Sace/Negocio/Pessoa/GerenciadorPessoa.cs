@@ -140,13 +140,11 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var pessoa = context.TbPessoas.FirstOrDefault(p => p.CodPessoa == contatoPessoa.CodPessoa);
+                    var pessoa = context.TbPessoas.Find(contatoPessoa.CodPessoa);
 
                     if (pessoa != null)
                     {
-                        var contato = new TbPessoa();
-                        contato.CodPessoa = contatoPessoa.CodPessoaContato;
-                        contato = context.TbPessoas.Find(contato);
+                        var contato = context.TbPessoas.Find(contatoPessoa.CodPessoaContato);
 
                         if (contato != null)
                         {
@@ -197,32 +195,32 @@ namespace Negocio
             var query = from pessoa in context.TbPessoas
                         select new Pessoa
                         {
-                            Bairro = pessoa.Bairro,
-                            Cep = pessoa.Cep,
-                            Cidade = pessoa.Cidade,
+                            Bairro = pessoa.Bairro ?? string.Empty,
+                            Cep = pessoa.Cep ?? string.Empty,
+                            Cidade = pessoa.Cidade ?? string.Empty,
                             CodPessoa = pessoa.CodPessoa,
-                            Complemento = pessoa.Complemento,
-                            CpfCnpj = pessoa.CpfCnpj,
+                            Complemento = pessoa.Complemento ?? string.Empty,
+                            CpfCnpj = pessoa.CpfCnpj ?? string.Empty,
                             EhFabricante = pessoa.EhFabricante,
-                            Email = pessoa.Email,
-                            Endereco = pessoa.Endereco,
-                            Fone1 = pessoa.Fone1,
-                            Fone2 = pessoa.Fone2,
-                            Fone3 = pessoa.Fone3,
-                            Ie = pessoa.Ie,
-                            IeSubstituto = pessoa.IeSubstituto,
+                            Email = pessoa.Email ?? string.Empty,
+                            Endereco = pessoa.Endereco ?? string.Empty,
+                            Fone1 = pessoa.Fone1 ?? string.Empty,
+                            Fone2 = pessoa.Fone2 ?? string.Empty,
+                            Fone3 = pessoa.Fone3 ?? string.Empty,
+                            Ie = pessoa.Ie ?? string.Empty,
+                            IeSubstituto = pessoa.IeSubstituto ?? string.Empty,
                             ImprimirCF = pessoa.ImprimirCf,
-                            ImprimirDAV = (bool)pessoa.ImprimirDav,
-                            LimiteCompra = (decimal)pessoa.LimiteCompra,
-                            Nome = pessoa.Nome,
-                            NomeFantasia = pessoa.NomeFantasia,
-                            Numero = pessoa.Numero,
-                            Observacao = pessoa.Observacao,
+                            ImprimirDAV = pessoa.ImprimirDav ?? false,
+                            LimiteCompra = pessoa.LimiteCompra ?? 0,
+                            Nome = pessoa.Nome ?? string.Empty,
+                            NomeFantasia = pessoa.NomeFantasia ?? string.Empty,
+                            Numero = pessoa.Numero ?? string.Empty,
+                            Observacao = pessoa.Observacao ?? string.Empty,
                             Tipo = pessoa.Tipo,
-                            Uf = pessoa.Uf,
-                            ValorComissao = (decimal)pessoa.ValorComissao,
+                            Uf = pessoa.Uf ?? string.Empty,
+                            ValorComissao = pessoa.ValorComissao ?? 0,
                             CodMunicipioIBGE = pessoa.CodMunicipiosIbge,
-                            NomeMunicipioIBGE = pessoa.CodMunicipiosIbgeNavigation.Municipio,
+                            NomeMunicipioIBGE = pessoa.CodMunicipiosIbgeNavigation.Municipio ?? string.Empty,
                             BloquearCrediario = pessoa.BloquearCrediario
                         };
             return query.AsNoTracking();
@@ -246,11 +244,11 @@ namespace Negocio
         /// </summary>
         /// <param name="codPessoa"></param>
         /// <returns></returns>
-        public static IEnumerable<Pessoa> Obter(long codPessoa)
+        public static Pessoa? Obter(long codPessoa)
         {
             using (var context = new SaceContext())
             {
-                return GetQuery(context).Where(pessoa => pessoa.CodPessoa == codPessoa).ToList();
+                return GetQuery(context).Where(pessoa => pessoa.CodPessoa == codPessoa).FirstOrDefault();
             }
         }
 
@@ -264,7 +262,7 @@ namespace Negocio
         {
             using (var context = new SaceContext())
             {
-                return GetQuery(context).Where(pessoa => pessoa.Tipo.Equals(tipoPessoa)).OrderBy(p => p.NomeFantasia).ToList();
+                return GetQuery(context).Where(pessoa => pessoa.Tipo.Equals(tipoPessoa) || pessoa.CodPessoa == 1).OrderBy(p => p.NomeFantasia).ToList();
             }
         }
 
@@ -368,7 +366,8 @@ namespace Negocio
         {
             using (var context = new SaceContext())
             {
-                var _pessoa = context.TbPessoas.FirstOrDefault(p => p.CodPessoa == codPessoa);
+                var _pessoa = context.TbPessoas.Include(p => p.CodPessoas).FirstOrDefault(p => p.CodPessoa == codPessoa);
+
 
                 if (_pessoa == null)
                 {
@@ -404,7 +403,7 @@ namespace Negocio
                                 CodMunicipioIBGE = pessoa.CodMunicipiosIbge,
                                 ValorComissao = (decimal)pessoa.ValorComissao
                             };
-                return query;
+                return query.ToList();
             }
         }
 
@@ -418,13 +417,19 @@ namespace Negocio
         {
             using (var context = new SaceContext())
             {
-                IEnumerable<TbContum> listaContasAberto = context.TbConta.Where(conta => conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA) && conta.CodPessoa == cliente.CodPessoa).ToList();
-                List<long> listaCodContas = listaContasAberto.Select(p => p.CodConta).ToList();
-                if (listaCodContas != null)
+                IEnumerable<TbContum> listaContasAberto = context.TbConta.
+                    Include(mc => mc.TbMovimentacaoConta).
+                    Where(conta => conta.CodSituacao.Equals(SituacaoConta.SITUACAO_ABERTA) && conta.CodPessoa == cliente.CodPessoa).
+                    ToList();
+
+                if (listaContasAberto.Any())
                 {
-                    IEnumerable<MovimentacaoConta> listaPagamentos = (IEnumerable<MovimentacaoConta>)context.TbMovimentacaoConta.Where(m => listaCodContas.Contains((long)m.CodConta)).ToList();
-                    decimal totalValorPagar = listaContasAberto.Sum(c => c.Valor);
-                    decimal totalValorPago = listaPagamentos.Sum(m => m.Valor);
+                    decimal totalValorPagar = listaContasAberto.Sum(c => c.Valor); 
+                    decimal totalValorPago = 0;
+                    foreach (TbContum conta in listaContasAberto) 
+                    {
+                        totalValorPago += conta.TbMovimentacaoConta.Sum(m => m.Valor);
+                    }
                     return cliente.LimiteCompra - totalValorPagar + totalValorPago;
                 }
             }

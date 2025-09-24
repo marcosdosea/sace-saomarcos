@@ -410,7 +410,7 @@ namespace Negocio
                     xmlnNF.InnerText = nfeControle.NumeroSequenciaNfe.ToString().PadLeft(8, '0');
                     xmlserie.InnerText = "1";
                     xmlAAMM.InnerText = DateTime.Now.Year.ToString().Substring(2, 2) + DateTime.Now.Month.ToString().PadLeft(2, '0');
-                    xmlcnpj.InnerText = GerenciadorPessoa.Obter(lojaOrigem.CodPessoa).ElementAt(0).CpfCnpj;
+                    xmlcnpj.InnerText = GerenciadorPessoa.Obter(lojaOrigem.CodPessoa).CpfCnpj;
                     xmlMod.InnerText = modelo; //55-NF-e 65-NFC-e
 
                     //inclui os novos elementos no elemento poemas
@@ -814,12 +814,12 @@ namespace Negocio
 
             // Clientes que não pode ser impresso CFe
             Loja loja = GerenciadorLoja.Obter(saida.CodLojaOrigem).FirstOrDefault();
-            Pessoa pessoaloja = GerenciadorPessoa.Obter(loja.CodPessoa).FirstOrDefault();
+            Pessoa pessoaloja = GerenciadorPessoa.Obter(loja.CodPessoa);
             Pessoa destinatario;
             if (saida.TipoSaida.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || saida.TipoSaida.Equals(Saida.TIPO_USO_INTERNO))
                 destinatario = pessoaloja;
             else
-                destinatario = GerenciadorPessoa.Obter(saida.CodCliente).FirstOrDefault();
+                destinatario = GerenciadorPessoa.Obter(saida.CodCliente);
 
             if ((destinatario.ImprimirCF) || (destinatario.CodMunicipioIBGE != pessoaloja.CodMunicipioIBGE))
                 modelo = DocumentoFiscal.TipoSolicitacao.NFE;
@@ -878,7 +878,7 @@ namespace Negocio
                 if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR) ||
                     (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR))
                     infNFeIde.finNFe = TFinNFe.Item4;
-                else
+                else 
                     infNFeIde.finNFe = TFinNFe.Item1;
                 infNFeIde.natOp = GerenciadorCfop.Obter(Convert.ToInt32(cfopPadrao)).ElementAtOrDefault(0).Descricao;
                 infNFeIde.nNF = nfeControle.NumeroSequenciaNfe.ToString(); // número do Documento Fiscal
@@ -1411,7 +1411,7 @@ namespace Negocio
                 {
                     transp.modFrete = TNFeInfNFeTranspModFrete.Item1; // 1-Por conta do destinatário
                     transp.transporta = new TNFeInfNFeTranspTransporta();
-                    Pessoa transportadora = GerenciadorPessoa.Obter(saida.CodEmpresaFrete).FirstOrDefault();
+                    Pessoa transportadora = GerenciadorPessoa.Obter(saida.CodEmpresaFrete);
                     transporta.IE = transportadora.Ie;
                     if (transportadora.CpfCnpj.Length > 11)
                     {
@@ -1529,7 +1529,7 @@ namespace Negocio
                         {
                             infNfePag.card = new TNFeInfNFePagDetPagCard();
                             infNfePag.card.tpIntegra = TNFeInfNFePagDetPagCardTpIntegra.Item2; // 2= Pagamento não integrado com o sistema de automação
-                            var pessoa = GerenciadorPessoa.Obter(cartaoCredito.CodPessoa).ElementAtOrDefault(0);
+                            var pessoa = GerenciadorPessoa.Obter(cartaoCredito.CodPessoa);
                             infNfePag.card.CNPJ = pessoa.CpfCnpj.Trim();
                             infNfePag.card.tBand = cartaoCredito.Mapeamento;
                             //infNfePag.card.cAut = ""; // código de autorização da operadora do cartão, com no máximo 20 caracteres
@@ -1949,7 +1949,7 @@ namespace Negocio
         /// Envia solicitação de cancelamanto usando Eventos.
         /// </summary>
         /// <param name="nfeControle"></param>
-        public static void ProcessarSolicitacoesCancelamento()
+        public static void EnivarSolicitacoesCancelamento()
         {
             try
             {
@@ -1974,7 +1974,7 @@ namespace Negocio
                     infEvento.tpAmb = (Dominio.NFE2.TAmb)Enum.Parse(typeof(Dominio.NFE2.TAmb), "Item" + UtilConfig.Default.AMBIENTE_NFE); // 1-produção / 2-homologação
                     //Saida saida = gerenciadorSaida.Obter(nfeControle.CodSaida);
                     Loja loja = GerenciadorLoja.Obter(nfeControle.CodLoja).ElementAtOrDefault(0);
-                    Pessoa pessoa = GerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
+                    Pessoa pessoa = GerenciadorPessoa.Obter(loja.CodPessoa);
 
                     if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
                         infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CPF;
@@ -2124,7 +2124,7 @@ namespace Negocio
                 inutilizacaoNfe.versao = "2.00";
                 Saida saida = GerenciadorSaida.Obter(nfeControle.CodSaida);
                 Loja loja = GerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                Pessoa pessoa = GerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
+                Pessoa pessoa = GerenciadorPessoa.Obter(loja.CodPessoa);
 
                 TInutNFeInfInut infInutilizacaoNfe = new TInutNFeInfInut();
                 infInutilizacaoNfe.ano = DateTime.Now.Year.ToString();
@@ -2260,7 +2260,7 @@ namespace Negocio
 
 
 
-        public static void ProcessaSolicitacaoConsultaNfe()
+        public static void EnviarSolicitacaoConsultaNfe()
         {
             try
             {
@@ -2426,7 +2426,7 @@ namespace Negocio
 
                 Saida saida = GerenciadorSaida.Obter(nfeControle.CodSaida);
                 Loja loja = GerenciadorLoja.Obter(saida.CodLojaOrigem).ElementAtOrDefault(0);
-                Pessoa pessoa = GerenciadorPessoa.Obter(loja.CodPessoa).ElementAtOrDefault(0);
+                Pessoa pessoa = GerenciadorPessoa.Obter(loja.CodPessoa);
 
                 if (pessoa.Tipo.Equals(Pessoa.PESSOA_FISICA))
                     infEvento.ItemElementName = Dominio.NFE2.ItemChoiceType7.CPF;

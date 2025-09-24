@@ -41,7 +41,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _cst = context.TbCsts.FirstOrDefault(c => c.CodCst == cst.CodCST);
+                    var _cst = context.TbCsts.Find(cst.CodCST);
                     if (_cst != null)
                     {
                         _cst.DescricaoCst = cst.Descricao;
@@ -71,7 +71,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _cst = context.TbCsts.FirstOrDefault(c => c.CodCst == codCST);
+                    var _cst = context.TbCsts.Find(codCST);
                     if (_cst != null)
                     {
                         context.Remove(_cst);

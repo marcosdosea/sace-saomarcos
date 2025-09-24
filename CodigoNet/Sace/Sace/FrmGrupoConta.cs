@@ -94,6 +94,7 @@ namespace Sace
             }
             finally
             {
+                grupoContaBindingSource.ResumeBinding();
                 habilitaBotoes(true);
                 btnBuscar.Focus();
             }

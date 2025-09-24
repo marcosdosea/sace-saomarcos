@@ -133,7 +133,7 @@ namespace Negocio
 
             try
             {
-                var _produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == produto.CodProduto);
+                var _produto = context.TbProdutos.Find(produto.CodProduto);
 
                 // Atualiza data da ultima atualizacao
                 if ((produto.PrecoVendaVarejo != _produto.PrecoVendaVarejo) || (produto.PrecoVendaAtacado != _produto.PrecoVendaAtacado)
@@ -171,7 +171,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == _produtoPesquisa.CodProduto);
+                    var _produto = context.TbProdutos.Find(_produtoPesquisa.CodProduto);
                     _produto.CodigoBarra = ultimoCodigoBarraLido;
                     context.Update(_produto);
                     context.SaveChanges();
@@ -254,7 +254,7 @@ namespace Negocio
                 {
                     var transaction = context.Database.BeginTransaction();
 
-                    TbProduto _produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == solicitacaoCompra.CodProduto);
+                    TbProduto _produto = context.TbProdutos.Find(solicitacaoCompra.CodProduto);
                     DirectoryInfo pastaProdutosAtualizados = new DirectoryInfo(UtilConfig.Default.PASTA_COMUNICACAO_PRODUTOS_ATUALIZADOS);
                     _produto.CodSituacaoProduto = solicitacaoCompra.CodSituacaoProduto;
                     _produto.DataSolicitacaoCompra = solicitacaoCompra.DataSolicitacaoCompra;
@@ -410,7 +410,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var produto = context.TbProdutos.FirstOrDefault(p => p.CodProduto == codProduto);
+                    var produto = context.TbProdutos.Find(codProduto);
                     if (produto != null)
                     {
                         context.Remove(produto);

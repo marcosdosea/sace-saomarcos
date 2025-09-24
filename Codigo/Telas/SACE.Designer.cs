@@ -547,7 +547,7 @@
             this.btnSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSair.Image = global::Telas.Properties.Resources._118;
             this.btnSair.Location = new System.Drawing.Point(832, 32);
-            this.btnSair.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSair.Margin = new System.Windows.Forms.Padding(4);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(140, 96);
             this.btnSair.TabIndex = 12;
@@ -561,7 +561,7 @@
             this.btnEntradas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntradas.Image = global::Telas.Properties.Resources._66;
             this.btnEntradas.Location = new System.Drawing.Point(416, 32);
-            this.btnEntradas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEntradas.Margin = new System.Windows.Forms.Padding(4);
             this.btnEntradas.Name = "btnEntradas";
             this.btnEntradas.Size = new System.Drawing.Size(140, 96);
             this.btnEntradas.TabIndex = 8;
@@ -575,7 +575,7 @@
             this.btnContas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnContas.Image = global::Telas.Properties.Resources._86;
             this.btnContas.Location = new System.Drawing.Point(555, 32);
-            this.btnContas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnContas.Margin = new System.Windows.Forms.Padding(4);
             this.btnContas.Name = "btnContas";
             this.btnContas.Size = new System.Drawing.Size(140, 96);
             this.btnContas.TabIndex = 9;
@@ -589,7 +589,7 @@
             this.btnCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCliente.Image = global::Telas.Properties.Resources._54;
             this.btnCliente.Location = new System.Drawing.Point(277, 32);
-            this.btnCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCliente.Margin = new System.Windows.Forms.Padding(4);
             this.btnCliente.Name = "btnCliente";
             this.btnCliente.Size = new System.Drawing.Size(140, 96);
             this.btnCliente.TabIndex = 6;
@@ -603,7 +603,7 @@
             this.btnProdutos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProdutos.Image = global::Telas.Properties.Resources._68;
             this.btnProdutos.Location = new System.Drawing.Point(139, 32);
-            this.btnProdutos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnProdutos.Margin = new System.Windows.Forms.Padding(4);
             this.btnProdutos.Name = "btnProdutos";
             this.btnProdutos.Size = new System.Drawing.Size(140, 96);
             this.btnProdutos.TabIndex = 4;
@@ -617,7 +617,7 @@
             this.btnVenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVenda.Image = global::Telas.Properties.Resources._761;
             this.btnVenda.Location = new System.Drawing.Point(0, 32);
-            this.btnVenda.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVenda.Margin = new System.Windows.Forms.Padding(4);
             this.btnVenda.Name = "btnVenda";
             this.btnVenda.Size = new System.Drawing.Size(140, 96);
             this.btnVenda.TabIndex = 3;
@@ -631,7 +631,7 @@
             this.btnReceber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReceber.Image = global::Telas.Properties.Resources.carteira2;
             this.btnReceber.Location = new System.Drawing.Point(693, 32);
-            this.btnReceber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnReceber.Margin = new System.Windows.Forms.Padding(4);
             this.btnReceber.Name = "btnReceber";
             this.btnReceber.Size = new System.Drawing.Size(140, 96);
             this.btnReceber.TabIndex = 10;
@@ -651,7 +651,7 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.Image = global::Telas.Properties.Resources.dados;
             this.pictureBox1.Location = new System.Drawing.Point(745, 582);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(560, 149);
             this.pictureBox1.TabIndex = 18;
@@ -733,7 +733,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SACE - Sistema de Apoio ao Controle de Estoque";

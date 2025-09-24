@@ -91,7 +91,7 @@ namespace Sace
         /// <param name="e"></param>
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            if (Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago))
+                if (Math.Abs(saida.TotalAVista) <= Math.Abs(saida.TotalPago))
             {
                 EncerrarLancamentosPagamentos(sender, e);
             }

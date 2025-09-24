@@ -41,9 +41,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _grupoConta = new TbGrupoContum();
-                    _grupoConta.CodGrupoConta = grupoConta.CodGrupoConta;
-                    _grupoConta = context.TbGrupoConta.Find(_grupoConta);
+                    var _grupoConta = context.TbGrupoConta.Find(grupoConta.CodGrupoConta);
 
                     if (_grupoConta != null)
                     {

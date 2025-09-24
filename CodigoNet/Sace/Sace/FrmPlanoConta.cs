@@ -39,6 +39,10 @@ namespace Sace
             codPlanoContaTextBox.Enabled = false;
             rbPagar.Checked = true;
             codGrupoContaComboBox.SelectedIndex = 0;
+            var planoConta = (PlanoConta)planoContaBindingSource.Current; 
+            planoConta.TipoConta = Conta.CONTA_PAGAR.ToString();
+            planoConta.DiaBase = 1;
+            planoConta.CodGrupoConta = ((GrupoConta)grupoContaBindingSource.Current).CodGrupoConta;
             descricaoTextBox.Focus();
             habilitaBotoes(false);
             estado = EstadoFormulario.INSERIR;
@@ -72,12 +76,13 @@ namespace Sace
         {
             try
             {
-                PlanoConta planoConta = new PlanoConta();
+                var planoConta = (PlanoConta) planoContaBindingSource.Current;
                 planoConta.CodGrupoConta = int.Parse(codGrupoContaComboBox.SelectedValue.ToString());
                 planoConta.Descricao = descricaoTextBox.Text;
                 planoConta.TipoConta = (rbPagar.Checked) ? Conta.CONTA_PAGAR.ToString() : Conta.CONTA_RECEBER.ToString();
                 planoConta.DiaBase = (diaBaseTextBox.Text == "") ? short.Parse("0") : short.Parse(diaBaseTextBox.Text);
                 planoConta.CodPlanoConta = Int32.Parse(codPlanoContaTextBox.Text);
+                
 
                 if (estado.Equals(EstadoFormulario.INSERIR))
                 {
@@ -96,6 +101,7 @@ namespace Sace
                throw exc;
             }
             finally {
+                planoContaBindingSource.ResumeBinding();
                 habilitaBotoes(true);
                 btnBuscar.Focus();
             }
@@ -203,9 +209,9 @@ namespace Sace
         private void tb_plano_contaBindingSource_PositionChanged(object sender, EventArgs e)
         {
             PlanoContaSelected = (PlanoConta) planoContaBindingSource.Current;
-            if (PlanoContaSelected != null)
+            if (PlanoContaSelected != null && PlanoContaSelected.TipoConta != null)
             {
-                if (PlanoContaSelected.TipoConta.Equals(Conta.CONTA_PAGAR))
+                if (PlanoContaSelected.TipoConta.ToUpper().Equals(Conta.CONTA_PAGAR))
                 {
                     rbPagar.Checked = true;
                     rbReceber.Checked = false;

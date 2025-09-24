@@ -7,7 +7,7 @@ namespace Sace
     {
         public void TratarMySqlException(object sender, ThreadExceptionEventArgs t)
         {
-                DialogResult result = DialogResult.Cancel;
+            DialogResult result = DialogResult.Cancel;
             string erro = t.Exception.Message;
 
             // para exibir todo stacktrace completo quando difícil identificar o erro
@@ -94,6 +94,30 @@ namespace Sace
                             else
                             {
                                 erro = "A entidade não pode ser excluída por estar associada a outro registro na base de dados.";
+                            }
+                        }
+                        else if (exception.Number == 1452)
+                        {
+                            if (t.Exception is DadosException)
+                            {
+                                var de = (DadosException)t.Exception;
+                                erro = "O " + de.Entidade + " não pode ser inserido/atualizado por estar associado a outro registro na base de dados.";
+                            }
+                            else
+                            {
+                                erro = "A entidade não pode ser inserida/atualizada por estar associada a outro registro na base de dados.";
+                            }
+                        }
+                        else if (exception.Number == 1048)
+                        {
+                            if (t.Exception is DadosException)
+                            {
+                                var de = (DadosException)t.Exception;
+                                erro = "O " + de.Entidade + " não pode ser inserido/atualizado por conter um campo obrigatório sem valor na base de dados.";
+                            }
+                            else
+                            {
+                                erro = "A entidade não pode ser inserida/atualizada por conter um campo obrigatório sem valor na base de dados.";
                             }
                         }
                         else

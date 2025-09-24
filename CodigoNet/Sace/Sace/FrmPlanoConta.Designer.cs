@@ -28,396 +28,408 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label codPlanoContaLabel;
-            System.Windows.Forms.Label descricaoLabel;
-            System.Windows.Forms.Label diaBaseLabel;
-            System.Windows.Forms.Label codGrupoContaLabel;
+            components = new System.ComponentModel.Container();
+            Label codPlanoContaLabel;
+            Label descricaoLabel;
+            Label diaBaseLabel;
+            Label codGrupoContaLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPlanoConta));
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.planoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_plano_contaBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.codPlanoContaTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.descricaoTextBox = new System.Windows.Forms.TextBox();
-            this.diaBaseTextBox = new System.Windows.Forms.TextBox();
-            this.codGrupoContaComboBox = new System.Windows.Forms.ComboBox();
-            this.grupoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.rbPagar = new System.Windows.Forms.RadioButton();
-            this.rbReceber = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            codPlanoContaLabel = new System.Windows.Forms.Label();
-            descricaoLabel = new System.Windows.Forms.Label();
-            diaBaseLabel = new System.Windows.Forms.Label();
-            codGrupoContaLabel = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaBindingNavigator)).BeginInit();
-            this.tb_plano_contaBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grupoContaBindingSource)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new Label();
+            panel1 = new Panel();
+            btnSalvar = new Button();
+            btnBuscar = new Button();
+            btnCancelar = new Button();
+            btnNovo = new Button();
+            btnExcluir = new Button();
+            btnEditar = new Button();
+            planoContaBindingSource = new BindingSource(components);
+            tb_plano_contaBindingNavigator = new BindingNavigator(components);
+            bindingNavigatorCountItem = new ToolStripLabel();
+            bindingNavigatorMoveFirstItem = new ToolStripButton();
+            bindingNavigatorMovePreviousItem = new ToolStripButton();
+            bindingNavigatorSeparator = new ToolStripSeparator();
+            bindingNavigatorPositionItem = new ToolStripTextBox();
+            bindingNavigatorSeparator1 = new ToolStripSeparator();
+            bindingNavigatorMoveNextItem = new ToolStripButton();
+            bindingNavigatorMoveLastItem = new ToolStripButton();
+            bindingNavigatorSeparator2 = new ToolStripSeparator();
+            codPlanoContaTextBox = new MaskedTextBox();
+            descricaoTextBox = new TextBox();
+            diaBaseTextBox = new TextBox();
+            codGrupoContaComboBox = new ComboBox();
+            grupoContaBindingSource = new BindingSource(components);
+            rbPagar = new RadioButton();
+            rbReceber = new RadioButton();
+            groupBox1 = new GroupBox();
+            codPlanoContaLabel = new Label();
+            descricaoLabel = new Label();
+            diaBaseLabel = new Label();
+            codGrupoContaLabel = new Label();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)planoContaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tb_plano_contaBindingNavigator).BeginInit();
+            tb_plano_contaBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)grupoContaBindingSource).BeginInit();
+            groupBox1.SuspendLayout();
+            SuspendLayout();
             // 
             // codPlanoContaLabel
             // 
             codPlanoContaLabel.AutoSize = true;
-            codPlanoContaLabel.Location = new System.Drawing.Point(4, 72);
+            codPlanoContaLabel.Location = new Point(5, 83);
+            codPlanoContaLabel.Margin = new Padding(4, 0, 4, 0);
             codPlanoContaLabel.Name = "codPlanoContaLabel";
-            codPlanoContaLabel.Size = new System.Drawing.Size(43, 13);
+            codPlanoContaLabel.Size = new Size(49, 15);
             codPlanoContaLabel.TabIndex = 21;
             codPlanoContaLabel.Text = "Código:";
             // 
             // descricaoLabel
             // 
             descricaoLabel.AutoSize = true;
-            descricaoLabel.Location = new System.Drawing.Point(134, 72);
+            descricaoLabel.Location = new Point(156, 83);
+            descricaoLabel.Margin = new Padding(4, 0, 4, 0);
             descricaoLabel.Name = "descricaoLabel";
-            descricaoLabel.Size = new System.Drawing.Size(58, 13);
+            descricaoLabel.Size = new Size(61, 15);
             descricaoLabel.TabIndex = 23;
             descricaoLabel.Text = "Descrição:";
             // 
             // diaBaseLabel
             // 
             diaBaseLabel.AutoSize = true;
-            diaBaseLabel.Location = new System.Drawing.Point(410, 116);
+            diaBaseLabel.Location = new Point(478, 134);
+            diaBaseLabel.Margin = new Padding(4, 0, 4, 0);
             diaBaseLabel.Name = "diaBaseLabel";
-            diaBaseLabel.Size = new System.Drawing.Size(53, 13);
+            diaBaseLabel.Size = new Size(54, 15);
             diaBaseLabel.TabIndex = 27;
             diaBaseLabel.Text = "Dia Base:";
             // 
             // codGrupoContaLabel
             // 
             codGrupoContaLabel.AutoSize = true;
-            codGrupoContaLabel.Location = new System.Drawing.Point(7, 116);
+            codGrupoContaLabel.Location = new Point(8, 134);
+            codGrupoContaLabel.Margin = new Padding(4, 0, 4, 0);
             codGrupoContaLabel.Name = "codGrupoContaLabel";
-            codGrupoContaLabel.Size = new System.Drawing.Size(75, 13);
+            codGrupoContaLabel.Size = new Size(83, 15);
             codGrupoContaLabel.TabIndex = 28;
             codGrupoContaLabel.Text = "Grupo Contas:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(214, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cadastro de Plano de Contas";
+            label1.AutoSize = true;
+            label1.Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ControlLightLight;
+            label1.Location = new Point(4, 10);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(214, 23);
+            label1.TabIndex = 0;
+            label1.Text = "Cadastro de Plano de Contas";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, -1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(475, 41);
-            this.panel1.TabIndex = 20;
+            panel1.BackColor = Color.SteelBlue;
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(0, -1);
+            panel1.Margin = new Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(554, 47);
+            panel1.TabIndex = 20;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(304, 165);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-            this.btnSalvar.TabIndex = 4;
-            this.btnSalvar.Text = "F6 - Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            btnSalvar.Location = new Point(355, 190);
+            btnSalvar.Margin = new Padding(4, 3, 4, 3);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(94, 27);
+            btnSalvar.TabIndex = 4;
+            btnSalvar.Text = "F6 - Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(4, 165);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 0;
-            this.btnBuscar.Text = "F2 - Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            btnBuscar.Location = new Point(5, 190);
+            btnBuscar.Margin = new Padding(4, 3, 4, 3);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(88, 27);
+            btnBuscar.TabIndex = 0;
+            btnBuscar.Text = "F2 - Buscar";
+            btnBuscar.TextAlign = ContentAlignment.MiddleLeft;
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(385, 165);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 5;
-            this.btnCancelar.Text = "Esc - Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            btnCancelar.Location = new Point(449, 190);
+            btnCancelar.Margin = new Padding(4, 3, 4, 3);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(98, 27);
+            btnCancelar.TabIndex = 5;
+            btnCancelar.Text = "Esc - Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(79, 165);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 23);
-            this.btnNovo.TabIndex = 1;
-            this.btnNovo.Text = "F3 - Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
+            btnNovo.Location = new Point(92, 190);
+            btnNovo.Margin = new Padding(4, 3, 4, 3);
+            btnNovo.Name = "btnNovo";
+            btnNovo.Size = new Size(88, 27);
+            btnNovo.TabIndex = 1;
+            btnNovo.Text = "F3 - Novo";
+            btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(229, 165);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
-            this.btnExcluir.TabIndex = 3;
-            this.btnExcluir.Text = "F5 - Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
-            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            btnExcluir.Location = new Point(267, 190);
+            btnExcluir.Margin = new Padding(4, 3, 4, 3);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(88, 27);
+            btnExcluir.TabIndex = 3;
+            btnExcluir.Text = "F5 - Excluir";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(154, 165);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 2;
-            this.btnEditar.Text = "F4 - Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            btnEditar.Location = new Point(180, 190);
+            btnEditar.Margin = new Padding(4, 3, 4, 3);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(88, 27);
+            btnEditar.TabIndex = 2;
+            btnEditar.Text = "F4 - Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // planoContaBindingSource
             // 
-            this.planoContaBindingSource.DataSource = typeof(Dominio.PlanoConta);
-            this.planoContaBindingSource.Sort = "codPlanoConta";
-            this.planoContaBindingSource.PositionChanged += new System.EventHandler(this.tb_plano_contaBindingSource_PositionChanged);
+            planoContaBindingSource.DataSource = typeof(Dominio.PlanoConta);
+            planoContaBindingSource.Sort = "codPlanoConta";
+            planoContaBindingSource.PositionChanged += tb_plano_contaBindingSource_PositionChanged;
             // 
             // tb_plano_contaBindingNavigator
             // 
-            this.tb_plano_contaBindingNavigator.AddNewItem = null;
-            this.tb_plano_contaBindingNavigator.BindingSource = this.planoContaBindingSource;
-            this.tb_plano_contaBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.tb_plano_contaBindingNavigator.DeleteItem = null;
-            this.tb_plano_contaBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
-            this.tb_plano_contaBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2});
-            this.tb_plano_contaBindingNavigator.Location = new System.Drawing.Point(269, 40);
-            this.tb_plano_contaBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.tb_plano_contaBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.tb_plano_contaBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.tb_plano_contaBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.tb_plano_contaBindingNavigator.Name = "tb_plano_contaBindingNavigator";
-            this.tb_plano_contaBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.tb_plano_contaBindingNavigator.Size = new System.Drawing.Size(209, 25);
-            this.tb_plano_contaBindingNavigator.TabIndex = 21;
-            this.tb_plano_contaBindingNavigator.Text = "bindingNavigator1";
+            tb_plano_contaBindingNavigator.AddNewItem = null;
+            tb_plano_contaBindingNavigator.BindingSource = planoContaBindingSource;
+            tb_plano_contaBindingNavigator.CountItem = bindingNavigatorCountItem;
+            tb_plano_contaBindingNavigator.DeleteItem = null;
+            tb_plano_contaBindingNavigator.Dock = DockStyle.None;
+            tb_plano_contaBindingNavigator.Items.AddRange(new ToolStripItem[] { bindingNavigatorMoveFirstItem, bindingNavigatorMovePreviousItem, bindingNavigatorSeparator, bindingNavigatorPositionItem, bindingNavigatorCountItem, bindingNavigatorSeparator1, bindingNavigatorMoveNextItem, bindingNavigatorMoveLastItem, bindingNavigatorSeparator2 });
+            tb_plano_contaBindingNavigator.Location = new Point(325, 47);
+            tb_plano_contaBindingNavigator.MoveFirstItem = bindingNavigatorMoveFirstItem;
+            tb_plano_contaBindingNavigator.MoveLastItem = bindingNavigatorMoveLastItem;
+            tb_plano_contaBindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
+            tb_plano_contaBindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
+            tb_plano_contaBindingNavigator.Name = "tb_plano_contaBindingNavigator";
+            tb_plano_contaBindingNavigator.PositionItem = bindingNavigatorPositionItem;
+            tb_plano_contaBindingNavigator.Size = new Size(217, 25);
+            tb_plano_contaBindingNavigator.TabIndex = 21;
+            tb_plano_contaBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            bindingNavigatorCountItem.Size = new Size(35, 22);
+            bindingNavigatorCountItem.Text = "of {0}";
+            bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
             // 
-            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Move first";
+            bindingNavigatorMoveFirstItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveFirstItem.Image = (Image)resources.GetObject("bindingNavigatorMoveFirstItem.Image");
+            bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveFirstItem.Size = new Size(23, 22);
+            bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
             // 
-            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
+            bindingNavigatorMovePreviousItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMovePreviousItem.Image = (Image)resources.GetObject("bindingNavigatorMovePreviousItem.Image");
+            bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMovePreviousItem.Size = new Size(23, 22);
+            bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
-            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            bindingNavigatorSeparator.Size = new Size(6, 25);
             // 
             // bindingNavigatorPositionItem
             // 
-            this.bindingNavigatorPositionItem.AccessibleName = "Position";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+            bindingNavigatorPositionItem.AccessibleName = "Position";
+            bindingNavigatorPositionItem.AutoSize = false;
+            bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            bindingNavigatorPositionItem.Size = new Size(58, 23);
+            bindingNavigatorPositionItem.Text = "0";
+            bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // bindingNavigatorSeparator1
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            bindingNavigatorSeparator1.Size = new Size(6, 25);
             // 
             // bindingNavigatorMoveNextItem
             // 
-            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveNextItem.Text = "Move next";
+            bindingNavigatorMoveNextItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveNextItem.Image = (Image)resources.GetObject("bindingNavigatorMoveNextItem.Image");
+            bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveNextItem.Size = new Size(23, 22);
+            bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
             // 
-            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveLastItem.Text = "Move last";
+            bindingNavigatorMoveLastItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            bindingNavigatorMoveLastItem.Image = (Image)resources.GetObject("bindingNavigatorMoveLastItem.Image");
+            bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            bindingNavigatorMoveLastItem.Size = new Size(23, 22);
+            bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            bindingNavigatorSeparator2.Size = new Size(6, 25);
             // 
             // codPlanoContaTextBox
             // 
-            this.codPlanoContaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "CodPlanoConta", true));
-            this.codPlanoContaTextBox.Enabled = false;
-            this.codPlanoContaTextBox.Location = new System.Drawing.Point(7, 89);
-            this.codPlanoContaTextBox.Name = "codPlanoContaTextBox";
-            this.codPlanoContaTextBox.Size = new System.Drawing.Size(121, 20);
-            this.codPlanoContaTextBox.TabIndex = 22;
+            codPlanoContaTextBox.DataBindings.Add(new Binding("Text", planoContaBindingSource, "CodPlanoConta", true));
+            codPlanoContaTextBox.Enabled = false;
+            codPlanoContaTextBox.Location = new Point(8, 103);
+            codPlanoContaTextBox.Margin = new Padding(4, 3, 4, 3);
+            codPlanoContaTextBox.Name = "codPlanoContaTextBox";
+            codPlanoContaTextBox.Size = new Size(140, 23);
+            codPlanoContaTextBox.TabIndex = 22;
             // 
             // descricaoTextBox
             // 
-            this.descricaoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "Descricao", true));
-            this.descricaoTextBox.Location = new System.Drawing.Point(137, 89);
-            this.descricaoTextBox.MaxLength = 40;
-            this.descricaoTextBox.Name = "descricaoTextBox";
-            this.descricaoTextBox.Size = new System.Drawing.Size(326, 20);
-            this.descricaoTextBox.TabIndex = 24;
-            this.descricaoTextBox.Leave += new System.EventHandler(this.descricaoTextBox_Leave);
+            descricaoTextBox.CharacterCasing = CharacterCasing.Upper;
+            descricaoTextBox.DataBindings.Add(new Binding("Text", planoContaBindingSource, "Descricao", true));
+            descricaoTextBox.Location = new Point(160, 103);
+            descricaoTextBox.Margin = new Padding(4, 3, 4, 3);
+            descricaoTextBox.MaxLength = 40;
+            descricaoTextBox.Name = "descricaoTextBox";
+            descricaoTextBox.Size = new Size(380, 23);
+            descricaoTextBox.TabIndex = 24;
+            descricaoTextBox.Leave += descricaoTextBox_Leave;
             // 
             // diaBaseTextBox
             // 
-            this.diaBaseTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.diaBaseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planoContaBindingSource, "DiaBase", true));
-            this.diaBaseTextBox.Location = new System.Drawing.Point(413, 134);
-            this.diaBaseTextBox.MaxLength = 2;
-            this.diaBaseTextBox.Name = "diaBaseTextBox";
-            this.diaBaseTextBox.Size = new System.Drawing.Size(50, 20);
-            this.diaBaseTextBox.TabIndex = 30;
+            diaBaseTextBox.CharacterCasing = CharacterCasing.Upper;
+            diaBaseTextBox.DataBindings.Add(new Binding("Text", planoContaBindingSource, "DiaBase", true));
+            diaBaseTextBox.Location = new Point(482, 155);
+            diaBaseTextBox.Margin = new Padding(4, 3, 4, 3);
+            diaBaseTextBox.MaxLength = 2;
+            diaBaseTextBox.Name = "diaBaseTextBox";
+            diaBaseTextBox.Size = new Size(58, 23);
+            diaBaseTextBox.TabIndex = 30;
             // 
             // codGrupoContaComboBox
             // 
-            this.codGrupoContaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codGrupoContaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codGrupoContaComboBox.CausesValidation = false;
-            this.codGrupoContaComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.planoContaBindingSource, "CodGrupoConta", true));
-            this.codGrupoContaComboBox.DataSource = this.grupoContaBindingSource;
-            this.codGrupoContaComboBox.DisplayMember = "Descricao";
-            this.codGrupoContaComboBox.FormattingEnabled = true;
-            this.codGrupoContaComboBox.Location = new System.Drawing.Point(10, 134);
-            this.codGrupoContaComboBox.Name = "codGrupoContaComboBox";
-            this.codGrupoContaComboBox.Size = new System.Drawing.Size(249, 21);
-            this.codGrupoContaComboBox.TabIndex = 26;
-            this.codGrupoContaComboBox.ValueMember = "CodGrupoConta";
-            this.codGrupoContaComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codGrupoContaComboBox_KeyPress);
-            this.codGrupoContaComboBox.Leave += new System.EventHandler(this.codGrupoContaComboBox_Leave);
+            codGrupoContaComboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+            codGrupoContaComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            codGrupoContaComboBox.DataBindings.Add(new Binding("SelectedValue", planoContaBindingSource, "CodGrupoConta", true));
+            codGrupoContaComboBox.DataSource = grupoContaBindingSource;
+            codGrupoContaComboBox.DisplayMember = "Descricao";
+            codGrupoContaComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            codGrupoContaComboBox.FormattingEnabled = true;
+            codGrupoContaComboBox.Location = new Point(12, 155);
+            codGrupoContaComboBox.Margin = new Padding(4, 3, 4, 3);
+            codGrupoContaComboBox.Name = "codGrupoContaComboBox";
+            codGrupoContaComboBox.Size = new Size(290, 23);
+            codGrupoContaComboBox.TabIndex = 26;
+            codGrupoContaComboBox.ValueMember = "CodGrupoConta";
+            codGrupoContaComboBox.KeyPress += codGrupoContaComboBox_KeyPress;
+            codGrupoContaComboBox.Leave += codGrupoContaComboBox_Leave;
             // 
             // grupoContaBindingSource
             // 
-            this.grupoContaBindingSource.DataSource = typeof(Dominio.GrupoConta);
+            grupoContaBindingSource.DataSource = typeof(Dominio.GrupoConta);
             // 
             // rbPagar
             // 
-            this.rbPagar.AutoSize = true;
-            this.rbPagar.Location = new System.Drawing.Point(13, 14);
-            this.rbPagar.Name = "rbPagar";
-            this.rbPagar.Size = new System.Drawing.Size(53, 17);
-            this.rbPagar.TabIndex = 0;
-            this.rbPagar.TabStop = true;
-            this.rbPagar.Text = "Pagar";
-            this.rbPagar.UseVisualStyleBackColor = true;
+            rbPagar.AutoSize = true;
+            rbPagar.Location = new Point(15, 16);
+            rbPagar.Margin = new Padding(4, 3, 4, 3);
+            rbPagar.Name = "rbPagar";
+            rbPagar.Size = new Size(55, 19);
+            rbPagar.TabIndex = 0;
+            rbPagar.TabStop = true;
+            rbPagar.Text = "Pagar";
+            rbPagar.UseVisualStyleBackColor = true;
             // 
             // rbReceber
             // 
-            this.rbReceber.AutoSize = true;
-            this.rbReceber.Location = new System.Drawing.Point(65, 13);
-            this.rbReceber.Name = "rbReceber";
-            this.rbReceber.Size = new System.Drawing.Size(66, 17);
-            this.rbReceber.TabIndex = 1;
-            this.rbReceber.TabStop = true;
-            this.rbReceber.Text = "Receber";
-            this.rbReceber.UseVisualStyleBackColor = true;
+            rbReceber.AutoSize = true;
+            rbReceber.Location = new Point(76, 15);
+            rbReceber.Margin = new Padding(4, 3, 4, 3);
+            rbReceber.Name = "rbReceber";
+            rbReceber.Size = new Size(67, 19);
+            rbReceber.TabIndex = 1;
+            rbReceber.TabStop = true;
+            rbReceber.Text = "Receber";
+            rbReceber.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rbReceber);
-            this.groupBox1.Controls.Add(this.rbPagar);
-            this.groupBox1.Location = new System.Drawing.Point(269, 116);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(138, 38);
-            this.groupBox1.TabIndex = 28;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tipo";
+            groupBox1.Controls.Add(rbReceber);
+            groupBox1.Controls.Add(rbPagar);
+            groupBox1.Location = new Point(314, 134);
+            groupBox1.Margin = new Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(4, 3, 4, 3);
+            groupBox1.Size = new Size(161, 44);
+            groupBox1.TabIndex = 28;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Tipo";
             // 
             // FrmPlanoConta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 192);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(codGrupoContaLabel);
-            this.Controls.Add(this.codGrupoContaComboBox);
-            this.Controls.Add(codPlanoContaLabel);
-            this.Controls.Add(this.tb_plano_contaBindingNavigator);
-            this.Controls.Add(this.codPlanoContaTextBox);
-            this.Controls.Add(descricaoLabel);
-            this.Controls.Add(this.descricaoTextBox);
-            this.Controls.Add(diaBaseLabel);
-            this.Controls.Add(this.diaBaseTextBox);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnNovo);
-            this.Controls.Add(this.btnExcluir);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.KeyPreview = true;
-            this.Name = "FrmPlanoConta";
-            this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Cadastro de Plano de Contas";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPlanoConta_FormClosing);
-            this.Load += new System.EventHandler(this.FrmPlanoConta_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmPlanoConta_KeyDown);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.planoContaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_plano_contaBindingNavigator)).EndInit();
-            this.tb_plano_contaBindingNavigator.ResumeLayout(false);
-            this.tb_plano_contaBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grupoContaBindingSource)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(553, 222);
+            Controls.Add(groupBox1);
+            Controls.Add(codGrupoContaLabel);
+            Controls.Add(codGrupoContaComboBox);
+            Controls.Add(codPlanoContaLabel);
+            Controls.Add(tb_plano_contaBindingNavigator);
+            Controls.Add(codPlanoContaTextBox);
+            Controls.Add(descricaoLabel);
+            Controls.Add(descricaoTextBox);
+            Controls.Add(diaBaseLabel);
+            Controls.Add(diaBaseTextBox);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnBuscar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnNovo);
+            Controls.Add(btnExcluir);
+            Controls.Add(btnEditar);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "FrmPlanoConta";
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Cadastro de Plano de Contas";
+            FormClosing += FrmPlanoConta_FormClosing;
+            Load += FrmPlanoConta_Load;
+            KeyDown += FrmPlanoConta_KeyDown;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)planoContaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tb_plano_contaBindingNavigator).EndInit();
+            tb_plano_contaBindingNavigator.ResumeLayout(false);
+            tb_plano_contaBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)grupoContaBindingSource).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

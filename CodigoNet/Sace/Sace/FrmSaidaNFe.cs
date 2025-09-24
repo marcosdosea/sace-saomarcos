@@ -7,24 +7,22 @@ namespace Sace
 {
     public partial class FrmSaidaNFe : Form
     {
-        public Saida Saida { get; set; }
-        private Pessoa Cliente { get; set; }
-        private long codSaida;
+        public Saida? Saida { get; set; }
+        private Pessoa? Cliente { get; set; }
         private List<SaidaPedido> listaSaidaPedido;
         private List<SaidaPagamento> listaSaidaPagamento;
 
         public FrmSaidaNFe(long codSaida, List<SaidaPedido> listaSaidaPedido, List<SaidaPagamento> listaSaidaPagamento)
         {
             InitializeComponent();
-            this.codSaida = codSaida;
+            this.Saida = GerenciadorSaida.Obter(codSaida);
             this.listaSaidaPedido = listaSaidaPedido;
             this.listaSaidaPagamento = listaSaidaPagamento;
-            IEnumerable<Pessoa> listaPessoas = GerenciadorPessoa.Obter(Saida.CodCliente);
+            Cliente = GerenciadorPessoa.Obter(Saida.CodCliente);
             nfeControleBindingSource.DataSource = GerenciadorNFe.ObterPorSaida(codSaida);
-			Cliente = listaPessoas.FirstOrDefault();
 			if (Saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO)
             {
-                pessoaBindingSource.DataSource = listaPessoas;
+                pessoaBindingSource.DataSource = new List<Pessoa>() { Cliente };
                 codPessoaComboBox.Enabled = false;
                 codPessoaComboBox.TabStop = false;
             }
@@ -266,7 +264,7 @@ namespace Sace
         {
             int posicao = nfeControleBindingSource.Position;
             IEnumerable<NfeControle> listaNfeControleExibida = (IEnumerable<NfeControle>)nfeControleBindingSource.DataSource;
-            IEnumerable<NfeControle> listaNfeControle = GerenciadorNFe.ObterPorSaida(codSaida);
+            IEnumerable<NfeControle> listaNfeControle = GerenciadorNFe.ObterPorSaida(Saida.CodSaida);
             if (listaNfeControle.Count() > 0)
             {
                 var listaControleExibida = new HashSet<String>(listaNfeControleExibida.Select(nfe => nfe.SituacaoNfe).ToList());

@@ -41,7 +41,7 @@ namespace Sace
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            Pessoa pessoa = (Pessoa) pessoaBindingSource.AddNew();
+            var pessoa = (Pessoa) pessoaBindingSource.AddNew();
             pessoa.EhFabricante = false;
             pessoa.ImprimirCF = false;
             pessoa.ImprimirDAV = true;
@@ -182,7 +182,8 @@ namespace Sace
                 contatoPessoa.CodPessoaContato = frmPessoaPesquisa.PessoaSelected.CodPessoa;
 
                 GerenciadorPessoa.InserirContato(contatoPessoa);
-                contatosBindingSource.DataSource = GerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
+                var contatos = GerenciadorPessoa.ObterContatos(long.Parse(codPessoaTextBox.Text));
+                contatosBindingSource.DataSource = contatos;
             }
             frmPessoaPesquisa.Dispose();
         }

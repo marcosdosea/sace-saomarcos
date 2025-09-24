@@ -41,7 +41,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _contaBanco = context.TbContaBancos.FirstOrDefault(c => c.CodContaBanco == contaBanco.CodContaBanco);
+                    var _contaBanco = context.TbContaBancos.Find(contaBanco.CodContaBanco);
                     if (_contaBanco != null)
                     {
                         Atribuir(contaBanco, _contaBanco);
@@ -72,7 +72,7 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var _contaBanco = context.TbContaBancos.FirstOrDefault(c => c.CodContaBanco == codContaBanco);
+                    var _contaBanco = context.TbContaBancos.Find(codContaBanco);
                     if (_contaBanco != null)
                     {
                         context.Remove(_contaBanco);
