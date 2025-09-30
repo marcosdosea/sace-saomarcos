@@ -51,12 +51,12 @@
             Label valorIPILabel;
             Label label1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSaida));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             lblSaidaProdutos = new Label();
             panel1 = new Panel();
             lblFormaEntrada = new Label();
@@ -120,6 +120,7 @@
             lblPreco = new Label();
             labelAtualizarPrecos = new Label();
             VendedorTextBox = new TextBox();
+            btnCredito = new Button();
             codSaidaLabel = new Label();
             quantidadeLabel = new Label();
             valorVendaLabel = new Label();
@@ -484,7 +485,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(712, 675);
+            btnCancelar.Location = new Point(815, 675);
             btnCancelar.Margin = new Padding(4, 3, 4, 3);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(98, 27);
@@ -647,32 +648,32 @@
             tb_saida_produtoDataGridView.AllowUserToAddRows = false;
             tb_saida_produtoDataGridView.AllowUserToDeleteRows = false;
             tb_saida_produtoDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            tb_saida_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             tb_saida_produtoDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tb_saida_produtoDataGridView.Columns.AddRange(new DataGridViewColumn[] { codSaidaProdutoDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, Unidade, quantidadeDataGridViewTextBoxColumn, valorVendaDataGridViewTextBoxColumn, subtotalDataGridViewTextBoxColumn, subtotalAVistaDataGridViewTextBoxColumn });
             tb_saida_produtoDataGridView.DataSource = saidaProdutoBindingSource;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = SystemColors.Window;
+            dataGridViewCellStyle11.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle11.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.False;
+            tb_saida_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle11;
             tb_saida_produtoDataGridView.Location = new Point(224, 156);
             tb_saida_produtoDataGridView.Margin = new Padding(4, 3, 4, 3);
             tb_saida_produtoDataGridView.MultiSelect = false;
             tb_saida_produtoDataGridView.Name = "tb_saida_produtoDataGridView";
             tb_saida_produtoDataGridView.ReadOnly = true;
-            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tb_saida_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle12;
             tb_saida_produtoDataGridView.RowTemplate.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tb_saida_produtoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tb_saida_produtoDataGridView.Size = new Size(952, 312);
@@ -717,8 +718,8 @@
             // valorVendaDataGridViewTextBoxColumn
             // 
             valorVendaDataGridViewTextBoxColumn.DataPropertyName = "ValorVenda";
-            dataGridViewCellStyle2.Format = "C2";
-            valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Format = "C2";
+            valorVendaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
             valorVendaDataGridViewTextBoxColumn.HeaderText = "Valor (UN)";
             valorVendaDataGridViewTextBoxColumn.Name = "valorVendaDataGridViewTextBoxColumn";
             valorVendaDataGridViewTextBoxColumn.ReadOnly = true;
@@ -726,9 +727,9 @@
             // subtotalDataGridViewTextBoxColumn
             // 
             subtotalDataGridViewTextBoxColumn.DataPropertyName = "Subtotal";
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Format = "C2";
+            dataGridViewCellStyle9.NullValue = null;
+            subtotalDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
             subtotalDataGridViewTextBoxColumn.HeaderText = "Subtotal";
             subtotalDataGridViewTextBoxColumn.Name = "subtotalDataGridViewTextBoxColumn";
             subtotalDataGridViewTextBoxColumn.ReadOnly = true;
@@ -736,8 +737,8 @@
             // subtotalAVistaDataGridViewTextBoxColumn
             // 
             subtotalAVistaDataGridViewTextBoxColumn.DataPropertyName = "SubtotalAVista";
-            dataGridViewCellStyle4.Format = "C2";
-            subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Format = "C2";
+            subtotalAVistaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle10;
             subtotalAVistaDataGridViewTextBoxColumn.HeaderText = "À Vista";
             subtotalAVistaDataGridViewTextBoxColumn.Name = "subtotalAVistaDataGridViewTextBoxColumn";
             subtotalAVistaDataGridViewTextBoxColumn.ReadOnly = true;
@@ -1104,12 +1105,24 @@
             VendedorTextBox.TabIndex = 80;
             VendedorTextBox.TabStop = false;
             // 
+            // btnCredito
+            // 
+            btnCredito.Location = new Point(713, 675);
+            btnCredito.Margin = new Padding(4, 3, 4, 3);
+            btnCredito.Name = "btnCredito";
+            btnCredito.Size = new Size(103, 27);
+            btnCredito.TabIndex = 82;
+            btnCredito.Text = "F10 -Crédito";
+            btnCredito.UseVisualStyleBackColor = true;
+            btnCredito.Click += btnCredito_Click;
+            // 
             // FrmSaida
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1200, 753);
             ControlBox = false;
+            Controls.Add(btnCredito);
             Controls.Add(label1);
             Controls.Add(VendedorTextBox);
             Controls.Add(tb_saida_produtoDataGridView);
@@ -1264,5 +1277,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalAVistaDataGridViewTextBoxColumn;
         private System.Windows.Forms.TextBox VendedorTextBox;
+        private Button btnCredito;
     }
 }

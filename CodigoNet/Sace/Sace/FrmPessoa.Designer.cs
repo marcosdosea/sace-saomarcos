@@ -86,6 +86,10 @@
             ieTextBox = new TextBox();
             fone3TextBox = new MaskedTextBox();
             tb_contato_empresaDataGridView = new DataGridView();
+            codPessoaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nomeFantasiaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            fone1DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            fone2DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             contatosBindingSource = new BindingSource(components);
             label2 = new Label();
             label6 = new Label();
@@ -105,10 +109,6 @@
             cidadeTextBox = new TextBox();
             codMunicipioIBGEComboBox = new ComboBox();
             bloquearCrediarioCheckBox = new CheckBox();
-            codPessoaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nomeFantasiaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            fone1DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            fone2DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             codPessoaLabel = new Label();
             enderecoLabel = new Label();
             cidadeLabel = new Label();
@@ -710,6 +710,36 @@
             tb_contato_empresaDataGridView.TabIndex = 68;
             tb_contato_empresaDataGridView.TabStop = false;
             // 
+            // codPessoaDataGridViewTextBoxColumn
+            // 
+            codPessoaDataGridViewTextBoxColumn.DataPropertyName = "CodPessoa";
+            codPessoaDataGridViewTextBoxColumn.HeaderText = "CodPessoa";
+            codPessoaDataGridViewTextBoxColumn.Name = "codPessoaDataGridViewTextBoxColumn";
+            codPessoaDataGridViewTextBoxColumn.ReadOnly = true;
+            codPessoaDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // nomeFantasiaDataGridViewTextBoxColumn
+            // 
+            nomeFantasiaDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            nomeFantasiaDataGridViewTextBoxColumn.DataPropertyName = "NomeFantasia";
+            nomeFantasiaDataGridViewTextBoxColumn.HeaderText = "Nome Fantasia";
+            nomeFantasiaDataGridViewTextBoxColumn.Name = "nomeFantasiaDataGridViewTextBoxColumn";
+            nomeFantasiaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fone1DataGridViewTextBoxColumn
+            // 
+            fone1DataGridViewTextBoxColumn.DataPropertyName = "Fone1";
+            fone1DataGridViewTextBoxColumn.HeaderText = "Fone1";
+            fone1DataGridViewTextBoxColumn.Name = "fone1DataGridViewTextBoxColumn";
+            fone1DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fone2DataGridViewTextBoxColumn
+            // 
+            fone2DataGridViewTextBoxColumn.DataPropertyName = "Fone2";
+            fone2DataGridViewTextBoxColumn.HeaderText = "Fone2";
+            fone2DataGridViewTextBoxColumn.Name = "fone2DataGridViewTextBoxColumn";
+            fone2DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // contatosBindingSource
             // 
             contatosBindingSource.DataSource = typeof(Dominio.Pessoa);
@@ -918,36 +948,6 @@
             bloquearCrediarioCheckBox.TabIndex = 35;
             bloquearCrediarioCheckBox.Text = "Crediário Bloqueado";
             bloquearCrediarioCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // codPessoaDataGridViewTextBoxColumn
-            // 
-            codPessoaDataGridViewTextBoxColumn.DataPropertyName = "CodPessoa";
-            codPessoaDataGridViewTextBoxColumn.HeaderText = "CodPessoa";
-            codPessoaDataGridViewTextBoxColumn.Name = "codPessoaDataGridViewTextBoxColumn";
-            codPessoaDataGridViewTextBoxColumn.ReadOnly = true;
-            codPessoaDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // nomeFantasiaDataGridViewTextBoxColumn
-            // 
-            nomeFantasiaDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            nomeFantasiaDataGridViewTextBoxColumn.DataPropertyName = "NomeFantasia";
-            nomeFantasiaDataGridViewTextBoxColumn.HeaderText = "Nome Fantasia";
-            nomeFantasiaDataGridViewTextBoxColumn.Name = "nomeFantasiaDataGridViewTextBoxColumn";
-            nomeFantasiaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fone1DataGridViewTextBoxColumn
-            // 
-            fone1DataGridViewTextBoxColumn.DataPropertyName = "Fone1";
-            fone1DataGridViewTextBoxColumn.HeaderText = "Fone1";
-            fone1DataGridViewTextBoxColumn.Name = "fone1DataGridViewTextBoxColumn";
-            fone1DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fone2DataGridViewTextBoxColumn
-            // 
-            fone2DataGridViewTextBoxColumn.DataPropertyName = "Fone2";
-            fone2DataGridViewTextBoxColumn.HeaderText = "Fone2";
-            fone2DataGridViewTextBoxColumn.Name = "fone2DataGridViewTextBoxColumn";
-            fone2DataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FrmPessoa
             // 

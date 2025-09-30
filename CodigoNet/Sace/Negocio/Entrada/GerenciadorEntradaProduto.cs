@@ -12,6 +12,28 @@ namespace Negocio
         /// Insere uma novo produto na entrada
         public static long Inserir(EntradaProduto entradaProduto, int codTipoEntrada)
         {
+            using (var context = new SaceContext())
+            {
+                try
+                {
+                    context.Database.BeginTransaction();
+                    var codigo = Inserir(entradaProduto, codTipoEntrada, context);
+                    context.Database.CommitTransaction();
+                    return codigo;
+                }
+                catch (Exception e)
+                {
+                    context.Database.RollbackTransaction();
+                    throw new DadosException("EntradaProduto", e.Message, e); ;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Insere uma novo produto na entrada
+        public static long Inserir(EntradaProduto entradaProduto, int codTipoEntrada, SaceContext context)
+        {
             if (entradaProduto.Quantidade == 0)
                 throw new NegocioException("A quantidade do produto não pode ser igual a zero.");
             else if (entradaProduto.PrecoVendaVarejo <= 0)
@@ -38,37 +60,33 @@ namespace Negocio
             {
                 throw new NegocioException("O campo % ICMS ST não pode ser menor ou igual a zero quando o produto possui substituição tributária.");
             }
-            using (var context = new SaceContext())
+            try
             {
-                try
+                var _entradaProduto = new TbEntradaProduto();
+                Atribuir(entradaProduto, _entradaProduto);
+                context.Add(_entradaProduto);
+                context.SaveChanges();
+
+                if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
                 {
-                    var _entradaProduto = new TbEntradaProduto();
-                    Atribuir(entradaProduto, _entradaProduto);
-                    context.Database.BeginTransaction();
-                    context.Add(_entradaProduto);
-                    context.SaveChanges();
+                    // Incrementa o estoque na loja principal
+                    GerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto, context);
 
-                    if ((codTipoEntrada == Entrada.TIPO_ENTRADA) || (codTipoEntrada == Entrada.TIPO_ENTRADA_AUX))
-                    {
-                        // Incrementa o estoque na loja principal
-                        GerenciadorProdutoLoja.AdicionaQuantidade((entradaProduto.Quantidade * entradaProduto.QuantidadeEmbalagem), 0, UtilConfig.Default.LOJA_PADRAO, entradaProduto.CodProduto, context);
+                    Atribuir(entradaProduto, produto);
+                    produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
+                    produto.ExibeNaListagem = true;
 
-                        Atribuir(entradaProduto, produto);
-                        produto.CodSituacaoProduto = SituacaoProduto.DISPONIVEL;
-                        produto.ExibeNaListagem = true;
-
-                        // Atualiza os dados do produto se não foi na entrada padrão
-                        if (entradaProduto.CodEntrada != UtilConfig.Default.ENTRADA_PADRAO)
-                            GerenciadorProduto.Atualizar(produto, context);
-                    }
-                    context.Database.CommitTransaction();
-                    return _entradaProduto.CodEntrada;
+                    // Atualiza os dados do produto se não foi na entrada padrão
+                    if (entradaProduto.CodEntrada != UtilConfig.Default.ENTRADA_PADRAO)
+                        GerenciadorProduto.Atualizar(produto, context);
                 }
-                catch (Exception e)
-                {
-                    throw new DadosException("EntradaProduto", e.Message, e);
-                }
+                return _entradaProduto.CodEntrada;
             }
+            catch (Exception e)
+            {
+                throw new DadosException("EntradaProduto", e.Message, e);
+            }
+
         }
 
 
@@ -80,8 +98,8 @@ namespace Negocio
         {
             try
             {
-                var _entradaProduto = context.TbEntradaProdutos.
-                    Where(ep => ep.CodEntradaProduto == entradaProduto.CodEntradaProduto).FirstOrDefault();
+                var _entradaProduto = context.TbEntradaProdutos.Find(entradaProduto.CodEntradaProduto);
+
                 if (_entradaProduto != null)
                 {
                     Atribuir(entradaProduto, _entradaProduto);
@@ -112,7 +130,7 @@ namespace Negocio
                     var _entradaProduto = new TbEntradaProduto();
                     _entradaProduto.CodEntradaProduto = entradaProduto.CodEntradaProduto;
 
-                    context.Remove(entradaProduto);
+                    context.Remove(_entradaProduto);
                     context.SaveChanges();
 
                     // Decrementa o estoque na loja principal
@@ -556,12 +574,12 @@ namespace Negocio
                             {
                                 CodEntradaProduto = entradaProduto.CodEntradaProduto,
                                 CodEntrada = entradaProduto.CodEntrada,
-                                DataEntrada = (DateTime) entradaProduto.CodEntradaNavigation.DataEntrada.Value.Date,
+                                DataEntrada = (DateTime)entradaProduto.CodEntradaNavigation.DataEntrada.Value.Date,
                                 CodCST = entradaProduto.CodCst,
                                 NomeFornecedor = entradaProduto.CodEntradaNavigation.CodFornecedorNavigation.Nome,
-                                PrecoCusto = (decimal) entradaProduto.PrecoCusto,
-                                Quantidade = (decimal) entradaProduto.Quantidade,
-                                ValorUnitario = (decimal) entradaProduto.ValorUnitario
+                                PrecoCusto = (decimal)entradaProduto.PrecoCusto,
+                                Quantidade = (decimal)entradaProduto.Quantidade,
+                                ValorUnitario = (decimal)entradaProduto.ValorUnitario
                             };
                 return query.AsNoTracking().ToList();
             }
@@ -752,7 +770,7 @@ namespace Negocio
                 entradaProduto.CodCST = produto.CodCST;
                 entradaProduto.Cfop = 9999;
 
-                Inserir(entradaProduto, Entrada.TIPO_ENTRADA);
+                Inserir(entradaProduto, Entrada.TIPO_ENTRADA, context);
             }
 
             return 0;

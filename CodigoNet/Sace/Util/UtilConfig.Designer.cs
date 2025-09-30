@@ -117,7 +117,7 @@ namespace Util {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public string AMBIENTE_NFE {
             get {
                 return ((string)(this["AMBIENTE_NFE"]));
@@ -262,7 +262,7 @@ namespace Util {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDOR")]
+        [global::System.Configuration.DefaultSettingValueAttribute("DOSEADELL")]
         public string SERVIDOR_IMPRIMIR_NFE {
             get {
                 return ((string)(this["SERVIDOR_IMPRIMIR_NFE"]));

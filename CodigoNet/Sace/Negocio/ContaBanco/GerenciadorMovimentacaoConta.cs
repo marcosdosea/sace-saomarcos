@@ -105,13 +105,15 @@ namespace Negocio
 
                     if (_conta != null)
                     {
-                        context.Remove(_conta);
+                        context.Remove(_movimentacaoConta);
                         context.SaveChanges();
 
                         AtualizaSituacaoConta(_conta, _movimentacaoConta, true, context);
                         AtualizaSituacaoPagamentosEntrada(_conta, context);
                         AtualizaSituacaoPagamentosSaida(_conta, _movimentacaoConta, true, context);
                     }
+                    context.Remove(_conta);
+                    context.SaveChanges();
                 }
 
             }

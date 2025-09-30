@@ -81,7 +81,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::Sace.Resources.nfe_150x150;
+            this.pictureBox2.Image =  global::Sace.Properties.Resources.nfe_150x150;
             this.pictureBox2.Location = new System.Drawing.Point(375, 38);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(152, 135);
@@ -90,7 +90,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Sace.Resources.credit_cards_icon_150x150;
+            this.pictureBox1.Image = global::Sace.Properties.Resources.credit_cards_icon_150x150;
             this.pictureBox1.Location = new System.Drawing.Point(381, 203);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(141, 115);

@@ -187,7 +187,6 @@ namespace Negocio
                 Monitor.Enter(lockObj, ref lockWasTaken);
                 using (var context = new SaceContext())
                 {
-                    var transaction = context.Database.BeginTransaction();
                     try
                     {
                         DateTime ontem = DateTime.Now.AddDays(-1);
@@ -206,30 +205,18 @@ namespace Negocio
                         }
                         if (modelo.Equals(NfeControle.MODELO_NFCE))
                         {
-                            var _loja = new TbLoja();
-                            _loja.CodLoja = codLoja;
-                            _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == _loja.CodLoja);
-                            _loja.NumeroSequencialNfceAtual += 1;
-                            context.Update(_loja);
-                            context.SaveChanges();
-                            transaction.Commit();
-                            return _loja.NumeroSequencialNfceAtual;
+                            var numeroNFCE =  ChamarProcedureIncrementarNfce(codLoja);
+                            return numeroNFCE;
                         }
                         else
                         {
-                            var _loja = new TbLoja();
-                            _loja.CodLoja = codLoja;
-                            _loja = context.TbLojas.FirstOrDefault(l => l.CodLoja == _loja.CodLoja);
-                            _loja.NumeroSequenciaNfeAtual += 1;
-                            context.Update(_loja);
-                            context.SaveChanges();
-                            transaction.Commit();
-                            return _loja.NumeroSequenciaNfeAtual;
+                            var numeroNFE = ChamarProcedureIncrementarNfe(codLoja);
+                            return numeroNFE;
                         }
+                        
                     }
                     catch (Exception e)
                     {
-                        transaction.Rollback();
                         throw new DadosException("Loja", e.Message, e);
                     }
                 }
@@ -238,8 +225,6 @@ namespace Negocio
             {
                 if (lockWasTaken) Monitor.Exit(lockObj);
             }
-
-            
         }
 
         private static void Atribuir(Loja loja, TbLoja _loja)
@@ -257,6 +242,34 @@ namespace Negocio
             _loja.PastaNfeValidado = loja.PastaNfeValidado;
             _loja.NumeroSequenciaNfeAtual = loja.NumeroSequenciaNFeAtual;
             _loja.NumeroSequencialNfceAtual = loja.NumeroSequenciaNFCeAtual;
+        }
+        private static int ChamarProcedureIncrementarNfce(int codLoja)
+        {
+            using (var context = new SaceContext())
+            {
+                var pCodLoja = new MySql.Data.MySqlClient.MySqlParameter("@pCodLoja", codLoja);
+                var pNumeroNfce = new MySql.Data.MySqlClient.MySqlParameter("@pNumeroNfce", MySql.Data.MySqlClient.MySqlDbType.Int32)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+
+                context.Database.ExecuteSqlRaw("CALL IncrementarNFCe(@pCodLoja, @pNumeroNfce);", pCodLoja, pNumeroNfce);
+                return (int)(pNumeroNfce.Value ?? 0); 
+            }
+        }
+
+        private static int ChamarProcedureIncrementarNfe(int codLoja)
+        {
+            using (var context = new SaceContext())
+            {
+                var pCodLoja = new MySql.Data.MySqlClient.MySqlParameter("@pCodLoja", codLoja);
+                var pNumeroNfe = new MySql.Data.MySqlClient.MySqlParameter("@pNumeroNfe", MySql.Data.MySqlClient.MySqlDbType.Int32)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                context.Database.ExecuteSqlRaw("CALL IncrementarNFe(@pCodLoja, @pNumeroNfe);", pCodLoja, pNumeroNfe);
+                return (int)(pNumeroNfe.Value ?? 0); 
+            }
         }
     }
 }

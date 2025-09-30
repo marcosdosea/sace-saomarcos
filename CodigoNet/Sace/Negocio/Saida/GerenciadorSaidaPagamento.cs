@@ -98,7 +98,6 @@ namespace Negocio
                 return 0;
             }
         }
-
         /// <summary>
         /// Remove todos os pagamentos de uma Saída
         /// </summary>
@@ -107,10 +106,28 @@ namespace Negocio
         {
             using (var context = new SaceContext())
             {
-                List<SaidaPagamento> listaSaidaPagamento = ObterPorSaida(saida.CodSaida);
                 try
                 {
                     context.Database.BeginTransaction();
+                    RemoverPorSaida(saida, context);
+                    context.Database.CommitTransaction();
+                }
+                catch (Exception e)
+                {
+                    context.Database.RollbackTransaction();
+                    throw new DadosException("Problemas na exclusão de vários pagamentos.", e);
+                }
+            }
+        }
+        /// <summary>
+        /// Remove todos os pagamentos de uma Saída
+        /// </summary>
+        /// <param name="saida"></param>
+        public static void RemoverPorSaida(Saida saida, SaceContext context)
+        {
+                List<SaidaPagamento> listaSaidaPagamento = ObterPorSaida(saida.CodSaida);
+                try
+                {
                     foreach (SaidaPagamento saidaPagamento in listaSaidaPagamento)
                     {
                         if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_CREDITO))
@@ -120,17 +137,11 @@ namespace Negocio
                             foreach (Conta conta in contas)
                             {
                                 GerenciadorMovimentacaoConta.RemoverPorConta(conta.CodConta, context);
-                                context.Remove(new TbContum() { CodConta = conta.CodConta });
                             }
                         }
-                        var query = from saidaPagamentoSet in context.TbSaidaFormaPagamentos
-                                    where saidaPagamentoSet.CodSaidaFormaPagamento == saidaPagamento.CodSaidaPagamento
-                                    select saidaPagamentoSet;
-
-                        foreach (TbSaidaFormaPagamento _saidaPagamentoE in query)
-                        {
-                            context.Remove(_saidaPagamentoE);
-                        }
+                        
+                        context.Remove(new TbSaidaFormaPagamento() {  CodSaidaFormaPagamento = saidaPagamento.CodSaidaPagamento});
+                        
                         context.SaveChanges();
 
                         saida.TotalPago = listaSaidaPagamento.Sum(sp => sp.Valor);
@@ -138,13 +149,12 @@ namespace Negocio
                         saida.Desconto = 100 - ((saida.TotalAVista / saida.Total) * 100);
                         GerenciadorSaida.Atualizar(saida, context);
                     }
-                    context.Database.CommitTransaction();
                 }
                 catch (Exception e)
                 {
                     throw new DadosException("Problemas na exclusão de vários pagamentos.", e);
                 }
-            }
+            
         }
 
 
@@ -238,11 +248,12 @@ namespace Negocio
             using (var context = new SaceContext())
             {
                 var query = from saidaPagamento in context.TbSaidaFormaPagamentos
-                            where saidaPagamento.Data >= dataInicial && saidaPagamento.Data <= dataFinal &&
-                                (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
-                                saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_CREDITO) && (saidaPagamento.CodSaidaFormaPagamento != FormaPagamento.CREDIARIO)
+                            where (saidaPagamento.Data >= dataInicial && saidaPagamento.Data <= dataFinal) &&
+                                  (saidaPagamento.CodFormaPagamento != FormaPagamento.CREDIARIO ) &&
+                                  (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
+                                   saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_CREDITO)
                             group saidaPagamento by saidaPagamento.CodFormaPagamento into gsaida
-
+                            
                             select new TotalPagamentoSaida
                             {
                                 CodFormaPagamentos = gsaida.Key,

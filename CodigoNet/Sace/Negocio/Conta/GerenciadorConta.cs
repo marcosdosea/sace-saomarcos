@@ -16,8 +16,6 @@ namespace Negocio
         {
             try
             {
-                if (context == null)
-                    context = new SaceContext();
                 var _conta = new TbContum();
                 Atribuir(conta, _conta);
 
@@ -31,6 +29,21 @@ namespace Negocio
                 throw new DadosException("Conta", e.Message, e);
             }
         }
+
+
+        /// <summary>
+        /// Insere conta na base de dados
+        /// </summary>
+        /// <param name="conta"></param>
+        /// <returns></returns>
+        public static long Inserir(Conta conta)
+        {
+            using (var context = new SaceContext())
+            {
+                return Inserir(conta, context);
+            }
+        }
+
 
         /// <summary>
         /// Atualiza dados da conta no banco de dados
@@ -144,6 +157,8 @@ namespace Negocio
                 try
                 {
                     var _conta = context.TbConta.Find(codConta);
+                    if (_conta == null)
+                        throw new NegocioException("Conta não encontrada");
                     _conta.CodSituacao = codSituacao;
                     context.Update(_conta);
                     context.SaveChanges();
@@ -271,28 +286,21 @@ namespace Negocio
             using (var context = new SaceContext())
             {
                 var query = from conta in context.TbConta
-                            where conta.CodSaidaNavigation.PedidoGerado.Equals(notaFiscal)
+                                .Include(conta => conta.CodSaidaNavigation)
+                            where conta.CodSaidaNavigation != null &&
+                                  conta.CodSaidaNavigation.PedidoGerado != null &&
+                                  conta.CodSaidaNavigation.PedidoGerado.Equals(notaFiscal)
                             orderby conta.CodConta
                             select new Conta
                             {
                                 CodConta = conta.CodConta,
-                                CodEntrada = (long)conta.CodEntrada,
+                                CodEntrada = conta.CodEntrada ?? 0, // Use 0 or another default if null
                                 CodPagamento = conta.CodPagamento,
                                 CodPessoa = conta.CodPessoa,
-                                CF = conta.CodSaidaNavigation.PedidoGerado,
-                                CodPlanoConta = conta.CodPlanoConta,
-                                CodSaida = (long)conta.CodSaida,
-                                CodSituacao = conta.CodSituacao,
-                                DescricaoSituacao = conta.CodSituacaoNavigation.DescricaoSituacao,
-                                DataVencimento = conta.DataVencimento,
                                 Desconto = conta.Desconto,
-                                Observacao = conta.Observacao,
-                                TipoConta = conta.CodPlanoContaNavigation.CodTipoConta,
-                                FormatoConta = conta.FormatoConta,
-                                NumeroDocumento = conta.NumeroDocumento,
                                 Valor = conta.Valor
                             };
-                return query.AsNoTracking();
+                return query.AsNoTracking().ToList();
             }
         }
 

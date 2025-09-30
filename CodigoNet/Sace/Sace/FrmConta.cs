@@ -93,7 +93,7 @@ namespace Sace
 
             if (estado.Equals(EstadoFormulario.INSERIR))
             {
-                long codConta = GerenciadorConta.Inserir(conta, null);
+                long codConta = GerenciadorConta.Inserir(conta);
                 codContaTextBox.Text = codConta.ToString();
             }
             else

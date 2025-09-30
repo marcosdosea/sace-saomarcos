@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using Dados;
+using Dominio;
 using Negocio;
 using System.Data;
 using Util;
@@ -20,7 +21,7 @@ namespace Sace
             this.listaSaidaPagamento = listaSaidaPagamento;
             Cliente = GerenciadorPessoa.Obter(Saida.CodCliente);
             nfeControleBindingSource.DataSource = GerenciadorNFe.ObterPorSaida(codSaida);
-			if (Saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO)
+            if (Saida.CodCliente != UtilConfig.Default.CLIENTE_PADRAO)
             {
                 pessoaBindingSource.DataSource = new List<Pessoa>() { Cliente };
                 codPessoaComboBox.Enabled = false;
@@ -123,76 +124,21 @@ namespace Sace
             if (MessageBox.Show("Confirma envio da NF-e?", "Enviar NF-e", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                // Atualiza os dados da saída
-                //if (Cliente.CodPessoa.Equals(UtilConfig.Default.CLIENTE_PADRAO))
-                //{
-                //    throw new TelaException("Para emissão de uma NF-e deve-se selecionar um Cliente.");
-                //}
-                if (Cliente.CodPessoa != Saida.CodCliente)
-                {
-                    Saida.CodCliente = Cliente.CodPessoa;
-                    GerenciadorSaida.Atualizar(Saida);
-                }
                 Saida.Observacao = observacaoTextBox.Text;
-                if (Saida.CupomFiscal.Trim().Equals(""))
-                {
-                    foreach (SaidaPedido saidaPedido in listaSaidaPedido)
-                        GerenciadorSaida.AtualizarNfePorCodSaida(Saida.Nfe, Saida.Observacao, saidaPedido.CodSaida);
-                }
-                else
-                {
-                    GerenciadorSaida.AtualizarPorPedido(Saida.Nfe, Saida.Observacao, Cliente.CodPessoa, Saida.CupomFiscal);
-                }
                 NfeControle nfe = (NfeControle)nfeControleBindingSource.Current;
-                if (nfe != null)
-                    GerenciadorNFe.Atualizar(nfe);
-
-                // envia nota fiscal
-                //List<SaidaPedido> listaSaidaPedido = new List<SaidaPedido>();
-                //Saida saida = gerenciadorSaida.Obter(Saida.CodSaida);
-                List<SaidaPesquisa> listaSaidas = GerenciadorSaida.ObterPorCodSaidas(listaSaidaPedido.Select(s=>s.CodSaida).ToList());
-                List<string> listaDocumentosFiscais = listaSaidas.Select(s => s.CupomFiscal).Distinct().ToList();
-                if (listaSaidas.Where(s=> !string.IsNullOrEmpty(s.CupomFiscal)).Count() > 0)
-                {
-                    listaSaidas = listaSaidas.Where(s => string.IsNullOrEmpty(s.CupomFiscal)).ToList();
-                    foreach (string docFiscal in listaDocumentosFiscais)
-                    {
-                        if (!string.IsNullOrEmpty(docFiscal))
-                        {
-                            listaSaidas.AddRange(GerenciadorSaida.ObterPorCupomFiscal(Saida.CupomFiscal));    
-                        }
-                    }  
-                        
-                    
-                    listaSaidaPedido = new List<SaidaPedido>();
-                    foreach (SaidaPesquisa s in listaSaidas)
-                        listaSaidaPedido.Add(new SaidaPedido() { CodSaida = s.CodSaida, TotalAVista = s.TotalAVista });
-                    List<Conta> listaContas = GerenciadorConta.ObterPorNfe(Saida.CupomFiscal).ToList();
-
-                    decimal valorTotalPagamento = listaContas.Sum(c => c.Valor) - listaContas.Sum(c => c.Desconto);
-                    SaidaPagamento saidaPagamento = new SaidaPagamento();
-                    FormaPagamento dinheiro = GerenciadorFormaPagamento.Obter(FormaPagamento.DINHEIRO).ElementAt(0);
-                    saidaPagamento.CodFormaPagamento = FormaPagamento.DINHEIRO;
-                    saidaPagamento.CodCartaoCredito = UtilConfig.Default.CARTAO_LOJA;
-                    saidaPagamento.MapeamentoFormaPagamento = dinheiro.Mapeamento;
-                    saidaPagamento.DescricaoFormaPagamento = dinheiro.Descricao;
-                    saidaPagamento.Valor = valorTotalPagamento;
-                    listaSaidaPagamento.Add(saidaPagamento);
-                }
+                DocumentoFiscal.TipoSolicitacao tipoSolicitacao = (Cliente.CodPessoa.Equals(UtilConfig.Default.CLIENTE_PADRAO)) ?
+                                DocumentoFiscal.TipoSolicitacao.NFCE :
+                                DocumentoFiscal.TipoSolicitacao.NFE;
+                GerenciadorNFe.ProcessarEnvioNfe(Cliente, Saida, nfe, listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar);
 
                 Cursor.Current = Cursors.Default;
-                DocumentoFiscal.TipoSolicitacao tipoSolicitacao = (Cliente.CodPessoa.Equals(UtilConfig.Default.CLIENTE_PADRAO)) ?
-                    DocumentoFiscal.TipoSolicitacao.NFCE :
-                    DocumentoFiscal.TipoSolicitacao.NFE;
-
-
-
-				long codSolicitacao = GerenciadorSolicitacaoDocumento.Inserir(listaSaidaPedido, listaSaidaPagamento, tipoSolicitacao, ehNfeComplementar, false);
+                
                 FrmSaidaAutorizacao frmSaidaAutorizacao = new FrmSaidaAutorizacao(Saida.CodSaida, Saida.CodCliente, tipoSolicitacao);
                 frmSaidaAutorizacao.ShowDialog();
                 frmSaidaAutorizacao.Dispose();
             }
         }
+
 
         private void btnFechar_Click(object sender, EventArgs e)
         {

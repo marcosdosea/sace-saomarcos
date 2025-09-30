@@ -17,7 +17,7 @@ namespace Sace
         {
             saidaBindingSource.DataSource = GerenciadorSaida.ObterPreVendasPendentes();
             cmbBusca.SelectedIndex = 1;
-         }
+        }
 
         private void txtTexto_TextChanged(object sender, EventArgs e)
         {
@@ -29,31 +29,36 @@ namespace Sace
                 {
                     saidaBindingSource.DataSource = GerenciadorSaida.ObterPreVendasPendentes();
                 }
-                else
-                    if (cmbBusca.SelectedIndex == 1)
-                       saidaBindingSource.DataSource = GerenciadorSaida.Obter(long.Parse(txtTexto.Text));
-                    else if (cmbBusca.SelectedIndex == 2)
+                else if (cmbBusca.SelectedIndex == 1)
+                {
+                    var saidas = new List<SaidaPesquisa>();
+                    var saida = GerenciadorSaida.Obter(long.Parse(txtTexto.Text));
+                    if (saida != null)
+                        saidas.Add((SaidaPesquisa) saida);
+                    saidaBindingSource.DataSource = saidas;
+                }
+                else if (cmbBusca.SelectedIndex == 2)
+                {
+                    if (txtTexto.Text.Trim().Length >= 5)
                     {
-                        if (txtTexto.Text.Trim().Length >= 5)
-                        {
-                            saidaBindingSource.DataSource = GerenciadorSaida.ObterPorPedido(txtTexto.Text);
-                        }
+                        saidaBindingSource.DataSource = GerenciadorSaida.ObterPorPedido(txtTexto.Text);
                     }
-                    else if (cmbBusca.SelectedIndex == 3)
+                }
+                else if (cmbBusca.SelectedIndex == 3)
+                {
+                    if (txtTexto.Text.Trim().Length > 3)
                     {
-                        if (txtTexto.Text.Trim().Length > 3)
-                        {
 
-                            saidaBindingSource.DataSource = GerenciadorSaida.ObterPorNomeCliente(txtTexto.Text);
-                        }
-                    } 
-                    else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Trim().Length >= 10))
-                    {
-                        if (txtTexto.Text.Trim().Length >= 10)
-                        {
-                            saidaBindingSource.DataSource = GerenciadorSaida.ObterPorDataPedido(txtTexto.Text);
-                        }
+                        saidaBindingSource.DataSource = GerenciadorSaida.ObterPorNomeCliente(txtTexto.Text);
                     }
+                }
+                else if ((cmbBusca.SelectedIndex == 4) && (txtTexto.Text.Trim().Length >= 10))
+                {
+                    if (txtTexto.Text.Trim().Length >= 10)
+                    {
+                        saidaBindingSource.DataSource = GerenciadorSaida.ObterPorDataPedido(txtTexto.Text);
+                    }
+                }
             }
             catch (System.Exception ex)
             {
@@ -79,11 +84,11 @@ namespace Sace
             if (e.KeyCode == Keys.Enter)
             {
                 tb_saidaDataGridView_CellClick(sender, null);
-            } 
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            } 
+            }
             else if ((e.KeyCode == Keys.Down) && (txtTexto.Focused))
             {
                 saidaBindingSource.MoveNext();
@@ -92,7 +97,7 @@ namespace Sace
             {
                 saidaBindingSource.MovePrevious();
             }
-        }        
+        }
 
         private void cmbBusca_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -106,6 +111,6 @@ namespace Sace
                 txtTexto.Text = DateTime.Now.Year + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00");
             }
         }
-      
+
     }
 }

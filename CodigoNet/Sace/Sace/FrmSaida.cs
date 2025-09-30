@@ -338,7 +338,7 @@ namespace Sace
                 lblBalcao.Text = "Remessa para Depósito";
 
                 saidaBindingSource.DataSource = GerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_REMESSA_DEPOSITO);
-                tb_saida_produtoDataGridView.Height = 370;
+                tb_saida_produtoDataGridView.Height = 500;
             }
             else if (Saida.LISTA_TIPOS_RETORNO_DEPOSITO.Contains(tipoSaidaFormulario))
             {
@@ -347,7 +347,7 @@ namespace Sace
                 lblBalcao.Text = "Retorno de Depósito";
 
                 saidaBindingSource.DataSource = GerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_RETORNO_DEPOSITO);
-                tb_saida_produtoDataGridView.Height = 370;
+                tb_saida_produtoDataGridView.Height = 500;
             }
             else if (Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR.Contains(tipoSaidaFormulario))
             {
@@ -357,7 +357,7 @@ namespace Sace
 
 
                 saidaBindingSource.DataSource = GerenciadorSaida.ObterPorTipoSaida(Saida.LISTA_TIPOS_DEVOLUCAO_CONSUMIDOR);
-                tb_saida_produtoDataGridView.Height = 370;
+                tb_saida_produtoDataGridView.Height = 500;
             }
             else if (Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR.Contains(tipoSaidaFormulario))
             {
@@ -821,6 +821,10 @@ namespace Sace
                 {
                     btnCfNfe_Click(sender, e);
                 }
+                else if (e.KeyCode == Keys.F10)
+                {
+                    btnCredito_Click(sender, e);
+                }
                 else if (e.KeyCode == Keys.End)
                 {
                     saidaBindingSource.MoveLast();
@@ -923,6 +927,7 @@ namespace Sace
             btnEncerrar.Enabled = !(habilita);
             btnCancelar.Enabled = !(habilita);
             btnBuscar.Enabled = habilita;
+            btnCredito.Enabled = habilita;
             btnNovo.Enabled = habilita;
             btnImprimir.Enabled = habilita;
             btnEditar.Enabled = habilita;
@@ -956,6 +961,15 @@ namespace Sace
         private void saidaBindingSource_CurrentItemChanged(object sender, EventArgs e)
         {
             saidaBindingSource.ResumeBinding();
+        }
+
+        private void btnCredito_Click(object sender, EventArgs e)
+        {
+            btnNovo_Click(sender, e);
+            saida = (Saida)saidaBindingSource.Current;
+            saida.TipoSaida = Saida.TIPO_PRE_CREDITO;
+            btnSalvar_Click(sender, e);
+            btnEncerrar_Click(sender, e);
         }
     }
 }

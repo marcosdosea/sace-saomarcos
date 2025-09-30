@@ -366,32 +366,38 @@ namespace Negocio
         /// <param name="nomeProduto"></param>
         /// <param name="precoVarejo"></param>
         /// <param name="precoAtacado"></param>
-        public static void AtualizarPrecoVarejoAtacado(long codProduto, string nomeProduto, decimal precoVarejo, decimal precoAtacado, decimal precoRevenda)
+        public static void AtualizarPrecoVarejoAtacado(List<ProdutoPesquisa> listaProdutos)
         {
             using (var context = new SaceContext())
             {
+                context.Database.BeginTransaction();
                 try
                 {
-                    var query = from produtoSet in context.TbProdutos
-                                where produtoSet.CodProduto == codProduto
-                                select produtoSet;
-                    foreach (TbProduto _produto in query)
+                    foreach (ProdutoPesquisa produto in listaProdutos)
                     {
-                        _produto.Nome = nomeProduto;
-                        if (_produto.PrecoVendaVarejo != precoVarejo || _produto.PrecoVendaAtacado != precoAtacado)
+                        var _produto = context.TbProdutos.Find(produto.CodProduto);
+                        if (_produto != null)
                         {
-                            _produto.PrecoVendaVarejo = precoVarejo;
-                            _produto.PrecoVendaAtacado = precoAtacado;
-                            _produto.PrecoRevenda = precoRevenda;
-                            _produto.DataUltimaMudancaPreco = DateTime.Now;
-                            _produto.UltimaDataAtualizacao = DateTime.Now;
+                            _produto.Nome = produto.Nome;
+                            if ((_produto.PrecoVendaVarejo != produto.PrecoVendaVarejo) || 
+                                (_produto.PrecoVendaAtacado != produto.PrecoVendaAtacado) ||
+                                (_produto.PrecoRevenda != produto.PrecoRevenda))
+                            {
+                                _produto.PrecoVendaVarejo = produto.PrecoVendaVarejo;
+                                _produto.PrecoVendaAtacado = produto.PrecoVendaAtacado;
+                                _produto.PrecoRevenda = produto.PrecoRevenda;
+                                _produto.DataUltimaMudancaPreco = DateTime.Now;
+                                _produto.UltimaDataAtualizacao = DateTime.Now;
+                            }
+                            context.Update(_produto);
+                            context.SaveChanges();
                         }
-                        context.Update(_produto);
-                        context.SaveChanges();
                     }
+                    context.Database.CommitTransaction();
                 }
                 catch (Exception e)
                 {
+                    context.Database.RollbackTransaction();
                     throw new DadosException("Produto", e.Message, e);
                 }
             }
@@ -534,6 +540,19 @@ namespace Negocio
                 return GetQuery(context).ToList();
             }
         }
+
+        /// <summary>
+        /// Obter todos os produtos
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<ProdutoPesquisa> ObterTodosPesquisa()
+        {
+            using (var context = new SaceContext())
+            {
+                return GetQuerySimples(context).ToList();
+            }
+        }
+
 
         /// <summary>
         /// Obtém produto que podem ser exibidos na listagem

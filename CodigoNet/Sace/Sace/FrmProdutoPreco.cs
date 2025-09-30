@@ -222,15 +222,18 @@ namespace Sace
             Cursor.Current = Cursors.WaitCursor;
             if (tb_produtoDataGridView.RowCount > 0)
             {
+                var listaProdutos = new List<ProdutoPesquisa>();
                 for (int i = 0; i < tb_produtoDataGridView.RowCount; i++)
                 {
-                    long codProduto = Convert.ToInt64( tb_produtoDataGridView.Rows[i].Cells[0].Value );
-                    string nomeProduto = tb_produtoDataGridView.Rows[i].Cells[1].Value.ToString();
-                    decimal precoVarejo = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[4].Value.ToString());
-                    decimal precoAtacado = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[5].Value.ToString());
-                    decimal precoRevenda = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[6].Value.ToString());
-                    GerenciadorProduto.AtualizarPrecoVarejoAtacado(codProduto, nomeProduto, precoVarejo, precoAtacado, precoRevenda);
+                    var produto = new ProdutoPesquisa();
+                    produto.CodProduto = Convert.ToInt64( tb_produtoDataGridView.Rows[i].Cells[0].Value );
+                    produto.Nome = tb_produtoDataGridView.Rows[i].Cells[1].Value.ToString();
+                    produto.PrecoVendaVarejo = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[4].Value.ToString());
+                    produto.PrecoVendaAtacado = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[5].Value.ToString());
+                    produto.PrecoRevenda = Decimal.Parse(tb_produtoDataGridView.Rows[i].Cells[6].Value.ToString());
+                    listaProdutos.Add(produto);
                 }
+                GerenciadorProduto.AtualizarPrecoVarejoAtacado(listaProdutos);
 
             }
             Cursor.Current = Cursors.Default;

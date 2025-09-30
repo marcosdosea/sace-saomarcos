@@ -1,4 +1,6 @@
-﻿namespace Sace
+﻿using System.IO;
+
+namespace Sace
 {
     partial class Sace
     {
@@ -596,11 +598,12 @@
             pictureBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(539, 590);
+            pictureBox1.Image = global::Sace.Properties.Resources.sace20251;
+            pictureBox1.Location = new Point(547, 516);
             pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(490, 140);
+            pictureBox1.Size = new Size(469, 182);
+            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBox1.TabIndex = 18;
             pictureBox1.TabStop = false;
             // 
@@ -658,14 +661,13 @@
             lblAno.TabIndex = 21;
             lblAno.Text = "lblAno:";
             // 
-            // Principal
+            // Sace
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoScroll = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = SystemColors.GradientActiveCaption;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(984, 729);
             Controls.Add(lblAno);
             Controls.Add(lblTicketMedio);
@@ -683,7 +685,7 @@
             KeyPreview = true;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4);
-            Name = "Principal";
+            Name = "Sace";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SACE - Sistema de Apoio ao Controle de Estoque";
             WindowState = FormWindowState.Maximized;
@@ -696,7 +698,6 @@
             ResumeLayout(false);
             PerformLayout();
         }
-
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;

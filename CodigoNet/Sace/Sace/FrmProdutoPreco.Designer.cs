@@ -28,246 +28,238 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbBusca = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtTexto = new System.Windows.Forms.TextBox();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.btnEstatistica = new System.Windows.Forms.Button();
-            this.PrecoRevenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecoVendaAtacado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecoVendaVarejoSemDesconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UltimoPrecoCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UltimaDataAtualizacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tb_produtoDataGridView = new System.Windows.Forms.DataGridView();
-            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.produtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).BeginInit();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            label1 = new Label();
+            cmbBusca = new ComboBox();
+            label2 = new Label();
+            txtTexto = new TextBox();
+            btnSalvar = new Button();
+            saveFileDialog = new SaveFileDialog();
+            btnEstatistica = new Button();
+            PrecoRevenda = new DataGridViewTextBoxColumn();
+            PrecoVendaAtacado = new DataGridViewTextBoxColumn();
+            PrecoVendaVarejoSemDesconto = new DataGridViewTextBoxColumn();
+            UltimoPrecoCompra = new DataGridViewTextBoxColumn();
+            UltimaDataAtualizacao = new DataGridViewTextBoxColumn();
+            CodProduto = new DataGridViewTextBoxColumn();
+            tb_produtoDataGridView = new DataGridView();
+            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            produtoBindingSource = new BindingSource(components);
+            ((System.ComponentModel.ISupportInitialize)tb_produtoDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)produtoBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 20);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Buscar Por:";
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(14, 10);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(91, 20);
+            label1.TabIndex = 2;
+            label1.Text = "Buscar Por:";
             // 
             // cmbBusca
             // 
-            this.cmbBusca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBusca.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbBusca.FormattingEnabled = true;
-            this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.cmbBusca.Items.AddRange(new object[] {
-            "Descrição",
-            "Código",
-            "Referência Fabricante",
-            "Nome Produto no Fabricante",
-            "Data Atualização Maior que",
-            "Códigos de Barras Inválidos",
-            "Códigos de Barras em Branco",
-            "Data Última Mudança de Preço Etiqueta Maior que",
-            "Nome Fabricante"});
-            this.cmbBusca.Location = new System.Drawing.Point(12, 36);
-            this.cmbBusca.Name = "cmbBusca";
-            this.cmbBusca.Size = new System.Drawing.Size(254, 28);
-            this.cmbBusca.TabIndex = 3;
-            this.cmbBusca.SelectedIndexChanged += new System.EventHandler(this.cmbBusca_SelectedIndexChanged);
+            cmbBusca.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbBusca.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbBusca.FormattingEnabled = true;
+            cmbBusca.ImeMode = ImeMode.On;
+            cmbBusca.Items.AddRange(new object[] { "Descrição", "Código", "Referência Fabricante", "Nome Produto no Fabricante", "Data Atualização Maior que", "Códigos de Barras Inválidos", "Códigos de Barras em Branco", "Data Última Mudança de Preço Etiqueta Maior que", "Nome Fabricante" });
+            cmbBusca.Location = new Point(14, 42);
+            cmbBusca.Margin = new Padding(4, 3, 4, 3);
+            cmbBusca.Name = "cmbBusca";
+            cmbBusca.Size = new Size(296, 28);
+            cmbBusca.TabIndex = 3;
+            cmbBusca.SelectedIndexChanged += cmbBusca_SelectedIndexChanged;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(268, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 20);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Texto:";
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(313, 10);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(52, 20);
+            label2.TabIndex = 4;
+            label2.Text = "Texto:";
             // 
             // txtTexto
             // 
-            this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTexto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTexto.Location = new System.Drawing.Point(272, 38);
-            this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(1023, 26);
-            this.txtTexto.TabIndex = 1;
-            this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
+            txtTexto.CharacterCasing = CharacterCasing.Upper;
+            txtTexto.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTexto.Location = new Point(317, 44);
+            txtTexto.Margin = new Padding(4, 3, 4, 3);
+            txtTexto.Name = "txtTexto";
+            txtTexto.Size = new Size(1193, 26);
+            txtTexto.TabIndex = 1;
+            txtTexto.TextChanged += txtTexto_TextChanged;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(1149, 508);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(146, 23);
-            this.btnSalvar.TabIndex = 6;
-            this.btnSalvar.Text = "SALVAR ALTERAÇÕES";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            btnSalvar.Location = new Point(1340, 586);
+            btnSalvar.Margin = new Padding(4, 3, 4, 3);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(170, 27);
+            btnSalvar.TabIndex = 6;
+            btnSalvar.Text = "SALVAR ALTERAÇÕES";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // saveFileDialog
             // 
-            this.saveFileDialog.DefaultExt = "xls";
-            this.saveFileDialog.FileName = "ProdutosEtiquetas.xls";
-            this.saveFileDialog.InitialDirectory = "C:\\Documents and Settings\\vendas\\Meus documentos\\Dropbox\\Documentos\\etiquetas";
-            this.saveFileDialog.Title = "Exportar Excel";
+            saveFileDialog.DefaultExt = "xls";
+            saveFileDialog.FileName = "ProdutosEtiquetas.xls";
+            saveFileDialog.InitialDirectory = "C:\\Documents and Settings\\vendas\\Meus documentos\\Dropbox\\Documentos\\etiquetas";
+            saveFileDialog.Title = "Exportar Excel";
             // 
             // btnEstatistica
             // 
-            this.btnEstatistica.Location = new System.Drawing.Point(1055, 508);
-            this.btnEstatistica.Name = "btnEstatistica";
-            this.btnEstatistica.Size = new System.Drawing.Size(88, 23);
-            this.btnEstatistica.TabIndex = 8;
-            this.btnEstatistica.Text = "F9 - Estatística";
-            this.btnEstatistica.UseVisualStyleBackColor = true;
-            this.btnEstatistica.Click += new System.EventHandler(this.btnEstatistica_Click);
+            btnEstatistica.Location = new Point(1231, 586);
+            btnEstatistica.Margin = new Padding(4, 3, 4, 3);
+            btnEstatistica.Name = "btnEstatistica";
+            btnEstatistica.Size = new Size(103, 27);
+            btnEstatistica.TabIndex = 8;
+            btnEstatistica.Text = "F9 - Estatística";
+            btnEstatistica.UseVisualStyleBackColor = true;
+            btnEstatistica.Click += btnEstatistica_Click;
             // 
             // PrecoRevenda
             // 
-            this.PrecoRevenda.DataPropertyName = "PrecoRevenda";
+            PrecoRevenda.DataPropertyName = "PrecoRevenda";
             dataGridViewCellStyle1.Format = "C3";
-            this.PrecoRevenda.DefaultCellStyle = dataGridViewCellStyle1;
-            this.PrecoRevenda.HeaderText = "Preco Revenda";
-            this.PrecoRevenda.Name = "PrecoRevenda";
+            PrecoRevenda.DefaultCellStyle = dataGridViewCellStyle1;
+            PrecoRevenda.HeaderText = "Preco Revenda";
+            PrecoRevenda.Name = "PrecoRevenda";
             // 
             // PrecoVendaAtacado
             // 
-            this.PrecoVendaAtacado.DataPropertyName = "PrecoVendaAtacado";
+            PrecoVendaAtacado.DataPropertyName = "PrecoVendaAtacado";
             dataGridViewCellStyle2.Format = "C3";
             dataGridViewCellStyle2.NullValue = null;
-            this.PrecoVendaAtacado.DefaultCellStyle = dataGridViewCellStyle2;
-            this.PrecoVendaAtacado.HeaderText = "Preço Atacado";
-            this.PrecoVendaAtacado.Name = "PrecoVendaAtacado";
+            PrecoVendaAtacado.DefaultCellStyle = dataGridViewCellStyle2;
+            PrecoVendaAtacado.HeaderText = "Preço Atacado";
+            PrecoVendaAtacado.Name = "PrecoVendaAtacado";
             // 
             // PrecoVendaVarejoSemDesconto
             // 
-            this.PrecoVendaVarejoSemDesconto.DataPropertyName = "PrecoVendaVarejo";
+            PrecoVendaVarejoSemDesconto.DataPropertyName = "PrecoVendaVarejo";
             dataGridViewCellStyle3.Format = "C2";
             dataGridViewCellStyle3.NullValue = null;
-            this.PrecoVendaVarejoSemDesconto.DefaultCellStyle = dataGridViewCellStyle3;
-            this.PrecoVendaVarejoSemDesconto.HeaderText = "Preço Varejo";
-            this.PrecoVendaVarejoSemDesconto.Name = "PrecoVendaVarejoSemDesconto";
+            PrecoVendaVarejoSemDesconto.DefaultCellStyle = dataGridViewCellStyle3;
+            PrecoVendaVarejoSemDesconto.HeaderText = "Preço Varejo";
+            PrecoVendaVarejoSemDesconto.Name = "PrecoVendaVarejoSemDesconto";
             // 
             // UltimoPrecoCompra
             // 
-            this.UltimoPrecoCompra.DataPropertyName = "UltimoPrecoCompra";
-            this.UltimoPrecoCompra.HeaderText = "Ultimo Preco Compra";
-            this.UltimoPrecoCompra.Name = "UltimoPrecoCompra";
+            UltimoPrecoCompra.DataPropertyName = "UltimoPrecoCompra";
+            UltimoPrecoCompra.HeaderText = "Ultimo Preco Compra";
+            UltimoPrecoCompra.Name = "UltimoPrecoCompra";
             // 
             // UltimaDataAtualizacao
             // 
-            this.UltimaDataAtualizacao.DataPropertyName = "UltimaDataAtualizacao";
-            this.UltimaDataAtualizacao.HeaderText = "Última Atualização";
-            this.UltimaDataAtualizacao.Name = "UltimaDataAtualizacao";
-            this.UltimaDataAtualizacao.ReadOnly = true;
+            UltimaDataAtualizacao.DataPropertyName = "UltimaDataAtualizacao";
+            UltimaDataAtualizacao.HeaderText = "Última Atualização";
+            UltimaDataAtualizacao.Name = "UltimaDataAtualizacao";
+            UltimaDataAtualizacao.ReadOnly = true;
             // 
             // CodProduto
             // 
-            this.CodProduto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CodProduto.DataPropertyName = "CodProduto";
-            this.CodProduto.FillWeight = 15F;
-            this.CodProduto.HeaderText = "Código";
-            this.CodProduto.Name = "CodProduto";
-            this.CodProduto.ReadOnly = true;
+            CodProduto.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            CodProduto.DataPropertyName = "CodProduto";
+            CodProduto.FillWeight = 15F;
+            CodProduto.HeaderText = "Código";
+            CodProduto.Name = "CodProduto";
+            CodProduto.ReadOnly = true;
             // 
             // tb_produtoDataGridView
             // 
-            this.tb_produtoDataGridView.AllowUserToAddRows = false;
-            this.tb_produtoDataGridView.AllowUserToDeleteRows = false;
-            this.tb_produtoDataGridView.AllowUserToResizeColumns = false;
-            this.tb_produtoDataGridView.AllowUserToResizeRows = false;
-            this.tb_produtoDataGridView.AutoGenerateColumns = false;
-            this.tb_produtoDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.tb_produtoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_produtoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CodProduto,
-            this.nomeDataGridViewTextBoxColumn,
-            this.UltimaDataAtualizacao,
-            this.UltimoPrecoCompra,
-            this.PrecoVendaVarejoSemDesconto,
-            this.PrecoVendaAtacado,
-            this.PrecoRevenda});
-            this.tb_produtoDataGridView.DataSource = this.produtoBindingSource;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tb_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
-            this.tb_produtoDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.tb_produtoDataGridView.Location = new System.Drawing.Point(12, 83);
-            this.tb_produtoDataGridView.Name = "tb_produtoDataGridView";
-            this.tb_produtoDataGridView.RowHeadersWidth = 7;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.tb_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.tb_produtoDataGridView.RowTemplate.Height = 30;
-            this.tb_produtoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_produtoDataGridView.Size = new System.Drawing.Size(1283, 419);
-            this.tb_produtoDataGridView.TabIndex = 5;
-            this.tb_produtoDataGridView.TabStop = false;
-            this.tb_produtoDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_produtoDataGridView_RowEnter);
+            tb_produtoDataGridView.AllowUserToAddRows = false;
+            tb_produtoDataGridView.AllowUserToDeleteRows = false;
+            tb_produtoDataGridView.AllowUserToResizeColumns = false;
+            tb_produtoDataGridView.AllowUserToResizeRows = false;
+            tb_produtoDataGridView.AutoGenerateColumns = false;
+            tb_produtoDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            tb_produtoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            tb_produtoDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tb_produtoDataGridView.Columns.AddRange(new DataGridViewColumn[] { CodProduto, nomeDataGridViewTextBoxColumn, UltimaDataAtualizacao, UltimoPrecoCompra, PrecoVendaVarejoSemDesconto, PrecoVendaAtacado, PrecoRevenda });
+            tb_produtoDataGridView.DataSource = produtoBindingSource;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.Padding = new Padding(0, 5, 0, 0);
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            tb_produtoDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            tb_produtoDataGridView.EditMode = DataGridViewEditMode.EditOnEnter;
+            tb_produtoDataGridView.Location = new Point(14, 96);
+            tb_produtoDataGridView.Margin = new Padding(4, 3, 4, 3);
+            tb_produtoDataGridView.Name = "tb_produtoDataGridView";
+            tb_produtoDataGridView.RowHeadersWidth = 7;
+            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 11F);
+            tb_produtoDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            tb_produtoDataGridView.RowTemplate.Height = 30;
+            tb_produtoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tb_produtoDataGridView.Size = new Size(1497, 483);
+            tb_produtoDataGridView.TabIndex = 5;
+            tb_produtoDataGridView.TabStop = false;
+            tb_produtoDataGridView.RowEnter += tb_produtoDataGridView_RowEnter;
             // 
             // nomeDataGridViewTextBoxColumn
             // 
-            this.nomeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            this.nomeDataGridViewTextBoxColumn.FillWeight = 84.26873F;
-            this.nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
-            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            nomeDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn.FillWeight = 84.26873F;
+            nomeDataGridViewTextBoxColumn.HeaderText = "Produto";
+            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
             // 
             // produtoBindingSource
             // 
-            this.produtoBindingSource.DataSource = typeof(Dominio.Produto);
+            produtoBindingSource.DataSource = typeof(Dominio.Produto);
             // 
             // FrmProdutoPreco
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1307, 539);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnEstatistica);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.tb_produtoDataGridView);
-            this.Controls.Add(this.txtTexto);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.cmbBusca);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.KeyPreview = true;
-            this.Name = "FrmProdutoPreco";
-            this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Atualiza Preço de Produtos";
-            this.Load += new System.EventHandler(this.FrmProdutoPesquisaPreco_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmProdutoPesquisaPreco_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.tb_produtoDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.produtoBindingSource)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1540, 661);
+            ControlBox = false;
+            Controls.Add(btnEstatistica);
+            Controls.Add(btnSalvar);
+            Controls.Add(tb_produtoDataGridView);
+            Controls.Add(txtTexto);
+            Controls.Add(label2);
+            Controls.Add(cmbBusca);
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "FrmProdutoPreco";
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Atualiza Preço de Produtos";
+            Load += FrmProdutoPesquisaPreco_Load;
+            KeyDown += FrmProdutoPesquisaPreco_KeyDown;
+            ((System.ComponentModel.ISupportInitialize)tb_produtoDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)produtoBindingSource).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

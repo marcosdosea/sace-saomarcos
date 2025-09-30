@@ -28,194 +28,190 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.tb_saidaDataGridView = new System.Windows.Forms.DataGridView();
-            this.saidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.txtTexto = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbBusca = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescricaoTipoSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSaida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pedidoGerado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalAVista = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saidaDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).BeginInit();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            tb_saidaDataGridView = new DataGridView();
+            codSaidaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            DescricaoTipoSaida = new DataGridViewTextBoxColumn();
+            dataSaida = new DataGridViewTextBoxColumn();
+            nomeCliente = new DataGridViewTextBoxColumn();
+            pedidoGerado = new DataGridViewTextBoxColumn();
+            totalAVista = new DataGridViewTextBoxColumn();
+            saidaBindingSource = new BindingSource(components);
+            txtTexto = new TextBox();
+            label2 = new Label();
+            cmbBusca = new ComboBox();
+            label1 = new Label();
+            ((System.ComponentModel.ISupportInitialize)tb_saidaDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)saidaBindingSource).BeginInit();
+            SuspendLayout();
             // 
             // tb_saidaDataGridView
             // 
-            this.tb_saidaDataGridView.AllowUserToAddRows = false;
-            this.tb_saidaDataGridView.AllowUserToDeleteRows = false;
-            this.tb_saidaDataGridView.AutoGenerateColumns = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saidaDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.tb_saidaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_saidaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codSaidaDataGridViewTextBoxColumn,
-            this.DescricaoTipoSaida,
-            this.dataSaida,
-            this.nomeCliente,
-            this.pedidoGerado,
-            this.totalAVista});
-            this.tb_saidaDataGridView.DataSource = this.saidaBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tb_saidaDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
-            this.tb_saidaDataGridView.Location = new System.Drawing.Point(8, 59);
-            this.tb_saidaDataGridView.MultiSelect = false;
-            this.tb_saidaDataGridView.Name = "tb_saidaDataGridView";
-            this.tb_saidaDataGridView.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_saidaDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.tb_saidaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_saidaDataGridView.Size = new System.Drawing.Size(972, 251);
-            this.tb_saidaDataGridView.TabIndex = 8;
-            this.tb_saidaDataGridView.TabStop = false;
-            this.tb_saidaDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
-            this.tb_saidaDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tb_saidaDataGridView_CellClick);
-            // 
-            // saidaBindingSource
-            // 
-            this.saidaBindingSource.DataSource = typeof(Dominio.Saida);
-            // 
-            // txtTexto
-            // 
-            this.txtTexto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTexto.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTexto.Location = new System.Drawing.Point(282, 27);
-            this.txtTexto.Name = "txtTexto";
-            this.txtTexto.Size = new System.Drawing.Size(698, 24);
-            this.txtTexto.TabIndex = 5;
-            this.txtTexto.TextChanged += new System.EventHandler(this.txtTexto_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(279, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 18);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Texto:";
-            // 
-            // cmbBusca
-            // 
-            this.cmbBusca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBusca.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbBusca.FormattingEnabled = true;
-            this.cmbBusca.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.cmbBusca.Items.AddRange(new object[] {
-            "Pré-Vendas Pendentes",
-            "Código",
-            "Cupom Fiscal",
-            "Nome Cliente",
-            "Data Pedido"});
-            this.cmbBusca.Location = new System.Drawing.Point(8, 27);
-            this.cmbBusca.Name = "cmbBusca";
-            this.cmbBusca.Size = new System.Drawing.Size(268, 26);
-            this.cmbBusca.TabIndex = 7;
-            this.cmbBusca.SelectedIndexChanged += new System.EventHandler(this.cmbBusca_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 18);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Buscar Por:";
+            tb_saidaDataGridView.AllowUserToAddRows = false;
+            tb_saidaDataGridView.AllowUserToDeleteRows = false;
+            tb_saidaDataGridView.AutoGenerateColumns = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 10.25F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            tb_saidaDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            tb_saidaDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tb_saidaDataGridView.Columns.AddRange(new DataGridViewColumn[] { codSaidaDataGridViewTextBoxColumn, DescricaoTipoSaida, dataSaida, nomeCliente, pedidoGerado, totalAVista });
+            tb_saidaDataGridView.DataSource = saidaBindingSource;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 10.25F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            tb_saidaDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            tb_saidaDataGridView.Location = new Point(9, 68);
+            tb_saidaDataGridView.Margin = new Padding(4, 3, 4, 3);
+            tb_saidaDataGridView.MultiSelect = false;
+            tb_saidaDataGridView.Name = "tb_saidaDataGridView";
+            tb_saidaDataGridView.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 10.25F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            tb_saidaDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            tb_saidaDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tb_saidaDataGridView.Size = new Size(1134, 290);
+            tb_saidaDataGridView.TabIndex = 8;
+            tb_saidaDataGridView.TabStop = false;
+            tb_saidaDataGridView.CellContentClick += tb_saidaDataGridView_CellClick;
+            tb_saidaDataGridView.CellDoubleClick += tb_saidaDataGridView_CellClick;
             // 
             // codSaidaDataGridViewTextBoxColumn
             // 
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "CodSaida";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
+            codSaidaDataGridViewTextBoxColumn.HeaderText = "CodSaida";
+            codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // DescricaoTipoSaida
             // 
-            this.DescricaoTipoSaida.DataPropertyName = "DescricaoTipoSaida";
-            this.DescricaoTipoSaida.FillWeight = 70F;
-            this.DescricaoTipoSaida.HeaderText = "Tipo";
-            this.DescricaoTipoSaida.Name = "DescricaoTipoSaida";
-            this.DescricaoTipoSaida.ReadOnly = true;
+            DescricaoTipoSaida.DataPropertyName = "DescricaoTipoSaida";
+            DescricaoTipoSaida.FillWeight = 70F;
+            DescricaoTipoSaida.HeaderText = "Tipo";
+            DescricaoTipoSaida.Name = "DescricaoTipoSaida";
+            DescricaoTipoSaida.ReadOnly = true;
             // 
             // dataSaida
             // 
-            this.dataSaida.DataPropertyName = "dataSaida";
-            this.dataSaida.HeaderText = "Data";
-            this.dataSaida.Name = "dataSaida";
-            this.dataSaida.ReadOnly = true;
+            dataSaida.DataPropertyName = "DataSaida";
+            dataSaida.HeaderText = "Data";
+            dataSaida.Name = "dataSaida";
+            dataSaida.ReadOnly = true;
             // 
             // nomeCliente
             // 
-            this.nomeCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nomeCliente.DataPropertyName = "NomeCliente";
-            this.nomeCliente.HeaderText = "Cliente";
-            this.nomeCliente.Name = "nomeCliente";
-            this.nomeCliente.ReadOnly = true;
+            nomeCliente.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            nomeCliente.DataPropertyName = "NomeCliente";
+            nomeCliente.HeaderText = "Cliente";
+            nomeCliente.Name = "nomeCliente";
+            nomeCliente.ReadOnly = true;
             // 
             // pedidoGerado
             // 
-            this.pedidoGerado.DataPropertyName = "CupomFiscal";
-            this.pedidoGerado.HeaderText = "CF";
-            this.pedidoGerado.Name = "pedidoGerado";
-            this.pedidoGerado.ReadOnly = true;
+            pedidoGerado.DataPropertyName = "CupomFiscal";
+            pedidoGerado.HeaderText = "CF";
+            pedidoGerado.Name = "pedidoGerado";
+            pedidoGerado.ReadOnly = true;
             // 
             // totalAVista
             // 
-            this.totalAVista.DataPropertyName = "totalAVista";
-            this.totalAVista.HeaderText = "Total a Vista";
-            this.totalAVista.Name = "totalAVista";
-            this.totalAVista.ReadOnly = true;
+            totalAVista.DataPropertyName = "TotalAVista";
+            totalAVista.HeaderText = "Total a Vista";
+            totalAVista.Name = "totalAVista";
+            totalAVista.ReadOnly = true;
+            // 
+            // saidaBindingSource
+            // 
+            saidaBindingSource.AllowNew = false;
+            saidaBindingSource.DataSource = typeof(Dominio.SaidaPesquisa);
+            // 
+            // txtTexto
+            // 
+            txtTexto.CharacterCasing = CharacterCasing.Upper;
+            txtTexto.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTexto.Location = new Point(329, 31);
+            txtTexto.Margin = new Padding(4, 3, 4, 3);
+            txtTexto.Name = "txtTexto";
+            txtTexto.Size = new Size(814, 24);
+            txtTexto.TabIndex = 5;
+            txtTexto.TextChanged += txtTexto_TextChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(326, 7);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(49, 18);
+            label2.TabIndex = 9;
+            label2.Text = "Texto:";
+            // 
+            // cmbBusca
+            // 
+            cmbBusca.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbBusca.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbBusca.FormattingEnabled = true;
+            cmbBusca.ImeMode = ImeMode.On;
+            cmbBusca.Items.AddRange(new object[] { "Pré-Vendas Pendentes", "Código", "Cupom Fiscal", "Nome Cliente", "Data Pedido" });
+            cmbBusca.Location = new Point(9, 31);
+            cmbBusca.Margin = new Padding(4, 3, 4, 3);
+            cmbBusca.Name = "cmbBusca";
+            cmbBusca.Size = new Size(312, 26);
+            cmbBusca.TabIndex = 7;
+            cmbBusca.SelectedIndexChanged += cmbBusca_SelectedIndexChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(8, 7);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(87, 18);
+            label1.TabIndex = 6;
+            label1.Text = "Buscar Por:";
             // 
             // FrmSaidaPesquisa
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(992, 318);
-            this.Controls.Add(this.tb_saidaDataGridView);
-            this.Controls.Add(this.txtTexto);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.cmbBusca);
-            this.Controls.Add(this.label1);
-            this.KeyPreview = true;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FrmSaidaPesquisa";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Pesquisa Saídas";
-            this.Load += new System.EventHandler(this.FrmSaidaPesquisa_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmSaidaPesquisa_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.tb_saidaDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saidaBindingSource)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1157, 367);
+            Controls.Add(tb_saidaDataGridView);
+            Controls.Add(txtTexto);
+            Controls.Add(label2);
+            Controls.Add(cmbBusca);
+            Controls.Add(label1);
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FrmSaidaPesquisa";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Pesquisa Saídas";
+            Load += FrmSaidaPesquisa_Load;
+            KeyDown += FrmSaidaPesquisa_KeyDown;
+            ((System.ComponentModel.ISupportInitialize)tb_saidaDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)saidaBindingSource).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -227,12 +223,11 @@
         private System.Windows.Forms.ComboBox cmbBusca;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.BindingSource saidaBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DescricaoTipoSaida;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataSaida;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nomeCliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn pedidoGerado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalAVista;
-
+        private DataGridViewTextBoxColumn codSaidaDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn DescricaoTipoSaida;
+        private DataGridViewTextBoxColumn dataSaida;
+        private DataGridViewTextBoxColumn nomeCliente;
+        private DataGridViewTextBoxColumn pedidoGerado;
+        private DataGridViewTextBoxColumn totalAVista;
     }
 }

@@ -171,11 +171,11 @@ namespace Negocio
             {
                 using (var context = new SaceContext())
                 {
-                    var pessoa = context.TbPessoas.FirstOrDefault(p => p.CodPessoa == contatoPessoa.CodPessoa);
+                    var pessoa = context.TbPessoas.Include(p => p.CodPessoas).FirstOrDefault(p => p.CodPessoa == contatoPessoa.CodPessoa);
 
                     if (pessoa != null)
                     {
-                        var contato = context.TbPessoas.FirstOrDefault(c => c.CodPessoa == contatoPessoa.CodPessoaContato);
+                        var contato = context.TbPessoas.Find(contatoPessoa.CodPessoaContato);
                         if (contato != null)
                         {
                             pessoa.CodPessoas.Remove(contato);

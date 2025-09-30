@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Vip.Printer" Version="2.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.20" />
+    <PackageReference Include="MySql.Data" Version="9.4.0" />
+    <PackageReference Include="Vip.Printer" Version="2.0.8" />
   </ItemGroup>
 
   <ItemGroup>

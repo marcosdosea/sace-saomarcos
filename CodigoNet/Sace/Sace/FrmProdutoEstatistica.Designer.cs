@@ -506,7 +506,7 @@
             entradasPorProdutoDataGridView.ReadOnly = true;
             entradasPorProdutoDataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             entradasPorProdutoDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            entradasPorProdutoDataGridView.Size = new Size(997, 84);
+            entradasPorProdutoDataGridView.Size = new Size(997, 107);
             entradasPorProdutoDataGridView.TabIndex = 124;
             entradasPorProdutoDataGridView.TabStop = false;
             // 
@@ -544,7 +544,7 @@
             codCSTDataGridViewTextBoxColumn.HeaderText = "CST";
             codCSTDataGridViewTextBoxColumn.Name = "codCSTDataGridViewTextBoxColumn";
             codCSTDataGridViewTextBoxColumn.ReadOnly = true;
-            codCSTDataGridViewTextBoxColumn.Width = 52;
+            codCSTDataGridViewTextBoxColumn.Width = 53;
             // 
             // quantidadeDataGridViewTextBoxColumn
             // 
@@ -674,7 +674,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1025, 676);
+            ClientSize = new Size(1025, 695);
             ControlBox = false;
             Controls.Add(label2);
             Controls.Add(codProdutoLabel);

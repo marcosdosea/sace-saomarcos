@@ -4,6 +4,7 @@ using Sace.Relatorios;
 using Sace.Relatorios.Produtos;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using Util;
 
 namespace Sace
@@ -23,7 +24,7 @@ namespace Sace
         public Sace()
         {
             InitializeComponent();
-            
+
             if (NOME_COMPUTADOR.ToUpper().Equals(SERVIDOR_NFE))
             {
                 lojaMatriz = GerenciadorLoja.Obter(1).FirstOrDefault();
@@ -65,17 +66,17 @@ namespace Sace
         //[STAThread]
         //static void Main(string[] args)
         //{
-            //if (IsAppAlreadyRunning() && nomeComputador.Equals(SERVIDOR_NFE))
-            //{
-            //    MessageBox.Show("Esse computador é o AUTORIZADOR de NFE! Apenas uma instância do SACE pode ser aberta.");
-            //    Process.GetCurrentProcess().Kill();
-            //}
-            //else
-            //{
-            //TratarException eh = new TratarException();
-           // Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
-           // Application.Run(new Principal(options));
-            //}
+        //if (IsAppAlreadyRunning() && nomeComputador.Equals(SERVIDOR_NFE))
+        //{
+        //    MessageBox.Show("Esse computador é o AUTORIZADOR de NFE! Apenas uma instância do SACE pode ser aberta.");
+        //    Process.GetCurrentProcess().Kill();
+        //}
+        //else
+        //{
+        //TratarException eh = new TratarException();
+        // Application.ThreadException += new ThreadExceptionEventHandler(eh.TratarMySqlException);
+        // Application.Run(new Principal(options));
+        //}
 
         //}
 
@@ -240,7 +241,7 @@ namespace Sace
             if (MessageBox.Show("Confirma criação do backup?", "Confirmar Backup", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                //Negocio.GerenciadorSeguranca.getInstance().Backup(SystemInformation.ComputerName);
+                //GerenciadorSeguranca.getInstance().Backup(SystemInformation.ComputerName);
                 Cursor.Current = Cursors.Default;
             }
         }
@@ -454,5 +455,7 @@ namespace Sace
             frmCalcularVendasPorVendedor.ShowDialog();
             frmCalcularVendasPorVendedor.Dispose();
         }
+
+
     }
 }

@@ -135,37 +135,35 @@ namespace Negocio
         /// Remove dados do cupom
         /// </summary>
         /// <param name="codCupom"></param>
-        public static void Remover(long codSaida)
+        public static void Remover(long codSaida, SaceContext context)
         {
-            using (var context = new SaceContext())
+            try
             {
-                try
+                var query = from solicitacaoSaida in context.TbSolicitacaoSaida
+                            where solicitacaoSaida.CodSaida == codSaida
+                            select new
+                            {
+                                CodSolicitacao = solicitacaoSaida.CodSolicitacao,
+                                EmProcessamento = solicitacaoSaida.CodSolicitacaoNavigation.EmProcessamento
+                            };
+                var solicitacaoSaidaProcessamento = query.FirstOrDefault();
+                if (solicitacaoSaidaProcessamento != null)
                 {
-                    var query = from solicitacaoSaida in context.TbSolicitacaoSaida
-                                where solicitacaoSaida.CodSaida == codSaida
-                                select new
-                                {
-                                    CodSolicitacao = solicitacaoSaida.CodSolicitacao,
-                                    EmProcessamento = solicitacaoSaida.CodSolicitacaoNavigation.EmProcessamento
-                                };
-                    var solicitacaoSaidaProcessamento = query.FirstOrDefault();
-                    if (solicitacaoSaidaProcessamento != null)
+                    if (solicitacaoSaidaProcessamento.EmProcessamento)
                     {
-                        if (solicitacaoSaidaProcessamento.EmProcessamento)
-                        {
-                            throw new NegocioException("Não é possível editar/remover esse pedido. Documento sendo autorizado/impresso. Favor aguardar até a conclusão do processamento.");
-                        }
-                        var solicitacaoDocumento = new TbSolicitacaoDocumento() { CodSolicitacao = solicitacaoSaidaProcessamento.CodSolicitacao };
-                        context.Remove(solicitacaoDocumento);
-                        context.SaveChanges();
+                        throw new NegocioException("Não é possível editar/remover esse pedido. Documento sendo autorizado/impresso. Favor aguardar até a conclusão do processamento.");
                     }
+                    var solicitacaoDocumento = new TbSolicitacaoDocumento() { CodSolicitacao = solicitacaoSaidaProcessamento.CodSolicitacao };
+                    context.Remove(solicitacaoDocumento);
+                    context.SaveChanges();
+                }
 
-                }
-                catch (Exception e)
-                {
-                    throw new DadosException("Documento Fiscal", e.Message, e);
-                }
             }
+            catch (Exception e)
+            {
+                throw new DadosException("Documento Fiscal", e.Message, e);
+            }
+
         }
 
         /// <summary>
@@ -307,7 +305,7 @@ namespace Negocio
                                          };
                             var listaSolicitacaoPagamentos = query3.AsNoTracking().ToList();
 
-                            context.Remove(new TbSolicitacaoDocumento() {  CodSolicitacao = _solicitacaoDocumento.CodSolicitacao});
+                            context.Remove(new TbSolicitacaoDocumento() { CodSolicitacao = _solicitacaoDocumento.CodSolicitacao });
                             context.SaveChanges();
                             GerenciadorNFe.EnviarNFE(listaSolicitacaoSaida, listaSolicitacaoPagamentos, tipoDocumento, _solicitacaoDocumento);
 

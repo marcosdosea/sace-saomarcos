@@ -9,6 +9,7 @@
         public string CupomFiscal { get; set; }
         public decimal TotalAVista { get; set; }
         public int TipoSaida { get; set; }
+        public string DescricaoTipoSaida { get; set; }
         public int CodSituacaoPagamentos { get; set; }
 
         //TODO: colocar número da ecf no banco de dados.
@@ -22,7 +23,7 @@
                 return false;
             }
 
-            return this.CodSaida.Equals(((Saida)obj).CodSaida);
+            return this.CodSaida.Equals(((SaidaPesquisa)obj).CodSaida);
         }
 
         // override object.GetHashCode

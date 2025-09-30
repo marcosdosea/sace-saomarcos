@@ -3,6 +3,7 @@ using Dominio;
 using Microsoft.EntityFrameworkCore;
 using Negocio;
 using System.Data;
+using System.IO;
 
 namespace Sace
 {

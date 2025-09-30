@@ -74,7 +74,6 @@
         public decimal PesoBruto { get; set; }
         public decimal PesoLiquido { get; set; }
         public long CodEmpresaFrete { get; set; }
-        public string DescricaoTipoSaida { get; set; }
         public string DescricaoSituacaoPagamentos { get; set; }
         public string Observacao { get; set; }
         public string LoginVendedor { get; set;  }
