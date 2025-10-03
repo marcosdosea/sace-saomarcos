@@ -44,17 +44,8 @@ namespace Sace
             }
             if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
             {
-                totalTextBox.ReadOnly = true;
-                totalTextBox.TabStop = false;
-                totalPagarLabel.Text = "Total a Creditar:";
-                descontoTextBox.ReadOnly = true;
-                descontoTextBox.TabStop = false;
-                totalPagarTextBox.ReadOnly = true;
-                totalPagarTextBox.TabStop = false;
-                codClienteComboBox.Enabled = false;
-                codClienteComboBox.TabStop = false;
-                valorRecebidoTextBox.Text = totalPagarTextBox.Text;
-                codVendedorComboBox.Focus();
+                totalTextBox.TabStop = true;
+                totalPagarLabel.Text = "Total a Creditar";
 
             }
             if (saida.CodProfissional == UtilConfig.Default.PROFISSIONAL_PADRAO)

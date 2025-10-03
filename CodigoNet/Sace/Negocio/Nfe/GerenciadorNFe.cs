@@ -1546,13 +1546,17 @@ namespace Negocio
                         {
                             infNfePag.tPag = "04"; //04-Cartao DEbito
                         }
+                        else if (pagamento.CodFormaPagamento == FormaPagamento.CREDIARIO)
+                        {
+                            infNfePag.tPag = "05"; //05-Cartão da loja, na forma de crediário etc. Não usar para o cartão de loja "bandeirado".
+                        }
                         else if (pagamento.CodFormaPagamento == FormaPagamento.BOLETO)
                         {
                             infNfePag.tPag = "15"; //15-Boleto Bancario    
                         }
                         else if (pagamento.CodFormaPagamento == FormaPagamento.DEPOSITO_PIX)
                         {
-                            infNfePag.tPag = "17"; //17-PIX
+                            infNfePag.tPag = "20"; //20-PIX estático
                         }
                         if (pagamento.CodFormaPagamento == FormaPagamento.CARTAO)
                         {
