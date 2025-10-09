@@ -1,15 +1,12 @@
 ﻿using Dados;
 using Dominio;
-using Dominio.NFE2;
 using Microsoft.EntityFrameworkCore;
-using MySqlX.XDevAPI;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
 using Util;
-using static Dominio.DocumentoFiscal;
 
 namespace Negocio
 {
@@ -946,7 +943,7 @@ namespace Negocio
 
                 infNFeIde.indFinal = TNFeInfNFeIdeIndFinal.Item1; // 0 - normal; 1-consumidor final
                 if (Saida.LISTA_TIPOS_DEVOLUCAO_FORNECEDOR.Contains(saida.TipoSaida) ||
-                        Saida.LISTA_TIPOS_RETORNO_FORNECEDOR.Contains(saida.TipoSaida) || saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR)
+                        Saida.LISTA_TIPOS_RETORNO_FORNECEDOR.Contains(saida.TipoSaida) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
                 {
                     infNFeIde.indFinal = TNFeInfNFeIdeIndFinal.Item0;
                     infNFeIde.indPres = TNFeInfNFeIdeIndPres.Item1; //0 - não se aplica; 1- presencial; 2-internet; 3-teleatendimento; 4-nfc-e com entrega 
@@ -1113,7 +1110,7 @@ namespace Negocio
 
                         totalSaidas = listaSaidas.Where(s => s.TipoSaida == Saida.TIPO_PRE_VENDA).Sum(s => s.TotalAVista);
                     }
-                    else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO))
                     {
                         totalSaidas = saidaProdutos.Where(sp => sp.Quantidade > 0).Sum(sp => sp.SubtotalAVista) - saida.Desconto;
                     }
@@ -1224,7 +1221,8 @@ namespace Negocio
                             prod.qCom = formataValorNFe(saidaProduto.Quantidade);
 
 
-                            if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR))
+                            if ((saida.TipoSaida == Saida.TIPO_PRE_VENDA) || (saida.TipoSaida == Saida.TIPO_VENDA) 
+                                || (saida.TipoSaida == Saida.TIPO_DEVOLUCAO_CONSUMIDOR) || (saida.TipoSaida == Saida.TIPO_REMESSA_CONSERTO))
                             {
                                 prod.vUnCom = formataValorNFe(saidaProduto.ValorProdutoNota, 3);
                                 //CultureInfo culturePonto = new CultureInfo("en-US");
@@ -1257,7 +1255,7 @@ namespace Negocio
                                 prod.vFrete = formataValorNFe(saida.ValorFrete / saida.TotalAVista * saidaProduto.SubtotalAVista);
                             TNFeInfNFeDetImpostoICMS icms = new TNFeInfNFeDetImpostoICMS();
                             if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) ||
-                                (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR))
+                                (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_REMESSA_CONSERTO))
                             {
                                 //TNFeInfNFeDetImpostoICMSICMSSN400 icms900 = new TNFeInfNFeDetImpostoICMSICMSSN400();
                                 TNFeInfNFeDetImpostoICMSICMSSN900 icms900 = new TNFeInfNFeDetImpostoICMSICMSSN900();
@@ -1337,7 +1335,9 @@ namespace Negocio
                             nfeDet.imposto = imp;
                             nfeDet.prod = prod;
                             nfeDet.nItem = nItem.ToString();
-                            if ((saida.OutrasDespesas > 0 || saida.ValorIPI > 0) && (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR)))
+                            if ((saida.OutrasDespesas > 0 || saida.ValorIPI > 0) && 
+                                (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR) 
+                                || saida.TipoSaida.Equals(Saida.TIPO_REMESSA_CONSERTO)))
                             {
                                 if (saida.OutrasDespesas > 0)
                                 {
@@ -1381,7 +1381,7 @@ namespace Negocio
 
 
 
-                if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR))
+                if ((saida.TipoSaida == Saida.TIPO_DEVOLUCAO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_RETORNO_FORNECEDOR) || (saida.TipoSaida == Saida.TIPO_REMESSA_CONSERTO))
                 {
                     icmsTot.vBC = formataValorNFe(saida.BaseCalculoICMS); // o valor da base de cálculo deve ser a dos produtos.
                     icmsTot.vICMS = formataValorNFe(saida.ValorICMS);
@@ -1751,7 +1751,7 @@ namespace Negocio
                 }
 
             }
-            else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR))
+            else if (saida.TipoSaida.Equals(Saida.TIPO_DEVOLUCAO_FORNECEDOR) || saida.TipoSaida.Equals(Saida.TIPO_RETORNO_FORNECEDOR))
             {
                 Entrada entrada = GerenciadorEntrada.Obter(saida.CodEntrada).ElementAtOrDefault(0);
 
