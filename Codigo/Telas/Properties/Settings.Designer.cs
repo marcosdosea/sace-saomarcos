@@ -25,15 +25,6 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDORBKP")]
-        public string ServidorImprimirReduzido1 {
-            get {
-                return ((string)(this["ServidorImprimirReduzido1"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1324")]
         public int ClienteUsoInterno {
             get {
@@ -52,28 +43,10 @@ namespace Telas.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SERVIDORBKP")]
-        public string ServidorImprimirReduzido2 {
-            get {
-                return ((string)(this["ServidorImprimirReduzido2"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("DOSEADELL")]
         public string ServidorNfe {
             get {
                 return ((string)(this["ServidorNfe"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public string VENDEDOR_DOSEADELL {
-            get {
-                return ((string)(this["VENDEDOR_DOSEADELL"]));
             }
         }
         
@@ -89,54 +62,9 @@ namespace Telas.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public string VENDEDOR_SERVIDORBKP {
-            get {
-                return ((string)(this["VENDEDOR_SERVIDORBKP"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public string VENDEDOR_VENDAS01 {
-            get {
-                return ((string)(this["VENDEDOR_VENDAS01"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\SERVIDORBKP\\mp-4200 th")]
-        public string PORTA_IMPRESSORA_REDUZIDA1 {
-            get {
-                return ((string)(this["PORTA_IMPRESSORA_REDUZIDA1"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\SERVIDORBKP\\mp-4200 th")]
-        public string PORTA_IMPRESSORA_REDUZIDA2 {
-            get {
-                return ((string)(this["PORTA_IMPRESSORA_REDUZIDA2"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public string VENDEDOR_VENDAS02 {
             get {
                 return ((string)(this["VENDEDOR_VENDAS02"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public string VENDEDOR_VENDAS03 {
-            get {
-                return ((string)(this["VENDEDOR_VENDAS03"]));
             }
         }
         
@@ -146,15 +74,6 @@ namespace Telas.Properties {
         public string VENDEDOR_VENDAS04 {
             get {
                 return ((string)(this["VENDEDOR_VENDAS04"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
-        public string VENDEDOR_VENDAS05 {
-            get {
-                return ((string)(this["VENDEDOR_VENDAS05"]));
             }
         }
         
@@ -182,6 +101,96 @@ namespace Telas.Properties {
         public string VENDEDOR_VENDAS08 {
             get {
                 return ((string)(this["VENDEDOR_VENDAS08"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LENOVO")]
+        public string ServidorImprimirReduzido1 {
+            get {
+                return ((string)(this["ServidorImprimirReduzido1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LENOVO")]
+        public string ServidorImprimirReduzido2 {
+            get {
+                return ((string)(this["ServidorImprimirReduzido2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public string VENDEDOR_SERVDELL {
+            get {
+                return ((string)(this["VENDEDOR_SERVDELL"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public string VENDEDOR_DOSEADELL {
+            get {
+                return ((string)(this["VENDEDOR_DOSEADELL"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public string VENDEDOR_SERVIDORBKP {
+            get {
+                return ((string)(this["VENDEDOR_SERVIDORBKP"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public string VENDEDOR_VENDAS01 {
+            get {
+                return ((string)(this["VENDEDOR_VENDAS01"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public string VENDEDOR_VENDAS03 {
+            get {
+                return ((string)(this["VENDEDOR_VENDAS03"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public string VENDEDOR_VENDAS05 {
+            get {
+                return ((string)(this["VENDEDOR_VENDAS05"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\LENOVO\\mp-4200 th")]
+        public string PORTA_IMPRESSORA_REDUZIDA1 {
+            get {
+                return ((string)(this["PORTA_IMPRESSORA_REDUZIDA1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\LENOVO\\mp-4200 th")]
+        public string PORTA_IMPRESSORA_REDUZIDA2 {
+            get {
+                return ((string)(this["PORTA_IMPRESSORA_REDUZIDA2"]));
             }
         }
     }
