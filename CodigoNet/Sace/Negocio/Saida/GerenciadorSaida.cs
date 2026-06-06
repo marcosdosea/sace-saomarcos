@@ -939,6 +939,15 @@ namespace Negocio
 
                         RegistrarPagamentosSaida(saidaPagamentos, saida, context);
                     }
+                    else if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && (tipo_encerramento.Equals(Saida.TIPO_PRE_VENDA)))
+                    {
+                        saida.TipoSaida = Saida.TIPO_CREDITO;
+                        saida.CodSituacaoPagamentos = SituacaoPagamentos.LANCADOS;
+
+                        Atualizar(saida, context);
+
+                        RegistrarPagamentosSaida(saidaPagamentos, saida, context);
+                    }
                     else if (tipo_encerramento.Equals(Saida.TIPO_BAIXA_ESTOQUE_PERDA) || tipo_encerramento.Equals(Saida.TIPO_USO_INTERNO))
                     {
                         saida.TipoSaida = tipo_encerramento;
@@ -1175,7 +1184,7 @@ namespace Negocio
         {
             decimal totalRegistrado = 0;
 
-            if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
+            if (saida.TipoSaida.Equals(Saida.TIPO_CREDITO))
             {
                 // Para cada pagamento é criada uma nova conta
                 Conta conta = new Conta();

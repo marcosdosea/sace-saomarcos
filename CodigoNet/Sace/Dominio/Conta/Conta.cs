@@ -6,6 +6,7 @@
         public const string CONTA_RECEBER = "R";
 
         public const string FORMATO_CONTA_FICHA = "FICHA";
+        
         public const string FORMATO_CONTA_BOLETO = "BOLETO";
         public const string FORMATO_CONTA_CARTAO = "CARTAO";
         public const string FORMATO_CONTA_CHEQUE = "CHEQUE";

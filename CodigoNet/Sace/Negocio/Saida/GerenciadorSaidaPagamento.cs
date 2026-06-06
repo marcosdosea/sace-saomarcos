@@ -250,7 +250,8 @@ namespace Negocio
                 var query = from saidaPagamento in context.TbSaidaFormaPagamentos
                             where (saidaPagamento.Data >= dataInicial && saidaPagamento.Data <= dataFinal) &&
                                   (saidaPagamento.CodFormaPagamento != FormaPagamento.CREDIARIO ) &&
-                                  (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
+                                  (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || 
+                                   saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
                                    saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_CREDITO)
                             group saidaPagamento by saidaPagamento.CodFormaPagamento into gsaida
                             
@@ -275,7 +276,9 @@ namespace Negocio
             {
                 var query = from saidaPagamento in context.TbSaidaFormaPagamentos
                             where saidaPagamento.Data >= dataInicial && saidaPagamento.Data <= dataFinal &&
-                                (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA)
+                                (saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_VENDA || 
+                                saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_PRE_VENDA ||
+                                saidaPagamento.CodSaidaNavigation.CodTipoSaida == Saida.TIPO_CREDITO)
                             group saidaPagamento by saidaPagamento.CodFormaPagamento into gsaida
 
                             select new TotalPagamentoSaida

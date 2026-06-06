@@ -12,8 +12,13 @@
     <StartupObject>Sace.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="FrmReceberPagamentoCredito.cs" />
+    <Compile Remove="FrmReceberPagamentoCredito.Designer.cs" />
     <Compile Remove="SaceConfig.cs" />
     <Compile Remove="SaceConfig.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="FrmReceberPagamentoCredito.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,13 +26,17 @@
   </ItemGroup>
 
  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.23">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.25">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.25">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="16.0.18925.20022" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.22" />
-    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.26" />
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.33" />
     <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
   </ItemGroup>
 

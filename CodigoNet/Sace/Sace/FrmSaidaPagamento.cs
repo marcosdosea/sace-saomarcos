@@ -1,7 +1,9 @@
 ﻿using Dominio;
+using Microsoft.Office.Interop.Excel;
 using Negocio;
 using System.Data;
 using Util;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace Sace
 {
@@ -148,12 +150,15 @@ namespace Sace
         {
             try
             {
-                if (String.IsNullOrWhiteSpace(saida.CupomFiscal) && !saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
+                if (String.IsNullOrWhiteSpace(saida.CupomFiscal))
                 {
                     var frmSaidaConfirma = new FrmSaidaConfirma(saida);
                     frmSaidaConfirma.ShowDialog();
                     Cursor.Current = Cursors.WaitCursor;
-
+                    if (saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO) && (frmSaidaConfirma.Opcao != Saida.TIPO_PRE_VENDA))
+                    {
+                        GerenciadorSaida.Remover(saida);
+                    }
                     if (frmSaidaConfirma.Opcao != 0)  // Opção 0 é quando pressiona o botão Cancelar
                     {
                         List<SaidaPagamento> listaPagamentosSaida = (List<SaidaPagamento>)saidaPagamentoBindingSource.DataSource;

@@ -587,7 +587,7 @@ namespace Sace
         /// <param name="e"></param>
         private void codSaidaTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!codSaidaTextBox.Text.Trim().Equals(""))
+            if (!codSaidaTextBox.Text.Trim().Equals("") && !codSaidaTextBox.Text.Trim().Equals("0"))
             {
                 saida = (Saida)saidaBindingSource.Current;
                 if ((saida != null) && (saida.CodSaida > 0))
@@ -673,9 +673,16 @@ namespace Sace
                     frmSaidaPagamento.Dispose();
                 }
                 if ((saida == null) || saida.TipoSaida.Equals(Saida.TIPO_PRE_CREDITO))
+                {
                     saidaBindingSource.RemoveCurrent();
+                    ObterSaidas(0);
+                } 
+                else
+                {
+                    codSaidaTextBox_TextChanged(sender, e);
+                }
                 produtoBindingSource.MoveFirst();
-                codSaidaTextBox_TextChanged(sender, e);
+                
                 btnNovo.Focus();
             }
             Cursor.Current = Cursors.Default;

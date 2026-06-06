@@ -20,682 +20,705 @@
              base.Dispose(disposing);
          }
 
-         #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-         /// <summary>
-         /// Required method for Designer support - do not modify
-         /// the contents of this method with the code editor.
-         /// </summary>
-         private void InitializeComponent()
-         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label codClienteLabel;
-            System.Windows.Forms.Label label9;
-            System.Windows.Forms.Label label12;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.codClienteComboBox = new System.Windows.Forms.ComboBox();
-            this.pessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.quitadaCheckBox = new System.Windows.Forms.CheckBox();
-            this.abertaCheckBox = new System.Windows.Forms.CheckBox();
-            this.dataInicioDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dataFinalDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.contasPessoaDataGridView = new System.Windows.Forms.DataGridView();
-            this.codContaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FormatoConta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVencimentoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumeroDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descricaoSituacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorPagar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contasPessoaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.movimentacaoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tb_movimentacao_contaDataGridView = new System.Windows.Forms.DataGridView();
-            this.codMovimentacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataHoraDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.totalContasTextBox = new System.Windows.Forms.TextBox();
-            this.totalPagamentosTextBox = new System.Windows.Forms.TextBox();
-            this.faltaReceberTextBox = new System.Windows.Forms.TextBox();
-            this.descontoTextBox = new System.Windows.Forms.TextBox();
-            this.totalAVistaTextBox = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.valorRecebidoTextBox = new System.Windows.Forms.TextBox();
-            this.btnImprimir = new System.Windows.Forms.Button();
-            this.btnCFNfe = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            codClienteLabel = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
-            label12 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.contasPessoaDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contasPessoaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.movimentacaoContaBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaDataGridView)).BeginInit();
-            this.SuspendLayout();
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            components = new System.ComponentModel.Container();
+            Label codClienteLabel;
+            Label label9;
+            Label label12;
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            label1 = new Label();
+            panel1 = new Panel();
+            btnSalvar = new Button();
+            btnCancelar = new Button();
+            btnNovo = new Button();
+            codClienteComboBox = new ComboBox();
+            pessoaBindingSource = new BindingSource(components);
+            groupBox2 = new GroupBox();
+            quitadaCheckBox = new CheckBox();
+            abertaCheckBox = new CheckBox();
+            dataInicioDateTimePicker = new DateTimePicker();
+            label2 = new Label();
+            label3 = new Label();
+            dataFinalDateTimePicker = new DateTimePicker();
+            contasPessoaDataGridView = new DataGridView();
+            codContaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            codSaidaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            FormatoConta = new DataGridViewTextBoxColumn();
+            dataVencimentoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            CF = new DataGridViewTextBoxColumn();
+            NumeroDocumento = new DataGridViewTextBoxColumn();
+            descricaoSituacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            valorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            desconto = new DataGridViewTextBoxColumn();
+            valorPagar = new DataGridViewTextBoxColumn();
+            contasPessoaBindingSource = new BindingSource(components);
+            movimentacaoContaBindingSource = new BindingSource(components);
+            tb_movimentacao_contaDataGridView = new DataGridView();
+            codMovimentacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataHoraDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            valorDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            label4 = new Label();
+            label5 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            label8 = new Label();
+            totalContasTextBox = new TextBox();
+            totalPagamentosTextBox = new TextBox();
+            faltaReceberTextBox = new TextBox();
+            descontoTextBox = new TextBox();
+            totalAVistaTextBox = new TextBox();
+            label10 = new Label();
+            valorRecebidoTextBox = new TextBox();
+            btnImprimir = new Button();
+            btnCFNfe = new Button();
+            label14 = new Label();
+            label15 = new Label();
+            codClienteLabel = new Label();
+            label9 = new Label();
+            label12 = new Label();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).BeginInit();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)contasPessoaDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)contasPessoaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)movimentacaoContaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tb_movimentacao_contaDataGridView).BeginInit();
+            SuspendLayout();
             // 
             // codClienteLabel
             // 
             codClienteLabel.AutoSize = true;
-            codClienteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            codClienteLabel.Location = new System.Drawing.Point(3, 72);
+            codClienteLabel.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            codClienteLabel.Location = new Point(4, 83);
+            codClienteLabel.Margin = new Padding(4, 0, 4, 0);
             codClienteLabel.Name = "codClienteLabel";
-            codClienteLabel.Size = new System.Drawing.Size(73, 24);
+            codClienteLabel.Size = new Size(73, 24);
             codClienteLabel.TabIndex = 26;
             codClienteLabel.Text = "Cliente:";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            label9.Location = new System.Drawing.Point(325, 499);
+            label9.Font = new Font("Microsoft Sans Serif", 11F);
+            label9.Location = new Point(379, 576);
+            label9.Margin = new Padding(4, 0, 4, 0);
             label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(124, 18);
+            label9.Size = new Size(124, 18);
             label9.TabIndex = 44;
             label9.Text = "Desc/Acresc (%):";
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            label12.Location = new System.Drawing.Point(897, 550);
+            label12.Font = new Font("Microsoft Sans Serif", 11F);
+            label12.Location = new Point(1046, 635);
+            label12.Margin = new Padding(4, 0, 4, 0);
             label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(108, 18);
+            label12.Size = new Size(108, 18);
             label12.TabIndex = 50;
             label12.Text = "Recebido (R$):";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Receber Pagamentos";
+            label1.AutoSize = true;
+            label1.Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ControlLightLight;
+            label1.Location = new Point(4, 10);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(157, 23);
+            label1.TabIndex = 0;
+            label1.Text = "Receber Pagamentos";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, -1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1171, 41);
-            this.panel1.TabIndex = 20;
+            panel1.BackColor = Color.SteelBlue;
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(0, -1);
+            panel1.Margin = new Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1366, 47);
+            panel1.TabIndex = 20;
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(83, 582);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(81, 23);
-            this.btnSalvar.TabIndex = 56;
-            this.btnSalvar.Text = "F6 - Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
-            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            btnSalvar.Location = new Point(97, 672);
+            btnSalvar.Margin = new Padding(4, 3, 4, 3);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(94, 27);
+            btnSalvar.TabIndex = 56;
+            btnSalvar.Text = "F6 - Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(343, 582);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(84, 23);
-            this.btnCancelar.TabIndex = 62;
-            this.btnCancelar.Text = "Esc - Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            btnCancelar.Location = new Point(400, 672);
+            btnCancelar.Margin = new Padding(4, 3, 4, 3);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(98, 27);
+            btnCancelar.TabIndex = 62;
+            btnCancelar.Text = "Esc - Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(8, 582);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 23);
-            this.btnNovo.TabIndex = 1;
-            this.btnNovo.Text = "F3 - Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
+            btnNovo.Location = new Point(9, 672);
+            btnNovo.Margin = new Padding(4, 3, 4, 3);
+            btnNovo.Name = "btnNovo";
+            btnNovo.Size = new Size(88, 27);
+            btnNovo.TabIndex = 1;
+            btnNovo.Text = "F3 - Novo";
+            btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
             // 
             // codClienteComboBox
             // 
-            this.codClienteComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.codClienteComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.codClienteComboBox.CausesValidation = false;
-            this.codClienteComboBox.DataSource = this.pessoaBindingSource;
-            this.codClienteComboBox.DisplayMember = "NomeFantasia";
-            this.codClienteComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.codClienteComboBox.FormattingEnabled = true;
-            this.codClienteComboBox.Location = new System.Drawing.Point(7, 104);
-            this.codClienteComboBox.Name = "codClienteComboBox";
-            this.codClienteComboBox.Size = new System.Drawing.Size(883, 33);
-            this.codClienteComboBox.TabIndex = 25;
-            this.codClienteComboBox.ValueMember = "codPessoa";
-            this.codClienteComboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.codClienteComboBox_KeyPress);
-            this.codClienteComboBox.Leave += new System.EventHandler(this.codClienteComboBox_Leave);
+            codClienteComboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+            codClienteComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            codClienteComboBox.CausesValidation = false;
+            codClienteComboBox.DataSource = pessoaBindingSource;
+            codClienteComboBox.DisplayMember = "NomeFantasia";
+            codClienteComboBox.Font = new Font("Microsoft Sans Serif", 16F);
+            codClienteComboBox.FormattingEnabled = true;
+            codClienteComboBox.Location = new Point(8, 120);
+            codClienteComboBox.Margin = new Padding(4, 3, 4, 3);
+            codClienteComboBox.Name = "codClienteComboBox";
+            codClienteComboBox.Size = new Size(1030, 33);
+            codClienteComboBox.TabIndex = 25;
+            codClienteComboBox.ValueMember = "codPessoa";
+            codClienteComboBox.KeyPress += codClienteComboBox_KeyPress;
+            codClienteComboBox.Leave += codClienteComboBox_Leave;
             // 
             // pessoaBindingSource
             // 
-            this.pessoaBindingSource.AllowNew = false;
-            this.pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
+            pessoaBindingSource.AllowNew = false;
+            pessoaBindingSource.DataSource = typeof(Dominio.Pessoa);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.quitadaCheckBox);
-            this.groupBox2.Controls.Add(this.abertaCheckBox);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(1038, 46);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(118, 91);
-            this.groupBox2.TabIndex = 30;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Situação Conta";
+            groupBox2.Controls.Add(quitadaCheckBox);
+            groupBox2.Controls.Add(abertaCheckBox);
+            groupBox2.Font = new Font("Microsoft Sans Serif", 10F);
+            groupBox2.Location = new Point(1211, 53);
+            groupBox2.Margin = new Padding(4, 3, 4, 3);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new Padding(4, 3, 4, 3);
+            groupBox2.Size = new Size(138, 105);
+            groupBox2.TabIndex = 30;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Situação Conta";
             // 
             // quitadaCheckBox
             // 
-            this.quitadaCheckBox.AutoSize = true;
-            this.quitadaCheckBox.Location = new System.Drawing.Point(20, 59);
-            this.quitadaCheckBox.Name = "quitadaCheckBox";
-            this.quitadaCheckBox.Size = new System.Drawing.Size(77, 21);
-            this.quitadaCheckBox.TabIndex = 1;
-            this.quitadaCheckBox.Text = "Quitada";
-            this.quitadaCheckBox.UseVisualStyleBackColor = true;
-            this.quitadaCheckBox.CheckedChanged += new System.EventHandler(this.dataInicioDateTimePicker_Leave);
+            quitadaCheckBox.AutoSize = true;
+            quitadaCheckBox.Location = new Point(23, 68);
+            quitadaCheckBox.Margin = new Padding(4, 3, 4, 3);
+            quitadaCheckBox.Name = "quitadaCheckBox";
+            quitadaCheckBox.Size = new Size(77, 21);
+            quitadaCheckBox.TabIndex = 1;
+            quitadaCheckBox.Text = "Quitada";
+            quitadaCheckBox.UseVisualStyleBackColor = true;
+            quitadaCheckBox.CheckedChanged += dataInicioDateTimePicker_Leave;
             // 
             // abertaCheckBox
             // 
-            this.abertaCheckBox.AutoSize = true;
-            this.abertaCheckBox.Checked = true;
-            this.abertaCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.abertaCheckBox.Location = new System.Drawing.Point(20, 29);
-            this.abertaCheckBox.Name = "abertaCheckBox";
-            this.abertaCheckBox.Size = new System.Drawing.Size(69, 21);
-            this.abertaCheckBox.TabIndex = 0;
-            this.abertaCheckBox.Text = "Aberta";
-            this.abertaCheckBox.UseVisualStyleBackColor = true;
-            this.abertaCheckBox.CheckedChanged += new System.EventHandler(this.dataInicioDateTimePicker_Leave);
+            abertaCheckBox.AutoSize = true;
+            abertaCheckBox.Checked = true;
+            abertaCheckBox.CheckState = CheckState.Checked;
+            abertaCheckBox.Location = new Point(23, 33);
+            abertaCheckBox.Margin = new Padding(4, 3, 4, 3);
+            abertaCheckBox.Name = "abertaCheckBox";
+            abertaCheckBox.Size = new Size(69, 21);
+            abertaCheckBox.TabIndex = 0;
+            abertaCheckBox.Text = "Aberta";
+            abertaCheckBox.UseVisualStyleBackColor = true;
+            abertaCheckBox.CheckedChanged += dataInicioDateTimePicker_Leave;
             // 
             // dataInicioDateTimePicker
             // 
-            this.dataInicioDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.dataInicioDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataInicioDateTimePicker.Location = new System.Drawing.Point(909, 65);
-            this.dataInicioDateTimePicker.Name = "dataInicioDateTimePicker";
-            this.dataInicioDateTimePicker.Size = new System.Drawing.Size(117, 24);
-            this.dataInicioDateTimePicker.TabIndex = 27;
-            this.dataInicioDateTimePicker.Leave += new System.EventHandler(this.dataInicioDateTimePicker_Leave);
+            dataInicioDateTimePicker.Font = new Font("Microsoft Sans Serif", 11F);
+            dataInicioDateTimePicker.Format = DateTimePickerFormat.Short;
+            dataInicioDateTimePicker.Location = new Point(1060, 75);
+            dataInicioDateTimePicker.Margin = new Padding(4, 3, 4, 3);
+            dataInicioDateTimePicker.Name = "dataInicioDateTimePicker";
+            dataInicioDateTimePicker.Size = new Size(136, 24);
+            dataInicioDateTimePicker.TabIndex = 27;
+            dataInicioDateTimePicker.Leave += dataInicioDateTimePicker_Leave;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label2.Location = new System.Drawing.Point(906, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 18);
-            this.label2.TabIndex = 30;
-            this.label2.Text = "Data Início";
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 11F);
+            label2.Location = new Point(1057, 50);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(77, 18);
+            label2.TabIndex = 30;
+            label2.Text = "Data Início";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label3.Location = new System.Drawing.Point(906, 91);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 18);
-            this.label3.TabIndex = 32;
-            this.label3.Text = "Data Final:";
+            label3.AutoSize = true;
+            label3.Font = new Font("Microsoft Sans Serif", 11F);
+            label3.Location = new Point(1057, 105);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(78, 18);
+            label3.TabIndex = 32;
+            label3.Text = "Data Final:";
             // 
             // dataFinalDateTimePicker
             // 
-            this.dataFinalDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.dataFinalDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dataFinalDateTimePicker.Location = new System.Drawing.Point(909, 113);
-            this.dataFinalDateTimePicker.Name = "dataFinalDateTimePicker";
-            this.dataFinalDateTimePicker.Size = new System.Drawing.Size(117, 24);
-            this.dataFinalDateTimePicker.TabIndex = 29;
-            this.dataFinalDateTimePicker.Leave += new System.EventHandler(this.dataInicioDateTimePicker_Leave);
+            dataFinalDateTimePicker.Font = new Font("Microsoft Sans Serif", 11F);
+            dataFinalDateTimePicker.Format = DateTimePickerFormat.Short;
+            dataFinalDateTimePicker.Location = new Point(1060, 130);
+            dataFinalDateTimePicker.Margin = new Padding(4, 3, 4, 3);
+            dataFinalDateTimePicker.Name = "dataFinalDateTimePicker";
+            dataFinalDateTimePicker.Size = new Size(136, 24);
+            dataFinalDateTimePicker.TabIndex = 29;
+            dataFinalDateTimePicker.Leave += dataInicioDateTimePicker_Leave;
             // 
             // contasPessoaDataGridView
             // 
-            this.contasPessoaDataGridView.AllowUserToAddRows = false;
-            this.contasPessoaDataGridView.AllowUserToDeleteRows = false;
-            this.contasPessoaDataGridView.AutoGenerateColumns = false;
-            this.contasPessoaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.contasPessoaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codContaDataGridViewTextBoxColumn,
-            this.codSaidaDataGridViewTextBoxColumn,
-            this.FormatoConta,
-            this.dataVencimentoDataGridViewTextBoxColumn,
-            this.CF,
-            this.NumeroDocumento,
-            this.descricaoSituacaoDataGridViewTextBoxColumn,
-            this.valorDataGridViewTextBoxColumn,
-            this.desconto,
-            this.valorPagar});
-            this.contasPessoaDataGridView.DataSource = this.contasPessoaBindingSource;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.contasPessoaDataGridView.DefaultCellStyle = dataGridViewCellStyle12;
-            this.contasPessoaDataGridView.Location = new System.Drawing.Point(7, 176);
-            this.contasPessoaDataGridView.Name = "contasPessoaDataGridView";
-            this.contasPessoaDataGridView.ReadOnly = true;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.contasPessoaDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle13;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.contasPessoaDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle14;
-            this.contasPessoaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.contasPessoaDataGridView.Size = new System.Drawing.Size(883, 303);
-            this.contasPessoaDataGridView.StandardTab = true;
-            this.contasPessoaDataGridView.TabIndex = 32;
-            this.contasPessoaDataGridView.TabStop = false;
-            this.contasPessoaDataGridView.SelectionChanged += new System.EventHandler(this.ContasPessoaDataGridView_SelectionChanged);
+            contasPessoaDataGridView.AllowUserToAddRows = false;
+            contasPessoaDataGridView.AllowUserToDeleteRows = false;
+            contasPessoaDataGridView.AutoGenerateColumns = false;
+            contasPessoaDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            contasPessoaDataGridView.Columns.AddRange(new DataGridViewColumn[] { codContaDataGridViewTextBoxColumn, codSaidaDataGridViewTextBoxColumn, FormatoConta, dataVencimentoDataGridViewTextBoxColumn, CF, NumeroDocumento, descricaoSituacaoDataGridViewTextBoxColumn, valorDataGridViewTextBoxColumn, desconto, valorPagar });
+            contasPessoaDataGridView.DataSource = contasPessoaBindingSource;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            contasPessoaDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            contasPessoaDataGridView.Location = new Point(8, 203);
+            contasPessoaDataGridView.Margin = new Padding(4, 3, 4, 3);
+            contasPessoaDataGridView.Name = "contasPessoaDataGridView";
+            contasPessoaDataGridView.ReadOnly = true;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 255, 192);
+            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            contasPessoaDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(255, 255, 192);
+            contasPessoaDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            contasPessoaDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            contasPessoaDataGridView.Size = new Size(1030, 350);
+            contasPessoaDataGridView.StandardTab = true;
+            contasPessoaDataGridView.TabIndex = 32;
+            contasPessoaDataGridView.TabStop = false;
+            contasPessoaDataGridView.SelectionChanged += ContasPessoaDataGridView_SelectionChanged;
             // 
             // codContaDataGridViewTextBoxColumn
             // 
-            this.codContaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codContaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
-            this.codContaDataGridViewTextBoxColumn.FillWeight = 60F;
-            this.codContaDataGridViewTextBoxColumn.HeaderText = "Conta";
-            this.codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
-            this.codContaDataGridViewTextBoxColumn.ReadOnly = true;
+            codContaDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            codContaDataGridViewTextBoxColumn.DataPropertyName = "CodConta";
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            codContaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            codContaDataGridViewTextBoxColumn.FillWeight = 60F;
+            codContaDataGridViewTextBoxColumn.HeaderText = "Conta";
+            codContaDataGridViewTextBoxColumn.Name = "codContaDataGridViewTextBoxColumn";
+            codContaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // codSaidaDataGridViewTextBoxColumn
             // 
-            this.codSaidaDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codSaidaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
-            this.codSaidaDataGridViewTextBoxColumn.FillWeight = 60F;
-            this.codSaidaDataGridViewTextBoxColumn.HeaderText = "Pré-Venda";
-            this.codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
-            this.codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
+            codSaidaDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            codSaidaDataGridViewTextBoxColumn.DataPropertyName = "CodSaida";
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            codSaidaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            codSaidaDataGridViewTextBoxColumn.FillWeight = 60F;
+            codSaidaDataGridViewTextBoxColumn.HeaderText = "Pré-Venda";
+            codSaidaDataGridViewTextBoxColumn.Name = "codSaidaDataGridViewTextBoxColumn";
+            codSaidaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FormatoConta
             // 
-            this.FormatoConta.DataPropertyName = "FormatoConta";
-            this.FormatoConta.HeaderText = "Formato";
-            this.FormatoConta.Name = "FormatoConta";
-            this.FormatoConta.ReadOnly = true;
+            FormatoConta.DataPropertyName = "FormatoConta";
+            FormatoConta.HeaderText = "Formato";
+            FormatoConta.Name = "FormatoConta";
+            FormatoConta.ReadOnly = true;
             // 
             // dataVencimentoDataGridViewTextBoxColumn
             // 
-            this.dataVencimentoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataVencimentoDataGridViewTextBoxColumn.DataPropertyName = "DataVencimento";
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataVencimentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle10;
-            this.dataVencimentoDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.dataVencimentoDataGridViewTextBoxColumn.HeaderText = "Vencimento";
-            this.dataVencimentoDataGridViewTextBoxColumn.Name = "dataVencimentoDataGridViewTextBoxColumn";
-            this.dataVencimentoDataGridViewTextBoxColumn.ReadOnly = true;
+            dataVencimentoDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataVencimentoDataGridViewTextBoxColumn.DataPropertyName = "DataVencimento";
+            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataVencimentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataVencimentoDataGridViewTextBoxColumn.FillWeight = 70F;
+            dataVencimentoDataGridViewTextBoxColumn.HeaderText = "Vencimento";
+            dataVencimentoDataGridViewTextBoxColumn.Name = "dataVencimentoDataGridViewTextBoxColumn";
+            dataVencimentoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // CF
             // 
-            this.CF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CF.DataPropertyName = "CF";
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CF.DefaultCellStyle = dataGridViewCellStyle11;
-            this.CF.FillWeight = 60F;
-            this.CF.HeaderText = "CF";
-            this.CF.MinimumWidth = 60;
-            this.CF.Name = "CF";
-            this.CF.ReadOnly = true;
+            CF.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            CF.DataPropertyName = "CF";
+            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CF.DefaultCellStyle = dataGridViewCellStyle4;
+            CF.FillWeight = 60F;
+            CF.HeaderText = "CF";
+            CF.MinimumWidth = 60;
+            CF.Name = "CF";
+            CF.ReadOnly = true;
             // 
             // NumeroDocumento
             // 
-            this.NumeroDocumento.DataPropertyName = "NumeroDocumento";
-            this.NumeroDocumento.HeaderText = "Dcto";
-            this.NumeroDocumento.Name = "NumeroDocumento";
-            this.NumeroDocumento.ReadOnly = true;
+            NumeroDocumento.DataPropertyName = "NumeroDocumento";
+            NumeroDocumento.HeaderText = "Dcto";
+            NumeroDocumento.Name = "NumeroDocumento";
+            NumeroDocumento.ReadOnly = true;
             // 
             // descricaoSituacaoDataGridViewTextBoxColumn
             // 
-            this.descricaoSituacaoDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descricaoSituacaoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoSituacao";
-            this.descricaoSituacaoDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.descricaoSituacaoDataGridViewTextBoxColumn.HeaderText = "Situação";
-            this.descricaoSituacaoDataGridViewTextBoxColumn.Name = "descricaoSituacaoDataGridViewTextBoxColumn";
-            this.descricaoSituacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            descricaoSituacaoDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            descricaoSituacaoDataGridViewTextBoxColumn.DataPropertyName = "DescricaoSituacao";
+            descricaoSituacaoDataGridViewTextBoxColumn.FillWeight = 70F;
+            descricaoSituacaoDataGridViewTextBoxColumn.HeaderText = "Situação";
+            descricaoSituacaoDataGridViewTextBoxColumn.Name = "descricaoSituacaoDataGridViewTextBoxColumn";
+            descricaoSituacaoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // valorDataGridViewTextBoxColumn
             // 
-            this.valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
-            this.valorDataGridViewTextBoxColumn.HeaderText = "Total (R$)";
-            this.valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
-            this.valorDataGridViewTextBoxColumn.ReadOnly = true;
+            valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
+            valorDataGridViewTextBoxColumn.HeaderText = "Total (R$)";
+            valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
+            valorDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // desconto
             // 
-            this.desconto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.desconto.DataPropertyName = "Desconto";
-            this.desconto.FillWeight = 70F;
-            this.desconto.HeaderText = "Descto (R$)";
-            this.desconto.Name = "desconto";
-            this.desconto.ReadOnly = true;
+            desconto.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            desconto.DataPropertyName = "Desconto";
+            desconto.FillWeight = 70F;
+            desconto.HeaderText = "Descto (R$)";
+            desconto.Name = "desconto";
+            desconto.ReadOnly = true;
             // 
             // valorPagar
             // 
-            this.valorPagar.DataPropertyName = "ValorPagar";
-            this.valorPagar.HeaderText = "À Vista (R$)";
-            this.valorPagar.Name = "valorPagar";
-            this.valorPagar.ReadOnly = true;
+            valorPagar.DataPropertyName = "ValorPagar";
+            valorPagar.HeaderText = "À Vista (R$)";
+            valorPagar.Name = "valorPagar";
+            valorPagar.ReadOnly = true;
             // 
             // contasPessoaBindingSource
             // 
-            this.contasPessoaBindingSource.DataSource = typeof(Dominio.Conta);
+            contasPessoaBindingSource.DataSource = typeof(Dominio.Conta);
             // 
             // movimentacaoContaBindingSource
             // 
-            this.movimentacaoContaBindingSource.DataSource = typeof(Dominio.MovimentacaoConta);
+            movimentacaoContaBindingSource.DataSource = typeof(Dominio.MovimentacaoConta);
             // 
             // tb_movimentacao_contaDataGridView
             // 
-            this.tb_movimentacao_contaDataGridView.AllowUserToAddRows = false;
-            this.tb_movimentacao_contaDataGridView.AllowUserToDeleteRows = false;
-            this.tb_movimentacao_contaDataGridView.AutoGenerateColumns = false;
-            this.tb_movimentacao_contaDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tb_movimentacao_contaDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codMovimentacaoDataGridViewTextBoxColumn,
-            this.dataHoraDataGridViewTextBoxColumn,
-            this.valorDataGridViewTextBoxColumn1});
-            this.tb_movimentacao_contaDataGridView.DataSource = this.movimentacaoContaBindingSource;
-            this.tb_movimentacao_contaDataGridView.Location = new System.Drawing.Point(912, 176);
-            this.tb_movimentacao_contaDataGridView.Name = "tb_movimentacao_contaDataGridView";
-            this.tb_movimentacao_contaDataGridView.ReadOnly = true;
-            this.tb_movimentacao_contaDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tb_movimentacao_contaDataGridView.Size = new System.Drawing.Size(244, 303);
-            this.tb_movimentacao_contaDataGridView.TabIndex = 34;
-            this.tb_movimentacao_contaDataGridView.TabStop = false;
+            tb_movimentacao_contaDataGridView.AllowUserToAddRows = false;
+            tb_movimentacao_contaDataGridView.AllowUserToDeleteRows = false;
+            tb_movimentacao_contaDataGridView.AutoGenerateColumns = false;
+            tb_movimentacao_contaDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tb_movimentacao_contaDataGridView.Columns.AddRange(new DataGridViewColumn[] { codMovimentacaoDataGridViewTextBoxColumn, dataHoraDataGridViewTextBoxColumn, valorDataGridViewTextBoxColumn1 });
+            tb_movimentacao_contaDataGridView.DataSource = movimentacaoContaBindingSource;
+            tb_movimentacao_contaDataGridView.Location = new Point(1064, 203);
+            tb_movimentacao_contaDataGridView.Margin = new Padding(4, 3, 4, 3);
+            tb_movimentacao_contaDataGridView.Name = "tb_movimentacao_contaDataGridView";
+            tb_movimentacao_contaDataGridView.ReadOnly = true;
+            tb_movimentacao_contaDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tb_movimentacao_contaDataGridView.Size = new Size(285, 350);
+            tb_movimentacao_contaDataGridView.TabIndex = 34;
+            tb_movimentacao_contaDataGridView.TabStop = false;
             // 
             // codMovimentacaoDataGridViewTextBoxColumn
             // 
-            this.codMovimentacaoDataGridViewTextBoxColumn.DataPropertyName = "CodMovimentacao";
-            this.codMovimentacaoDataGridViewTextBoxColumn.HeaderText = "CodMovimentacao";
-            this.codMovimentacaoDataGridViewTextBoxColumn.Name = "codMovimentacaoDataGridViewTextBoxColumn";
-            this.codMovimentacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codMovimentacaoDataGridViewTextBoxColumn.Visible = false;
+            codMovimentacaoDataGridViewTextBoxColumn.DataPropertyName = "CodMovimentacao";
+            codMovimentacaoDataGridViewTextBoxColumn.HeaderText = "CodMovimentacao";
+            codMovimentacaoDataGridViewTextBoxColumn.Name = "codMovimentacaoDataGridViewTextBoxColumn";
+            codMovimentacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            codMovimentacaoDataGridViewTextBoxColumn.Visible = false;
             // 
             // dataHoraDataGridViewTextBoxColumn
             // 
-            this.dataHoraDataGridViewTextBoxColumn.DataPropertyName = "DataHora";
-            this.dataHoraDataGridViewTextBoxColumn.HeaderText = "Data";
-            this.dataHoraDataGridViewTextBoxColumn.Name = "dataHoraDataGridViewTextBoxColumn";
-            this.dataHoraDataGridViewTextBoxColumn.ReadOnly = true;
+            dataHoraDataGridViewTextBoxColumn.DataPropertyName = "DataHora";
+            dataHoraDataGridViewTextBoxColumn.HeaderText = "Data";
+            dataHoraDataGridViewTextBoxColumn.Name = "dataHoraDataGridViewTextBoxColumn";
+            dataHoraDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // valorDataGridViewTextBoxColumn1
             // 
-            this.valorDataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.valorDataGridViewTextBoxColumn1.DataPropertyName = "Valor";
-            this.valorDataGridViewTextBoxColumn1.HeaderText = "Valor (R$)";
-            this.valorDataGridViewTextBoxColumn1.Name = "valorDataGridViewTextBoxColumn1";
-            this.valorDataGridViewTextBoxColumn1.ReadOnly = true;
+            valorDataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            valorDataGridViewTextBoxColumn1.DataPropertyName = "Valor";
+            valorDataGridViewTextBoxColumn1.HeaderText = "Valor (R$)";
+            valorDataGridViewTextBoxColumn1.Name = "valorDataGridViewTextBoxColumn1";
+            valorDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label4.Location = new System.Drawing.Point(4, 153);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 18);
-            this.label4.TabIndex = 33;
-            this.label4.Text = "Contas:";
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 11F);
+            label4.Location = new Point(5, 177);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(60, 18);
+            label4.TabIndex = 33;
+            label4.Text = "Contas:";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label5.Location = new System.Drawing.Point(909, 153);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 18);
-            this.label5.TabIndex = 34;
-            this.label5.Text = "Pagamentos:";
+            label5.AutoSize = true;
+            label5.Font = new Font("Microsoft Sans Serif", 11F);
+            label5.Location = new Point(1060, 177);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(96, 18);
+            label5.TabIndex = 34;
+            label5.Text = "Pagamentos:";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label7.Location = new System.Drawing.Point(12, 503);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(130, 18);
-            this.label7.TabIndex = 36;
-            this.label7.Text = "Total Contas (R$):";
+            label7.AutoSize = true;
+            label7.Font = new Font("Microsoft Sans Serif", 11F);
+            label7.Location = new Point(14, 580);
+            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(130, 18);
+            label7.TabIndex = 36;
+            label7.Text = "Total Contas (R$):";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label6.Location = new System.Drawing.Point(913, 497);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 18);
-            this.label6.TabIndex = 37;
-            this.label6.Text = "Total Pago:";
+            label6.AutoSize = true;
+            label6.Font = new Font("Microsoft Sans Serif", 11F);
+            label6.Location = new Point(1065, 573);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(84, 18);
+            label6.TabIndex = 37;
+            label6.Text = "Total Pago:";
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label8.Location = new System.Drawing.Point(537, 556);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(137, 18);
-            this.label8.TabIndex = 38;
-            this.label8.Text = "Falta Receber (R$):";
+            label8.AutoSize = true;
+            label8.Font = new Font("Microsoft Sans Serif", 11F);
+            label8.Location = new Point(626, 642);
+            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(137, 18);
+            label8.TabIndex = 38;
+            label8.Text = "Falta Receber (R$):";
             // 
             // totalContasTextBox
             // 
-            this.totalContasTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalContasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            this.totalContasTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalContasTextBox.Location = new System.Drawing.Point(148, 491);
-            this.totalContasTextBox.Name = "totalContasTextBox";
-            this.totalContasTextBox.ReadOnly = true;
-            this.totalContasTextBox.Size = new System.Drawing.Size(157, 32);
-            this.totalContasTextBox.TabIndex = 36;
-            this.totalContasTextBox.TabStop = false;
-            this.totalContasTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            totalContasTextBox.BackColor = Color.Blue;
+            totalContasTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold);
+            totalContasTextBox.ForeColor = Color.Yellow;
+            totalContasTextBox.Location = new Point(173, 567);
+            totalContasTextBox.Margin = new Padding(4, 3, 4, 3);
+            totalContasTextBox.Name = "totalContasTextBox";
+            totalContasTextBox.ReadOnly = true;
+            totalContasTextBox.Size = new Size(182, 32);
+            totalContasTextBox.TabIndex = 36;
+            totalContasTextBox.TabStop = false;
+            totalContasTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // totalPagamentosTextBox
             // 
-            this.totalPagamentosTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalPagamentosTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            this.totalPagamentosTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalPagamentosTextBox.Location = new System.Drawing.Point(1014, 489);
-            this.totalPagamentosTextBox.Name = "totalPagamentosTextBox";
-            this.totalPagamentosTextBox.ReadOnly = true;
-            this.totalPagamentosTextBox.Size = new System.Drawing.Size(142, 32);
-            this.totalPagamentosTextBox.TabIndex = 40;
-            this.totalPagamentosTextBox.TabStop = false;
-            this.totalPagamentosTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            totalPagamentosTextBox.BackColor = Color.Blue;
+            totalPagamentosTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold);
+            totalPagamentosTextBox.ForeColor = Color.Yellow;
+            totalPagamentosTextBox.Location = new Point(1183, 564);
+            totalPagamentosTextBox.Margin = new Padding(4, 3, 4, 3);
+            totalPagamentosTextBox.Name = "totalPagamentosTextBox";
+            totalPagamentosTextBox.ReadOnly = true;
+            totalPagamentosTextBox.Size = new Size(165, 32);
+            totalPagamentosTextBox.TabIndex = 40;
+            totalPagamentosTextBox.TabStop = false;
+            totalPagamentosTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // faltaReceberTextBox
             // 
-            this.faltaReceberTextBox.BackColor = System.Drawing.Color.Blue;
-            this.faltaReceberTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            this.faltaReceberTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.faltaReceberTextBox.Location = new System.Drawing.Point(690, 542);
-            this.faltaReceberTextBox.Name = "faltaReceberTextBox";
-            this.faltaReceberTextBox.ReadOnly = true;
-            this.faltaReceberTextBox.Size = new System.Drawing.Size(189, 32);
-            this.faltaReceberTextBox.TabIndex = 42;
-            this.faltaReceberTextBox.TabStop = false;
-            this.faltaReceberTextBox.Leave += new System.EventHandler(this.faltaReceberTextBox_Leave);
+            faltaReceberTextBox.BackColor = Color.Blue;
+            faltaReceberTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold);
+            faltaReceberTextBox.ForeColor = Color.Yellow;
+            faltaReceberTextBox.Location = new Point(805, 625);
+            faltaReceberTextBox.Margin = new Padding(4, 3, 4, 3);
+            faltaReceberTextBox.Name = "faltaReceberTextBox";
+            faltaReceberTextBox.ReadOnly = true;
+            faltaReceberTextBox.Size = new Size(220, 32);
+            faltaReceberTextBox.TabIndex = 42;
+            faltaReceberTextBox.TabStop = false;
+            faltaReceberTextBox.Leave += faltaReceberTextBox_Leave;
             // 
             // descontoTextBox
             // 
-            this.descontoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.descontoTextBox.Location = new System.Drawing.Point(455, 491);
-            this.descontoTextBox.Name = "descontoTextBox";
-            this.descontoTextBox.Size = new System.Drawing.Size(77, 32);
-            this.descontoTextBox.TabIndex = 44;
-            this.descontoTextBox.Leave += new System.EventHandler(this.DescontoTextBox_Leave);
+            descontoTextBox.Font = new Font("Microsoft Sans Serif", 16F);
+            descontoTextBox.Location = new Point(531, 567);
+            descontoTextBox.Margin = new Padding(4, 3, 4, 3);
+            descontoTextBox.Name = "descontoTextBox";
+            descontoTextBox.Size = new Size(89, 32);
+            descontoTextBox.TabIndex = 44;
+            descontoTextBox.Leave += DescontoTextBox_Leave;
             // 
             // totalAVistaTextBox
             // 
-            this.totalAVistaTextBox.BackColor = System.Drawing.Color.Blue;
-            this.totalAVistaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            this.totalAVistaTextBox.ForeColor = System.Drawing.Color.Yellow;
-            this.totalAVistaTextBox.Location = new System.Drawing.Point(690, 491);
-            this.totalAVistaTextBox.Name = "totalAVistaTextBox";
-            this.totalAVistaTextBox.ReadOnly = true;
-            this.totalAVistaTextBox.Size = new System.Drawing.Size(189, 32);
-            this.totalAVistaTextBox.TabIndex = 46;
-            this.totalAVistaTextBox.TabStop = false;
+            totalAVistaTextBox.BackColor = Color.Blue;
+            totalAVistaTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold);
+            totalAVistaTextBox.ForeColor = Color.Yellow;
+            totalAVistaTextBox.Location = new Point(805, 567);
+            totalAVistaTextBox.Margin = new Padding(4, 3, 4, 3);
+            totalAVistaTextBox.Name = "totalAVistaTextBox";
+            totalAVistaTextBox.ReadOnly = true;
+            totalAVistaTextBox.Size = new Size(220, 32);
+            totalAVistaTextBox.TabIndex = 46;
+            totalAVistaTextBox.TabStop = false;
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label10.Location = new System.Drawing.Point(584, 497);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(90, 18);
-            this.label10.TabIndex = 46;
-            this.label10.Text = "À Vista (R$):";
+            label10.AutoSize = true;
+            label10.Font = new Font("Microsoft Sans Serif", 11F);
+            label10.Location = new Point(681, 573);
+            label10.Margin = new Padding(4, 0, 4, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(90, 18);
+            label10.TabIndex = 46;
+            label10.Text = "À Vista (R$):";
             // 
             // valorRecebidoTextBox
             // 
-            this.valorRecebidoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.valorRecebidoTextBox.ForeColor = System.Drawing.Color.Red;
-            this.valorRecebidoTextBox.Location = new System.Drawing.Point(1014, 542);
-            this.valorRecebidoTextBox.Name = "valorRecebidoTextBox";
-            this.valorRecebidoTextBox.Size = new System.Drawing.Size(146, 32);
-            this.valorRecebidoTextBox.TabIndex = 54;
-            this.valorRecebidoTextBox.Leave += new System.EventHandler(this.faltaReceberTextBox_Leave);
+            valorRecebidoTextBox.Font = new Font("Microsoft Sans Serif", 16F);
+            valorRecebidoTextBox.ForeColor = Color.Red;
+            valorRecebidoTextBox.Location = new Point(1183, 625);
+            valorRecebidoTextBox.Margin = new Padding(4, 3, 4, 3);
+            valorRecebidoTextBox.Name = "valorRecebidoTextBox";
+            valorRecebidoTextBox.Size = new Size(170, 32);
+            valorRecebidoTextBox.TabIndex = 54;
+            valorRecebidoTextBox.Leave += faltaReceberTextBox_Leave;
             // 
             // btnImprimir
             // 
-            this.btnImprimir.Location = new System.Drawing.Point(164, 582);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(88, 23);
-            this.btnImprimir.TabIndex = 58;
-            this.btnImprimir.Text = "F7 - Imprimir";
-            this.btnImprimir.UseVisualStyleBackColor = true;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            btnImprimir.Location = new Point(191, 672);
+            btnImprimir.Margin = new Padding(4, 3, 4, 3);
+            btnImprimir.Name = "btnImprimir";
+            btnImprimir.Size = new Size(103, 27);
+            btnImprimir.TabIndex = 58;
+            btnImprimir.Text = "F7 - Imprimir";
+            btnImprimir.UseVisualStyleBackColor = true;
+            btnImprimir.Click += btnImprimir_Click;
             // 
             // btnCFNfe
             // 
-            this.btnCFNfe.Location = new System.Drawing.Point(252, 582);
-            this.btnCFNfe.Name = "btnCFNfe";
-            this.btnCFNfe.Size = new System.Drawing.Size(88, 23);
-            this.btnCFNfe.TabIndex = 60;
-            this.btnCFNfe.Text = "F8 - CF / NF-e";
-            this.btnCFNfe.UseVisualStyleBackColor = true;
-            this.btnCFNfe.Click += new System.EventHandler(this.btnCFNfe_Click);
+            btnCFNfe.Location = new Point(294, 672);
+            btnCFNfe.Margin = new Padding(4, 3, 4, 3);
+            btnCFNfe.Name = "btnCFNfe";
+            btnCFNfe.Size = new Size(103, 27);
+            btnCFNfe.TabIndex = 60;
+            btnCFNfe.Text = "F8 - CF / NF-e";
+            btnCFNfe.UseVisualStyleBackColor = true;
+            btnCFNfe.Click += btnCFNfe_Click;
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.ForeColor = System.Drawing.Color.Red;
-            this.label14.Location = new System.Drawing.Point(1092, 158);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(68, 13);
-            this.label14.TabIndex = 66;
-            this.label14.Text = "DEL - Excluir";
+            label14.AutoSize = true;
+            label14.ForeColor = Color.Red;
+            label14.Location = new Point(1274, 182);
+            label14.Margin = new Padding(4, 0, 4, 0);
+            label14.Name = "label14";
+            label14.Size = new Size(72, 15);
+            label14.TabIndex = 66;
+            label14.Text = "DEL - Excluir";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.Color.Red;
-            this.label15.Location = new System.Drawing.Point(1011, 158);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(75, 13);
-            this.label15.TabIndex = 65;
-            this.label15.Text = "F12 - Navegar";
+            label15.AutoSize = true;
+            label15.ForeColor = Color.Red;
+            label15.Location = new Point(1180, 182);
+            label15.Margin = new Padding(4, 0, 4, 0);
+            label15.Name = "label15";
+            label15.Size = new Size(80, 15);
+            label15.TabIndex = 65;
+            label15.Text = "F12 - Navegar";
             // 
             // FrmReceberPagamentoPessoa
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1172, 617);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.btnCFNfe);
-            this.Controls.Add(this.btnImprimir);
-            this.Controls.Add(label12);
-            this.Controls.Add(this.valorRecebidoTextBox);
-            this.Controls.Add(this.totalAVistaTextBox);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.descontoTextBox);
-            this.Controls.Add(label9);
-            this.Controls.Add(this.faltaReceberTextBox);
-            this.Controls.Add(this.totalPagamentosTextBox);
-            this.Controls.Add(this.totalContasTextBox);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.tb_movimentacao_contaDataGridView);
-            this.Controls.Add(this.contasPessoaDataGridView);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.dataFinalDateTimePicker);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataInicioDateTimePicker);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(codClienteLabel);
-            this.Controls.Add(this.codClienteComboBox);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnNovo);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.KeyPreview = true;
-            this.Name = "FrmReceberPagamentoPessoa";
-            this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Receber Pagamentos";
-            this.Load += new System.EventHandler(this.FrmReceberPagamentoPessoa_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmReceberPagamentoPessoa_KeyDown);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pessoaBindingSource)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.contasPessoaDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.contasPessoaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.movimentacaoContaBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tb_movimentacao_contaDataGridView)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            ClientSize = new Size(1367, 712);
+            Controls.Add(label14);
+            Controls.Add(label15);
+            Controls.Add(btnCFNfe);
+            Controls.Add(btnImprimir);
+            Controls.Add(label12);
+            Controls.Add(valorRecebidoTextBox);
+            Controls.Add(totalAVistaTextBox);
+            Controls.Add(label10);
+            Controls.Add(descontoTextBox);
+            Controls.Add(label9);
+            Controls.Add(faltaReceberTextBox);
+            Controls.Add(totalPagamentosTextBox);
+            Controls.Add(totalContasTextBox);
+            Controls.Add(label8);
+            Controls.Add(label6);
+            Controls.Add(label7);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(tb_movimentacao_contaDataGridView);
+            Controls.Add(contasPessoaDataGridView);
+            Controls.Add(label3);
+            Controls.Add(dataFinalDateTimePicker);
+            Controls.Add(label2);
+            Controls.Add(dataInicioDateTimePicker);
+            Controls.Add(groupBox2);
+            Controls.Add(codClienteLabel);
+            Controls.Add(codClienteComboBox);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnNovo);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            KeyPreview = true;
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "FrmReceberPagamentoPessoa";
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Receber Pagamentos";
+            Load += FrmReceberPagamentoPessoa_Load;
+            KeyDown += FrmReceberPagamentoPessoa_KeyDown;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pessoaBindingSource).EndInit();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)contasPessoaDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)contasPessoaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)movimentacaoContaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tb_movimentacao_contaDataGridView).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
-         }
+        }
 
-         #endregion
+        #endregion
 
-         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label1;
          private System.Windows.Forms.Panel panel1;
          private System.Windows.Forms.Button btnSalvar;
          private System.Windows.Forms.Button btnCancelar;
